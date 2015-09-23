@@ -1,4 +1,4 @@
-package com.moma.trip.webxin.po;
+package com.moma.trip.wexin.po;
 
 import java.util.ArrayList;
 import java.util.List;

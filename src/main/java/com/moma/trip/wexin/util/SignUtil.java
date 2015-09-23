@@ -1,4 +1,4 @@
-package com.moma.trip.webxin.util;
+package com.moma.trip.wexin.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -29,6 +29,4 @@
         </action>
     </package>
 
-    <include file="com/moma/trip/webxin/action/CheckSignatureAction.xml"/>
-    
 </struts>

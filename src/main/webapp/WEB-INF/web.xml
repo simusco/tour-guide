@@ -28,4 +28,15 @@
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <servlet>
+    	<servlet-name>wexinDispatherServlet</servlet-name>
+    	<servlet-class>com.moma.trip.wexin.servlet.DispatherServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>wexinDispatherServlet</servlet-name>
+    	<url-pattern>/trip/weixin/dispatherServlet.do</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

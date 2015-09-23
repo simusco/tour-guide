@@ -1,6 +1,4 @@
-package com.moma.trip.webxin.po;
-
-import java.util.ArrayList;
+package com.moma.trip.wexin.po;
 
 public class Menu {
 
