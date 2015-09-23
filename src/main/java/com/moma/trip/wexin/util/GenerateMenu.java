@@ -9,6 +9,7 @@ import org.apache.struts2.json.JSONException;
 import org.apache.struts2.json.JSONUtil;
 
 import com.moma.trip.wexin.po.Button;
+import com.moma.trip.wexin.po.ClickMenu;
 import com.moma.trip.wexin.po.ViewMenu;
 
 public class GenerateMenu {
@@ -16,7 +17,7 @@ public class GenerateMenu {
 	public static void main(String[] args) {
 
 		ViewMenu  btn1 = new ViewMenu("攻略", "http://www.baidu.com");
-		ViewMenu  btn2 = new ViewMenu("导游", "http://www.youku.com");
+		ClickMenu  btn2 = new ClickMenu("导游", "BTN_TOUR_GUIDE");
 		
 		/*其它*/
 		ViewMenu  help = new ViewMenu("帮助", "http://www.xunlei.com");

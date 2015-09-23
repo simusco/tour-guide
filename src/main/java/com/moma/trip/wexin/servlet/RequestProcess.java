@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.moma.trip.wexin.po.Music;
+import com.moma.trip.wexin.po.MusicMessage;
 import com.moma.trip.wexin.po.TextMessage;
 import com.moma.trip.wexin.util.XMLMessageParser;
 
@@ -20,13 +22,6 @@ public class RequestProcess {
 			String fromUserName = requestMap.get("FromUserName");
 			String toUserName = requestMap.get("ToUserName");
 			String msgType = requestMap.get("MsgType");
-
-			TextMessage textMessage = new TextMessage();
-			textMessage.setToUserName(fromUserName);
-			textMessage.setFromUserName(toUserName);
-			textMessage.setCreateTime(new Date().getTime());
-			textMessage.setMsgType(XMLMessageParser.RESP_MESSAGE_TYPE_TEXT);
-			textMessage.setFuncFlag(0);
 
 			// 文本消息
 			if (msgType.equals(XMLMessageParser.REQ_MESSAGE_TYPE_TEXT)) {
@@ -52,7 +47,14 @@ public class RequestProcess {
 				String eventType = requestMap.get("Event");
 				// 订阅
 				if (eventType.equals(XMLMessageParser.EVENT_TYPE_SUBSCRIBE)) {
-					respContent = "感谢您的关注！";
+					TextMessage textMessage = new TextMessage();
+					textMessage.setToUserName(fromUserName);
+					textMessage.setFromUserName(toUserName);
+					textMessage.setCreateTime(new Date().getTime());
+					textMessage.setMsgType(XMLMessageParser.RESP_MESSAGE_TYPE_TEXT);
+					textMessage.setFuncFlag(0);
+					textMessage.setContent("感谢你的关注!\n\n【攻略】给你提供出行方案，\n\n【导游】给你推送你目前所在定的景点讲解信息！");
+					respMessage = XMLMessageParser.textMessageToXml(textMessage);
 				}
 
 				else if (eventType.equals(XMLMessageParser.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -61,12 +63,34 @@ public class RequestProcess {
 
 				else if (eventType.equals(XMLMessageParser.EVENT_TYPE_CLICK)) {
 					// TODO 自定义菜单权没有开放，暂不处理该类消息
+					if("BTN_TOUR_GUIDE".equals(requestMap.get("EventKey"))){
+						MusicMessage musicMessage = new MusicMessage();
+						musicMessage.setToUserName(fromUserName);
+						musicMessage.setFromUserName(toUserName);
+						musicMessage.setMsgType(XMLMessageParser.RESP_MESSAGE_TYPE_MUSIC);
+
+						Music music = new Music();
+						music.setDescription("这是我喜欢听的歌曲");
+						music.setTitle("喜欢你");
+						music.setHQMusicUrl("http://trip.tunnel.mobi/tour-guide/music/hz.mp3");
+						music.setMusicUrl("http://trip.tunnel.mobi/tour-guide/music/hz.mp3");
+						
+						musicMessage.setMusic(music);
+						
+						respMessage = XMLMessageParser.musicMessageToXml(musicMessage);
+						System.out.println(respMessage);
+					}
 				}
 			}else{
-				respContent = "你发送的内容，我还不认识哦！";
+				TextMessage textMessage = new TextMessage();
+				textMessage.setToUserName(fromUserName);
+				textMessage.setFromUserName(toUserName);
+				textMessage.setCreateTime(new Date().getTime());
+				textMessage.setMsgType(XMLMessageParser.RESP_MESSAGE_TYPE_TEXT);
+				textMessage.setFuncFlag(0);
+				textMessage.setContent("你发送的内容，我还不认识哦！");
+				respMessage = XMLMessageParser.textMessageToXml(textMessage);
 			}
-			textMessage.setContent(respContent);
-			respMessage = XMLMessageParser.textMessageToXml(textMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

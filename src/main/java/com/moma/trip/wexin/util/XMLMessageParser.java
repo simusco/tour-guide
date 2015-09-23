@@ -84,7 +84,7 @@ public class XMLMessageParser {
 		xstream.alias("xml", musicMessage.getClass());
 		return xstream.toXML(musicMessage);
 	}
-
+ 
 	public static String newsMessageToXml(NewsMessage newsMessage) {
 		xstream.alias("xml", newsMessage.getClass());
 		xstream.alias("item", new Article().getClass());
@@ -114,3 +114,4 @@ public class XMLMessageParser {
 		}
 	});
 }
+ 
