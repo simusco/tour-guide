@@ -1,6 +1,6 @@
-package com.moma.trip.wexin.po;
+package com.moma.trip.weixin.po;
 
-public class Voice {
+public class Image {
 
 	private String MediaId;
 

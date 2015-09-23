@@ -1,4 +1,4 @@
-package com.moma.trip.wexin.po;
+package com.moma.trip.weixin.po;
 
 public class MusicMessage extends Message {
 

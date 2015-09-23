@@ -30,12 +30,12 @@
     </filter-mapping>
     
     <servlet>
-    	<servlet-name>wexinDispatherServlet</servlet-name>
-    	<servlet-class>com.moma.trip.wexin.servlet.DispatherServlet</servlet-class>
+    	<servlet-name>weixinDispatherServlet</servlet-name>
+    	<servlet-class>com.moma.trip.weixin.servlet.DispatherServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
-    	<servlet-name>wexinDispatherServlet</servlet-name>
+    	<servlet-name>weixinDispatherServlet</servlet-name>
     	<url-pattern>/trip/weixin/dispatherServlet.do</url-pattern>
     </servlet-mapping>
     

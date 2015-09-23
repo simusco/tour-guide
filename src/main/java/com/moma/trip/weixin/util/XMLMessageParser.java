@@ -1,4 +1,4 @@
-package com.moma.trip.wexin.util;
+package com.moma.trip.weixin.util;
 
 import java.io.InputStream;
 import java.io.Writer;
@@ -12,10 +12,10 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.moma.trip.wexin.po.Article;
-import com.moma.trip.wexin.po.MusicMessage;
-import com.moma.trip.wexin.po.NewsMessage;
-import com.moma.trip.wexin.po.TextMessage;
+import com.moma.trip.weixin.po.Article;
+import com.moma.trip.weixin.po.MusicMessage;
+import com.moma.trip.weixin.po.NewsMessage;
+import com.moma.trip.weixin.po.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -53,6 +53,8 @@ public class XMLMessageParser {
 	public static final String EVENT_TYPE_CLICK = "CLICK";
 
 	public static final String EVENT_TYPE_SCAN = "SCAN";
+	
+	public static final String EVENT_TYPE_LOCATION = "LOCATION";
 
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {

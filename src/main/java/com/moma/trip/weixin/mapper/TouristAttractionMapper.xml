@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.weixin.mapper.TouristAttractionMapper">
+
+	<select id="getTouristAttractionList" resultType="com.moma.trip.weixin.po.TouristAttraction">
+		<![CDATA[
+			SELECT  
+				content as content
+			FROM  mc_tourist_attraction
+			WHERE MBRContains
+			(
+				LineString
+				(
+					Point
+					(
+					#{0} + #{2} / ( 111.1 / COS(RADIANS(#{1}))),
+					#{1} + #{2} / 111.1
+					),
+					Point
+					(
+					#{0} - #{2} / ( 111.1 / COS(RADIANS(#{1}))),
+					#{1} - #{2} / 111.1
+					) 
+				),
+				location
+			)
+			limit 0,5
+		]]>
+	</select>
+
+</mapper>

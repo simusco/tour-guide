@@ -1,4 +1,4 @@
-package com.moma.trip.wexin.servlet;
+package com.moma.trip.weixin.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.moma.trip.wexin.util.SignUtil;
+import com.moma.trip.weixin.util.SignUtil;
 
 public class DispatherServlet extends HttpServlet {
 

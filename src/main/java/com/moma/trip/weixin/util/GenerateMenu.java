@@ -1,4 +1,4 @@
-package com.moma.trip.wexin.util;
+package com.moma.trip.weixin.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,9 @@ import java.util.Map;
 import org.apache.struts2.json.JSONException;
 import org.apache.struts2.json.JSONUtil;
 
-import com.moma.trip.wexin.po.Button;
-import com.moma.trip.wexin.po.ClickMenu;
-import com.moma.trip.wexin.po.ViewMenu;
+import com.moma.trip.weixin.po.Button;
+import com.moma.trip.weixin.po.ClickMenu;
+import com.moma.trip.weixin.po.ViewMenu;
 
 public class GenerateMenu {
 

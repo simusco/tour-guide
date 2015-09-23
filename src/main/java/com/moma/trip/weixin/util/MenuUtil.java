@@ -1,4 +1,4 @@
-package com.moma.trip.wexin.util;
+package com.moma.trip.weixin.util;
 
 import java.io.IOException;
 import java.io.InputStream;
