@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.activity.mapper.ActivityPlanMapper">
+
+	<select id="getActivityPlanById" resultType="com.moma.trip.activity.po.ActivityPlan" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				ap.activity_plan_id as activityPlanId,
+				ap.name as name,
+				ap.description as description,
+				ap.departure as departure,
+				ap.destination as destination,
+				ap.price as price,
+				ap.price_desc as priceDesc,
+				ap.take_time as takeTime,
+				ap.traffic as traffic,
+				ap.min_pepole_num as minPepoleNum,
+				ap.max_pepole_num as maxPepoleNum,
+				ap.pre_reg_day as preRegDay,
+				ap.create_time as createTime,
+				ap.sort as sort,
+				ap.image_url as imageURL
+			from mc_activity_plan ap 
+			where ap.activity_plan_id = #{activityPlanId}
+		]]>
+	</select>
+
+	<select id="getActivityPlanTags" resultType="com.moma.trip.activity.po.Tags" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				mt.parent_id as parentId,
+				pmt.tag as pName,
+				mat.tag_id as tagId,
+				mat.tag_name as tag
+			from mc_activity_tags mat 
+			inner join mc_tags mt 
+			on mat.tag_id = mt.tag_id
+			inner join mc_tags pmt on mt.parent_id = pmt.tag_id
+			where mat.activity_plan_id = #{activityPlanId}
+		]]>
+	</select>
+	
+	<select id="getPaginationTotal" resultType="java.lang.Long" parameterType="java.util.Map">
+		<![CDATA[
+			select count(1) from mc_activity_plan ap 
+			where EXISTS (
+				select 1 from mc_activity_tags tg
+				where tg.activity_plan_id = ap.activity_plan_id
+		]]>
+		
+		<if test="tags != null">
+				and tg.tag_name in
+				<foreach item="tag" index="index" collection="tags" open="(" separator="," close=")">
+					#{tag}
+				</foreach>
+				having count(tg.activity_tags_id) - #{paramCount} = 0
+		</if>
+		
+		<![CDATA[
+			)
+		]]>
+	</select>
+	
+	<select id="getPaginationList" resultType="com.moma.trip.activity.po.ActivityPlan" parameterType="java.util.Map">
+		<![CDATA[
+			select 
+				ap.activity_plan_id as activityPlanId,
+				ap.name as name,
+				ap.description as description,
+				ap.departure as departure,
+				ap.destination as destination,
+				ap.price as price,
+				ap.price_desc as priceDesc,
+				ap.take_time as takeTime,
+				ap.traffic as traffic,
+				ap.min_pepole_num as minPepoleNum,
+				ap.max_pepole_num as maxPepoleNum,
+				ap.pre_reg_day as preRegDay,
+				ap.create_time as createTime,
+				ap.sort as sort,
+				ap.image_url as imageURL
+			from mc_activity_plan ap 
+			where EXISTS (
+				select 1 from mc_activity_tags tg
+				where tg.activity_plan_id = ap.activity_plan_id
+		]]>
+		
+		<if test="tags != null">
+				and tg.tag_name in
+				<foreach item="tag" index="index" collection="tags" open="(" separator="," close=")">
+					#{tag}
+				</foreach>
+				having count(tg.activity_tags_id) - #{paramCount} = 0
+		</if>
+		
+		<![CDATA[
+			)
+			limit #{from},#{pageSize}
+		]]>
+	</select>
+
+</mapper>

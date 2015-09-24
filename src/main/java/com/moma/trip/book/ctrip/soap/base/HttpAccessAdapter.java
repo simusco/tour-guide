@@ -1,4 +1,4 @@
-package com.moma.trip.book.ctrip.base;
+package com.moma.trip.book.ctrip.soap.base;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -116,7 +116,7 @@ public class HttpAccessAdapter {
 		BufferedReader bufferedReader = null;
 		try {
 			InputStream in = HttpAccessAdapter.class
-					.getResourceAsStream("/com/moma/trip/book/ctrip/base/RequestSOAPTemplate.xml");
+					.getResourceAsStream("/com/moma/trip/book/ctrip/soap/base/RequestSOAPTemplate.xml");
 			bufferedReader = new BufferedReader(new InputStreamReader(in));
 			String text = bufferedReader.readLine();
 			StringBuilder soapShellStringBuilder = new StringBuilder();

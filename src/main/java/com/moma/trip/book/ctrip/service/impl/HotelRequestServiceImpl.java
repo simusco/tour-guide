@@ -5,10 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.moma.trip.book.ctrip.base.HttpAccessAdapter;
 import com.moma.trip.book.ctrip.freemarker.TemplateMapper;
 import com.moma.trip.book.ctrip.service.HotelRequestService;
 import com.moma.trip.book.ctrip.service.Test;
+import com.moma.trip.book.ctrip.soap.base.HttpAccessAdapter;
 import com.moma.trip.book.ctrip.soap.hotel.HotelConstants;
 import com.moma.trip.book.ctrip.utils.ConfigData;
 import com.moma.trip.book.ctrip.utils.SignatureUtils;
