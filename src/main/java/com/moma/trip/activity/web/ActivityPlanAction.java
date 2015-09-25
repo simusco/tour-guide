@@ -38,7 +38,6 @@ public class ActivityPlanAction extends BaseSupportAction {
 	public String query() {
 		Pagination pagination = new Pagination();
 		
-		//������ʱ��Ҫ��ѯ�ı�ǩ
 		List<String> tagNames = new ArrayList<String>();
 		if(tags != null){
 			for(int i=0;i<tags.size();i++){
@@ -50,7 +49,7 @@ public class ActivityPlanAction extends BaseSupportAction {
 			}
 		}
 		
-		//���tags Ϊ mybatis == null 
+		//mybatis == null 
 		if(tagNames == null || tagNames.size() == 0)
 			tagNames = null;
 		

@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+encoding//src/main/java/com/moma/trip/activity/web/ActivityPlanAction.java=UTF-8
 encoding//src/main/java/com/moma/trip/book/ctrip/soap/base/HttpAccessAdapter.java=GBK
 encoding//src/main/resources=UTF-8
 encoding/<project>=UTF-8
