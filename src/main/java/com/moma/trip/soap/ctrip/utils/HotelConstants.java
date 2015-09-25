@@ -1,8 +1,8 @@
-package com.moma.trip.book.ctrip.soap.hotel;
+package com.moma.trip.soap.ctrip.utils;
 
 public class HotelConstants {
 	
-	public final static String TEMPLATE_DIR = "/com/moma/trip/book/ctrip/soap/hotel";
+	public final static String TEMPLATE_DIR = "/com/moma/trip/soap/ctrip/";
 
 	public final static String REQUEST_TYPE_HOTEL_SEARCH = "OTA_HotelSearch";
 	

@@ -1,4 +1,4 @@
-package com.moma.trip.book.ctrip.utils;
+package com.moma.trip.soap.ctrip.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

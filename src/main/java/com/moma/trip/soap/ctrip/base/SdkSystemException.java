@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.moma.trip.book.ctrip.soap.base;
+package com.moma.trip.soap.ctrip.base;
 
 /**
  * @author jie_huang

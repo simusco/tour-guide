@@ -1,4 +1,4 @@
-package com.moma.trip.book.ctrip.freemarker;
+package com.moma.trip.soap.ctrip.freemarker;
 
 import java.io.File;
 import java.io.IOException;

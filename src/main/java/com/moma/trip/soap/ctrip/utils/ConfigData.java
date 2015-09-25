@@ -1,4 +1,4 @@
-package com.moma.trip.book.ctrip.utils;
+package com.moma.trip.soap.ctrip.utils;
 
 public class ConfigData {
 	public static String AllianceId = "289922";

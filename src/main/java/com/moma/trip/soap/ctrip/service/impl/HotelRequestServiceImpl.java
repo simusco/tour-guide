@@ -1,17 +1,17 @@
-package com.moma.trip.book.ctrip.service.impl;
+package com.moma.trip.soap.ctrip.service.impl;
 
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.moma.trip.book.ctrip.freemarker.TemplateMapper;
-import com.moma.trip.book.ctrip.service.HotelRequestService;
-import com.moma.trip.book.ctrip.service.Test;
-import com.moma.trip.book.ctrip.soap.base.HttpAccessAdapter;
-import com.moma.trip.book.ctrip.soap.hotel.HotelConstants;
-import com.moma.trip.book.ctrip.utils.ConfigData;
-import com.moma.trip.book.ctrip.utils.SignatureUtils;
+import com.moma.trip.soap.ctrip.Test;
+import com.moma.trip.soap.ctrip.base.HttpAccessAdapter;
+import com.moma.trip.soap.ctrip.freemarker.TemplateMapper;
+import com.moma.trip.soap.ctrip.service.HotelRequestService;
+import com.moma.trip.soap.ctrip.utils.ConfigData;
+import com.moma.trip.soap.ctrip.utils.HotelConstants;
+import com.moma.trip.soap.ctrip.utils.SignatureUtils;
 
 public class HotelRequestServiceImpl implements HotelRequestService {
 

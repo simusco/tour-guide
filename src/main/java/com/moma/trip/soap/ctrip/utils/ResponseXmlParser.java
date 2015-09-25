@@ -1,4 +1,4 @@
-package com.moma.trip.book.ctrip.soap.hotel;
+package com.moma.trip.soap.ctrip.utils;
 
 public class ResponseXmlParser {
 

@@ -1,4 +1,4 @@
-package com.moma.trip.book.ctrip.service;
+package com.moma.trip.soap.ctrip.service;
 
 public interface HotelRequestService {
 

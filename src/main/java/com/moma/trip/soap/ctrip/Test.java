@@ -1,8 +1,9 @@
-package com.moma.trip.book.ctrip.service;
+package com.moma.trip.soap.ctrip;
 
 import java.security.NoSuchAlgorithmException;
 
-import com.moma.trip.book.ctrip.service.impl.HotelRequestServiceImpl;
+import com.moma.trip.soap.ctrip.service.HotelRequestService;
+import com.moma.trip.soap.ctrip.service.impl.HotelRequestServiceImpl;
 
 public class Test {
 
