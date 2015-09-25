@@ -15,7 +15,7 @@ public class Price implements Serializable{
 	
 	private String year;
 	private String month;
-	private String day;
+	private String date;
 	private BigDecimal price;
 	
 	

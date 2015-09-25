@@ -2,6 +2,7 @@ package com.moma.trip.price.po;
 
 import java.io.Serializable;
 
+//mc_price_plan
 public class PricePlan implements Serializable{
 
 	/**

@@ -15,7 +15,7 @@ public class MenuUtil {
 	 * 获得ACCESS_TOKEN @Title: getAccess_token @Description:
 	 * 获得ACCESS_TOKEN @param @return 设定文件 @return String 返回类型 @throws
 	 */
-	private static String getAccessToken() {
+	public static String getAccessToken() {
 
 		String APPID = "wx17b5befc44e3b27b";
 		String APPSECRET = "27c866a772aee0a0845117bf2e0f4727";

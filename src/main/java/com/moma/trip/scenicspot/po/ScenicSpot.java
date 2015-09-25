@@ -1,5 +1,16 @@
 package com.moma.trip.scenicspot.po;
 
-public class ScenicSpot {
+import java.io.Serializable;
 
+public class ScenicSpot implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String scenicSpotId;
+
+	
+	
 }

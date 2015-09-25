@@ -1,4 +1,4 @@
-package com.moma.trip.weixin.cache;
+package com.moma.trip.weixin.util;
 
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -6,10 +6,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.moma.trip.weixin.cache.CacheUserLocation;
 import com.moma.trip.weixin.po.TextMessage;
 import com.moma.trip.weixin.po.TouristAttraction;
 import com.moma.trip.weixin.service.TouristAttractionService;
+import com.moma.trip.weixin.util.CacheUserLocation;
 import com.moma.trip.weixin.util.ServletBeanUtil;
 import com.moma.trip.weixin.util.XMLMessageParser;
 

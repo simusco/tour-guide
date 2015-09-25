@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class InsuranceOrder implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7922841169772287748L;
 	private String insuranceOrderId;
 	private String orderId;
 	private String visitorId;

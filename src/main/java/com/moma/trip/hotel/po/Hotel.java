@@ -1,7 +1,13 @@
 package com.moma.trip.hotel.po;
 
-public class Hotel {
+import java.io.Serializable;
 
+public class Hotel implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9175869319386970225L;
 	private String hotelId;
 	private String name;
 	private String description;
