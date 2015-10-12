@@ -4,9 +4,9 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="com.moma.trip" extends="web-default" namespace="/trip/activity">
+	<package name="com.moma.trip" extends="web-default" namespace="/tags">
 		<action name="tags" method="tags" class="trip.tagsAction">
-			<result name="success">/views/activity/tags.jsp</result>
+			<result name="success">/views/tags.jsp</result>
 		</action>
 	</package>
 </struts>

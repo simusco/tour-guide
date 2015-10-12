@@ -21,43 +21,50 @@ public class ActivityPlanAction extends BaseSupportAction {
 	private ActivityPlanService activityPlanService;
 	private TagsService tagsService;
 
-	private List<Tags> tags = null;
+	private Map<Tags, List<Tags>> tags = null;
+	private List<Tags> selectedTags = null;
 	private Pagination activityPlanList = null;
 	private int currPage;
 	private String activityPlanId;
 	private ActivityPlan activityPlan;
-
-	public String toQuery() {
-		
-		Map<Tags, List<Tags>> tags = tagsService.getAllTags();
-		this.success(tags);
-		
-		return SUCCESS;
-	}
+	private String order;
 	
-	public String query() {
+	private void q(){
 		Pagination pagination = new Pagination();
+		pagination.setPageSize(10);
 		
-		List<String> tagNames = new ArrayList<String>();
-		if(tags != null){
-			for(int i=0;i<tags.size();i++){
-				Tags tag = tags.get(i);
+		List<String> selectedTagNames = new ArrayList<String>();
+		if(selectedTags != null){
+			for(int i=0;i<selectedTags.size();i++){
+				Tags tag = selectedTags.get(i);
+				System.out.println(tag.getTag()+"-----------------------");
 				
-				if("QUERY".equals(tag.getValue())){
-					tagNames.add(tag.getTag());
+				if("QUERY".equals(tag.getType())){
+					selectedTagNames.add(tag.getTag());
 				}
 			}
 		}
 		
 		//mybatis == null 
-		if(tagNames == null || tagNames.size() == 0)
-			tagNames = null;
+		if(selectedTagNames == null || selectedTagNames.size() == 0)
+			selectedTagNames = null;
 		
-		pagination.put("tags", tagNames);
-		pagination.put("paramCount", tagNames == null ? 0 : tagNames.size());
+		pagination.put("tags", selectedTagNames);
+		pagination.put("paramCount", selectedTagNames == null ? 0 : selectedTagNames.size());
+		pagination.put("order", order);
 		pagination.setCurrPage(currPage);
 		
 		activityPlanList = activityPlanService.getActivityPlanPageList(pagination);
+	}
+	
+	public String query() {
+		q();
+		tags = tagsService.getAllTags();
+		return SUCCESS;
+	}
+	
+	public String list(){
+		q();
 		return SUCCESS;
 	}
 	
@@ -87,13 +94,6 @@ public class ActivityPlanAction extends BaseSupportAction {
 		this.activityPlanService = activityPlanService;
 	}
 
-	public List<Tags> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tags> tags) {
-		this.tags = tags;
-	}
 
 	public Pagination getActivityPlanList() {
 		return activityPlanList;
@@ -133,6 +133,30 @@ public class ActivityPlanAction extends BaseSupportAction {
 
 	public void setActivityPlan(ActivityPlan activityPlan) {
 		this.activityPlan = activityPlan;
+	}
+
+	public Map<Tags, List<Tags>> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<Tags, List<Tags>> tags) {
+		this.tags = tags;
+	}
+
+	public List<Tags> getSelectedTags() {
+		return selectedTags;
+	}
+
+	public void setSelectedTags(List<Tags> selectedTags) {
+		this.selectedTags = selectedTags;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
 	}
 
 }

@@ -15,9 +15,10 @@ public class Tags implements Serializable, Comparable<Tags> {
 	private String parentId;
 	private String pName;
 	private String sort;
+	private String type;
 	private String value;
-	private boolean active = false;
 	private String icon;
+	private boolean active = false;
 
 	public Tags getParent() {
 		return parent;
@@ -126,6 +127,14 @@ public class Tags implements Serializable, Comparable<Tags> {
 
 	public int compareTo(Tags o) {
 		return this.getTagId().compareTo(o.getTagId());
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override

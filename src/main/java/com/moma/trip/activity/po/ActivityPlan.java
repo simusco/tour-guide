@@ -31,6 +31,9 @@ public class ActivityPlan implements Serializable {
 	private Timestamp createTime;
 	private Integer sort;
 	private String imageURL;
+	private Integer hasSaled;
+	private String topic;
+	private String expInclusive;
 
 	private List<ActivityTag> activityTagList = new ArrayList<ActivityTag>();
 	private Map<Tags, List<Tags>> tags = new HashMap<Tags, List<Tags>>();
@@ -178,6 +181,30 @@ public class ActivityPlan implements Serializable {
 
 	public void setImageList(List<Image> imageList) {
 		this.imageList = imageList;
+	}
+
+	public Integer getHasSaled() {
+		return hasSaled;
+	}
+
+	public void setHasSaled(Integer hasSaled) {
+		this.hasSaled = hasSaled;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getExpInclusive() {
+		return expInclusive;
+	}
+
+	public void setExpInclusive(String expInclusive) {
+		this.expInclusive = expInclusive;
 	}
 
 }

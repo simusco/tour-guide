@@ -21,7 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.pre_reg_day as preRegDay,
 				ap.create_time as createTime,
 				ap.sort as sort,
-				ap.image_url as imageURL
+				ap.image_url as imageURL,
+				ap.topic as topic,
+				ap.exp_inclusive as expInclusive,
+				ap.has_saled as hasSaled
 			from mc_activity_plan ap 
 			where ap.activity_plan_id = #{activityPlanId}
 		]]>
@@ -80,7 +83,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.pre_reg_day as preRegDay,
 				ap.create_time as createTime,
 				ap.sort as sort,
-				ap.image_url as imageURL
+				ap.image_url as imageURL,
+				ap.topic as topic,
+				ap.exp_inclusive as expInclusive,
+				ap.has_saled as hasSaled
 			from mc_activity_plan ap 
 			where EXISTS (
 				select 1 from mc_activity_tags tg
@@ -95,10 +101,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				having count(tg.activity_tags_id) - #{paramCount} = 0
 		</if>
 		
-		<![CDATA[
-			)
-			limit #{from},#{pageSize}
-		]]>
+		<![CDATA[)]]>
+		
+		<if test="order == 'REC' || order == null">
+			<![CDATA[ order by ap.sort ]]>
+		</if>
+		
+		<if test="order == 'SALE'">
+			<![CDATA[ order by ap.has_saled ]]>
+		</if>
+		
+		<if test="order == 'PRICE'">
+			<![CDATA[ order by ap.price ]]>
+		</if>
+		
+		<![CDATA[limit #{from},#{pageSize}]]>
+		
 	</select>
 
 </mapper>
