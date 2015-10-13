@@ -28,6 +28,7 @@
 
         $.extend({
         	tag : {
+        		address:'',
         		serialize:function(array, op){
         			var form = $('<form style="display:none;"></form>');
 
@@ -62,7 +63,6 @@
         	    		tagName = li.attr('tag'),
         	    		tagType = li.attr('tag-type'),
         	    		tag = {'tagId':tagId,'parentId':tagPid,'value':tagValue,'tag':tagName,'type':tagType};
-        	    		console.log(tagName + '--' + tagType);
         	    		
         	    		tags.push(tag);
         	    	});
@@ -116,6 +116,10 @@
                 displayQueryParams:function(){
                 	var container = $('*[ui-query-params]'),tags = $.tag.getQueryValues();
                 	
+                	if($.tag.address != ''){
+                		tags.push($.tag.address);
+                	}
+                	
                 	//清空条件框内容
                 	container.empty();
                 	
@@ -129,6 +133,22 @@
                 			container.append(html);
                 		}
                 	}
+                },
+                refreshAddress:function(address, fn){
+                	console.log('refreshAddress:'+address);
+                	
+                	$.ajax({
+        	    		url : "<%=request.getContextPath()  %>/tags/address.action",
+        	    		async : false,
+        	    		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        	    		data : {"tag":address},
+        	    		success : function(resp) {
+        	    			fn(resp);
+        	    		},
+        	    		error : function(resp) {
+        	    			
+        	    		}
+        	    	});
                 }
         	},
         	doNothing : function(){}
@@ -151,7 +171,43 @@
 	    			$.tag.display(container, {});
 	    		});
 	    	});
+            
+            $('*[ui-tag-address]').each(function(){
+            	bindEventForAddress($(this), container);
+	    	});
+            
         });
+        
+        function bindEventForAddress(o, container){
+        	o.on('click', function(){
+    			var address = $(this).attr("tag"),li = $(this);
+    			
+    			$.tag.display(container, {"address" : address});
+    			$.tag.refreshAddress(address, function(data){
+    				var con = li.parent();
+    				var x = $.trim(data);
+    				
+    				if(x != ''){
+        				con.empty();
+        				con.html(data);
+        				
+        				$('*[ui-tag-address]', con).each(function(){
+        					bindEventForAddress($(this), container);
+        				});
+    				}
+    				
+    				$(con).find('a').each(function(){
+    					if ($(this).html() == address){
+    						$.tag.active($(this).parent());
+    					}
+    				});
+    				
+    			});
+    		
+    			$.tag.address = address;
+    			$.tag.displayQueryParams();
+    		});
+        }
         
         function gotoPage(pageIndex){
         	var container = $('#activity_plan_content');
@@ -201,7 +257,7 @@
         
         <c:forEach items="${tags }" var="tagMap" varStatus="vs">
 			<c:if test="${tagMap.key.type == 'ADDRESS'}">
-	        <div class="row tag-row">
+	        <div class="row tag-row tag-address">
 	            <div class="col-sm-12">
 	                <ul class="tag-items">
 	                	<li class="tag-item-title">${tagMap.key.tag }：</li>
@@ -213,7 +269,8 @@
 								tag-pid="${tag.parentId }"
 								tag-type="${tag.type }"
 								tag-value="${tag.value }"
-								tag="${tag.tag }">
+								tag="${tag.tag }"
+								ui-tag-address="true">
 								<a href="javascript:$.doNothing();" <c:if test="${tag.active }">class="active"</c:if>>${tag.tag }</a>
 							</li>
 	                	</c:forEach>

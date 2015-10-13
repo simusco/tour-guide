@@ -4,9 +4,13 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="com.moma.trip" extends="web-default" namespace="/tags">
+	<package name="com.moma.trip.tags" extends="web-default" namespace="/tags">
 		<action name="tags" method="tags" class="trip.tagsAction">
 			<result name="success">/views/tags.jsp</result>
+		</action>
+		
+		<action name="address" method="address" class="trip.tagsAction">
+			<result name="success">/views/address.jsp</result>
 		</action>
 	</package>
 </struts>

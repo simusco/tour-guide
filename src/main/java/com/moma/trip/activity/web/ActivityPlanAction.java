@@ -28,6 +28,7 @@ public class ActivityPlanAction extends BaseSupportAction {
 	private String activityPlanId;
 	private ActivityPlan activityPlan;
 	private String order;
+	private String address;
 	
 	private void q(){
 		Pagination pagination = new Pagination();
@@ -45,10 +46,14 @@ public class ActivityPlanAction extends BaseSupportAction {
 			}
 		}
 		
-		//mybatis == null 
-		if(selectedTagNames == null || selectedTagNames.size() == 0)
-			selectedTagNames = null;
+//		if(address != null && !"全部".equals(address)){
+//			selectedTagNames.add(address);
+//		}
 		
+		//mybatis == null 
+		if(selectedTagNames.size() == 0)
+			selectedTagNames = null;
+
 		pagination.put("tags", selectedTagNames);
 		pagination.put("paramCount", selectedTagNames == null ? 0 : selectedTagNames.size());
 		pagination.put("order", order);
@@ -157,6 +162,14 @@ public class ActivityPlanAction extends BaseSupportAction {
 
 	public void setOrder(String order) {
 		this.order = order;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

@@ -53,4 +53,15 @@ public class TagsServiceImpl implements TagsService {
 		return mapTags;
 	}
 
+	@Override
+	public Map<Tags, List<Tags>> getChildren(String tag, String type) {
+		
+		Map<Tags, List<Tags>> mapTags = new TreeMap<Tags, List<Tags>>();
+		Tags key = tagsMapper.getTagByName(tag, type);
+		List<Tags> value = tagsMapper.getChildren(tag, type);
+		mapTags.put(key, value);
+		
+		return mapTags;
+	}
+
 }

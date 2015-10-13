@@ -8,4 +8,8 @@ public interface TagsMapper {
 
 	List<Tags> getAllTags();
 
+	Tags getTagByName(String tag, String type);
+
+	List<Tags> getChildren(String tag, String type);
+
 }

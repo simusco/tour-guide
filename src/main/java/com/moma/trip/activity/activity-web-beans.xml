@@ -14,4 +14,7 @@
     	<property name="tagsService" ref="trip.tagsService"/>
     </bean>
     
+    <bean id="trip.addressAction" class="com.moma.trip.activity.web.AddressAction"  scope="prototype">
+    </bean>
+    
 </beans>

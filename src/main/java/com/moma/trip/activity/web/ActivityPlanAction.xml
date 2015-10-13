@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="com.moma.trip" extends="web-default" namespace="/">		
+	<package name="com.moma.trip.activity" extends="web-default" namespace="/">		
 		<action name="query" method="query" class="trip.activityPlanAction">
 			<result name="success">/views/query.jsp</result>
 		</action>
@@ -14,7 +14,7 @@
 		</action>
 		
 		<action name="detail" method="detail" class="trip.activityPlanAction">
-			<result name="success">/views/activity/detail.jsp</result>
+			<result name="success">/views/detail.jsp</result>
 		</action>
 	</package>
 </struts>

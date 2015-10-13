@@ -8,5 +8,7 @@ import com.moma.trip.activity.po.Tags;
 public interface TagsService {
 
 	public Map<Tags, List<Tags>> getAllTags();
+
+	public Map<Tags, List<Tags>> getChildren(String tag, String type);
 	
 }
