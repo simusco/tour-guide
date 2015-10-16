@@ -1,0 +1,63 @@
+<div class="container" ng-controller="GoodnessViewController">
+    <div class="row">
+        <div class="col-md-12">
+            
+            <div class="panel panel-default">
+              <div class="panel-heading">亮点录入</div>
+              <div class="panel-body">
+                
+                <div class="form-horizontal">
+                    
+                    <div class="form-group">
+                        <label for="activityId" class="col-sm-2 control-label">ID：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="activityGoodness.activityGoodnessId">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">名称：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="activityGoodness.name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">类型：</label>
+                        <div class="col-sm-10">
+                            <select ng-model="activityGoodness.type" class="form-control">
+                              <option value="SPOT">景点</option>
+                              <option value="EAT">吃点</option>
+                              <option value="PLAY">玩点</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">内容：</label>
+                        <div class="col-sm-10">
+                            <textarea ng-model="activityGoodness.content" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="anchor" class="col-sm-2 control-label">anchor：</label>
+                        <div class="col-sm-10">
+                           <input ng-model="activityGoodness.anchor" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="button" class="btn btn-default" ng-click="saveGoodness()">保存</button>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>

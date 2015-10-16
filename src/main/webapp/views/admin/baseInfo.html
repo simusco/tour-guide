@@ -1,0 +1,92 @@
+<div class="container" ng-controller="BaseInfoViewController">
+    <div class="row">
+        <div class="col-md-12">
+            
+            <div class="panel panel-default">
+              <div class="panel-heading">基本信息</div>
+              <div class="panel-body">
+                
+                <div class="form-horizontal">
+                	<div class="form-group">
+                        <label for="activityPlan.activityPlanId" class="col-sm-2 control-label">ID：</label>
+                        <div class="col-sm-10">
+                            <input 
+                            	type="text" 
+                            	class="form-control" 
+                            	id="activityPlan.activityPlanId" 
+                            	ng-model="activityPlan.activityPlanId"
+                            	ng-keyup="loadActivityPlan($event)">
+                            <span class="help-block">输入ID号，按回车查询出数据，如果新添加数据，不用输入ID</span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="activityPlan.name" class="col-sm-2 control-label">名称：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="activityPlan.name" ng-model="activityPlan.name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activityPlan.type" class="col-sm-2 control-label">类型：</label>
+                        <div class="col-sm-10">
+                            <select id="activityPlan.type" ng-model="activityPlan.type" class="form-control">
+                              <option value="HOT">套餐</option>
+                              <option value="SPOT">景点</option>
+                              <option value="TOPIC">主题</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-repeat="tag in tags">
+                    	<label for="" class="col-sm-2 control-label">{{tag.tag}}：</label>
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline" ng-repeat="subtag in tag.subTags">
+							  <input type="checkbox" ng-model="subtag.checked"> {{subtag.tag}}
+							</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activityPlan.description" class="col-sm-2 control-label">介绍：</label>
+                        <div class="col-sm-10">
+                            <textarea ng-model="activityPlan.description" id="activityPlan.description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activityPlan.sort" class="col-sm-2 control-label">推荐指数：</label>
+                        <div class="col-sm-10">
+                            <input ng-model="activityPlan.sort" id="activityPlan.sort" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activityPlan.topic" class="col-sm-2 control-label">主题特色：</label>
+                        <div class="col-sm-10">
+                            <input ng-model="activityPlan.topic" id="activityPlan.topic" type="text" class="form-control">
+                            <span class="help-block">例：<code>&lt;strong class="tag-def"&gt;漂流&lt;/strong&gt;</code></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activityPlan.expInclusive" class="col-sm-2 control-label">费用包含：</label>
+                        <div class="col-sm-10">
+                            <input ng-model="activityPlan.expInclusive" id="activityPlan.expInclusive" type="text" class="form-control">
+                        	<span class="help-block">例：<code>&lt;strong class="tag-def"&gt;漂流&lt;/strong&gt;</code></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="button" class="btn btn-default" ng-click="save()">保存</button>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>
