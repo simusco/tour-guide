@@ -41,6 +41,8 @@ public class ActivityPlan implements Serializable {
 	private List<ActivityTag> activityTagList = new ArrayList<ActivityTag>();
 	private Map<Tags, List<Tags>> tags = new HashMap<Tags, List<Tags>>();
 	private List<Image> imageList = new ArrayList<Image>();
+	private List<Goodness> goodnessList = new ArrayList<Goodness>();
+	private List<ActivityExtra> extraList = new ArrayList<ActivityExtra>();
 
 	public String getActivityPlanId() {
 		return activityPlanId;
@@ -209,7 +211,7 @@ public class ActivityPlan implements Serializable {
 	public void setExpInclusive(String expInclusive) {
 		this.expInclusive = expInclusive;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -248,6 +250,22 @@ public class ActivityPlan implements Serializable {
 
 	public void setTopicId(String topicId) {
 		this.topicId = topicId;
+	}
+
+	public List<Goodness> getGoodnessList() {
+		return goodnessList;
+	}
+
+	public void setGoodnessList(List<Goodness> goodnessList) {
+		this.goodnessList = goodnessList;
+	}
+
+	public List<ActivityExtra> getExtraList() {
+		return extraList;
+	}
+
+	public void setExtraList(List<ActivityExtra> extraList) {
+		this.extraList = extraList;
 	}
 
 }

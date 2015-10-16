@@ -2,9 +2,10 @@ define(['angular'], function(angular) {
 	
 	var ctrl = ['$scope', 'FileUploader', function($scope, FileUploader){
 		
-		var activityPlan = $scope.activityPlan = {},uploader = $scope.uploader = new FileUploader({
-            url: '/tour-guide/image/upload/:id/:type'
-        });
+		var image = $scope.image = {},
+			uploader = $scope.uploader = new FileUploader({
+				url: '/tour-guide/image/upload/:id/:type'
+			});
 
         // FILTERS
 
@@ -23,15 +24,10 @@ define(['angular'], function(angular) {
         	
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
-        uploader.onAfterAddingFile = function(fileItem) {
-            console.info('onAfterAddingFile', fileItem);
-        };
-        uploader.onAfterAddingAll = function(addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-        };
+        
         uploader.onBeforeUploadItem = function(item) {
         	
-        	var id = activityPlan.activityPlanId,type=activityPlan.type;
+        	var id = image.ownerId,type=image.type;
         	if(id == null || type == null){
         		uploader.cancelAll();
         		alert('You must input ID and LOCATON.');
@@ -40,10 +36,18 @@ define(['angular'], function(angular) {
         	}
         	
         	item.url = item.url
-        	.replace(':activityPlanId',id)
+        	.replace(':id',id)
         	.replace(':type',type);
         
             console.info('onBeforeUploadItem', item);
+        };
+        
+        /*
+        uploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
         };
         uploader.onProgressItem = function(fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
@@ -65,7 +69,7 @@ define(['angular'], function(angular) {
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');
-        };
+        };*/
 
         console.info('uploader', uploader);
 		

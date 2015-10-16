@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.ActivityExtraMapper">
+
+	<insert id="saveActivityExtra" parameterType="com.moma.trip.po.ActivityExtra">
+		<![CDATA[
+			INSERT INTO mc_activity_extra
+			(
+				activity_extra_id,
+				activity_plan_id,
+				type,
+				content
+			)
+			VALUES 
+			(
+				#{activityExtraId}, 
+				#{activityPlanId}, 
+				#{type}, 
+				#{content}
+			)
+		]]>
+	</insert>
+	
+	<select id="getActivityExtraByActivityId" resultType="com.moma.trip.po.ActivityExtra" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				activity_extra_id as activityExtraId,
+				activity_plan_id as activityPlanId,
+				type,
+				content
+			from mc_activity_extra
+			where activity_plan_id = #{activityPlanId}
+		]]>
+	</select>
+	
+</mapper>

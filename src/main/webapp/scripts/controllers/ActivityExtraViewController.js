@@ -10,7 +10,13 @@ define(['angular'], function(angular) {
 			
 			ActivityExtra.save(extra, function(resp){
 				
+				var data = resp.object;
+				var flag = resp.flag;
 				
+				if(flag){
+					print(data);
+					alert("保存数据成功!");
+				}
 				
 			});
 		}

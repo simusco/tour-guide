@@ -37,16 +37,18 @@ public class ActivityPlanController extends RestfulController{
 		
 		System.out.println(activityPlan);
 		
-		return null;
+		activityPlanService.saveBaseInfo(activityPlan);
+		
+		return this.success(null);
 	}
 	
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.PUT)
 	public WebResult update(@RequestBody ActivityPlan activityPlan){
 		
-		System.out.println(activityPlan);
+		activityPlanService.updateBaseInfo(activityPlan);
 		
-		return null;
+		return this.success(null);
 	}
 	
 	@ResponseBody

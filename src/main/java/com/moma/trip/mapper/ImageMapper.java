@@ -14,5 +14,7 @@ public interface ImageMapper {
 	public List<Image> getImageByOwnerIdAndImgType(String ownerId, String imageType);
 	
 	public Image getImageById(String imageId);
+
+	public void saveImage(Image image);
 	
 }

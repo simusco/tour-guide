@@ -9,4 +9,8 @@ public interface ActivityPlanService {
 
 	public ActivityPlan getActivityPlanById(String activityPlanId);
 
+	public void saveBaseInfo(ActivityPlan activityPlan);
+
+	public void updateBaseInfo(ActivityPlan activityPlan);
+
 }

@@ -1,18 +1,22 @@
 define(['angular'], function(angular) {
 	
 	var ctrl = ['$scope','$resource', function($scope, $resource){
-		var q = $scope.q = '',
+		var params = $scope.params = {},
 			Search = $resource('/tour-guide/search', {}, {'update': { method:'PUT' }});
-		
 		
 		$scope.search = function(){
 			
-			alert('search');
-			
-			/*
-			Search.query(q, function(){
+			Search.get(params, function(resp){
 				
-			})*/
+				var data = resp.object;
+				var flag = resp.flag;
+				
+				if(flag){
+					$scope.resultList = data;
+				}
+				
+			});
+			
 		}
 	}];
 	

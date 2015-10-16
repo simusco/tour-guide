@@ -9,7 +9,13 @@ define(['angular'], function(angular) {
 			
 			Goodness.save(goodness, function(resp){
 				
+				var data = resp.object;
+				var flag = resp.flag;
 				
+				if(flag){
+					print(data);
+					alert("保存数据成功!");
+				}
 				
 			});
 			

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.GoodnessMapper">
+
+	<insert id="saveGoodness" parameterType="com.moma.trip.po.Goodness">
+		<![CDATA[
+			INSERT INTO mc_goodness
+			(
+				goodness_id,
+				type,
+				content,
+				name,
+				activity_plan_id,
+				anchor
+			)
+			VALUES 
+			(
+				#{goodnessId}, 
+				#{type}, 
+				#{content}, 
+				#{name}, 
+				#{activityPlanId}, 
+				#{anchor}
+			)
+		]]>
+	</insert>
+	
+	<select id="getGoodnessByActivityId" resultType="com.moma.trip.po.Goodness" parameterType="java.lang.String">
+		<![CDATA[
+			select
+				goodness_id as goodnessId,
+				type,
+				content,
+				name,
+				activity_plan_id as activityPlanId,
+				anchor
+			from mc_goodness
+		]]>
+	</select>
+	
+</mapper>

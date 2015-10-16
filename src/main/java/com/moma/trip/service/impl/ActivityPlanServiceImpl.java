@@ -7,12 +7,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.moma.framework.pagination.Pagination;
+import com.moma.framework.utils.UUIDUtils;
 import com.moma.trip.mapper.ActivityPlanMapper;
 import com.moma.trip.mapper.ImageMapper;
 import com.moma.trip.po.ActivityPlan;
@@ -90,6 +92,30 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 
 		return ap;
 
+	}
+
+	@Override
+	public void saveBaseInfo(ActivityPlan activityPlan) {
+		
+		if(activityPlan == null)
+			return;
+		
+		activityPlan.setActivityPlanId(UUIDUtils.getUUID());
+		
+		activityPlanMapper.saveBaseInfo(activityPlan);
+	}
+
+	@Override
+	public void updateBaseInfo(ActivityPlan activityPlan) {
+		// TODO Auto-generated method stub
+		
+		if(activityPlan == null || StringUtils.isEmpty(activityPlan.getActivityPlanId())){
+			System.out.println("参数为空!!!!!!!");
+			return;
+		}
+		
+		activityPlanMapper.updateBaseInfo(activityPlan);
+		
 	}
 
 }

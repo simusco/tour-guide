@@ -7,16 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getImageByOwnerId" resultType="com.moma.trip.po.Image" parameterType="java.lang.String">
 		<![CDATA[
 			select 
-				i.image_id,
-				i.owner_id,
-				i.images_type,
+				i.image_id as imageId,
+				i.owner_id as ownerId,
+				i.images_type as imagesType,
 				i.server,
 				i.path,
-				i.image_name,
-				i.image_desc,
+				i.image_name as imageName,
+				i.image_desc as imageDesc,
 				i.type,
 				i.sort,
-				i.create_time
+				i.create_time as createTime,
+				i.file_size as fileSize
 			from mc_images i 
 			where i.owner_id = #{ownerId}
 			order by i.sort
@@ -26,16 +27,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getImageByOwnerIdAndImgType" resultType="com.moma.trip.po.Image">
 		<![CDATA[
 			select 
-				i.image_id,
-				i.owner_id,
-				i.images_type,
+				i.image_id as imageId,
+				i.owner_id as ownerId,
+				i.images_type as imagesType,
 				i.server,
 				i.path,
-				i.image_name,
-				i.image_desc,
+				i.image_name as imageName,
+				i.image_desc as imageDesc,
 				i.type,
 				i.sort,
-				i.create_time
+				i.create_time as createTime,
+				i.file_size as fileSize
 			from mc_images i 
 			where i.owner_id = #{0} and i.type = #{1}
 		]]>
@@ -54,7 +56,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				image_desc,
 				type,
 				sort,
-				create_time
+				create_time,
+				file_size
 			)
 			VALUES 
 			(
@@ -67,7 +70,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{imageDesc}, 
 				#{type}, 
 				#{sort}, 
-				#{createTime}
+				#{createTime},
+				#{fileSize}
 			)
 		]]>
 	</insert>

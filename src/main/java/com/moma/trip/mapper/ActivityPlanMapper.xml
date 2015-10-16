@@ -33,7 +33,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where ap.activity_plan_id = #{activityPlanId}
 		]]>
 	</select>
-
+	
+	<select id="getActivityPlanByKeyword" resultType="com.moma.trip.po.ActivityPlan" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				ap.activity_plan_id as activityPlanId,
+				ap.name as name,
+				ap.description as description,
+				ap.departure as departure,
+				ap.destination as destination,
+				ap.price as price,
+				ap.price_desc as priceDesc,
+				ap.take_time as takeTime,
+				ap.traffic as traffic,
+				ap.min_pepole_num as minPepoleNum,
+				ap.max_pepole_num as maxPepoleNum,
+				ap.pre_reg_day as preRegDay,
+				ap.create_time as createTime,
+				ap.sort as sort,
+				ap.image_url as imageURL,
+				ap.topic as topic,
+				ap.exp_inclusive as expInclusive,
+				ap.has_saled as hasSaled,
+				ap.type as type,
+				ap.discount as discount,
+				ap.good_review_per as goodReviewPer,
+				ap.topic_id as topicId
+			from mc_activity_plan ap 
+			where ap.activity_plan_id = #{keyword}
+		]]>
+	</select>
+	
 	<select id="getActivityPlanTags" resultType="com.moma.trip.po.Tags" parameterType="java.lang.String">
 		<![CDATA[
 			select 
@@ -122,5 +152,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[limit #{from},#{pageSize}]]>
 		
 	</select>
+	
+	<update id="updateBaseInfo" parameterType="com.moma.trip.po.ActivityPlan">
+		<![CDATA[
+			update mc_activity_plan
+			set 
+				name = #{name},
+				description = #{description},
+				type = #{type},
+				sort = #{sort},
+				topic = #{topic},
+				exp_inclusive = #{expInclusive}
+			where
+				activity_plan_id = #{activityPlanId}
+		]]>
+	</update>
+	
+	<insert id="saveBaseInfo" parameterType="com.moma.trip.po.ActivityPlan">
+		<![CDATA[
+			INSERT INTO mc_activity_plan
+			(
+				activity_plan_id,
+				name,
+				description,
+				type,
+				sort,
+				topic,
+				exp_inclusive
+			)
+			VALUES 
+			(
+				#{activityPlanId}, 
+				#{name}, 
+				#{description}, 
+				#{type}, 
+				#{sort}, 
+				#{topic}, 
+				#{expInclusive}
+			)
+		]]>
+	</insert>
+	
+	<update id="updateTopicId">
+		<![CDATA[
+			update mc_activity_plan
+			set 
+				topic_id = #{1}
+			where
+				activity_plan_id = #{0}
+		]]>
+	</update>
 
 </mapper>

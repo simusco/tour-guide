@@ -3,7 +3,7 @@ define([
         '../controllers/BaseInfoViewController',
         '../controllers/GoodnessViewController',
         '../controllers/ImageViewController',
-        '../controllers/RecViewController',
+        '../controllers/ActivityExtraViewController',
         '../controllers/TicketViewController',
         '../controllers/TopicViewController',
         '../controllers/SearchViewController'
@@ -12,7 +12,7 @@ define([
 		baseInfoViewController, 
 		goodnessViewController, 
 		imageViewController, 
-		recViewController, 
+		activityExtraViewController, 
 		ticketViewController, 
 		topicViewController,
 		searchViewController
@@ -44,13 +44,16 @@ define([
 	    }).state('nav.topic', {
 	      url: "/topic",
 	      templateUrl: "topic.html"
+	    }).state('nav.search', {
+	      url: "/search",
+	      templateUrl: "search.html"
 	    });
 	});
 	
 	module.controller('BaseInfoViewController', baseInfoViewController);
 	module.controller('GoodnessViewController', goodnessViewController);
 	module.controller('ImageViewController', imageViewController);
-	module.controller('RecViewController', recViewController);
+	module.controller('ActivityExtraViewController', activityExtraViewController);
 	module.controller('TicketViewController', ticketViewController);
 	module.controller('TopicViewController', topicViewController);
 	module.controller('SearchViewController', searchViewController);

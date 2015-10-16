@@ -19,4 +19,12 @@ public interface ActivityPlanMapper {
 
 	ActivityPlan getActivityPlanById(String activityPlanId);
 
+	void updateBaseInfo(ActivityPlan activityPlan);
+
+	void saveBaseInfo(ActivityPlan activityPlan);
+
+	void updateTopicId(String activityId, String topicId);
+
+	List<Object> getActivityPlanByKeyword(String keyword);
+
 }
