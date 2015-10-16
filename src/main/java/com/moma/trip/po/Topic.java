@@ -2,8 +2,9 @@ package com.moma.trip.po;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Topic implements Serializable{
+public class Topic implements Serializable {
 
 	/**
 	 * 
@@ -15,6 +16,7 @@ public class Topic implements Serializable{
 	private String summary;
 	private Date createTime;
 	private Integer readCount;
+	private String[] activityIds;
 
 	public String getTopicId() {
 		return topicId;
@@ -62,6 +64,14 @@ public class Topic implements Serializable{
 
 	public void setReadCount(Integer readCount) {
 		this.readCount = readCount;
+	}
+
+	public String[] getActivityIds() {
+		return activityIds;
+	}
+
+	public void setActivityIds(String[] activityIds) {
+		this.activityIds = activityIds;
 	}
 
 }

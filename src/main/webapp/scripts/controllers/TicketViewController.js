@@ -1,13 +1,14 @@
 define(['angular'], function(angular) {    
 	
-	var ctrl = ['$scope', function($scope){
+	var ctrl = ['$scope','$resource', function($scope, $resource){
 		
-		$scope.activityPlan = {};
+		var Ticket = $resource('/tour-guide/ticket', {}, {'update': { method:'PUT' }}),
+			ticket = $scope.ticket = {};
 		
-		$scope.save = function(){
-			for(var x in $scope.activityPlan){
-				console.log($scope.activityPlan[x]);
-			}
+		$scope.saveTicket = function(){
+			Ticket.save(ticket, function(){
+				
+			});
 		}
 		
 	}];

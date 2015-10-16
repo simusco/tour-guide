@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moma.framework.web.WebResult;
 import com.moma.framework.web.springmvc.RestfulController;
-import com.moma.trip.po.Topic;
+import com.moma.trip.po.Ticket;
 
 @Scope(value="prototype")
 @Controller
-@RequestMapping("/topic")
-public class TopicController extends RestfulController {
+@RequestMapping("/ticket")
+public class TicketController extends RestfulController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public WebResult save(@RequestBody Topic topic){
+	public WebResult save(@RequestBody Ticket ticket){
 
-		System.out.println(topic);
+		System.out.println(ticket);
 		
 		return null;
 	}

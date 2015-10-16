@@ -6,8 +6,7 @@ define([
         '../controllers/RecViewController',
         '../controllers/TicketViewController',
         '../controllers/TopicViewController',
-        
-        '../services/ActivityPlanService'
+        '../controllers/SearchViewController'
         ], function(
 		angular, 
 		baseInfoViewController, 
@@ -16,7 +15,7 @@ define([
 		recViewController, 
 		ticketViewController, 
 		topicViewController,
-		activityPlanService
+		searchViewController
         ) {
 	
 	var module = angular.module('ActivityModule',['ui.router','ngResource','angularFileUpload']);
@@ -54,8 +53,7 @@ define([
 	module.controller('RecViewController', recViewController);
 	module.controller('TicketViewController', ticketViewController);
 	module.controller('TopicViewController', topicViewController);
-	
-	module.service('ActivityPlanService', activityPlanService);
+	module.controller('SearchViewController', searchViewController);
 	
 	return module;
 	

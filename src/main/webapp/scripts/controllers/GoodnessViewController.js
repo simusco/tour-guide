@@ -1,14 +1,13 @@
 define(['angular'], function(angular) {    
 	
-	var ActivityGoodness = $resource('/tour-guide/activity/goodness', {}, {'update': { method:'PUT' }});
-	
-	var ctrl = ['$scope', function($scope){
+	var ctrl = ['$scope','$resource', function($scope, $resource){
 		
-		$scope.activityGoodness = {};
-		
+		var Goodness = $resource('/tour-guide/activity/goodness', {}, {'update': { method:'PUT' }}),
+		goodness = $scope.goodness = {};
+
 		$scope.saveGoodness = function(){
 			
-			ActivityGoodness.save(activityGoodness, function(resp){
+			Goodness.save(goodness, function(resp){
 				
 				
 				

@@ -13,8 +13,8 @@ import com.moma.trip.po.ActivityExtra;
 
 @Scope(value="prototype")
 @Controller
-@RequestMapping("/activity/rec")
-public class RecController extends RestfulController {
+@RequestMapping("/activity/extra")
+public class ActivityExtraController extends RestfulController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody

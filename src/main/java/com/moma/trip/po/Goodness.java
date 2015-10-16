@@ -2,19 +2,19 @@ package com.moma.trip.po;
 
 public class Goodness {
 
-	private String activityGoodnessId;
+	private String goodnessId;
 	private String type;
 	private String content;
 	private String name;
 	private String activityPlanId;
 	private String anchor;
 
-	public String getActivityGoodnessId() {
-		return activityGoodnessId;
+	public String getGoodnessId() {
+		return goodnessId;
 	}
 
-	public void setActivityGoodnessId(String activityGoodnessId) {
-		this.activityGoodnessId = activityGoodnessId;
+	public void setGoodnessId(String goodnessId) {
+		this.goodnessId = goodnessId;
 	}
 
 	public String getType() {

@@ -1,53 +1,54 @@
 <div class="container" ng-controller="TicketViewController">
-    <div class="row">
-        <div class="col-md-12">
-            
-            <div class="panel panel-default">
-              <div class="panel-heading">套餐管理</div>
-              <div class="panel-body">
-                
-                <div>
-                    
-                    <div class="form-group">
-                        <label for="activityId">ID：</label>
-                        <input type="text" class="form-control" name="activityId">
-                    </div>
+	<div class="row">
+		<div class="col-md-12">
 
-                    <div class="form-group">
-                        <label for="name">套餐名称：</label>
-                        <input type="text" class="form-control" name="name">
-                    </div>
+			<div class="panel panel-default">
+				<div class="panel-heading">套餐管理</div>
+				<div class="panel-body">
 
-                    <div class="form-group">
-                        <label for="content">套餐详情：</label>
-                        <div>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                    </div>
+					<form>
+						<div class="form-group">
+							<label for="activityId">ID：</label> <input type="text"
+								class="form-control" ng-model="ticket.activityId">
+						</div>
 
-                    <div class="form-group">
-                        <label for="file">图标：</label>
-                        <input type="file" id="file">
-                    </div>
+						<div class="form-group">
+							<label for="name">套餐名称：</label> <input type="text"
+								class="form-control" ng-model="ticket.name">
+						</div>
 
-                    <div class="form-group">
-                        <label for="name">酒店CODE：</label>
-                        <input type="text" class="form-control" name="hotelCode">
-                    </div>
+						<div class="form-group">
+							<label for="detail">套餐详情：</label>
+							<div>
+								<textarea cols="30" rows="10" class="form-control"
+									ng-model="ticket.detail"></textarea>
+							</div>
+						</div>
 
-                    <div class="form-group">
-                        <label for="name">景点门票CODE：</label>
-                        <input type="text" class="form-control" name="ticketCode">
-                    </div>
+						<div class="form-group">
+							<label for="file">套餐图标：</label> <input type="text"
+								class="form-control" ng-model="ticket.icon">
+						</div>
 
-                    <div class="form-group">
-	                    <button type="submit" class="btn btn-default">保存</button>
-                    </div>
-                </div>
+						<div class="form-group">
+							<label for="name">酒店CODE：</label> <input type="text"
+								class="form-control" ng-model="ticket.hotelCode">
+						</div>
 
-              </div>
-            </div>
+						<div class="form-group">
+							<label for="name">景点门票CODE：</label> <input type="text"
+								class="form-control" ng-model="ticket.ticketCode">
+						</div>
 
-        </div>
-    </div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-default"
+								ng-click="saveTicket()">保存</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
 </div>
