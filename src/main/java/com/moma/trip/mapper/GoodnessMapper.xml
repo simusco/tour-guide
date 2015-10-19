@@ -40,4 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<delete id="deleteGoodnessById">
+		<![CDATA[
+			delete from mc_goodness where goodness_id = #{0}
+		]]>
+	</delete>
+	
 </mapper>

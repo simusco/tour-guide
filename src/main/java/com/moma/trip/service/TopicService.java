@@ -6,4 +6,6 @@ public interface TopicService {
 
 	void saveTopic(Topic topic);
 
+	void deleteTopicById(String id);
+
 }

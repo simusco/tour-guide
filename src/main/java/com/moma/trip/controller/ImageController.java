@@ -76,6 +76,15 @@ public class ImageController extends RestfulController {
 		return this.success(null);
 	}
 	
+	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+	@ResponseBody
+	public WebResult delete(@PathVariable String id){
+
+		imageService.deleteImageById(id);
+		
+		return this.success(null);
+	}
+	
 
 	public static void main(String[] args) {
 		

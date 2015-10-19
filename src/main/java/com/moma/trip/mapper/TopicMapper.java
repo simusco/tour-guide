@@ -9,4 +9,6 @@ public interface TopicMapper {
 
 	void saveTopic(Topic topic);
 
+	void deleteTopicById(String id);
+	
 }

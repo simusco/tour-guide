@@ -6,4 +6,6 @@ public interface TicketService {
 
 	void saveTicket(Ticket ticket);
 
+	void deleteTicketById(String id);
+
 }

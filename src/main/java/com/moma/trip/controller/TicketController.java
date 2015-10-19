@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,15 @@ public class TicketController extends RestfulController {
 		System.out.println(ticket);
 		
 		ticketService.saveTicket(ticket);
+		
+		return this.success(null);
+	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+	@ResponseBody
+	public WebResult delete(@PathVariable String id){
+
+		ticketService.deleteTicketById(id);
 		
 		return this.success(null);
 	}

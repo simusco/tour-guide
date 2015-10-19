@@ -35,4 +35,10 @@ public class GoodnessServiceImpl implements GoodnessService {
 		return goodnessMapper.getGoodnessByActivityId(activityPlanId);
 	}
 
+	@Override
+	public void deleteGoodnessById(String id) {
+		// TODO Auto-generated method stub
+		goodnessMapper.deleteGoodnessById(id);
+	}
+
 }

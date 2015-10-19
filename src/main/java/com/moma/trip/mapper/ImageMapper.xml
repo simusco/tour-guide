@@ -76,4 +76,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</insert>
 	
+	<delete id="deleteImageById">
+		<![CDATA[
+			delete from mc_images where image_id = #{0}
+		]]>
+	</delete>
+	
 </mapper>

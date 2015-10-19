@@ -6,4 +6,6 @@ public interface ActivityExtraService {
 
 	void save(ActivityExtra extra);
 
+	void deleteExtraById(String id);
+
 }

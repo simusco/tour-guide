@@ -43,6 +43,7 @@ public class ActivityPlan implements Serializable {
 	private List<Image> imageList = new ArrayList<Image>();
 	private List<Goodness> goodnessList = new ArrayList<Goodness>();
 	private List<ActivityExtra> extraList = new ArrayList<ActivityExtra>();
+	private List<Ticket> ticketList = new ArrayList<Ticket>();
 
 	public String getActivityPlanId() {
 		return activityPlanId;
@@ -266,6 +267,14 @@ public class ActivityPlan implements Serializable {
 
 	public void setExtraList(List<ActivityExtra> extraList) {
 		this.extraList = extraList;
+	}
+
+	public List<Ticket> getTicketList() {
+		return ticketList;
+	}
+
+	public void setTicketList(List<Ticket> ticketList) {
+		this.ticketList = ticketList;
 	}
 
 }

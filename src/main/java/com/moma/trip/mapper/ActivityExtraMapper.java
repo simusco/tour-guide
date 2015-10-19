@@ -13,4 +13,6 @@ public interface ActivityExtraMapper {
 
 	List<ActivityExtra> getActivityExtraByActivityId(String activityPlanId);
 
+	void deleteExtraById(String id);
+	
 }

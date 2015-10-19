@@ -10,4 +10,6 @@ public interface GoodnessService {
 
 	List<Goodness> getGoodnessByActivityId(String activityPlanId);
 
+	void deleteGoodnessById(String id);
+
 }

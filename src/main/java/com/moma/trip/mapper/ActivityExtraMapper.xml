@@ -35,4 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<delete id="deleteExtraById">
+		<![CDATA[
+			delete from mc_activity_extra where activity_extra_id = #{0}
+		]]>
+	</delete>
+	
 </mapper>

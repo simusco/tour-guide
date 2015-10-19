@@ -26,4 +26,10 @@ public class ActivityExtraServiceImpl implements ActivityExtraService {
 		activityExtraMapper.saveActivityExtra(extra);
 	}
 
+	@Override
+	public void deleteExtraById(String id) {
+		// TODO Auto-generated method stub
+		activityExtraMapper.deleteExtraById(id);
+	}
+
 }

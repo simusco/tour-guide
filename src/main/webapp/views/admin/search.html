@@ -73,6 +73,7 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
+							   <th>操作</th>
 							   <th>位置</th>
 							   <th>路径</th>
 							   <th>大小</th>
@@ -82,6 +83,7 @@
 					   </thead>
 					   <tbody>
 					   		<tr ng-repeat="image in result.imageList">
+					   			<td><input type="button" class="btn btn-warning" value="删除" ng-click="deleteImage(result.imageList, image.imageId)"></td>
 					   			<td>{{image.type}}</td>
 					   			<td>{{image.path}}</td>
 					   			<td>{{image.fileSize}}</td>
@@ -94,22 +96,56 @@
 			</div>
 			
 			<div class="panel panel-default">
+				<div class="panel-heading">套餐</div>
+				<div class="panel-body">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+							   <th style="width:5%">操作</th>
+							   <th style="width:10%">名称</th>
+							   <th style="width:15%">icon</th>
+							   <th style="width:50%">详情</th>
+							   <th style="width:10%">酒店便骂</th>
+							   <th style="width:10%">景点编码</th>
+							</tr>
+					   </thead>
+					   <tbody>
+					   		<tr ng-repeat="ticket in result.ticketList">
+					   			<td><input type="button" class="btn btn-warning" value="删除" ng-click="deleteTicket(result.ticketList, ticket.ticketId)"></td>
+					   			<td>{{ticket.name}}</td>
+					   			<td>{{ticket.icon}}</td>
+					   			<td>
+					   				<textarea cols="30" rows="10" class="form-control">{{ticket.detail}}</textarea>
+					   			</td>
+					   			<td>{{ticket.hotelCode}}</td>
+					   			<td>{{ticket.spotCode}}</td>
+					   		</tr>
+					   </tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
 				<div class="panel-heading">亮点</div>
 				<div class="panel-body">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-							   <th>类型</th>
-							   <th>名称</th>
-							   <th>类容</th>
-							   <th>anchor</th>
+								<th style="width:5%">操作</th>
+							   	<th style="width:10%">类型</th>
+							   	<th style="width:15%">名称</th>
+							   	<th style="width:60%">类容</th>
+							   	<th style="width:10%">anchor</th>
 							</tr>
 					   </thead>
 					   <tbody>
 					   		<tr ng-repeat="goodness in result.goodnessList">
+					   			<td><input type="button" class="btn btn-warning" value="删除" ng-click="deleteGoodness(result.goodnessList, goodness.goodnessId)"></td>
 					   			<td>{{goodness.type}}</td>
 					   			<td>{{goodness.name}}</td>
-					   			<td>{{goodness.content}}</td>
+					   			<td>
+					   				<textarea cols="30" rows="10" class="form-control">{{goodness.content}}</textarea>
+					   			</td>
 					   			<td>{{goodness.anchor}}</td>
 					   		</tr>
 					   </tbody>
@@ -123,14 +159,18 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-							   <th>类型</th>
-							   <th>类容</th>
+								<th>操作</th>
+							   	<th>类型</th>
+							   	<th>类容</th>
 							</tr>
 					   </thead>
 					   <tbody>
 					   		<tr ng-repeat="extra in result.extraList">
-					   			<td>{{extra.type}}</td>
-					   			<td>{{extra.content}}</td>
+					   			<td style="width:5%"><input type="button" class="btn btn-warning" value="删除"  ng-click="deleteExtra(result.extraList, extra.activityExtraId)"></td>
+					   			<td style="width:25%">{{extra.type}}</td>
+					   			<td style="width:75%">
+					   				<textarea cols="30" rows="10" class="form-control">{{extra.content}}</textarea>
+					   			</td>
 					   		</tr>
 					   </tbody>
 					</table>

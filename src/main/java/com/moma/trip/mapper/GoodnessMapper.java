@@ -13,4 +13,6 @@ public interface GoodnessMapper {
 
 	public List<Goodness> getGoodnessByActivityId(String activityPlanId);
 
+	void deleteGoodnessById(String id);
+	
 }

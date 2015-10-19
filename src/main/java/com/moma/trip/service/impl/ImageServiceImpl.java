@@ -20,7 +20,11 @@ public class ImageServiceImpl implements ImageService{
 		imageMapper.saveImage(image);
 		
 	}
-	
-	
+
+	@Override
+	public void deleteImageById(String id) {
+		// TODO Auto-generated method stub
+		imageMapper.deleteImageById(id);
+	}
 	
 }

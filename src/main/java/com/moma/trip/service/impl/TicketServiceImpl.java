@@ -27,4 +27,9 @@ public class TicketServiceImpl implements TicketService {
 		
 	}
 
+	@Override
+	public void deleteTicketById(String id) {
+		ticketMapper.deleteTicketById(id);
+	}
+
 }

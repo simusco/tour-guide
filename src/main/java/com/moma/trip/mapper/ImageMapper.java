@@ -17,4 +17,6 @@ public interface ImageMapper {
 
 	public void saveImage(Image image);
 	
+	void deleteImageById(String id);
+	
 }
