@@ -10,21 +10,35 @@ define(['angular'], function(angular) {
 		            	   tag:'主题',
 		            	   subTags : 
 		            		   [
-		            	              {'tagId':'210','tag':'全部','checked':'false'},
-		            	              {'tagId':'211','tag':'BBQ','checked':'false'},
-		            	              {'tagId':'212','tag':'主题聚会','checked':'false'},
-		            	              {'tagId':'213','tag':'观景休闲','checked':'false'},
-		            	              {'tagId':'214','tag':'登山徒步','checked':'false'},
-		            	              {'tagId':'215','tag':'亲子游玩','checked':'false'},
-		            	              {'tagId':'216','tag':'自驾骑行','checked':'false'},
-		            	              {'tagId':'217','tag':'草原风情','checked':'false'},
-		            	              {'tagId':'218','tag':'海滩戏水','checked':'false'}
+		            	              {'tagId':'210','tag':'全部','checked':false},
+		            	              {'tagId':'211','tag':'BBQ','checked':false},
+		            	              {'tagId':'212','tag':'主题聚会','checked':false},
+		            	              {'tagId':'213','tag':'观景休闲','checked':false},
+		            	              {'tagId':'214','tag':'登山徒步','checked':false},
+		            	              {'tagId':'215','tag':'亲子游玩','checked':false},
+		            	              {'tagId':'216','tag':'自驾骑行','checked':false},
+		            	              {'tagId':'217','tag':'草原风情','checked':false},
+		            	              {'tagId':'218','tag':'海滩戏水','checked':false}
 		            	       ]
 		               }
 		              ];
 		
 		$scope.save = function(){
-			var activityPlanId = $scope.activityPlan.activityPlanId;
+			var activityPlanId = $scope.activityPlan.activityPlanId, 
+								 selectedTags = [], 
+								 activityTagList=[];
+			$scope.activityPlan.activityTagList = activityTagList;
+			
+			for(var i=0;i<$scope.tags.length;i++){
+				var tagObj = $scope.tags[i];
+				for(var j=0;j<tagObj.subTags.length;j++){
+					var subTag = tagObj.subTags[j];
+					if(subTag.checked){
+						var t = {'tagId':subTag.tagId,'tagName':subTag.tag};
+						activityTagList.push(t);
+					}
+				}
+			}
 			
 			if(activityPlanId != null && activityPlanId != ''){
 				ActivityPlan.update($scope.activityPlan, function(resp){
@@ -61,14 +75,34 @@ define(['angular'], function(angular) {
 						var flag = resp.flag;
 						
 						if(flag){
+							//选中标签
+							selectedTags(data);
+							//显示数据
 							$scope.activityPlan = data;
-							
-							console.log(data.object);
 						}
 					});
 				}
 			}
 			
+		}
+		
+		function selectedTags(data){
+			var list = data.activityTagList,ids=[];
+			for(var m=0;m<list.length;m++){
+				ids.push(list[m].tagId);
+			}
+			
+			for(var i=0;i<$scope.tags.length;i++){
+				var tagObj = $scope.tags[i];
+				for(var j=0;j<tagObj.subTags.length;j++){
+					var subTag = tagObj.subTags[j];
+					
+					//检查数组中是否存在
+					if($.inArray(subTag.tagId, ids) != -1){
+						subTag.checked =  true;
+					}
+				}
+			}
 		}
 		
 	}];

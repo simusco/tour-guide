@@ -12,7 +12,6 @@ public class ActivityTag implements Serializable {
 	private String activityPlanId;
 	private String tagId;
 	private String tagName;
-	private String tagType;
 	private Integer sort;
 
 	public String getActivityTagsId() {
@@ -45,14 +44,6 @@ public class ActivityTag implements Serializable {
 
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
-	}
-
-	public String getTagType() {
-		return tagType;
-	}
-
-	public void setTagType(String tagType) {
-		this.tagType = tagType;
 	}
 
 	public Integer getSort() {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.ActivityTagMapper">
+
+	<insert id="saveActivityTag" parameterType="com.moma.trip.po.ActivityTag">
+		<![CDATA[
+			INSERT INTO mc_activity_tags
+			(
+				activity_tags_id,
+				activity_plan_id,
+				tag_id,
+				tag_name,
+				sort
+
+			)
+			VALUES 
+			(
+				#{activityTagsId}, 
+				#{activityPlanId}, 
+				#{tagId}, 
+				#{tagName},
+				#{sort}
+			)
+		]]>
+	</insert>
+	
+	<delete id="deleteActivityTagByActivityId">
+		<![CDATA[
+			delete from mc_activity_tags where activity_plan_id = #{0}
+		]]>
+	</delete>
+	
+	<select id="getActivityTagsByActivityId" resultType="com.moma.trip.po.ActivityTag">
+		<![CDATA[
+			select 
+				activity_tags_id as activityTagsId,
+				activity_plan_id as activityPlanId,
+				tag_id as tagId,
+				tag_name as tagName,
+				sort
+			from mc_activity_tags
+			where activity_plan_id = #{0}
+		]]>
+	</select>
+	
+</mapper>

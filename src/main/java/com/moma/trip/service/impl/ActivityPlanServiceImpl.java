@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.moma.framework.pagination.Pagination;
 import com.moma.framework.utils.UUIDUtils;
 import com.moma.trip.mapper.ActivityPlanMapper;
+import com.moma.trip.mapper.ActivityTagMapper;
 import com.moma.trip.mapper.ImageMapper;
 import com.moma.trip.po.ActivityPlan;
-import com.moma.trip.po.Image;
+import com.moma.trip.po.ActivityTag;
 import com.moma.trip.po.Tags;
 import com.moma.trip.service.ActivityPlanService;
 import com.moma.trip.service.TagsService;
@@ -32,6 +32,8 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 	private TagsService tagsService;
 	@Resource
 	private ImageMapper imageMapper;
+	@Resource
+	private ActivityTagMapper activityTagMapper;
 
 //	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Pagination getActivityPlanPageList(Pagination pagination) {
@@ -82,6 +84,11 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 			return null;
 
 		ActivityPlan ap = activityPlanMapper.getActivityPlanById(activityPlanId);
+		if(ap != null){
+			List<ActivityTag> tags = activityTagMapper.getActivityTagsByActivityId(ap.getActivityPlanId());
+			ap.setActivityTagList(tags);
+		}
+		
 		/*if (ap != null) {
 			List<Tags> tags = activityPlanMapper.getActivityPlanTags(ap.getActivityPlanId());
 			ap.setTags(getActivityTags(tags));
@@ -94,6 +101,7 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public void saveBaseInfo(ActivityPlan activityPlan) {
 		
@@ -102,16 +110,39 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		
 		activityPlan.setActivityPlanId(UUIDUtils.getUUID());
 		
+		List<ActivityTag> activityTagList = activityPlan.getActivityTagList();
+		if(activityTagList != null){
+			for(int i=0;i<activityTagList.size();i++){
+				ActivityTag tag = activityTagList.get(i);
+				tag.setActivityPlanId(activityPlan.getActivityPlanId());
+				tag.setSort(i);
+				tag.setActivityTagsId(UUIDUtils.getUUID());
+				activityTagMapper.saveActivityTag(tag);
+			}
+		}
+		
 		activityPlanMapper.saveBaseInfo(activityPlan);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public void updateBaseInfo(ActivityPlan activityPlan) {
-		// TODO Auto-generated method stub
 		
 		if(activityPlan == null || StringUtils.isEmpty(activityPlan.getActivityPlanId())){
 			System.out.println("参数为空!!!!!!!");
 			return;
+		}
+		
+		activityTagMapper.deleteActivityTagByActivityId(activityPlan.getActivityPlanId());
+		List<ActivityTag> activityTagList = activityPlan.getActivityTagList();
+		if(activityTagList != null){
+			for(int i=0;i<activityTagList.size();i++){
+				ActivityTag tag = activityTagList.get(i);
+				tag.setActivityPlanId(activityPlan.getActivityPlanId());
+				tag.setSort(i);
+				tag.setActivityTagsId(UUIDUtils.getUUID());
+				activityTagMapper.saveActivityTag(tag);
+			}
 		}
 		
 		activityPlanMapper.updateBaseInfo(activityPlan);

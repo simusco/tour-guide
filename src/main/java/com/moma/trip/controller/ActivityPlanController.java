@@ -64,13 +64,4 @@ public class ActivityPlanController extends RestfulController{
 		return success(activityPlan);
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/search",method=RequestMethod.GET)
-	public byte[] search(String id){
-		
-			
-		
-		return null;
-	}
-	
 }
