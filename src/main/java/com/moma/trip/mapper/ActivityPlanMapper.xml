@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.good_review_per as goodReviewPer,
 				ap.topic_id as topicId
 			from mc_activity_plan ap 
-			where ap.activity_plan_id = #{keyword}
+			where ap.activity_plan_id = #{0} or ap.name like CONCAT('%',#{0},'%' )  
 		]]>
 	</select>
 	
