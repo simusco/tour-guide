@@ -1,5 +1,7 @@
 package com.moma.trip.mapper;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.moma.trip.po.Topic;
@@ -10,5 +12,7 @@ public interface TopicMapper {
 	void saveTopic(Topic topic);
 
 	void deleteTopicById(String id);
+
+	List<Topic> searchTopic(Integer from, Integer count);
 	
 }

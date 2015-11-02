@@ -33,4 +33,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</delete>
 	
+	<select id="searchTopic" resultType="com.moma.trip.po.Topic">
+		<![CDATA[
+			select 
+				topic_id as topicId,
+				name as name,
+				image_url as imageUrl,
+				summary as summary,
+				create_time as createTime,
+				read_count as readCount
+			from mc_topic
+			order by create_time desc
+			limit #{0},#{1}
+		]]>
+	</select>
+	
 </mapper>

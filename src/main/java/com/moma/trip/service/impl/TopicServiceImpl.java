@@ -1,6 +1,8 @@
 package com.moma.trip.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -50,6 +52,25 @@ public class TopicServiceImpl implements TopicService {
 		
 		topicMapper.deleteTopicById(id);
 		
+	}
+
+	@Override
+	public void getTopicPageList(Integer count, Integer page, String orderType) {
+		
+	}
+
+	@Override
+	public List<Topic> searchTopic(Integer count, Integer page) {
+
+		if(count == null || count <=0 || count > 50)
+			count = 15;
+		
+		if(page == null || page <=0 || page > 100)
+			page = 1;
+		
+		int from = page > 1 ? count * (page -1) : 0;
+		
+		return topicMapper.searchTopic(from, count);
 	}
 
 }

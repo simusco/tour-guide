@@ -1,6 +1,7 @@
 package com.moma.trip.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.moma.framework.pagination.Pagination;
 import com.moma.framework.utils.UUIDUtils;
+import com.moma.trip.mapper.ActivityMapper;
 import com.moma.trip.mapper.ActivityPlanMapper;
 import com.moma.trip.mapper.ActivityTagMapper;
 import com.moma.trip.mapper.ImageMapper;
 import com.moma.trip.po.ActivityPlan;
+import com.moma.trip.po.ActivitySearch;
 import com.moma.trip.po.ActivityTag;
 import com.moma.trip.po.Tags;
 import com.moma.trip.service.ActivityPlanService;
@@ -34,6 +37,8 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 	private ImageMapper imageMapper;
 	@Resource
 	private ActivityTagMapper activityTagMapper;
+	@Resource
+	private ActivityMapper activityMapper;
 
 //	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Pagination getActivityPlanPageList(Pagination pagination) {
@@ -147,6 +152,42 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		
 		activityPlanMapper.updateBaseInfo(activityPlan);
 		
+	}
+
+	@Override
+	public List<ActivityPlan> searchActivity(String type, String[] tags, Integer count, Integer page, String order,
+			String orderType) {
+		
+		List<String> typelist = Arrays.asList(new String[]{"HOT","SPOT","TOPIC"});
+		if(type == null || typelist.indexOf(type.toUpperCase()) == -1){
+			orderType = null;
+		}
+
+		if(count == null || count <=0 || count > 50)
+			count = 15;
+		
+		if(page == null || page <=0 || page > 100)
+			page = 1;
+		
+		typelist = Arrays.asList(new String[]{"REC","SALE","PRICE"});
+		if(orderType == null || typelist.indexOf(orderType.toUpperCase()) == -1){
+			orderType = "REC";
+		}
+		
+		if("-1".equals(orderType)){
+			orderType = "desc";
+		}else if("1".equals(orderType)){
+			orderType = "asc";
+		}else{
+			orderType = "desc";
+		}
+		
+		int from = page > 1 ? count * (page -1) : 0;
+		
+		List<ActivityPlan> aplist = activityMapper.searchActivity(
+				new ActivitySearch(type, tags, from, count, order, orderType));
+		
+		return aplist;
 	}
 
 }

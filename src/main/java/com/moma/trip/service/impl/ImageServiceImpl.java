@@ -1,5 +1,7 @@
 package com.moma.trip.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,8 +25,13 @@ public class ImageServiceImpl implements ImageService{
 
 	@Override
 	public void deleteImageById(String id) {
-		// TODO Auto-generated method stub
 		imageMapper.deleteImageById(id);
+	}
+
+	@Override
+	public List<Image> getImageByOwner(String ownerId) {
+		
+		return imageMapper.getImageByOwnerId(ownerId);
 	}
 	
 }
