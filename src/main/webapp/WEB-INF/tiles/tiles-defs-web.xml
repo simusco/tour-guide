@@ -14,4 +14,12 @@
 		<put-attribute name="content" value="/views/index-content.jsp"/>
 	</definition>
 	
+	<definition name="query" extends="base.defination">
+		<put-attribute name="header" value="/views/query-header.jsp"/>
+		<put-attribute name="navbar" value="/views/query-navbar.jsp"/>
+		<put-attribute name="content" value="/views/query-content.jsp"/>
+	</definition>
+	
+	<definition name="query-route" template="/views/query-route.jsp"/>
+	
 </tiles-definitions>

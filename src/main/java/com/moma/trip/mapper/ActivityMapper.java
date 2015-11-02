@@ -11,5 +11,7 @@ import com.moma.trip.po.ActivitySearch;
 public interface ActivityMapper {
 
 	List<ActivityPlan> searchActivity(ActivitySearch activitySearch);
+
+	Long getSearchActivityTotalRow(ActivitySearch activitySearch);
 	
 }

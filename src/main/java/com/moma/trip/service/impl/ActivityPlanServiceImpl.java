@@ -160,7 +160,7 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		
 		List<String> typelist = Arrays.asList(new String[]{"HOT","SPOT","TOPIC"});
 		if(type == null || typelist.indexOf(type.toUpperCase()) == -1){
-			orderType = null;
+			type = null;
 		}
 
 		if(count == null || count <=0 || count > 50)
@@ -188,6 +188,16 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 				new ActivitySearch(type, tags, from, count, order, orderType));
 		
 		return aplist;
+	}
+
+	@Override
+	public Long getSearchActivityTotalRow(String type, String[] tags) {
+		List<String> typelist = Arrays.asList(new String[]{"HOT","SPOT","TOPIC"});
+		if(type == null || typelist.indexOf(type.toUpperCase()) == -1){
+			type = null;
+		}
+		
+		return activityMapper.getSearchActivityTotalRow(new ActivitySearch(type, tags));
 	}
 
 }

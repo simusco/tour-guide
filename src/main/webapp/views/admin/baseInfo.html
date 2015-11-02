@@ -70,8 +70,7 @@
 							<div class="col-sm-10">
 								<input ng-model="activityPlan.topic" id="activityPlan.topic"
 									type="text" class="form-control"> <span
-									class="help-block">例：<code>&lt;strong
-										class="tag-def"&gt;漂流&lt;/strong&gt;</code></span>
+									class="help-block">例：<code>&lt;span class="tag tag--stress"&gt;亲自&lt;/span&gt;</code></span>
 							</div>
 						</div>
 
@@ -81,8 +80,34 @@
 							<div class="col-sm-10">
 								<input ng-model="activityPlan.expInclusive"
 									id="activityPlan.expInclusive" type="text" class="form-control">
-								<span class="help-block">例：<code>&lt;strong
-										class="tag-def"&gt;漂流&lt;/strong&gt;</code></span>
+								<span class="help-block">例：<code>&lt;span class="tag tag--stress"&gt;亲自&lt;/span&gt;</code></span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="activityPlan.takeTime"
+								class="col-sm-2 control-label">建议游玩时间：</label>
+							<div class="col-sm-10">
+								<input ng-model="activityPlan.takeTime"
+									id="activityPlan.takeTime" type="text" class="form-control">
+								<span class="help-block">例：5天</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="activityPlan.otherAttr"
+								class="col-sm-2 control-label">其他属性：</label>
+							<div class="col-sm-10">
+								<input ng-model="activityPlan.otherAttr"
+									id="activityPlan.otherAttr" type="text" class="form-control">
+								<span class="help-block">
+									<code>
+									&lt;ul class="tag-line tag-line--default"&gt;
+						                &lt;li&gt;最佳季节：&lt;/li&gt;
+						                &lt;li&gt;秋天&lt;/li&gt;
+						            &lt;/ul&gt;
+						            </code>
+								</span>
 							</div>
 						</div>
 

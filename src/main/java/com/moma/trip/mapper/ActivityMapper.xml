@@ -29,7 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.type as type,
 				ap.discount as discount,
 				ap.good_review_per as goodReviewPer,
-				ap.topic_id as topicId
+				ap.topic_id as topicId,
+				ap.other_attr as otherAttr
 			from mc_activity_plan ap 
 			where EXISTS (
 				select 1 from mc_activity_tags tg
@@ -88,6 +89,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
-	
+	<select id="getSearchActivityTotalRow" resultType="java.lang.Long" parameterType="com.moma.trip.po.ActivitySearch">
+		<![CDATA[
+			select 
+				count(1)
+			from mc_activity_plan ap
+			where 
+			EXISTS (
+				select 1 from mc_activity_tags tg
+				where tg.activity_plan_id = ap.activity_plan_id
+		]]>
+		
+		<if test="tags != null">
+			and tg.tag_name in
+			<foreach item="tag" index="index" collection="tags" open="(" separator="," close=")">
+				#{tag}
+			</foreach>
+			having count(tg.activity_tags_id) - #{tagCount} = 0
+		</if>
+		
+		<![CDATA[)]]>
+		
+		<if test="type != null">
+			<![CDATA[and ap.type = #{type}]]>
+		</if>
+	</select>
 
 </mapper>

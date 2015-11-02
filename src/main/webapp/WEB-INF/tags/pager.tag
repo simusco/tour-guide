@@ -16,11 +16,11 @@
    	<%
 		if (curIndex != 1) {
 	%>
-	<li><a href="javascript:gotoPage(<%=curIndex - 1%>)" class="hidden-xs">上一页</a></li>
+	<li><a href="javascript:gotoPage(<%=curIndex - 1%>)" class="pagination_item first">上一页</a></li>
 	<%
 		} else {
 	%>
-	<li><a href="javascript:gotoPage(1)" class="hidden-xs">上一页</a></li>
+	<li><a href="javascript:gotoPage(1)" class="pagination_item first">上一页</a></li>
 	<%
 		}
 	%>
@@ -28,10 +28,10 @@
    	<c:forEach var="i" begin="${p_begin}" end="${p_end}">
 		<c:choose>
 			<c:when test="${i == curIndex}">
-				<li><a href="javascript:gotoPage(${i})" class="active">${i}</a></li>
+				<li><a class="pagination_item--active" href="javascript:gotoPage(${i})">${i}</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="javascript:gotoPage(${i})">${i}</a></li>
+				<li><a class="pagination_item" href="javascript:gotoPage(${i})">${i}</a></li>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -39,11 +39,11 @@
    	<%
 		if (curIndex < totalPage) {
 	%>
-		<li><a href="javascript:gotoPage(<%=curIndex + 1%>)">下一页</a></li>
+		<li><a href="javascript:gotoPage(<%=curIndex + 1%>)"  class="pagination_item last">下一页</a></li>
 	<%
 		} else {
 	%>
-		<li><a href="javascript:gotoPage(<%=totalPage%>)" class="hidden-xs">下一页</a></li>
+		<li><a href="javascript:gotoPage(<%=totalPage%>)" class="pagination_item last">下一页</a></li>
 	<%
 		}
 	%>

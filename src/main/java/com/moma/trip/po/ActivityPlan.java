@@ -37,6 +37,7 @@ public class ActivityPlan implements Serializable {
 	private String discount;
 	private String goodReviewPer;
 	private String topicId;
+	private String otherAttr;
 
 	private List<ActivityTag> activityTagList = new ArrayList<ActivityTag>();
 	private Map<Tags, List<Tags>> tags = new HashMap<Tags, List<Tags>>();
@@ -275,6 +276,14 @@ public class ActivityPlan implements Serializable {
 
 	public void setTicketList(List<Ticket> ticketList) {
 		this.ticketList = ticketList;
+	}
+
+	public String getOtherAttr() {
+		return otherAttr;
+	}
+
+	public void setOtherAttr(String otherAttr) {
+		this.otherAttr = otherAttr;
 	}
 
 }

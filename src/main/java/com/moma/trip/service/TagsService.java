@@ -7,8 +7,10 @@ import com.moma.trip.po.Tags;
 
 public interface TagsService {
 
-	public Map<Tags, List<Tags>> getAllTags();
-
 	public Map<Tags, List<Tags>> getChildren(String tag, String type);
+	
+	public List<Tags> getTagList();
+	
+	public Map<Tags, List<Tags>> getTagMap();
 	
 }

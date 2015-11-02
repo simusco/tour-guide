@@ -34,4 +34,6 @@ public interface ActivityPlanService {
 			String orderType
 	);
 
+	public Long getSearchActivityTotalRow(String type, String[] tags);
+
 }

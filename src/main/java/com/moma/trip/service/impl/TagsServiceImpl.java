@@ -20,7 +20,12 @@ public class TagsServiceImpl implements TagsService {
 	@Resource
 	private TagsMapper tagsMapper;
 
-	public Map<Tags, List<Tags>> getAllTags() {
+	public List<Tags> getTagList() {
+		
+		return tagsMapper.getAllTags();
+	}
+	
+	public Map<Tags, List<Tags>> getTagMap() {
 		
 		List<Tags> tags = tagsMapper.getAllTags();
 		int tagsSize = tags.size();
