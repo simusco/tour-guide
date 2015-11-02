@@ -99,13 +99,31 @@
 				for(var i=0;i<tags.length;i++){
 					var tag = tags[i];
 					
-					var a = $('<a href="javascript:$.doNothing()" style="margin-right:5px;">'+tag+'</a>'),span=null;
+					var a = $('<a href="javascript:$.doNothing();" style="margin-right:5px;">'+tag+'</a>'),span=null;
 						a.addClass('tag--removeable');
 						a.attr('ui-tag-cond','');
 						span = $('<span></span>').append(a);
+						
+					a.click(function(){
+						var tag = $(this).html();
+						$.query.removeCond($(this));
+						
+						$('*[ui-tag-query]').each(function(){
+							if($(this).html() == tag){
+								$(this).parent().parent().find('a').each(function(){
+									if($(this).html() == '全部'){
+										$(this).trigger('click');
+									}
+								});
+							}
+						});
+					});
 					
 					$('*[ui-cond]').append(span);
 				}
+			},
+			removeCond:function(obj){
+				$(obj).parent().remove();
 			}
 		},
 		doNothing : function(){}
