@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.destination as destination,
 				ap.price as price,
 				ap.price_desc as priceDesc,
+				ap.market_price as marketPrice,
 				ap.take_time as takeTime,
 				ap.traffic as traffic,
 				ap.min_pepole_num as minPepoleNum,

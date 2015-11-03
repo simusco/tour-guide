@@ -4,6 +4,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.ActivityMapper">
 
+	<select id="getActivityPlanByTopicId" resultType="com.moma.trip.po.ActivityPlan">
+		<![CDATA[
+			select 
+				ap.activity_plan_id as activityPlanId,
+				ap.name as name,
+				ap.description as description,
+				ap.departure as departure,
+				ap.destination as destination,
+				ap.price as price,
+				ap.price_desc as priceDesc,
+				ap.market_price as marketPrice,
+				ap.take_time as takeTime,
+				ap.traffic as traffic,
+				ap.min_pepole_num as minPepoleNum,
+				ap.max_pepole_num as maxPepoleNum,
+				ap.pre_reg_day as preRegDay,
+				ap.create_time as createTime,
+				ap.sort as sort,
+				ap.image_url as imageURL,
+				ap.topic as topic,
+				ap.exp_inclusive as expInclusive,
+				ap.has_saled as hasSaled,
+				ap.type as type,
+				ap.discount as discount,
+				ap.good_review_per as goodReviewPer,
+				ap.topic_id as topicId,
+				ap.other_attr as otherAttr
+			from mc_activity_plan ap
+			where ap.topic_id = #{0}
+		]]>
+	</select>
+
 	<select id="searchActivity" resultType="com.moma.trip.po.ActivityPlan" parameterType="com.moma.trip.po.ActivitySearch">
 		<![CDATA[
 			select 

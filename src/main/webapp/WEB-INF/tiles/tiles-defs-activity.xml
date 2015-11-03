@@ -22,4 +22,14 @@
 	
 	<definition name="query-route" template="/views/query-route.jsp"/>
 	
+	<definition name="detail" extends="query">
+		<put-attribute name="header" value="/views/detail-header.jsp"/>
+		<put-attribute name="content" value="/views/detail-content.jsp"/>
+	</definition>
+	
+	<definition name="goodness" extends="query">
+		<put-attribute name="header" value="/views/goodness-header.jsp"/>
+		<put-attribute name="content" value="/views/goodness-content.jsp"/>
+	</definition>
+	
 </tiles-definitions>

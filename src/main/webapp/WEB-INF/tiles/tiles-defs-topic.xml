@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<definition name="base.defination" template="/views/layout.jsp">
+		<put-attribute name="topbar" value="/views/topbar.jsp"/>
+		<put-attribute name="footer" value="/views/footer.jsp"/>
+		<put-attribute name="analytics" value="/views/analytics.jsp"/>
+	</definition>
+	
+	<definition name="topic" extends="base.defination">
+		<put-attribute name="header" value="/views/topic-header.jsp"/>
+		<put-attribute name="navbar" value="/views/topic-navbar.jsp"/>
+		<put-attribute name="content" value="/views/topic-content.jsp"/>
+	</definition>
+	
+	<definition name="topic-detail" extends="base.defination">
+		<put-attribute name="header" value="/views/topic-detail-header.jsp"/>
+		<put-attribute name="navbar" value="/views/topic-navbar.jsp"/>
+		<put-attribute name="content" value="/views/topic-detail-content.jsp"/>
+	</definition>
+	
+</tiles-definitions>

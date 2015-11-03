@@ -48,6 +48,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<select id="getTicketList" resultType="com.moma.trip.po.Ticket">
+		<![CDATA[
+			select 
+				t.ticket_id as ticketId,
+				t.activity_id as activityId,
+				t.name,
+				t.detail,
+				t.icon,
+				t.hotel_code as hotelCode,
+				t.spot_code as spotCode,
+				t.sychtime,
+				tp.price as price
+			from mc_ticket t inner join mc_ticket_price tp
+			on t.ticket_id = tp.ticket_id
+			where 
+				t.activity_id = #{0} and 
+				tp.year = #{1} and
+				tp.month = #{2} and
+				tp.day = #{3}
+		]]>
+	</select>
+	
 	<delete id="deleteTicketById">
 		<![CDATA[
 			delete from mc_ticket where ticket_id = #{0}

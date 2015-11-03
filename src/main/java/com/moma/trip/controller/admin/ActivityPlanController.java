@@ -30,7 +30,6 @@ public class ActivityPlanController extends RestfulController{
 		return null;
 	}
 	
-//	@RequestParam("id")
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.POST)
 	public WebResult save(@RequestBody ActivityPlan activityPlan){

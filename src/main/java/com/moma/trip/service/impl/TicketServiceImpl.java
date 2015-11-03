@@ -1,5 +1,7 @@
 package com.moma.trip.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -30,6 +32,12 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public void deleteTicketById(String id) {
 		ticketMapper.deleteTicketById(id);
+	}
+
+	@Override
+	public List<Ticket> getTicketList(String routeId, Integer year, Integer month, Integer day) {
+		
+		return ticketMapper.getTicketList(routeId, year, month, day);
 	}
 
 }

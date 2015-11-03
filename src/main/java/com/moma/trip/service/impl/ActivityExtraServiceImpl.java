@@ -1,5 +1,7 @@
 package com.moma.trip.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -30,6 +32,11 @@ public class ActivityExtraServiceImpl implements ActivityExtraService {
 	public void deleteExtraById(String id) {
 		// TODO Auto-generated method stub
 		activityExtraMapper.deleteExtraById(id);
+	}
+
+	@Override
+	public List<ActivityExtra> getActivityExtraByActivityId(String activityPlanId) {
+		return activityExtraMapper.getActivityExtraByActivityId(activityPlanId);
 	}
 
 }

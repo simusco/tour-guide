@@ -26,7 +26,7 @@ function gotoPage(pageIndex){
 	    </div>
 	    <div class="route_desc">
 	        <div class="route-desc_header--theme1">
-	            <h3>${route.name }</h3>
+	            <h3><a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?routeId=${route.activityPlanId }">${route.name }</a></h3>
 	            <p>${route.description }</p>
 	        </div>
 	        <div class="route-desc_content--theme1">
@@ -57,7 +57,7 @@ function gotoPage(pageIndex){
 	    </div>
 	    <div class="route_desc">
 	        <div class="route-desc_header--theme1">
-	            <h3>${route.name }</h3>
+	            <h3><a href="<%=request.getContextPath()  %>/web/v1/activity/${route.activityPlanId }/detail.html">${route.name }</a></h3>
 	            <p>${route.description }</p>
 	        </div>
 	        <div class="route-desc_content--theme1">

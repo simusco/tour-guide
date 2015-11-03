@@ -1,6 +1,5 @@
 package com.moma.trip.service.impl;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -55,11 +54,6 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Override
-	public void getTopicPageList(Integer count, Integer page, String orderType) {
-		
-	}
-
-	@Override
 	public List<Topic> searchTopic(Integer count, Integer page) {
 
 		if(count == null || count <=0 || count > 50)
@@ -71,6 +65,12 @@ public class TopicServiceImpl implements TopicService {
 		int from = page > 1 ? count * (page -1) : 0;
 		
 		return topicMapper.searchTopic(from, count);
+	}
+
+	@Override
+	public Topic getTopicById(String topicId) {
+		
+		return topicMapper.getTopicById(topicId);
 	}
 
 }

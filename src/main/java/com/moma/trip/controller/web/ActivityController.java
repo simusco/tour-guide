@@ -1,6 +1,7 @@
 package com.moma.trip.controller.web;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,10 +16,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.moma.trip.po.ActivityExtra;
+import com.moma.trip.po.ActivityPlan;
 import com.moma.trip.po.ActivitySearch;
+import com.moma.trip.po.Goodness;
+import com.moma.trip.po.Image;
 import com.moma.trip.po.Tags;
+import com.moma.trip.po.Ticket;
+import com.moma.trip.service.ActivityExtraService;
 import com.moma.trip.service.ActivityPlanService;
+import com.moma.trip.service.GoodnessService;
+import com.moma.trip.service.ImageService;
 import com.moma.trip.service.TagsService;
+import com.moma.trip.service.TicketService;
 import com.moma.trip.service.TopicService;
 
 @Scope(value="prototype")
@@ -34,6 +44,18 @@ public class ActivityController extends MultiActionController {
 	
 	@Resource
 	private TagsService tagsService;
+	
+	@Resource
+	private ImageService imageService;
+	
+	@Resource
+	private GoodnessService goodnessService;
+	
+	@Resource
+	private TicketService ticketService;
+	
+	@Resource
+	private ActivityExtraService activityExtraService;
 
 	//type:HOT, SPOT, TOPIC
 	//tags[]:标签
@@ -96,7 +118,6 @@ public class ActivityController extends MultiActionController {
 		if(totalRow > 0){
 			long x = search.getTotalRow() / search.getCount();
 			long y = (search.getTotalRow() % search.getCount()) != 0 ? 1l : 0l;
-			
 			long totalPage = x+y;
 			
 			search.setTotalPage(totalPage);
@@ -106,4 +127,55 @@ public class ActivityController extends MultiActionController {
 		return new ModelAndView("query-route", map);
 	}
 	
+	@RequestMapping(value="/detail.html",method=RequestMethod.GET)
+	public ModelAndView detail(String routeId){
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ActivityPlan route = activityPlanService.getActivityPlanById(routeId);
+		
+		if(route == null){
+			return new ModelAndView("error", map);
+		}
+		
+		List<Image> imageList = imageService.getImageByOwner(routeId);
+		route.setImageList(imageList);
+		map.put("route", route);
+		
+		//获取亮点
+		List<Goodness> goodnessList = goodnessService.getGoodnessByActivityId(routeId);
+		map.put("goodnessList", goodnessList);
+		
+		//获取门票信息
+		Integer year = Calendar.getInstance().get(Calendar.YEAR);
+		Integer month = Calendar.getInstance().get(Calendar.MONTH);
+		Integer day = Calendar.getInstance().get(Calendar.DATE);
+		
+		List<Ticket> ticketList = ticketService.getTicketList(routeId, year, month+1, day);
+		map.put("ticketList", ticketList);
+		
+		//推荐玩法与购买须知
+		List<ActivityExtra> activityExtraList = activityExtraService.getActivityExtraByActivityId(routeId);
+		map.put("activityExtraList", activityExtraList);
+		
+		return new ModelAndView("detail", map);
+	}
+	
+	
+	@RequestMapping(value="/goodness.html",method=RequestMethod.GET)
+	public ModelAndView goodness(String routeId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ActivityPlan route = activityPlanService.getActivityPlanById(routeId);
+		if(route == null){
+			return new ModelAndView("error", map);
+		}
+		map.put("route", route);
+		
+		//获取亮点
+		List<Goodness> goodnessList = goodnessService.getGoodnessByActivityId(routeId);
+		map.put("goodnessList", goodnessList);
+		
+		return new ModelAndView("goodness", map);
+	}
 }

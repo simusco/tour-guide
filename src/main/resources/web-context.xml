@@ -57,6 +57,7 @@
 	<mvc:resources location="/scripts/controllers/" mapping="/scripts/controllers/**"/>
 	<mvc:resources location="/scripts/modules/" mapping="/scripts/modules/**"/>
 	<mvc:resources location="/scripts/services/" mapping="/scripts/services/**"/>
+	<mvc:resources location="/static/images/" mapping="/static/images/**"/>
 	
 	<mvc:default-servlet-handler/>
 	
@@ -79,7 +80,8 @@
 	    <property name="definitions">
 	        <list>
 	            <value>/WEB-INF/tiles/tiles-defs-login.xml</value>
-	            <value>/WEB-INF/tiles/tiles-defs-web.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-topic.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-activity.xml</value>
 	        </list>
 	    </property>
 	</bean>

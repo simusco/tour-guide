@@ -36,4 +36,6 @@ public interface ActivityPlanService {
 
 	public Long getSearchActivityTotalRow(String type, String[] tags);
 
+	public List<ActivityPlan> getActivityPlanByTopicId(String topicId);
+
 }

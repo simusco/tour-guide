@@ -14,5 +14,7 @@ public interface TopicMapper {
 	void deleteTopicById(String id);
 
 	List<Topic> searchTopic(Integer from, Integer count);
+
+	Topic getTopicById(String topicId);
 	
 }

@@ -1,6 +1,7 @@
 package com.moma.trip.po;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Ticket implements Serializable {
@@ -17,6 +18,7 @@ public class Ticket implements Serializable {
 	private String hotelCode;
 	private String spotCode;
 	private Date sychtime;
+	private BigDecimal price;
 
 	public String getTicketId() {
 		return ticketId;
@@ -80,6 +82,14 @@ public class Ticket implements Serializable {
 
 	public void setSychtime(Date sychtime) {
 		this.sychtime = sychtime;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 }

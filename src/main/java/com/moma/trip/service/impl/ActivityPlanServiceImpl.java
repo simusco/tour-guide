@@ -200,4 +200,12 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		return activityMapper.getSearchActivityTotalRow(new ActivitySearch(type, tags));
 	}
 
+	@Override
+	public List<ActivityPlan> getActivityPlanByTopicId(String topicId) {
+	
+		
+		
+		return activityMapper.getActivityPlanByTopicId(topicId);
+	}
+
 }

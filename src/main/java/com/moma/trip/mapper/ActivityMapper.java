@@ -13,5 +13,7 @@ public interface ActivityMapper {
 	List<ActivityPlan> searchActivity(ActivitySearch activitySearch);
 
 	Long getSearchActivityTotalRow(ActivitySearch activitySearch);
+
+	List<ActivityPlan> getActivityPlanByTopicId(String topicId);
 	
 }

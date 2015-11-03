@@ -10,8 +10,8 @@ public interface TopicService {
 
 	void deleteTopicById(String id);
 
-	void getTopicPageList(Integer count, Integer page, String orderType);
-
 	List<Topic> searchTopic(Integer count, Integer page);
+
+	Topic getTopicById(String topicId);
 
 }
