@@ -86,7 +86,7 @@
 <body> 
     <div class="header">
         <div class="top">
-            <div class="top_logo"><a href="" class="top_logo--link"></a></div>
+            <div class="top_logo"><a href="<%=request.getContextPath()  %>" class="top_logo--link"></a></div>
             <div class="top_login">
             </div>
         </div>

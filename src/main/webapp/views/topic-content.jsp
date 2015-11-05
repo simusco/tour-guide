@@ -11,8 +11,8 @@
    	<div class="content__topic">
    		<c:forEach items="${topicList }" var="topic">
    	
-   		<div class="topic">
-   			<div class="topic__title"><a href="<%=request.getContextPath()  %>/web/v1/topic/detail.html?topicId=${topic.topicId}">${topic.name }</a></div>
+   		<a title="" href="<%=request.getContextPath()  %>/web/v1/topic/detail.html?topicId=${topic.topicId}" class="topic">
+   			<div class="topic__title">${topic.name }</div>
    			<div class="topic__content">
    				<div class="topic__content--left">
    					<img src="<%=request.getContextPath()  %>/static/images/${topic.imageUrl }" alt="">
@@ -29,7 +29,7 @@
    					</div>
    				</div>
    			</div>
-   		</div>
+   		</a>
    		
    		</c:forEach>
    	</div>

@@ -12,7 +12,7 @@ function gotoPage(pageIndex){
 
 <c:forEach items="${list }" var="route" varStatus="x">
 	<c:if test="${route.type == 'SPOT' }">
-	<div class="route route--theme1 ${x.count == 1 ? '' : 'mtl' }">
+	<a title="${route.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${route.type }&routeId=${route.activityPlanId }" class="route route--theme1 ${x.count == 1 ? '' : 'mtl' }">
 	    <div class="route_img">
 	        <div class="route-img">
 	            <div class="route-img_3img--left">
@@ -26,7 +26,7 @@ function gotoPage(pageIndex){
 	    </div>
 	    <div class="route_desc">
 	        <div class="route-desc_header--theme1">
-	            <h3><a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${route.type }&routeId=${route.activityPlanId }">${route.name }</a></h3>
+	            <h3>${route.name }</h3>
 	            <p>${route.description }</p>
 	        </div>
 	        <div class="route-desc_content--theme1">
@@ -43,11 +43,11 @@ function gotoPage(pageIndex){
 	            </ul>
 	        </div>
 	    </div>
-	</div>
+	</a>
 	</c:if>
 	
 	<c:if test="${route.type == 'HOT' }">
-	<div class="route route--theme1 ${x.count == 1 ? '' : 'mtl' }">
+	<a title="${route.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${route.type }&routeId=${route.activityPlanId }" class="route route--theme1 ${x.count == 1 ? '' : 'mtl' }">
 	    <div class="route_img">
 	        <div class="route-img">
 	            <div class="route-img_1img">
@@ -57,7 +57,7 @@ function gotoPage(pageIndex){
 	    </div>
 	    <div class="route_desc">
 	        <div class="route-desc_header--theme1">
-	            <h3><a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${route.type }&routeId=${route.activityPlanId }">${route.name }</a></h3>
+	            <h3>${route.name }</h3>
 	            <p>${route.description }</p>
 	        </div>
 	        <div class="route-desc_content--theme1">
@@ -87,7 +87,7 @@ function gotoPage(pageIndex){
 	            </ul>
 	        </div>
 	    </div>
-	</div>
+	</a>
 	</c:if>
 </c:forEach>
 

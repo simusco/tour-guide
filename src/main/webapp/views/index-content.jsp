@@ -107,7 +107,7 @@ $(function(){
         <div class="package__body index-grid">
         	<c:forEach items="${hotlist }" var="hot" varStatus="x">
         	<div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
-                <div class="index-hot">
+                <a title="${hot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=HOT&routeId=${hot.activityPlanId }" title="" class="index-hot">
                     <div class="index-hot__img"><img src="<%=request.getContextPath()  %>/${hot.imageURL }" alt=""></div>
                     <div class="index-hot__desc">
                          <div class="hot-desc">
@@ -120,10 +120,10 @@ $(function(){
                          </div>
                     </div>
                     <div class="index-hot__price">
-                        <span class="tag--out">￥${hot.price }元起</span>
+                        <span class="tag--out blod">￥${hot.price }元起</span>
                         <span>/份<del class="font-1x mlm">门市价:${hot.marketPrice }</del></span>
                     </div>
-                </div>
+                </a>
             </div>
         	</c:forEach>
         </div>
@@ -137,13 +137,13 @@ $(function(){
         <div class="package__body index-grid">
         	<c:forEach items="${spotlist }" var="spot" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
-                <div class="index-spot">
+                <a title="${spot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=SPOT&routeId=${spot.activityPlanId }" title="" class="index-spot">
                     <div class="index-spot__img"><img src="<%=request.getContextPath()  %>/${spot.imageURL }" alt=""></div>
                     <div class="index-spot__title">${spot.name }</div>
                     <div class="index-spot__desc--small">
                          <p class="small">${spot.description }</p>
                     </div>
-                </div>
+                </a>
             </div>
             </c:forEach>
         </div>
@@ -154,17 +154,17 @@ $(function(){
                 <small class="package-text__small">为你打造精品主题自驾</small>
             </span>
         </div>
-        <div class="package__body index-grid">
+        <div class="package__body index-grid topic-bg">
         	<c:forEach items="${topiclist }" var="topic" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
-                <div class="index-topic">
+                <a href="http://localhost:8080/tour-guide/web/v1/topic/detail.html?topicId=${topic.topicId }" title=""  class="index-topic">
                     <div class="index-topic__img"><img src="<%=request.getContextPath()  %>/${topic.imageUrl }" alt=""></div>
                     <div class="index-topic__title">
                         <div class="topic-title">
                         	<c:out value="${topic.name }" escapeXml="false"/>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             </c:forEach>
         </div>

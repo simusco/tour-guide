@@ -884,6 +884,10 @@ html {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
   border: 1px solid #dfdfdf;
 }
 /* line 12, C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/susy-2.2.6/sass/susy/output/support/_clearfix.scss */
@@ -892,38 +896,44 @@ html {
   display: block;
   clear: both;
 }
-/* line 30, ../../styles/pages/query.scss */
+/* line 25, ../../styles/base/_mixins.scss */
+.route:active, .route:focus {
+  outline: none;
+  text-decoration: none;
+  color: #333;
+}
+/* line 32, ../../styles/pages/query.scss */
 .route_img {
   width: 59.18367%;
   float: left;
   margin-right: 2.04082%;
 }
-/* line 34, ../../styles/pages/query.scss */
+/* line 36, ../../styles/pages/query.scss */
 .route_desc {
   width: 38.77551%;
   float: right;
   margin-right: 0;
 }
-/* line 38, ../../styles/pages/query.scss */
+/* line 40, ../../styles/pages/query.scss */
 .route--theme1 {
   padding: 5px;
 }
-/* line 40, ../../styles/pages/query.scss */
+/* line 42, ../../styles/pages/query.scss */
 .route--theme1:hover {
   -moz-box-shadow: 0 0 10px rgba(157, 157, 157, 0.5);
   -webkit-box-shadow: 0 0 10px rgba(157, 157, 157, 0.5);
   box-shadow: 0 0 10px rgba(157, 157, 157, 0.5);
 }
 
-/* line 47, ../../styles/pages/query.scss */
+/* line 49, ../../styles/pages/query.scss */
 .route-img_1img {
   line-height: 0px;
 }
-/* line 50, ../../styles/pages/query.scss */
+/* line 52, ../../styles/pages/query.scss */
 .route-img_1img > img {
   width: 100%;
 }
-/* line 55, ../../styles/pages/query.scss */
+/* line 57, ../../styles/pages/query.scss */
 .route-img_3img {
   max-width: 100%;
   margin-left: auto;
@@ -935,42 +945,42 @@ html {
   display: block;
   clear: both;
 }
-/* line 58, ../../styles/pages/query.scss */
+/* line 60, ../../styles/pages/query.scss */
 .route-img_3img--left {
   width: 66.48045%;
   float: left;
   margin-right: 0.55866%;
 }
-/* line 61, ../../styles/pages/query.scss */
+/* line 63, ../../styles/pages/query.scss */
 .route-img_3img--left > img {
   width: 100%;
 }
-/* line 66, ../../styles/pages/query.scss */
+/* line 68, ../../styles/pages/query.scss */
 .route-img_3img--right {
   width: 32.96089%;
   float: right;
   margin-right: 0;
 }
-/* line 70, ../../styles/pages/query.scss */
+/* line 72, ../../styles/pages/query.scss */
 .route-img_3img--right > .img > img {
   width: 100%;
 }
 
-/* line 81, ../../styles/pages/query.scss */
+/* line 83, ../../styles/pages/query.scss */
 .route-desc_header--theme1 > p {
   color: #666;
 }
-/* line 88, ../../styles/pages/query.scss */
+/* line 90, ../../styles/pages/query.scss */
 .route-desc_content--default, .route-desc_content--theme1 {
   border-top: 1px dashed #dfdfdf;
 }
-/* line 93, ../../styles/pages/query.scss */
+/* line 95, ../../styles/pages/query.scss */
 .route-desc_content--theme1 .tag-line {
   color: #666;
   line-height: 40px;
 }
 
-/* line 102, ../../styles/pages/query.scss */
+/* line 104, ../../styles/pages/query.scss */
 .tag-line--default {
   margin: 0;
   padding: 0;
@@ -991,13 +1001,13 @@ html {
   white-space: nowrap;
 }
 
-/* line 107, ../../styles/pages/query.scss */
+/* line 109, ../../styles/pages/query.scss */
 .pagebar {
   text-align: center;
   margin-top: 55px;
 }
 
-/* line 113, ../../styles/pages/query.scss */
+/* line 115, ../../styles/pages/query.scss */
 .pagination {
   margin: 0;
   padding: 0;
@@ -1058,25 +1068,25 @@ html {
   color: #fff;
 }
 
-/* line 118, ../../styles/pages/query.scss */
+/* line 120, ../../styles/pages/query.scss */
 .route-filter_cond, .route-filter_tags, .route-filter_result {
   height: 45px;
   line-height: 45px;
   border-bottom: 1px solid #dfdfdf;
 }
 
-/* line 132, ../../styles/pages/query.scss */
+/* line 134, ../../styles/pages/query.scss */
 .route-order_tags {
   line-height: 80px;
   height: 80px;
 }
-/* line 136, ../../styles/pages/query.scss */
+/* line 138, ../../styles/pages/query.scss */
 .route-order_tags .tag--divider {
   border-left: 1px solid #dfdfdf;
   padding-top: 0px;
   padding-bottom: 0px;
 }
-/* line 141, ../../styles/pages/query.scss */
+/* line 143, ../../styles/pages/query.scss */
 .route-order_tags .tag--divider.active {
   color: #f94b4b;
 }
