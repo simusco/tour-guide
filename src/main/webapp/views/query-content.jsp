@@ -79,7 +79,7 @@
 					tagstr += $.param({'tags' : tags[x]});
 					tagstr += '&';
 				}
-				tagstr += $.param({'order': orderBy, 'orderType' : '-1' , 'page' : page, count : 15});
+				tagstr += $.param({type:'${type}','order': orderBy, 'orderType' : '-1' , 'page' : page, count : 15});
 				
 				$('*[ui-route-content]').each(function(){
 					var self = $(this);

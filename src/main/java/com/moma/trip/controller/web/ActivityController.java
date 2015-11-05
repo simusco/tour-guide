@@ -76,7 +76,7 @@ public class ActivityController extends MultiActionController {
 	}
 	
 	@RequestMapping(value="/query.html",method=RequestMethod.GET)
-	public ModelAndView query(){
+	public ModelAndView query(String type){
 		List<Tags> tagTypeList = new ArrayList<Tags>();
 		List<Tags> tagList = tagsService.getTagList();
 		
@@ -92,12 +92,13 @@ public class ActivityController extends MultiActionController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tagTypeList", tagTypeList);
 		map.put("tagList", tagList);
+		map.put("type", type);
 		
 		return new ModelAndView("query", map);
 	}
 	
 	@RequestMapping(value="/query/route.html",method=RequestMethod.GET)
-	public ModelAndView queryRoute(ActivitySearch search){
+	public ModelAndView queryRoute(ActivitySearch search, String type){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", activityPlanService.searchActivity(
 				search.getType(), 
@@ -123,12 +124,13 @@ public class ActivityController extends MultiActionController {
 			search.setTotalPage(totalPage);
 		}
 		map.put("search", search);
+		map.put("type", type);
 		
 		return new ModelAndView("query-route", map);
 	}
 	
 	@RequestMapping(value="/detail.html",method=RequestMethod.GET)
-	public ModelAndView detail(String routeId){
+	public ModelAndView detail(String routeId, String type){
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -158,12 +160,14 @@ public class ActivityController extends MultiActionController {
 		List<ActivityExtra> activityExtraList = activityExtraService.getActivityExtraByActivityId(routeId);
 		map.put("activityExtraList", activityExtraList);
 		
+		map.put("type", type);//已经超出想象，要死的节奏
+		
 		return new ModelAndView("detail", map);
 	}
 	
 	
 	@RequestMapping(value="/goodness.html",method=RequestMethod.GET)
-	public ModelAndView goodness(String routeId){
+	public ModelAndView goodness(String routeId, String type){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ActivityPlan route = activityPlanService.getActivityPlanById(routeId);
@@ -175,6 +179,7 @@ public class ActivityController extends MultiActionController {
 		//获取亮点
 		List<Goodness> goodnessList = goodnessService.getGoodnessByActivityId(routeId);
 		map.put("goodnessList", goodnessList);
+		map.put("type", type);//已经超出想象，要死的节奏
 		
 		return new ModelAndView("goodness", map);
 	}

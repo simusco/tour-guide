@@ -17,7 +17,7 @@ import com.moma.trip.service.TopicService;
 
 @Scope(value="prototype")
 @RequestMapping("/topic")
-@Controller("adminTopicController")
+@Controller("AdminTopicController")
 public class TopicController extends RestfulController {
 
 	@Resource

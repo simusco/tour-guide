@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.SignUpMapper">
+
+	<insert id="saveUser" parameterType="com.moma.trip.po.User"
+		statementType="PREPARED">
+		<![CDATA[
+			insert into sys_user(
+				user_id,
+				login_id,
+				enable,
+				password,
+				name,
+				last_login_time,
+				icon,
+				introduce,
+				tags,
+				role_id,
+				salt,
+				create_time,
+				update_time
+			)
+			values(
+				#{userId},
+				#{loginId},
+				#{enable},
+				#{password},
+				#{name},
+				#{lastLoginTime},
+				#{icon},
+				#{introduce},
+				#{tags},
+				#{roleId},
+				#{salt},
+				#{createTime},
+				#{updateTime}
+			)
+		]]>
+	</insert>
+	
+	<select 
+		id="getUserByLoginId" 
+		resultType="com.moma.trip.po.User" 
+		parameterType="java.lang.String"
+		statementType="PREPARED">
+		<![CDATA[
+			select 
+				user_id as userId,
+				login_id as loginId,
+				enable as enable,
+				password as password,
+				name as name,
+				last_login_time as lastLoginTime,
+				icon as icon,
+				introduce as introduce,
+				tags as tags,
+				role_id as roleId,
+				salt as salt,
+				create_time as createTime,
+				update_time as updateTime
+			from sys_user
+			where login_id = #{loginId} and enable = 'Y'
+		]]>
+	</select>
+	
+</mapper>

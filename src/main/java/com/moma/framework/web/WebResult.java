@@ -2,6 +2,9 @@ package com.moma.framework.web;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+
 public class WebResult implements Serializable{
 
 	/**
@@ -28,6 +31,14 @@ public class WebResult implements Serializable{
 
 	public boolean isFlag() {
 		return flag;
+	}
+	
+	public String toJsonString(){
+		return JSON.toJSONString(this);
+	}
+	
+	public byte[] toJSONBytes(){
+		return JSON.toJSONBytes(this, SerializerFeature.values());
 	}
 
 }

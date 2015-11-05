@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.ActivityPlan;
 import com.moma.trip.po.Topic;
 import com.moma.trip.service.ActivityPlanService;
@@ -20,8 +20,8 @@ import com.moma.trip.service.TopicService;
 
 @Scope(value="prototype")
 @RequestMapping("/web/v1/topic")
-@Controller("webTopicController")
-public class TopicController extends RestfulController {
+@Controller("WebTopicController")
+public class TopicController extends MultiActionController {
 
 	@Resource
 	private TopicService topicService;

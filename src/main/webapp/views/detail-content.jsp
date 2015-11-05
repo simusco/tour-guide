@@ -12,8 +12,8 @@
 	<div class="content__overview">
 		<div class="overview__header">
             <ol class="bread-crumb">
-                <li><a href="<%=request.getContextPath()  %>/web/v1/activity/query.html">套餐&gt;&gt;</a></li>
-                <li><a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?routeId=${route.activityPlanId }">${route.name }</a></li>
+                <li><a href="<%=request.getContextPath()  %>/web/v1/activity/query.html?type=${type}">套餐&gt;&gt;</a></li>
+                <li><a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${type}&routeId=${route.activityPlanId }">${route.name }</a></li>
             </ol>
         </div>
         <div class="overview__body">
@@ -105,7 +105,7 @@
 	                <li>
 	                	<c:forEach items="${goodnessList }" var="goodness">
 	                	<c:if test="${goodness.type == 'EAT' }">
-	                    <span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
+	                    <span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default" target="_blank">${goodness.name }</a></span>
 	                    </c:if>
 	                    </c:forEach>
 	                </li>

@@ -1,38 +1,93 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>首页</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
-        
-        <link rel="stylesheet" href="styles/font-awesome.min.css">
-	    <!--[if IE 7]>
-	        <link rel="stylesheet" href="styles/font-awesome-ie7.min.css">
-	    <![endif]-->
+<html>
 
-        <link rel="stylesheet" href="styles/pages/login.css">
-        <script src="scripts/modernizr.js"></script>
-        <!--[if lt IE 9]>
-        <script src="scripts/html5shiv.js"></script>
-        <script src="scripts/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<head>
+<title>用户登陆</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="icon" href="<%=request.getContextPath()  %>/images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/pages/signin.css">
+<link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/font-awesome.min.css">
+<script src="<%=request.getContextPath()  %>/scripts/modernizr.js"></script>
+<script src="<%=request.getContextPath()  %>/scripts/jquery.min.js"></script>
+<script type="text/javascript">var contextPath = '<%=request.getContextPath()  %>';</script>
+<!--[if lt IE 9]>
+<script src="<%=request.getContextPath()  %>/scripts/html5shiv.js"></script>
+<script src="<%=request.getContextPath()  %>/scripts/respond.min.js"></script>
+<![endif]-->
 
+<script type="text/javascript">
+	
+	function printMsg(msg) {
+		var c = $('*[ui-valid-msg=msg]');
+		c.empty();
+		c.append(msg);
+	}
+	
+	function checkIsPhontNo(string) {
+		return !!string
+				.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+	}
+	
+	$(function(){
+		
+		$('#signin').click(function(){
+			var phoneNo = $('input[name=phoneNo]').val();
+				password = $('input[name=password]').val();
+			
+				
+			if(phoneNo == null || phoneNo == ''){
+				printMsg('<small>*请输入登陆手机号!</small>');
+				return;
+			}
+			
+			if(!checkIsPhontNo(phoneNo)){
+				printMsg('<small>*登陆手机号不正确!</small>');
+				return;
+			}
+			
+			if(password == null || password == ''){
+				printMsg('<small>*请输入登陆密码</small>');
+				return;
+			}
+			
+			$.ajax({
+				url : '<%=request.getContextPath()  %>/web/v1/user/signin.html',
+				method : 'POST',
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {'phoneNo' : phoneNo, 'password' : password},
+				success : function(resp) {
+					var obj = $.parseJSON(resp),
+						flag = obj.flag, 
+						msg = obj.msg;
+					
+					if(flag){
+						printMsg('<small>*登陆成功!</small>');
+						window.location.href='<%=request.getContextPath()  %>/web/v1/activity/index.html';
+					}else{
+						printMsg(msg);
+					}
+				},
+				error : function(resp) {
+					printMsg('<small>*网络出现问题，刷新页面重新尝试！</small>');
+				}
+			});
+		});
+		
+	});
+	
+</script>
+
+</head>
+<body> 
     <div class="header">
         <div class="top">
             <div class="top_logo"><a href="" class="top_logo--link"></a></div>
             <div class="top_login">
-                
             </div>
         </div>
     </div>
@@ -52,7 +107,7 @@
                         <div class="row mtl">
                             <div class="span-2"></div>
                             <div class="span-10-last">
-                                <span class="msg--error"><small>*手机号或密码不正确</small></span>
+                                <span class="msg--error" ui-valid-msg="msg"></span>
                             </div>
                         </div>
                         <div class="row mts">
@@ -61,7 +116,7 @@
                                 <span class="input-icon">
                                     <span class="input-icon__icon">
                                         <i class="icon-user"></i>
-                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码">
+                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo">
                                 </span>
                             </div>
                         </div>
@@ -72,7 +127,7 @@
                                 <span class="input-icon">
                                     <span class="input-icon__icon">
                                         <i class="icon-lock"></i>
-                                    </span><input type="text" class="input-icon__input" placeholder="请输入密码">
+                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password">
                                 </span>
                             </div>
                         </div>
@@ -91,19 +146,16 @@
                         <div class="row mtl">
                             <div class="span-2">&nbsp;</div>
                             <div class="span-8">
-                                <input type="button" value="登陆" class="btn--login">
+                                <input type="button" value="登陆" class="btn--login" id="signin">
                             </div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
 
                         <div class="row mts">
                             <div class="span-2">&nbsp;</div>
-                            <div class="span-8">
-                                还没有账号？<a href="">马上注册</a>
-                            </div>
+                            <div class="span-8">还没有账号？<a href="">马上注册</a></div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
-
                         <div class="row mtl"></div>
                     </form>
                 </div>
@@ -119,21 +171,5 @@
         </div>
         <div class="copyright--login">Copyright 2003-2015 墨马科技公司版权所有</div>
     </div>
-
-
-        <script src="scripts/vendor.min.js"></script>
-
-        <script src="scripts/main.min.js"></script>
-
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-XXXXX-X', 'auto');
-            ga('send', 'pageview');
-
-        </script>
-    </body>
+</body>
 </html>

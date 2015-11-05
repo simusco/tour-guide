@@ -1,10 +1,10 @@
 requirejs.config({
 	paths: {
-		angular: 'angular',
-		uiRouter: 'angular-ui-router',
-		jquery: 'jquery.min',
-		angularResource: 'angular-resource',
-		angularFileupload: 'angular-file-upload'
+		angular: '../angular',
+		uiRouter: '../angular-ui-router',
+		jquery: '../jquery.min',
+		angularResource: '../angular-resource',
+		angularFileupload: '../angular-file-upload'
     },
     shim: {
         'jquery': {
