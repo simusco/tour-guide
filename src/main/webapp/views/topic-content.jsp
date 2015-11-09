@@ -6,7 +6,7 @@
 
 <div class="content mtl">
    	<div class="content__adv">
-   		<a href=""><img src="<%=request.getContextPath()  %>/images/topic/topic-adv.png" alt=""></a>
+   		<a href=""><img src="${staticServerPath1 }/images/topic/topic-adv.png" alt=""></a>
    	</div>
    	<div class="content__topic">
    		<c:forEach items="${topicList }" var="topic">
@@ -15,7 +15,7 @@
    			<div class="topic__title">${topic.name }</div>
    			<div class="topic__content">
    				<div class="topic__content--left">
-   					<img src="<%=request.getContextPath()  %>/static/images/${topic.imageUrl }" alt="">
+   					<img src="${staticServerPath1 }/images/${topic.imageUrl }" alt="">
    				</div>
    				<div class="topic__content--right">
    					<div class="topic-content__desc">

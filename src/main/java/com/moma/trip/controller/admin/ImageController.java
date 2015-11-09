@@ -29,7 +29,7 @@ public class ImageController extends RestfulController {
 
 	@Resource
 	private ImageService imageService;
-	private String rootPath = "d:/tour-guide/upload";
+	private String rootPath = "E:/apache/tour-guide/static/images";
 	
 	@RequestMapping(value="/upload/{activityId}/{type}",method=RequestMethod.POST)
 	@ResponseBody

@@ -9,15 +9,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
-<link rel="icon" href="<%=request.getContextPath()  %>/images/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/pages/signin.css">
-<link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/font-awesome.min.css">
-<script src="<%=request.getContextPath()  %>/scripts/modernizr.js"></script>
-<script src="<%=request.getContextPath()  %>/scripts/jquery.min.js"></script>
+<link rel="icon" href="${staticServerPath1 }/images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/signin.css">
+<link rel="stylesheet" href="${staticServerPath1 }/styles/font-awesome.min.css">
+<script src="${staticServerPath1 }/scripts/modernizr.js"></script>
+<script src="${staticServerPath1 }/scripts/jquery.min.js"></script>
 <script type="text/javascript">var contextPath = '<%=request.getContextPath()  %>';</script>
 <!--[if lt IE 9]>
-<script src="<%=request.getContextPath()  %>/scripts/html5shiv.js"></script>
-<script src="<%=request.getContextPath()  %>/scripts/respond.min.js"></script>
+<script src="${staticServerPath1 }/scripts/html5shiv.js"></script>
+<script src="${staticServerPath1 }/scripts/respond.min.js"></script>
 <![endif]-->
 
 <script type="text/javascript">
@@ -153,7 +153,7 @@
 
                         <div class="row mts">
                             <div class="span-2">&nbsp;</div>
-                            <div class="span-8">还没有账号？<a href="">马上注册</a></div>
+                            <div class="span-8">还没有账号？<a href="<%=request.getContextPath()  %>/web/v1/user/signup.html">马上注册</a></div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
                         <div class="row mtl"></div>

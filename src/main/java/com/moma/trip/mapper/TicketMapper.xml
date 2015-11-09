@@ -48,6 +48,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<select id="getTicketById" resultType="com.moma.trip.po.Ticket">
+		<![CDATA[
+			select 
+				ticket_id as ticketId,
+				activity_id as activityId,
+				name,
+				detail,
+				icon,
+				hotel_code as hotelCode,
+				spot_code as spotCode,
+				sychtime
+			from mc_ticket
+			where 
+				ticket_id = #{0}
+		]]>
+	</select>
+	
 	<select id="getTicketList" resultType="com.moma.trip.po.Ticket">
 		<![CDATA[
 			select 
@@ -75,5 +92,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			delete from mc_ticket where ticket_id = #{0}
 		]]>
 	</delete>
+	
+	<select id="getTicketDetailList" resultType="com.moma.trip.po.TicketDetail">
+		<![CDATA[
+			select 
+				ticket_detail_id as ticketDetailId,
+				ticket_id as ticketId,
+				name,
+				description,
+				type,
+				image_url as imageUrl,
+				code
+			from mc_ticket_detail
+			where 
+				ticket_id = #{0}
+		]]>
+	</select>
 	
 </mapper>

@@ -6,10 +6,11 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
 <link rel="icon" href="${staticServerPath1 }/images/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/spot.css">
+<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/order-generate.css">
 <script src="${staticServerPath1 }/scripts/modernizr.js"></script>
 <script src="${staticServerPath1 }/scripts/jquery.min.js"></script>
 <!--[if lt IE 9]>
 <script src="${staticServerPath1 }/scripts/html5shiv.js"></script>
 <script src="${staticServerPath1 }/scripts/respond.min.js"></script>
+<script src="${staticServerPath1 }/scripts/json2.js"></script>
 <![endif]-->

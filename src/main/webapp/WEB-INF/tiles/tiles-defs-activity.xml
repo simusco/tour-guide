@@ -32,4 +32,6 @@
 		<put-attribute name="content" value="/views/goodness-content.jsp"/>
 	</definition>
 	
+	<definition name="detail-ticket" template="/views/detail-ticket.jsp"/>
+	
 </tiles-definitions>

@@ -1,7 +1,9 @@
 package com.moma.trip.controller.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -161,10 +163,33 @@ public class ActivityController extends MultiActionController {
 		map.put("activityExtraList", activityExtraList);
 		
 		map.put("type", type);//已经超出想象，要死的节奏
+		map.put("currdate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		
 		return new ModelAndView("detail", map);
 	}
 	
+	@RequestMapping(value="/ticket.html",method=RequestMethod.GET)
+	public ModelAndView ticket(String routeId, String date){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(date != null){
+			String[] dd = date.split("-");
+			try{
+				if(dd.length == 3){
+					List<Ticket> ticketList = ticketService.getTicketList(
+							routeId, 
+							Integer.parseInt(dd[0]),
+							Integer.parseInt(dd[1]),
+							Integer.parseInt(dd[2]));
+					map.put("ticketList", ticketList);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		return new ModelAndView("detail-ticket", map);
+	}
 	
 	@RequestMapping(value="/goodness.html",method=RequestMethod.GET)
 	public ModelAndView goodness(String routeId, String type){

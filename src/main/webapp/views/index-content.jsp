@@ -76,9 +76,9 @@ $(function(){
 <div class="advertise">
     <div class="advertise__screen" ui-animation="adv">
     
-    	<img alt="" ui-animation-img="" src="<%=request.getContextPath()  %>/images/index/banner1.png" style="display:none">
-        <img alt="" ui-animation-img="" src="<%=request.getContextPath()  %>/images/index/banner2.png" style="display:none">
-        <img alt="" ui-animation-img="" src="<%=request.getContextPath()  %>/images/index/banner1.png" style="display:none">
+    	<img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner1.png" style="display:none">
+        <img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner2.png" style="display:none">
+        <img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner1.png" style="display:none">
 
         <div class="advertise__ctrlbar">
             <div class="ctrlbar">
@@ -108,7 +108,7 @@ $(function(){
         	<c:forEach items="${hotlist }" var="hot" varStatus="x">
         	<div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
                 <a title="${hot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=HOT&routeId=${hot.activityPlanId }" title="" class="index-hot">
-                    <div class="index-hot__img"><img src="<%=request.getContextPath()  %>/${hot.imageURL }" alt=""></div>
+                    <div class="index-hot__img"><img src="${staticServerPath1 }/${hot.imageURL }" alt=""></div>
                     <div class="index-hot__desc">
                          <div class="hot-desc">
                              <h4 class="hot-desc__title">${hot.name }</h4>
@@ -138,7 +138,7 @@ $(function(){
         	<c:forEach items="${spotlist }" var="spot" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
                 <a title="${spot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=SPOT&routeId=${spot.activityPlanId }" title="" class="index-spot">
-                    <div class="index-spot__img"><img src="<%=request.getContextPath()  %>/${spot.imageURL }" alt=""></div>
+                    <div class="index-spot__img"><img src="${staticServerPath1 }/images/${spot.imageURL }" alt=""></div>
                     <div class="index-spot__title">${spot.name }</div>
                     <div class="index-spot__desc--small">
                          <p class="small">${spot.description }</p>
@@ -158,7 +158,7 @@ $(function(){
         	<c:forEach items="${topiclist }" var="topic" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
                 <a href="http://localhost:8080/tour-guide/web/v1/topic/detail.html?topicId=${topic.topicId }" title=""  class="index-topic">
-                    <div class="index-topic__img"><img src="<%=request.getContextPath()  %>/${topic.imageUrl }" alt=""></div>
+                    <div class="index-topic__img"><img src="${staticServerPath1 }/images/${topic.imageUrl }" alt=""></div>
                     <div class="index-topic__title">
                         <div class="topic-title">
                         	<c:out value="${topic.name }" escapeXml="false"/>
@@ -175,22 +175,22 @@ $(function(){
         </div>
         <div class="package__body index-grid">
             <div class="advantage span-3">
-                <img src="<%=request.getContextPath()  %>/images/index/advance01.png" class="advantage__img">
+                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
                 <p class="advantage__title">【精品线路】</p>
                 <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
             </div>
             <div class="advantage span-3">
-                <img src="<%=request.getContextPath()  %>/images/index/advance01.png" class="advantage__img">
+                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
                 <p class="advantage__title">【精品线路】</p>
                 <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
             </div>
             <div class="advantage span-3">
-                <img src="<%=request.getContextPath()  %>/images/index/advance01.png" class="advantage__img">
+                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
                 <p class="advantage__title">【精品线路】</p>
                 <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
             </div>
             <div class="advantage span-3-last">
-                <img src="<%=request.getContextPath()  %>/images/index/advance01.png" class="advantage__img">
+                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
                 <p class="advantage__title">【精品线路】</p>
                 <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
             </div>
@@ -198,7 +198,7 @@ $(function(){
     </div>
     <div class="content__foobanner">
         <div class="foot-banner">
-            <img src="<%=request.getContextPath()  %>/images/index/bottom-banner.png" class="foot-banner__img">
+            <img src="${staticServerPath1 }/images/index/bottom-banner.png" class="foot-banner__img">
         </div>
     </div>
 </div>

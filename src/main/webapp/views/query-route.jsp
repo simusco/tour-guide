@@ -16,11 +16,11 @@ function gotoPage(pageIndex){
 	    <div class="route_img">
 	        <div class="route-img">
 	            <div class="route-img_3img--left">
-	                <img src="<%=request.getContextPath()  %>/images/query/t1.png" alt="">
+	                <img src="${staticServerPath1 }/images/query/t1.png" alt="">
 	            </div>
 	            <div class="route-img_3img--right">
-	                <div class="img"><img src="<%=request.getContextPath()  %>/images/query/t2.png" alt=""></div>
-	                <div class="img"><img src="<%=request.getContextPath()  %>/images/query/t3.png" alt=""></div>
+	                <div class="img"><img src="${staticServerPath1 }>/images/query/t2.png" alt=""></div>
+	                <div class="img"><img src="${staticServerPath1 }/images/query/t3.png" alt=""></div>
 	            </div>
 	        </div>
 	    </div>
@@ -51,7 +51,7 @@ function gotoPage(pageIndex){
 	    <div class="route_img">
 	        <div class="route-img">
 	            <div class="route-img_1img">
-                     <img src="<%=request.getContextPath()  %>/images/query/route-01.png" alt="">
+                     <img src="${staticServerPath1 }/images/${route.imageURL}" alt="">
                  </div>
 	        </div>
 	    </div>

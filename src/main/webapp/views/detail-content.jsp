@@ -3,8 +3,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<script src="${staticServerPath1 }/scripts/laydate/laydate.js"></script>
 <script type="text/javascript">
-
+	$(function(){
+		laydate({
+		    elem: '#open-calendar',
+		    format: 'YYYY-MM-DD',
+		    festival: true,
+		    min: laydate.now(0),
+		    max: laydate.now(+30),
+		    isclear:false,
+		    choose: function(choseDate){
+		    	$.ajax({
+					url : '<%=request.getContextPath()  %>/web/v1/activity/ticket.html',
+					method : 'GET',
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+					data : {'routeId' : '${route.activityPlanId }', 'date' : choseDate},
+					success : function(resp) {
+						var tl = $('#ticket-list');
+						tl.empty();
+						tl.append(resp);
+						$('div[ticket-time]').attr('ticket-time',choseDate);
+					},
+					error : function(resp) {
+						alert('网络出现问题，刷新页面重新尝试！');
+					}
+				});
+		    	
+		    }
+		});
+	});
 </script>
 
 <div class="content mtl">
@@ -21,7 +49,11 @@
                 <div class="route_img">
                     <div class="route-img">
                         <div class="route-img__screen">
-                            <div class="img-screen"><img src="<%=request.getContextPath()  %>/images/detail/hotel-01.png"></div>
+                            <div class="img-screen">
+                            	<c:forEach items="${route.imageList }" var="image" varStatus="x" begin="0" end="0">
+                            		<img src="<%=request.getContextPath()  %>/images/${image.path}">
+                            	</c:forEach>
+                            </div>
                         </div>
                         <div class="route-img__control">
                             <div class="img-control">
@@ -30,7 +62,7 @@
                                 	<c:forEach items="${route.imageList }" var="image" varStatus="x">
 	                                	<c:if test="${image.type == 'DETAIL-HEADER' }">
 		                                    <div class="image-review">
-		                                        <img src="<%=request.getContextPath()  %>/static/images/${image.path}">
+		                                        <img src="<%=request.getContextPath()  %>/images/${image.path}">
 		                                    </div>
 	                                    </c:if>
                                     </c:forEach>
@@ -142,19 +174,16 @@
 	        <div class="panel__content">
 	            <div class="book__datapicker">
 	                <span class="book__datapicker--title">选择出行日期:</span>
-	                <div class="open-calendar" data-time="2015-10-30">
-	                    <i class="open-calendar__day">10-30</i>
-	                    <i class="open-calendar__week">（周五）</i>
-	                    <i class="open-calendar__unselected" style="display: none">未选择</i>
-	                    <em class="open-calendar__em"></em>
+	                <div class="open-calendar" id="open-calendar" ticket-time="${currdate }">
+	                	${currdate }
 	                </div>
 	            </div>
-	            <div class="book__table">
+	            <div class="book__table" id="ticket-list">
 	            	<c:forEach items="${ticketList }" var="ticket">
 	                <div class="book-ticket">
 	                    <div class="span-2 book-ticket__image">
 	                        <div class="ticket-image">
-	                            <div class="ticket-image__img"><img src="<%=request.getContextPath()  %>/static/images/${ticket.icon }"></div>
+	                            <div class="ticket-image__img"><img src="<%=request.getContextPath()  %>/images/${ticket.icon }"></div>
 	                        </div>
 	                    </div>
 	                    <div class="span-4 book-ticket__name">

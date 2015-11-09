@@ -39,4 +39,8 @@
     	<welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
     
+    <listener>
+    	<listener-class>com.moma.framework.web.StaticResourceListener</listener-class>
+    </listener>
+    
 </web-app>
