@@ -17,4 +17,6 @@ public interface TicketService {
 
 	List<TicketDetail> getTicketDetailList(String ticketId);
 
+	TicketDetail getTicketDetailById(String ticketDetailId);
+
 }

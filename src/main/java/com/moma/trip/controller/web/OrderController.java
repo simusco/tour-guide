@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.Order;
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
+import com.moma.trip.po.User;
 import com.moma.trip.service.OrderService;
 import com.moma.trip.service.TicketService;
 
@@ -56,11 +58,17 @@ public class OrderController  extends RestfulController {
 	
 	@RequestMapping(value="/generate.html",method=RequestMethod.POST)
 	@ResponseBody
-	public byte[] generate(@RequestBody Order order){
+	public byte[] generate(@RequestBody Order order, HttpServletRequest request){
 		
 		//保存mc_order
 		//保存mc_order_detail
 		//保存mc_order_visitor
+		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
+		if(user == null){
+			//TODO 进入登陆页面
+		}
+		order.setUserId(user.getUserId());
+		
 		String orderId = orderService.save(order);
 		
 		return null;

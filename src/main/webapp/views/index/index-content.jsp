@@ -108,7 +108,7 @@ $(function(){
         	<c:forEach items="${hotlist }" var="hot" varStatus="x">
         	<div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
                 <a title="${hot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=HOT&routeId=${hot.activityPlanId }" title="" class="index-hot">
-                    <div class="index-hot__img"><img src="${staticServerPath1 }/${hot.imageURL }" alt=""></div>
+                    <div class="index-hot__img"><img src="${staticServerPath1 }/images/${hot.imageURL }" alt=""></div>
                     <div class="index-hot__desc">
                          <div class="hot-desc">
                              <h4 class="hot-desc__title">${hot.name }</h4>
@@ -116,7 +116,7 @@ $(function(){
                                 <span class="tag--out">${hot.hasSaled }</span>人购买 
                                 <span class="tag--out">${hot.goodReviewPer }%</span>好评
                             </p>
-                             <p class="hot-desc__text">${hot.description }</p>
+                             <p class="hot-desc__text">${fn:substring(hot.description, 0, 46) }${fn:length(hot.description) > 46 ? "..." : ""}</p>
                          </div>
                     </div>
                     <div class="index-hot__price">
@@ -141,7 +141,7 @@ $(function(){
                     <div class="index-spot__img"><img src="${staticServerPath1 }/images/${spot.imageURL }" alt=""></div>
                     <div class="index-spot__title">${spot.name }</div>
                     <div class="index-spot__desc--small">
-                         <p class="small">${spot.description }</p>
+                         <p class="small">${fn:substring(spot.description, 0, 32) }${fn:length(spot.description) > 32 ? "..." : ""}</p>
                     </div>
                 </a>
             </div>

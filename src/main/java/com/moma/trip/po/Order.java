@@ -14,12 +14,22 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 4551830575529934245L;
 
 	private String orderId;
+	
+	private String orderNo;
 
 	private String ticketId;
-	
+
 	private String ticketDetailId;
-	
+
+	private String ticketIcon;
+
+	private String ticketName;
+
+	private String ticketDesc;
+
 	private String entryTime;
+
+	private String endTime;
 
 	private Integer quantity;
 
@@ -30,15 +40,17 @@ public class Order implements Serializable {
 	private String status;
 
 	private String isPay;
-	
+
 	private String userId;
-	
+
 	private String loginId;
-	
+
 	private String remark;
-	
+
+	private String bookDay;
+
 	private List<OrderVisitor> orderVisitors = new ArrayList<OrderVisitor>();
-	
+
 	public String getOrderId() {
 		return orderId;
 	}
@@ -63,12 +75,36 @@ public class Order implements Serializable {
 		this.ticketDetailId = ticketDetailId;
 	}
 
+	public String getTicketName() {
+		return ticketName;
+	}
+
+	public void setTicketName(String ticketName) {
+		this.ticketName = ticketName;
+	}
+
+	public String getTicketDesc() {
+		return ticketDesc;
+	}
+
+	public void setTicketDesc(String ticketDesc) {
+		this.ticketDesc = ticketDesc;
+	}
+
 	public String getEntryTime() {
 		return entryTime;
 	}
 
 	public void setEntryTime(String entryTime) {
 		this.entryTime = entryTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public Integer getQuantity() {
@@ -135,12 +171,36 @@ public class Order implements Serializable {
 		this.remark = remark;
 	}
 
-	public List<OrderVisitor> getVisitors() {
+	public String getBookDay() {
+		return bookDay;
+	}
+
+	public void setBookDay(String bookDay) {
+		this.bookDay = bookDay;
+	}
+
+	public List<OrderVisitor> getOrderVisitors() {
 		return orderVisitors;
 	}
 
-	public void setVisitors(List<OrderVisitor> orderVisitors) {
+	public void setOrderVisitors(List<OrderVisitor> orderVisitors) {
 		this.orderVisitors = orderVisitors;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getTicketIcon() {
+		return ticketIcon;
+	}
+
+	public void setTicketIcon(String ticketIcon) {
+		this.ticketIcon = ticketIcon;
 	}
 
 }

@@ -51,7 +51,7 @@
                         <div class="route-img__screen">
                             <div class="img-screen">
                             	<c:forEach items="${route.imageList }" var="image" varStatus="x" begin="0" end="0">
-                            		<img src="<%=request.getContextPath()  %>/images/${image.path}">
+                            		<img src="${staticServerPath1 }/images/${image.path}">
                             	</c:forEach>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 	<c:forEach items="${route.imageList }" var="image" varStatus="x">
 	                                	<c:if test="${image.type == 'DETAIL-HEADER' }">
 		                                    <div class="image-review">
-		                                        <img src="<%=request.getContextPath()  %>/images/${image.path}">
+		                                        <img src="${staticServerPath1 }/images/${image.path}">
 		                                    </div>
 	                                    </c:if>
                                     </c:forEach>
@@ -147,7 +147,7 @@
 	                <li>
 	                    <c:forEach items="${goodnessList }" var="goodness">
 	                	<c:if test="${goodness.type == 'PLAY' }">
-	                    <span><a href="" class="tag--default">${goodness.name }</a></span>
+	                    <span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
 	                    </c:if>
 	                    </c:forEach>
 	                </li>
@@ -157,7 +157,7 @@
 	                <li>
 	                    <c:forEach items="${goodnessList }" var="goodness">
 	                	<c:if test="${goodness.type == 'SPOT' }">
-	                    <span><a href="" class="tag--default">${goodness.name }</a></span>
+	                    <span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
 	                    </c:if>
 	                    </c:forEach>
 	                </li>
@@ -183,7 +183,7 @@
 	                <div class="book-ticket">
 	                    <div class="span-2 book-ticket__image">
 	                        <div class="ticket-image">
-	                            <div class="ticket-image__img"><img src="<%=request.getContextPath()  %>/images/${ticket.icon }"></div>
+	                            <div class="ticket-image__img"><img src="${staticServerPath1 }/images/${ticket.icon }"></div>
 	                        </div>
 	                    </div>
 	                    <div class="span-4 book-ticket__name">

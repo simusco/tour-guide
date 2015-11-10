@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.OrderMapper">
+
+	<insert id="saveOrder" parameterType="com.moma.trip.po.Order">
+		<![CDATA[
+			INSERT INTO mc_order
+			(
+				order_id,
+				ticket_id,
+				entry_time,
+				quantity,
+				create_time,
+				total_price,
+				status,
+				is_pay,
+				user_id,
+				remark,
+				order_no,
+				ticket_icon,
+				ticket_name,
+				ticket_desc,
+				end_time
+			)
+			VALUES 
+			(
+				#{orderId}, 
+				#{ticketId}, 
+				#{entryTime}, 
+				#{quantity}, 
+				#{createTime}, 
+				#{totalPrice},
+				#{status},
+				#{isPay},
+				#{userId},
+				#{remark},
+				#{orderNo},
+				#{ticketIcon},
+				#{ticketName},
+				#{ticketDesc},
+				#{endTime}
+			)
+		]]>
+	</insert>
+	
+	
+	<insert id="saveOrderDetail" parameterType="com.moma.trip.po.OrderDetail">
+		<![CDATA[
+			INSERT INTO mc_order_detail
+			(
+				order_detail_id,
+				order_id,
+				ticket_id,
+				ticket_name,
+				ticket_detail_id,
+				ticket_detail_name,
+				price,
+				market_price,
+				type,
+				code
+			)
+			VALUES 
+			(
+				#{orderDetailId}, 
+				#{orderId}, 
+				#{ticketId}, 
+				#{ticketName}, 
+				#{ticketDetailId}, 
+				#{ticketDetailName},
+				#{price},
+				#{marketPrice},
+				#{type},
+				#{code}
+			)
+		]]>
+	</insert>
+	
+	<insert id="saveOrderVisitor" parameterType="com.moma.trip.po.OrderVisitor">
+		<![CDATA[
+			INSERT INTO mc_order_visitor
+			(
+				order_visitor_id,
+				order_id,
+				name,
+				telephone,
+				card_type,
+				idcard
+			)
+			VALUES 
+			(
+				#{orderVisitorId}, 
+				#{orderId}, 
+				#{name}, 
+				#{telephone}, 
+				#{cardType}, 
+				#{idcard}
+			)
+		]]>
+	</insert>
+	
+	<select id="getOrderList" resultType="com.moma.trip.po.Order">
+		<![CDATA[
+			select 
+				order_id as orderId,
+				ticket_id as ticketId,
+				entry_time as entryTime,
+				quantity as quantity,
+				create_time as createTime,
+				total_price as totalPrice,
+				status as status,
+				is_pay as isPay,
+				user_id as userId,
+				remark as remark,
+				order_no as orderNo,
+				ticket_icon as ticketIcon,
+				ticket_name as ticketName,
+				ticket_desc as ticketDesc,
+				end_time as endTime
+			from mc_order
+			where  status = #{0} and user_id = #{1}
+			order by create_time desc
+		]]>
+	</select>
+	
+</mapper>

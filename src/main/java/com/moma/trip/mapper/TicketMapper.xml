@@ -109,4 +109,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<select id="getTicketDetailById" resultType="com.moma.trip.po.TicketDetail">
+		<![CDATA[
+			select 
+				ticket_detail_id as ticketDetailId,
+				ticket_id as ticketId,
+				name,
+				description,
+				type,
+				image_url as imageUrl,
+				code
+			from mc_ticket_detail
+			where 
+				ticket_detail_id = #{0}
+		]]>
+	</select>
+	
 </mapper>

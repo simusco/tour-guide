@@ -37,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				activity_plan_id as activityPlanId,
 				anchor
 			from mc_goodness
+			where activity_plan_id = #{0}
 		]]>
 	</select>
 	

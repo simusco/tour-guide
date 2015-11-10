@@ -34,6 +34,24 @@ $.extend({
 		return remark.length > 200 ? false : true;
 	},
 	
+	calculateTotalPrice: function(){
+		$('*[ticket-checked=true]').each(function(){
+			var dataStore = $(this), order = {};
+			
+			order['ticketId'] = dataStore.attr('ticket-id'),
+			order['ticketDetailId'] = dataStore.attr('ticket-detail-id'),
+			order['quantity'] = dataStore.attr('quantity'),
+			order['entryTime'] = dataStore.attr('entry-time'),
+			order['bookDay'] = dataStore.attr('book-day'),
+			
+			//TODO
+			order.totalPrice = order.quantity * order.bookDay * 100;
+			
+			dataStore.attr('total-price', order.totalPrice);
+			$('*[ui-total-price]').html('￥'+order.totalPrice + '元');
+		});
+	},
+	
 	bind:{
 		check : {
 			name : function(){
@@ -99,6 +117,29 @@ $.extend({
 			}
 		},
 		
+		selectTicket: function(){
+			$('*[ui-ticket-checkbox]').click(function(){
+				var checkbox = $(this);
+				var ticketDetailId = checkbox.attr('ui-ticket-checkbox');
+				
+				$('*[ui-ticket-checkbox]').each(function(){
+					$(this).removeClass('selected');
+				});
+				
+				$('*[ticket-detail-id]').each(function(){
+					var id = $(this).attr('ticket-detail-id');
+					$(this).attr('ticket-checked','false');
+					
+					if(id == ticketDetailId){
+						checkbox.addClass('selected');
+						$(this).attr('ticket-checked','true');
+						
+						$.calculateTotalPrice();
+					}
+				});
+			});
+		},
+		
 		payment : function(){
 			$('*[ui-payment-btn]').click(function(){
 				
@@ -110,13 +151,14 @@ $.extend({
 				order['entryTime'] = dataStore.attr('entry-time'),
 				order['totalPrice'] = dataStore.attr('total-price');
 				order['remark'] = $('input[name=remark]').val();
+				order['bookDay'] = dataStore.attr('book-day');
 				
 				var visitor = {};
 					visitor.name = $('input[name=name]').val();
 					visitor.telephone = $('input[name=phoneNo]').val();
 				visitors.push(visitor);
 				
-				order['visitors'] = visitors;
+				order['orderVisitors'] = visitors;
 				
 				if(!$.bind.check.order(order)){
 					return;
@@ -143,6 +185,7 @@ $.extend({
 $(function(){
 	$.bind.check.all();
 	$.bind.payment();
+	$.bind.selectTicket();
 });
 
 </script>
@@ -204,21 +247,20 @@ $(function(){
                           
                           <c:forEach items="${ticketDetailList }" var="ticketDetail">                          
                           <div class="row row--order" 
-                          	   ticket-checked="true"
                           	   ticket-id="${ticket.ticketId }" 
                           	   ticket-detail-id="${ticketDetail.ticketDetailId}"
                           	   quantity="1"
                           	   entry-time="${ticketTime }"
                           	   total-price="100"
+                          	   book-day="1"
                           	   >
-                              
                               <div class="span-4 order-column--name">
                                   <div class="order-name">
                                       <span class="order-name__title">${ticketDetail.name }</span>
                                       <span class="order-name__subtitle">${ticketDetail.description }</span>
                                   </div>
                               </div>
-                              <div class="span-1 order-column"><span class="checkbox selected" ui-ticket-checkbox=""></span></div>
+                              <div class="span-1 order-column"><span class="checkbox" ui-ticket-checkbox="${ticketDetail.ticketDetailId }"></span></div>
                               <div class="span-3 order-column">${ticketTime }</div>
                               <div class="span-2 order-column">
                                   <span class="num-btn">
@@ -230,7 +272,6 @@ $(function(){
                                       <span class="num-btn__minus">-</span><input class="num-btn__text" type="text" value="1"><span class="num-btn__plus">+</span>
                                   </span>
                               </div>
-                              
                           </div>
                           </c:forEach>
 					</div>
@@ -277,7 +318,7 @@ $(function(){
 	    </div>
 	    <div class="payment__btn span-6-last text-right">
 	        <div class="payment-price">
-	            <span class="payment-price__pay">应付金额<span class="tag--price">$2116元</span></span>
+	            <span class="payment-price__pay">应付金额<span class="tag--price" ui-total-price="0">￥0元</span></span>
 	            <span class="payment-price__desc">(套餐价2888元)</span>
 	        </div>
 	        <a class="payment-btn">

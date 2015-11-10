@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				i.file_size as fileSize
 			from mc_images i 
 			where i.owner_id = #{ownerId}
-			order by i.sort
+			order by i.image_name asc
 		]]>
 	</select>
 	

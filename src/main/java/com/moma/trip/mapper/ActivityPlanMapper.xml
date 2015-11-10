@@ -168,7 +168,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				topic = #{topic},
 				exp_inclusive = #{expInclusive},
 				other_attr = #{otherAttr},
-				take_time = #{takeTime}
+				take_time = #{takeTime},
+				image_url = #{imageURL}
 			where
 				activity_plan_id = #{activityPlanId}
 		]]>
@@ -186,7 +187,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				topic,
 				exp_inclusive,
 				other_attr,
-				take_time
+				take_time,
+				image_url
 			)
 			VALUES 
 			(
@@ -198,7 +200,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{topic}, 
 				#{expInclusive},
 				#{otherAttr},
-				#{takeTime}
+				#{takeTime},
+				#{imageURL}
 			)
 		]]>
 	</insert>

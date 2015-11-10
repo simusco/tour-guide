@@ -12,7 +12,7 @@
 	        		<ul class="login">
 		           		<li><a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="login_btn--default">注册</a></li>
 		                <li><a href="<%=request.getContextPath()  %>/web/v1/user/signin.html" class="login_btn--active">登陆</a></li>
-		                <li><a href="" class="login_btn--default">关于我们</a></li>
+		                <li><a href="<%=request.getContextPath()  %>/web/v1/my/unpay.html" class="login_btn--default">关于我们</a></li>
 		            </ul>
         		</c:when>
         		<c:otherwise>
@@ -20,7 +20,7 @@
 	        			<li>
 	        				<span>Hi,</span><span class="mlm mrm">${loginUser.name }</span><span><a href="<%=request.getContextPath()  %>/web/v1/user/signout.html">退出</a></span>
 	        			</li>
-	        			<li><a href="" class="login_btn--default">关于我们</a></li>
+	        			<li><a href="<%=request.getContextPath()  %>/web/v1/my/unpay.html" class="login_btn--default">关于我们</a></li>
         			</ul>
         		</c:otherwise>
         	</c:choose>

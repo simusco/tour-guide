@@ -81,9 +81,13 @@
 	        <list>
 	            <value>/WEB-INF/tiles/tiles-defs-signin.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-topic.xml</value>
-	            <value>/WEB-INF/tiles/tiles-defs-activity.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-index.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-signup.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-order.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-detail.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-query.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-goodness.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-my.xml</value>
 	        </list>
 	    </property>
 	</bean>

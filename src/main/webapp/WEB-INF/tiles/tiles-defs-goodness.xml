@@ -8,10 +8,10 @@
 		<put-attribute name="analytics" value="/views/analytics.jsp"/>
 	</definition>
 	
-	<definition name="order-generate" extends="base.defination">
-		<put-attribute name="header" value="/views/order/order-header.jsp"/>
-		<put-attribute name="navbar" value="/views/order/order-navbar.jsp"/>
-		<put-attribute name="content" value="/views/order/order-generate.jsp"/>
+	<definition name="goodness" extends="base.defination">
+		<put-attribute name="header" value="/views/goodness/goodness-header.jsp"/>
+		<put-attribute name="navbar" value="/views/goodness/goodness-navbar.jsp"/>
+		<put-attribute name="content" value="/views/goodness/goodness-content.jsp"/>
 	</definition>
 	
 </tiles-definitions>

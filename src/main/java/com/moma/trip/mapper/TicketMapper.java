@@ -22,4 +22,6 @@ public interface TicketMapper {
 
 	public List<TicketDetail> getTicketDetailList(String ticketId);
 
+	public TicketDetail getTicketDetailById(String ticketDetailId);
+
 }

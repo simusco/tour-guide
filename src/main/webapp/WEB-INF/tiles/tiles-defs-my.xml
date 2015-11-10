@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<definition name="base.defination" template="/views/layout.jsp">
+		<put-attribute name="topbar" value="/views/topbar.jsp"/>
+		<put-attribute name="footer" value="/views/footer.jsp"/>
+		<put-attribute name="analytics" value="/views/analytics.jsp"/>
+	</definition>
+	
+	<definition name="my-unpay" extends="base.defination">
+		<put-attribute name="header" value="/views/my/pay-header.jsp"/>
+		<put-attribute name="navbar" value="/views/my/pay-navbar.jsp"/>
+		<put-attribute name="content" value="/views/my/unpay-content.jsp"/>
+	</definition>
+	
+	<definition name="my-payed" extends="base.defination">
+		<put-attribute name="header" value="/views/my/pay-header.jsp"/>
+		<put-attribute name="navbar" value="/views/my/pay-navbar.jsp"/>
+		<put-attribute name="content" value="/views/my/payed-content.jsp"/>
+	</definition>
+	
+	<definition name="my-reset-psword"  extends="base.defination">
+		<put-attribute name="header" value="/views/my/reset-psword-header.jsp"/>
+		<put-attribute name="navbar" value="/views/my/pay-navbar.jsp"/>
+		<put-attribute name="content" value="/views/my/reset-psword.jsp"/>
+	</definition>
+	
+	<definition name="my-modify-profile"  extends="base.defination">
+		<put-attribute name="header" value="/views/my/modify-profile-header.jsp"/>
+		<put-attribute name="navbar" value="/views/my/pay-navbar.jsp"/>
+		<put-attribute name="content" value="/views/my/modify-profile.jsp"/>
+	</definition>
+	
+</tiles-definitions>

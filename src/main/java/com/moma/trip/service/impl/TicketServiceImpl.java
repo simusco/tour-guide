@@ -57,4 +57,13 @@ public class TicketServiceImpl implements TicketService {
 		return ticketMapper.getTicketDetailList(ticketId);
 	}
 
+	@Override
+	public TicketDetail getTicketDetailById(String ticketDetailId) {
+
+		if(ticketDetailId == null)
+			return null;
+		
+		return ticketMapper.getTicketDetailById(ticketDetailId);
+	}
+
 }
