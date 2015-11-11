@@ -81,9 +81,9 @@
 		                        </div>
 		                        <div class="order-body__column--name span-4">
 		                            <div class="order-name">
-		                                <span href="" class="order-name__title">${order.ticketName}</span>
-		                                <span href="" class="order-name__subtitle">${order.ticketDesc }</span>
-		                                <span href="" class="order-name__subtitle">使用时间：${order.entryTime }至${order.endTime }</span>
+		                                <span class="order-name__title">${order.ticketName}</span>
+		                                <span class="order-name__subtitle">${order.ticketDesc }</span>
+		                                <span class="order-name__subtitle">使用时间：${order.entryTime }至${order.endTime }</span>
 		                            </div>
 		                        </div>
 		                        <div class="order-body__column--price span-2"><span>￥${order.totalPrice }元</span></div>

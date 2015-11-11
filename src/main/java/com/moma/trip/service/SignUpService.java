@@ -8,4 +8,6 @@ public interface SignUpService {
 
 	public User getUserByLoginId(String loginId);
 
+	public void resetPsword(String loginId, String password);
+
 }

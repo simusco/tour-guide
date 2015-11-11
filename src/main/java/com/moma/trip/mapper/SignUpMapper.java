@@ -11,4 +11,6 @@ public interface SignUpMapper {
 
 	User getUserByLoginId(String loginId);
 
+	void resetPsword(String userId, String cpassword, String salt);
+
 }

@@ -55,4 +55,19 @@ public class SignUpServiceImpl implements SignUpService {
 		}
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
+	@Override
+	public void resetPsword(String loginId, String password) {
+		
+		User u = getUserByLoginId(loginId+"".toLowerCase());
+		if(u == null){
+			throw new ServiceException(loginId + "不存在！");
+		}
+		
+		String salt = Math.abs(new Random().nextLong())+"";
+		String cpassword = Md5.encode(password, salt);
+		
+		signUpMapper.resetPsword(u.getUserId(), cpassword, salt);
+	}
+
 }

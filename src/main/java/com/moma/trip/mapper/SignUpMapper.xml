@@ -65,4 +65,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<update id="resetPsword">
+		<![CDATA[
+			update sys_user 
+			set 
+			password = #{1},
+			salt = #{2}
+			where user_id = #{0}
+		]]>
+	</update>
+	
 </mapper>
