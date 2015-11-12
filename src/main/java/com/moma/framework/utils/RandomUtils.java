@@ -10,4 +10,17 @@ public class RandomUtils {
 		return String.valueOf(s);
 	}
 	
+	public static String getRandomVcode(){
+        //验证码
+        String vcode = "";
+        for (int i = 0; i < 4; i++) {
+            vcode = vcode + (int)(Math.random() * 9);
+        }
+        return vcode;
+    }
+	
+	public static void main(String[] args){
+		System.out.println(getRandomVcode());
+	}
+	
 }

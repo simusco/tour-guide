@@ -34,7 +34,51 @@
 		bindCheckLoginId(loginId);
 		bindCheckName(name);
 		
+		$('*[ui-send-v-code]').click(function(){
+			var self = $(this);
+			var i = 120;
+			
+			checkLoginId(function(flag){
+				if(flag){
+					printMsg('loginId', '*帐号已经注册');
+					return;
+				}else{
+					$.ajax({
+						url : '<%=request.getContextPath()  %>/web/v1/user/vcode.html',
+						async : false,
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						data:{'phoneNo' : loginId.val()},
+						success : function(resp) {
+							var o = $.parseJSON(resp),f = o.flag,msg = o.msg;
+							
+							if(!f){
+								printMsg('vcode', msg);
+								return;
+							}
+							
+							self.attr('disabled', 'disabled');
+							
+							var t = window.setInterval(function(){
+								--i;
+								self.val('已经发送('+i+')');
+								if(i <= 1){
+									window.clearInterval(t);
+									self.removeAttr('disabled');
+									self.val('获取验证码');
+								}
+							},1000);
+						},
+						error : function(resp) {
+							alert('网络出现问题，刷新页面重新尝试！');
+						}
+					});
+				};
+			});
+		});
+		
 		$('#signup').click(function(){
+			
+			
 			if(!checkPwdSame() || !checkName() || !checkPwdLength(password.val()) || !checkPwdLength(repassword.val())){
 				loginId.trigger('blur');
 				name.trigger('keyup');
@@ -51,29 +95,45 @@
 			
 			//TODO 验证验证码是否正确
 			
-			$.ajax({
-				url : '<%=request.getContextPath()  %>/web/v1/user/signup.html',
-				async : false,
-				method : 'POST',
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : {
-					'loginId' : loginId.val(), 
-					'name' : name.val(), 
-					'password' : password.val(), 
-					'acode' : acode.val(), 
-					'repassword' : repassword.val()
-				},
-				success : function(resp) {
-					var flag = $.parseJSON(resp).flag;
-					if(flag){
-						//redirect login.html
-						alert(flag);
-					}
-				},
-				error : function(resp) {
-					alert('网络出现问题，刷新页面重新尝试！');
+			checkLoginId(function(flag){
+				
+				if(flag){
+					printMsg('loginId', '*帐号已经注册');
+					return;
 				}
+				
+				$.ajax({
+					url : '<%=request.getContextPath()  %>/web/v1/user/signup.html',
+					async : false,
+					method : 'POST',
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+					data : {
+						'loginId' : loginId.val(), 
+						'name' : name.val(), 
+						'password' : password.val(), 
+						'acode' : acode.val(), 
+						'repassword' : repassword.val()
+					},
+					success : function(resp) {
+						var o = $.parseJSON(resp),f = o.flag,msgcode = o.msgcode;
+						if(f){
+							//redirect login.html
+							window.location.href = '<%=request.getContextPath()  %>/web/v1/user/signin.html';
+						}else{
+							if(msgcode == 10){
+								printMsg('vcode', '*验证码错误');
+							}else if(msgcode == 11){
+								alert('注册失败');
+							}
+						}
+					},
+					error : function(resp) {
+						alert('网络出现问题，刷新页面重新尝试！');
+					}
+				});
 			});
+			
+			
 		});
 	});
 </script>
@@ -119,10 +179,10 @@
                             </div>
                             <div class="span-4">
                                 <input class="form__input" type="text" style="width:70px" name="acode">
-                                <input class="btn btn-default" type="button" value="获取验证码">
+                                <input class="btn btn-default" type="button" value="获取验证码" ui-send-v-code="">
                             </div>
                             <div class="span-4-last">
-                                <span class="msg--error"></span>
+                                <span class="msg--error" ui-valid-msg="vcode"></span>
                             </div>
                         </div>
 
