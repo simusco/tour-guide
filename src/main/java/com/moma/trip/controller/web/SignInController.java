@@ -51,11 +51,16 @@ public class SignInController  extends RestfulController {
 	}
 	
 	@RequestMapping(value="/signout.html",method=RequestMethod.GET)
-	public String signIn(HttpServletRequest request) {
+	public String signout(HttpServletRequest request) {
 		
 		request.getSession().removeAttribute(User.LOGIN_USER);
 		
 		return "signin";
+	}
+	
+	@RequestMapping(value="/login.html",method=RequestMethod.GET)
+	public String login(HttpServletRequest request) {
+		return "login";
 	}
 
 }

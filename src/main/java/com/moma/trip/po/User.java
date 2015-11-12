@@ -25,6 +25,12 @@ public class User implements Serializable {
 	private Date createTime;
 	private Date updateTime;
 	private String acode;
+	//附加信息
+	private String email;
+	private String sex;
+	private String brithYear;
+	private String brithMonth;
+	private String brithDay;
 
 	public String getUserId() {
 		return userId;
@@ -144,6 +150,46 @@ public class User implements Serializable {
 
 	public void setAcode(String acode) {
 		this.acode = acode;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getBrithYear() {
+		return brithYear;
+	}
+
+	public void setBrithYear(String brithYear) {
+		this.brithYear = brithYear;
+	}
+
+	public String getBrithMonth() {
+		return brithMonth;
+	}
+
+	public void setBrithMonth(String brithMonth) {
+		this.brithMonth = brithMonth;
+	}
+
+	public String getBrithDay() {
+		return brithDay;
+	}
+
+	public void setBrithDay(String brithDay) {
+		this.brithDay = brithDay;
 	}
 
 }

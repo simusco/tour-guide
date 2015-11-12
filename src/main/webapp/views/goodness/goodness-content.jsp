@@ -4,7 +4,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script type="text/javascript">
-
+$(function(){
+	
+	$(window).scroll( function() {
+		var scrollTop = $(this).scrollTop(),
+			menu = $('#slide-menu');
+		
+		if(scrollTop <= 180){
+			menu.removeClass('fixed');
+		}else{
+			menu.addClass('fixed')
+		}
+ 	});
+	
+});
 </script>
 
 
@@ -20,7 +33,7 @@
 
    	<div class="content__info">
    		<div class="content__info--left">
-   			<div class="slide-menu">
+   			<div class="slide-menu" id="slide-menu">
    				<span class="slide-menu__title">吃点</span>
 	    		<div class="slide-menu__submenu">
 	    			<ul class="menu">

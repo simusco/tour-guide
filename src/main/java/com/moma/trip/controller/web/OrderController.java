@@ -59,19 +59,17 @@ public class OrderController  extends RestfulController {
 	@RequestMapping(value="/generate.html",method=RequestMethod.POST)
 	@ResponseBody
 	public byte[] generate(@RequestBody Order order, HttpServletRequest request){
-		
-		//保存mc_order
-		//保存mc_order_detail
-		//保存mc_order_visitor
+		Map<String, Object> map = new HashMap<String, Object>();
+
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
 		if(user == null){
 			//TODO 进入登陆页面
+			return toJSONBytes(unlogin());
 		}
 		order.setUserId(user.getUserId());
+		map.put("orderId", orderService.save(order));
 		
-		String orderId = orderService.save(order);
-		
-		return null;
+		return toJSONBytes(map);
 	}
 	
 	@RequestMapping(value="/payment.html",method=RequestMethod.POST)

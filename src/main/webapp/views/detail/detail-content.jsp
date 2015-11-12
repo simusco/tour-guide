@@ -5,7 +5,62 @@
 
 <script src="${staticServerPath1 }/scripts/laydate/laydate.js"></script>
 <script type="text/javascript">
+
+	$.extend({
+		ui:{
+			switchScreen : {
+				left : function(){
+					var leftBtn = $('*[ui-switch-left-btn]');
+					var scoll = $('*[ui-switch-scroll]');
+					
+					leftBtn.click(function(){
+						var ml = scoll.css('margin-left');
+						var mr = scoll.css('margin-right');
+						console.log(mr);
+						scoll.css('margin-left', parseInt(ml) + 152);
+					});
+				},
+				right: function(){
+					var leftBtn = $('*[ui-switch-right-btn]');
+					var scoll = $('*[ui-switch-scroll]');
+					
+					leftBtn.click(function(){
+						var ml = scoll.css('margin-left');
+						ml = parseInt(ml);
+						
+						scoll.css('margin-left', ml - 152);
+					});
+				},
+				active: function(){
+					var unactiveAll = function(){
+						$('*[ui-image-review]').each(function(){
+							$(this).removeClass('active');
+							$(this).removeAttr('active');
+						});
+					}
+					
+					$('*[ui-image-review]').click(function(){
+						unactiveAll();
+						
+						$(this).addClass('active');
+						$(this).attr('active', 'true');
+						var url = $(this).attr('ui-image-review');
+						
+						$('*[ui-image-screen]').find('img').attr('src', url);
+					});
+				},
+				run:function(){
+					$.ui.switchScreen.left();
+					$.ui.switchScreen.right();
+					$.ui.switchScreen.active();
+				}
+			}
+		}
+	});
+
 	$(function(){
+		$.ui.switchScreen.run();
+		
 		laydate({
 		    elem: '#open-calendar',
 		    format: 'YYYY-MM-DD',
@@ -49,7 +104,7 @@
                 <div class="route_img">
                     <div class="route-img">
                         <div class="route-img__screen">
-                            <div class="img-screen">
+                            <div class="img-screen" ui-image-screen="">
                             	<c:forEach items="${route.imageList }" var="image" varStatus="x" begin="0" end="0">
                             		<img src="${staticServerPath1 }/images/${image.path}">
                             	</c:forEach>
@@ -57,17 +112,17 @@
                         </div>
                         <div class="route-img__control">
                             <div class="img-control">
-                                <a class="img-control__btn--left"></a>
-                                <div class="img-control__review">
+                                <a class="img-control__btn--left" ui-switch-left-btn=""></a>
+                                <div class="img-control__review" ui-switch-scroll="">
                                 	<c:forEach items="${route.imageList }" var="image" varStatus="x">
 	                                	<c:if test="${image.type == 'DETAIL-HEADER' }">
-		                                    <div class="image-review">
+		                                    <div class="image-review" ui-image-review="${staticServerPath1 }/images/${image.path}">
 		                                        <img src="${staticServerPath1 }/images/${image.path}">
 		                                    </div>
 	                                    </c:if>
                                     </c:forEach>
                                 </div>
-                                <a class="img-control__btn--right"></a>
+                                <a class="img-control__btn--right" ui-switch-right-btn=""></a>
                             </div>
                         </div>
                     </div>

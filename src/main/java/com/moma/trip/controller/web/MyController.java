@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.moma.framework.ServiceException;
 import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.Order;
@@ -43,10 +41,6 @@ public class MyController  extends RestfulController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
-		if(user == null){
-			//TODO 进入登陆页面
-		}
-		
 		List<Order> orderList = orderService.getOrderList("UNPAY", user.getUserId());
 		map.put("orderList", orderList);
 		
@@ -58,10 +52,6 @@ public class MyController  extends RestfulController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
-		if(user == null){
-			//TODO 进入登陆页面
-		}
-		
 		List<Order> orderList = orderService.getOrderList("PAYED", user.getUserId());
 		map.put("orderList", orderList);
 		
@@ -80,7 +70,7 @@ public class MyController  extends RestfulController {
 		
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
 		if(user == null){
-			//TODO 进入登陆页面
+			return toJSONBytes(unlogin());
 		}
 		
 		try{
@@ -100,7 +90,7 @@ public class MyController  extends RestfulController {
 			map.put("msg", "1009");//旧密码错误
 		}
 		
-		return JSON.toJSONBytes(map, SerializerFeature.BrowserCompatible);
+		return toJSONBytes(map);
 	}
 	
 	@RequestMapping(value="/modify-profile.html",method=RequestMethod.GET)

@@ -52,7 +52,54 @@ $.extend({
 		});
 	},
 	
+	load:{
+		page : function(url, params, fn){
+			$.ajax({
+	    		url : url,
+	    		async : false,
+	    		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	    		data : params,
+	    		success : function(resp) {
+	    			fn(resp);
+	    		},
+	    		error : function(resp) {alert('网络出现问题，刷新页面重新尝试！');}
+	    	});
+		}
+	},
+	
 	bind:{
+		minuAndPlus:function(){
+			var minus = $('*[ui-btn-minus]'),plus = $('*[ui-btn-plus]');
+			
+			minus.click(function(){
+				var m = $(this).attr('ui-btn-minus');
+				var tdi = $(this).attr('tdi');
+				var ticket = $('*[ticket-detail-id='+tdi+']');
+				var n = parseInt(ticket.attr(m));
+				var i = $(this).parent().find('*[ui-num-text]');
+				
+				if(n > 1){
+					ticket.attr(m, --n);
+				}
+				
+				i.val(n);
+			});
+			
+			plus.click(function(){
+				var m = $(this).attr('ui-btn-plus');
+				var tdi = $(this).attr('tdi');
+				var ticket = $('*[ticket-detail-id='+tdi+']');
+				var n = parseInt(ticket.attr(m));
+				var i = $(this).parent().find('*[ui-num-text]');
+				
+				if(n < 99){
+					ticket.attr(m, ++n);
+				}
+				
+				i.val(n);
+			});
+		},
+		
 		check : {
 			name : function(){
 				$('input[name=name]').keyup(function() {
@@ -170,7 +217,16 @@ $.extend({
 					contentType : "application/json",
 					data : JSON.stringify(order),
 					success : function(resp) {
-						alert('ssddd');
+						var o = $.parseJSON(resp),flag = o.flag,msg = o.msg;
+						
+						if(!flag && msg == '10000'){
+							$.load.page('<%=request.getContextPath()  %>/web/v1/user/login.html', {}, function(html){
+								$('*[ui-login]').remove();
+								
+								//显示登陆框
+								$('body').append(html);
+							});
+						}
 					},
 					error : function(resp) {
 						alert('*网络出现问题，刷新页面重新尝试！');
@@ -183,6 +239,7 @@ $.extend({
 });
 
 $(function(){
+	$.bind.minuAndPlus();
 	$.bind.check.all();
 	$.bind.payment();
 	$.bind.selectTicket();
@@ -264,12 +321,12 @@ $(function(){
                               <div class="span-3 order-column">${ticketTime }</div>
                               <div class="span-2 order-column">
                                   <span class="num-btn">
-                                      <span class="num-btn__minus">-</span><input class="num-btn__text" type="text" value="1"><span class="num-btn__plus">+</span>
+                                      <span class="num-btn__minus" ui-btn-minus="quantity" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text=""><span class="num-btn__plus" ui-btn-plus="quantity" tdi="${ticketDetail.ticketDetailId}">+</span>
                                   </span>
                               </div>
                               <div class="span-2-last order-column">
                                   <span class="num-btn">
-                                      <span class="num-btn__minus">-</span><input class="num-btn__text" type="text" value="1"><span class="num-btn__plus">+</span>
+                                      <span class="num-btn__minus" ui-btn-minus="book-day" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text=""><span class="num-btn__plus" ui-btn-plus="book-day" tdi="${ticketDetail.ticketDetailId}">+</span>
                                   </span>
                               </div>
                           </div>
@@ -298,7 +355,7 @@ $(function(){
 	                </div>
 	                <div class="span-9-last">
 	                    <span>手机：</span>
-	                    <input class="form__control" type="text" value="13410240005" name="phoneNo">
+	                    <input class="form__control" type="text" value="" name="phoneNo">
 	                </div>
 	            </div>
 	
@@ -327,5 +384,5 @@ $(function(){
 	        </a>
 	    </div>
 	</div>
-
+	
 </div>

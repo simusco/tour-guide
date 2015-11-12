@@ -46,9 +46,11 @@
                         <li>
                              <a href="<%=request.getContextPath()  %>/web/v1/my/reset-psword.html" class="menu__item">修改密码<span class="menu-item__arrow">></span></a>
                         </li>
-                        <li>
-                            <a href="" class="menu__item">退出登陆<span class="menu-item__arrow">></span></a>
-                        </li>
+                        <c:if test="${not empty loginUser }">
+                        	<li>
+	                            <a href="<%=request.getContextPath()  %>/web/v1/user/signout.html" class="menu__item">退出登陆<span class="menu-item__arrow">></span></a>
+	                        </li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
