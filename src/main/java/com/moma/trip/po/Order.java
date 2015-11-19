@@ -203,4 +203,14 @@ public class Order implements Serializable {
 		this.ticketIcon = ticketIcon;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", orderNo=" + orderNo + ", ticketId=" + ticketId + ", ticketDetailId="
+				+ ticketDetailId + ", ticketIcon=" + ticketIcon + ", ticketName=" + ticketName + ", ticketDesc="
+				+ ticketDesc + ", entryTime=" + entryTime + ", endTime=" + endTime + ", quantity=" + quantity
+				+ ", createTime=" + createTime + ", totalPrice=" + totalPrice + ", status=" + status + ", isPay="
+				+ isPay + ", userId=" + userId + ", loginId=" + loginId + ", remark=" + remark + ", bookDay=" + bookDay
+				+ ", orderVisitors=" + orderVisitors + "]";
+	}
+
 }

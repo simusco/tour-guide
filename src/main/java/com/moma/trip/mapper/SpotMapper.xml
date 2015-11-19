@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.SpotMapper">
+
+	<select id="getSpotPrice" resultType="java.lang.Double">
+		<![CDATA[
+			select
+				sum(price)
+			from mc_spot_price 
+			where 
+				date >= #{0} and date <= #{1} and
+				spot_id = (select i.spot_id from mc_spot i where i.spot_code = #{2} and i.resource_code = #{3})
+		]]>
+	</select>
+
+	<insert id="saveSpotPrice" parameterType="com.moma.trip.po.SpotPrice">
+		<![CDATA[
+			INSERT INTO mc_spot_price
+			(
+				spot_price_id,
+				spot_id,
+				price,
+				year,
+				month,
+				day,
+				market_price,
+				max_quantity,
+				cost_price,
+				inventory_num,
+				date
+			)
+			VALUES 
+			(
+				#{spotPriceId},
+				#{spotId},
+				#{price},
+				#{year},
+				#{month},
+				#{day},
+				#{marketPrice},
+				#{maxQuantity},
+				#{costPrice},
+				#{inventoryNum},
+				#{date}
+			)
+		]]>
+	</insert>
+	
+	<delete id="deleteSpotPrice">
+		<![CDATA[
+			delete from mc_spot_price where spot_id = #{0}
+		]]>
+	</delete>
+	
+	<select id="getSpot" resultType="com.moma.trip.po.Spot">
+		<![CDATA[
+			select 
+				spot_id as spotId,
+				name as name,
+				description as description,
+				image_url as imageUrl,
+				spot_code as spotCode,
+				resource_code as resourceCode
+			from mc_spot where spot_code = #{0} and resource_code = #{1}
+		]]>
+	</select>
+	
+	<select id="getKnownSpotList" resultType="com.moma.trip.po.Spot">
+		<![CDATA[
+			select 
+				spot_id as spotId,
+				name as name,
+				description as description,
+				image_url as imageUrl,
+				spot_code as spotCode,
+				resource_code as resourceCode
+			from mc_spot
+		]]>
+	</select>
+	
+	<select id="getSpotNewPrice" resultType="com.moma.trip.po.SpotPrice">
+		<![CDATA[
+			select 
+				spot_price_id as spotPriceId,
+				spot_id as spotId,
+				price,
+				year,
+				month,
+				day,
+				market_price as marketPrice,
+				max_quantity as maxQuantity,
+				cost_price as costPrice,
+				inventory_num as inventoryNum,
+				date
+			from mc_spot_price 
+			where spot_id = (select i.spot_id from mc_spot i where i.spot_code = #{0} and i.resource_code = #{1})
+		]]>
+	</select>
+	
+</mapper>

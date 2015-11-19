@@ -34,7 +34,7 @@ $.extend({
 		return remark.length > 200 ? false : true;
 	},
 	
-	calculateTotalPrice: function(){
+	calculateTotalPrice: function(fn){
 		$('*[ticket-checked=true]').each(function(){
 			var dataStore = $(this), order = {};
 			
@@ -44,11 +44,25 @@ $.extend({
 			order['entryTime'] = dataStore.attr('entry-time'),
 			order['bookDay'] = dataStore.attr('book-day'),
 			
-			//TODO
-			order.totalPrice = order.quantity * order.bookDay * 100;
-			
-			dataStore.attr('total-price', order.totalPrice);
-			$('*[ui-total-price]').html('￥'+order.totalPrice + '元');
+			//TODO,ajax load price
+			$.ajax({
+				url : '<%=request.getContextPath()  %>/web/v1/order/price.html',
+				method : 'POST',
+				contentType : "application/json",
+				data : JSON.stringify(order),
+	    		success : function(resp) {
+	    			var o = $.parseJSON(resp),flag = o.flag,msg = o.msg, price = o.price;
+					if(flag){
+		    			dataStore.attr('total-price', price);
+		    			$('*[ui-total-price]').html('￥'+ price + '元');
+		    			order.totalPrice = price;
+					}else{
+						if(fn != null) fn();
+						alert(msg);
+					}
+	    		},
+	    		error : function(resp) {alert('网络出现问题，刷新页面重新尝试！');}
+	    	});
 		});
 	},
 	
@@ -81,8 +95,9 @@ $.extend({
 				if(n > 1){
 					ticket.attr(m, --n);
 				}
-				
 				i.val(n);
+				
+				$.calculateTotalPrice();
 			});
 			
 			plus.click(function(){
@@ -95,8 +110,12 @@ $.extend({
 				if(n < 99){
 					ticket.attr(m, ++n);
 				}
-				
 				i.val(n);
+				
+				$.calculateTotalPrice(function(){
+					ticket.attr(m, --n);
+					i.val(n);
+				});
 			});
 		},
 		
@@ -219,13 +238,19 @@ $.extend({
 					success : function(resp) {
 						var o = $.parseJSON(resp),flag = o.flag,msg = o.msg;
 						
-						if(!flag && msg == '10000'){
-							$.load.page('<%=request.getContextPath()  %>/web/v1/user/login.html', {}, function(html){
-								$('*[ui-login]').remove();
-								
-								//显示登陆框
-								$('body').append(html);
-							});
+						if(!flag){
+							if(msg == '10000'){
+								$.load.page('<%=request.getContextPath()  %>/web/v1/user/login.html', {}, function(html){
+									$('*[ui-login]').remove();
+									
+									//显示登陆框
+									$('body').append(html);
+								});
+							}else{
+								alert(msg);
+							}
+						}else{
+							//goto payment.html
 						}
 					},
 					error : function(resp) {
@@ -302,7 +327,8 @@ $(function(){
                               <div class="span-2-last text-center">入住晚上</div>
                           </div>
                           
-                          <c:forEach items="${ticketDetailList }" var="ticketDetail">                          
+                          <c:forEach items="${ticketDetailList }" var="ticketDetail">  
+                          <c:if test="${ticketDetail.isDisplay == 'yes'}">               
                           <div class="row row--order" 
                           	   ticket-id="${ticket.ticketId }" 
                           	   ticket-detail-id="${ticketDetail.ticketDetailId}"
@@ -330,6 +356,7 @@ $(function(){
                                   </span>
                               </div>
                           </div>
+                          </c:if>
                           </c:forEach>
 					</div>
 				</div>

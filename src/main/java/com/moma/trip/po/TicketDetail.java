@@ -1,6 +1,7 @@
 package com.moma.trip.po;
 
 import java.io.Serializable;
+import java.security.Timestamp;
 
 public class TicketDetail implements Serializable {
 
@@ -15,7 +16,11 @@ public class TicketDetail implements Serializable {
 	private String description;
 	private String type;
 	private String imageUrl;
-	private String code;
+	private String code1;
+	private String code2;
+	private String isPay;
+	private String isDisplay;
+	private Integer quantity;
 
 	public String getTicketDetailId() {
 		return ticketDetailId;
@@ -65,12 +70,44 @@ public class TicketDetail implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getCode() {
-		return code;
+	public String getCode1() {
+		return code1;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setCode1(String code1) {
+		this.code1 = code1;
+	}
+
+	public String getCode2() {
+		return code2;
+	}
+
+	public void setCode2(String code2) {
+		this.code2 = code2;
+	}
+
+	public String getIsPay() {
+		return isPay;
+	}
+
+	public void setIsPay(String isPay) {
+		this.isPay = isPay;
+	}
+
+	public String getIsDisplay() {
+		return isDisplay;
+	}
+
+	public void setIsDisplay(String isDisplay) {
+		this.isDisplay = isDisplay;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 }

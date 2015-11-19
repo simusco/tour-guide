@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.HotelMapper">
+
+	<select id="getHotelPrice" resultType="java.lang.Double">
+		<![CDATA[
+			select 
+				sum(price)
+			from mc_hotel_price 
+			where 
+				date >= #{0} and date <= #{1} and
+				hotel_id = (select i.hotel_id from mc_hotel i where i.hotel_code = #{2} and i.rate_plan_code = #{3})
+		]]>
+	</select>
+
+	<insert id="saveHotelPrice" parameterType="com.moma.trip.po.HotelPrice">
+		<![CDATA[
+			insert into mc_hotel_price(
+				hotel_price_id,
+				hotel_id,
+				price,
+				year,
+				month,
+				day,
+				meals_included,
+				number_of_breakfast,
+				market_price,
+				date
+			)values(
+				#{hotelPriceId},
+				#{hotelId},
+				#{price},
+				#{year},
+				#{month},
+				#{day},
+				#{mealsIncluded},
+				#{numberOfBreakfast},
+				#{marketPrice},
+				#{date}
+			)
+		]]>
+	</insert>
+	
+	<delete id="deleteHotelPrice">
+		<![CDATA[
+			delete from mc_hotel_price where hotel_id = #{0}
+		]]>
+	</delete>
+	
+	<select id="getHotel" resultType="com.moma.trip.po.Hotel">
+		<![CDATA[
+			select 
+				hotel_id as hotelId,
+				name as name,
+				description as description,
+				address as address,
+				image_url as imageUrl,
+				hotel_code as hotelCode,
+				rate_plan_code as ratePlanCode
+			from mc_hotel
+			where 
+				hotel_code = #{0} and rate_plan_code = #{1}
+		]]>
+	</select>
+	
+	<select id="getKnownHotelList" resultType="com.moma.trip.po.Hotel">
+		<![CDATA[
+			select 
+				hotel_id as hotelId,
+				name as name,
+				description as description,
+				address as address,
+				image_url as imageUrl,
+				hotel_code as hotelCode,
+				rate_plan_code as ratePlanCode
+			from mc_hotel
+		]]>
+	</select>
+	
+	<select id="getHotelNewPrice" resultType="com.moma.trip.po.HotelPrice">
+		<![CDATA[
+			select 
+				hotel_price_id,
+				hotel_id,
+				price,
+				year,
+				month,
+				day,
+				meals_included,
+				number_of_breakfast,
+				market_price,
+				date
+			from mc_hotel_price 
+			where hotel_id = (select i.hotel_id from mc_hotel i where i.hotel_code = #{0} and i.rate_plan_code = #{1})
+		]]>
+	</select>
+	
+</mapper>

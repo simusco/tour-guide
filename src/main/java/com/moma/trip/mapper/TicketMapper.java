@@ -1,11 +1,13 @@
 package com.moma.trip.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
+import com.moma.trip.po.TicketPrice;
 
 @Repository
 public interface TicketMapper {
@@ -23,5 +25,15 @@ public interface TicketMapper {
 	public List<TicketDetail> getTicketDetailList(String ticketId);
 
 	public TicketDetail getTicketDetailById(String ticketDetailId);
+
+	public void deleteTicketPrice(TicketPrice tp);
+
+	public void saveTicketPrice(TicketPrice tp);
+
+	public List<Ticket> getAllTicketList();
+
+	public Double getTicketPrice(String ticketId, Date start, Date end);
+
+	public void deleteTicketPriceByTicketId(String ticketId);
 
 }

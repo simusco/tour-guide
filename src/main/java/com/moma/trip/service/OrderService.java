@@ -10,4 +10,8 @@ public interface OrderService {
 
 	List<Order> getOrderList(String string, String userId);
 
+	Double getPrice(Order order);
+
+	boolean avail(Order order);
+
 }

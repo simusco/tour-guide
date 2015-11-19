@@ -59,7 +59,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				price,
 				market_price,
 				type,
-				code
+				code1,
+				code2
 			)
 			VALUES 
 			(
@@ -72,7 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{price},
 				#{marketPrice},
 				#{type},
-				#{code}
+				#{code1},
+				#{code2}
 			)
 		]]>
 	</insert>

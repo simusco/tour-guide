@@ -1,6 +1,8 @@
 package com.moma.trip.po;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class TicketPrice {
 
@@ -10,6 +12,8 @@ public class TicketPrice {
 	private String year;
 	private String month;
 	private String day;
+	private Date date;
+	private Timestamp entryTime;
 
 	public String getTicketPriceId() {
 		return ticketPriceId;
@@ -57,6 +61,22 @@ public class TicketPrice {
 
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+	public Timestamp getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(Timestamp entryTime) {
+		this.entryTime = entryTime;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

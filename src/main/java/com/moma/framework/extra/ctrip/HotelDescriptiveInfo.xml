@@ -1,0 +1,43 @@
+<Request>
+	<Header AllianceID="${allianceId}" SID="${sid}" TimeStamp="${timestamp}" RequestType="${requestType}" Signature="${signature}" />
+	<HotelRequest>
+		<RequestBody xmlns:ns="http://www.opentravel.org/OTA/2003/05"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<OTA_HotelDescriptiveInfoRQ Version="1.0"
+				xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05/OTA_HotelDescriptiveInfoRQ.xsd"
+				xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<!--酒店详细描述信息请求列表，可以请求多个酒店 -->
+				<HotelDescriptiveInfos>
+					<!--酒店信息，HotelCode属性：酒店代码，string类型，必填 -->
+					<!-- PositionTypeCode属性：返回的酒店的坐标类型，string类型，可空，参见ListCode(PTC)，501Mapbar 
+						坐标，502Google 坐标，默认为502 -->
+					<HotelDescriptiveInfo HotelCode="1809220"
+						PositionTypeCode="502">
+						<!--酒店类信息 -->
+						<!-- SendData属性：是否请求酒店类信息；bool类型，True表示需要发送酒店类信息；可空 -->
+						<HotelInfo SendData="true" />
+						<!--设施类信息（客房、会议室、餐饮、娱乐），这里仅限请求酒店客房设施 -->
+						<!-- SendGuestRooms属性：是否发送客房信息；bool类型，True表示需要发送；可空 -->
+						<FacilityInfo SendGuestRooms="true" />
+						<!--位置区域类信息 -->
+						<!-- SendAttractions属性：是否发送景点地标信息；bool类型，True表示需要发送；可空 -->
+						<!-- SendRecreations属性：是否发送娱乐区域信息；bool类型，True表示需要发送；可空 -->
+						<AreaInfo SendAttractions="true" SendRecreations="true" />
+						<!--联系方式类信息 -->
+						<!-- SendData属性：是否发送联系方式类数据，bool类型，True表示需要发送；可空 -->
+						<ContactInfo SendData="true" />
+						<!--多媒体信息 -->
+						<!-- SendData属性：是否发送多媒体数据，bool类型，True表示需要发送；可空 -->
+						<MultimediaObjects SendData="true" />
+					</HotelDescriptiveInfo>
+					<HotelDescriptiveInfo HotelCode="1713995">
+						<HotelInfo SendData="true" />
+						<FacilityInfo SendGuestRooms="true" />
+						<AreaInfo SendAttractions="true" SendRecreations="true" />
+						<MultimediaObjects SendData="true" />
+					</HotelDescriptiveInfo>
+				</HotelDescriptiveInfos>
+			</OTA_HotelDescriptiveInfoRQ>
+		</RequestBody>
+	</HotelRequest>
+</Request>

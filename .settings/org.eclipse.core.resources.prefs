@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+encoding//src/main/java/com/moma/framework/extra/ctrip/base/HttpAccessAdapter.java=UTF-8
 encoding//src/main/java/com/moma/trip/service/impl/SignInServiceImpl.java=UTF-8
 encoding//src/main/java/com/moma/trip/service/impl/SignUpServiceImpl.java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/views/aa.html=UTF-16
 encoding//src/main/webapp/views/admin/baseInfo.html=UTF-8
 encoding//src/main/webapp/views/admin/goodness.html=UTF-8
 encoding//src/main/webapp/views/admin/image.html=UTF-8

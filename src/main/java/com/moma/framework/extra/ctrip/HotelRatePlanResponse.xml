@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<Response>
+	<Header ShouldRecordPerformanceTime="False" Timestamp="2015-11-12 16:44:22:75990"
+		ReferenceID="0c9917d1-fd9d-4304-a940-76c7472e5b8b" RecentlyTime="2015-11-12 16:44:22"
+		AccessCount="30" CurrentCount="1" ResetTime="2015-11-12 16:45:22"
+		ResultCode="Success" />
+	<HotelResponse>
+		<OTA_HotelRatePlanRS TimeStamp="2015-11-12T16:44:22.5213042+08:00"
+			Version="1.0" PrimaryLangID="zh" xmlns="http://www.opentravel.org/OTA/2003/05">
+			<RatePlans HotelCode="16100">
+				<RatePlan RatePlanCode="137387" RatePlanCategory="16"
+					IsCommissionable="false" RateReturn="false" MarketCode="63">
+					<BookingRules />
+					<Rates>
+						<Rate Start="2015-11-13 0:00:00" End="2015-11-13 0:00:00"
+							IsInstantConfirm="false" Status="Open">
+							<BaseByGuestAmts>
+								<BaseByGuestAmt AmountBeforeTax="558"
+									CurrencyCode="CNY" NumberOfGuests="2" ListPrice="1588.00">
+									<TPA_Extensions>
+										<OtherCurrency>
+											<AmountPercentType Amount="558"
+												CurrencyCode="CNY" />
+										</OtherCurrency>
+									</TPA_Extensions>
+								</BaseByGuestAmt>
+							</BaseByGuestAmts>
+							<Fees>
+								<Fee Code="38" Amount="150.00" CurrencyCode="CNY"
+									ChargeUnit="25">
+									<Description>
+										<Text>收费加床</Text>
+									</Description>
+									<TPA_Extensions>
+										<OtherCurrency>
+											<AmountPercentType Amount="150.00"
+												CurrencyCode="CNY" />
+										</OtherCurrency>
+									</TPA_Extensions>
+								</Fee>
+							</Fees>
+							<GuaranteePolicies>
+								<GuaranteePolicy GuaranteeCode="3"
+									HoldTime="18:00:00.0000000+08:00" />
+							</GuaranteePolicies>
+							<CancelPolicies>
+								<CancelPenalty Start="2015-11-12 12:00:00" End="2015-11-14 0:00:00">
+									<AmountPercent Amount="558.00" CurrencyCode="CNY" />
+									<TPA_Extensions>
+										<OtherCurrency>
+											<AmountPercentType Amount="558.00"
+												CurrencyCode="CNY" />
+										</OtherCurrency>
+									</TPA_Extensions>
+								</CancelPenalty>
+							</CancelPolicies>
+							<MealsIncluded Breakfast="true" NumberOfBreakfast="1" />
+							<TPA_Extensions>
+								<RebatePromotion Amount="22" CurrencyCode="CNY"
+									Code="503">
+									<Description>
+										<Text>使用携程消费券成功预订并入住，且完成Email确认，订单成交后3个工作日内将获得22元返现至您的现金账户。
+										</Text>
+									</Description>
+								</RebatePromotion>
+								<PayChange />
+							</TPA_Extensions>
+						</Rate>
+						<Rate Start="2015-11-14 0:00:00" End="2015-11-14 0:00:00"
+							IsInstantConfirm="false" Status="Open">
+							<BaseByGuestAmts>
+								<BaseByGuestAmt AmountBeforeTax="558"
+									CurrencyCode="CNY" NumberOfGuests="2" ListPrice="1588.00">
+									<TPA_Extensions>
+										<OtherCurrency>
+											<AmountPercentType Amount="558"
+												CurrencyCode="CNY" />
+										</OtherCurrency>
+									</TPA_Extensions>
+								</BaseByGuestAmt>
+							</BaseByGuestAmts>
+							<Fees>
+								<Fee Code="38" Amount="150.00" CurrencyCode="CNY"
+									ChargeUnit="25">
+									<Description>
+										<Text>收费加床</Text>
+									</Description>
+									<TPA_Extensions>
+										<OtherCurrency>
+											<AmountPercentType Amount="150.00"
+												CurrencyCode="CNY" />
+										</OtherCurrency>
+									</TPA_Extensions>
+								</Fee>
+							</Fees>
+							<GuaranteePolicies>
+								<GuaranteePolicy GuaranteeCode="3"
+									HoldTime="18:00:00.0000000+08:00" />
+							</GuaranteePolicies>
+							<CancelPolicies>
+								<CancelPenalty Start="2015-11-13 12:00:00" End="2015-11-15 0:00:00">
+									<AmountPercent Amount="558.00" CurrencyCode="CNY" />
+									<TPA_Extensions>
+										<OtherCurrency>
+											<AmountPercentType Amount="558.00"
+												CurrencyCode="CNY" />
+										</OtherCurrency>
+									</TPA_Extensions>
+								</CancelPenalty>
+							</CancelPolicies>
+							<MealsIncluded Breakfast="true" NumberOfBreakfast="1" />
+							<TPA_Extensions>
+								<RebatePromotion Amount="22" CurrencyCode="CNY"
+									Code="503">
+									<Description>
+										<Text>使用携程消费券成功预订并入住，且完成Email确认，订单成交后3个工作日内将获得22元返现至您的现金账户。
+										</Text>
+									</Description>
+								</RebatePromotion>
+								<PayChange />
+							</TPA_Extensions>
+						</Rate>
+					</Rates>
+					<Offers />
+					<SellableProducts>
+						<SellableProduct InvCode="1355826" />
+					</SellableProducts>
+					<Description Name="豪华套房" />
+				</RatePlan>
+			</RatePlans>
+			<Success />
+		</OTA_HotelRatePlanRS>
+	</HotelResponse>
+</Response>

@@ -4,6 +4,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.TicketMapper">
 
+	<delete id="deleteTicketPriceByTicketId">
+		<![CDATA[
+			delete from mc_ticket_price where ticket_id = #{0}
+		]]>
+	</delete>
+
+	<select id="getTicketPrice" resultType="java.lang.Double">
+		<![CDATA[
+			select 
+				sum(price)
+			from mc_ticket_price
+			where 
+				ticket_id = #{0} and
+				date >= #{1} and 
+				date <= #{2}
+		]]>
+	</select>
+
+	<select id="getAllTicketList" resultType="com.moma.trip.po.Ticket">
+		<![CDATA[
+			select 
+				ticket_id as ticketId,
+				activity_id as activityId,
+				name,
+				detail,
+				icon,
+				hotel_code as hotelCode,
+				spot_code as spotCode,
+				sychtime
+			from mc_ticket
+		]]>
+	</select>
+
+	<delete id="deleteTicketPrice" parameterType="com.moma.trip.po.TicketPrice">
+		<![CDATA[
+			delete from mc_ticket_price 
+			where 
+				ticket_id = #{ticketId} and 
+				year = #{year} and 
+				month = #{month} and 
+				day = #{day}
+		]]>
+	</delete>
+	
+	<insert id="saveTicketPrice" parameterType="com.moma.trip.po.TicketPrice">
+		<![CDATA[
+			INSERT INTO mc_ticket_price
+			(
+				ticket_price_id,
+				ticket_id,
+				price,
+				year,
+				month,
+				day,
+				entry_time,
+				date
+			)
+			VALUES 
+			(
+				#{ticketPriceId},
+				#{ticketId},
+				#{price},
+				#{year},
+				#{month},
+				#{day},
+				#{entryTime},
+				#{date}
+			)
+		]]>
+	</insert>
+
 	<insert id="saveTicket" parameterType="com.moma.trip.po.Ticket">
 		<![CDATA[
 			INSERT INTO mc_ticket
@@ -102,7 +173,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				description,
 				type,
 				image_url as imageUrl,
-				code
+				code1,
+				code2,
+				is_pay as isPay,
+				is_display as isDisplay,
+				quantity
 			from mc_ticket_detail
 			where 
 				ticket_id = #{0}
@@ -118,7 +193,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				description,
 				type,
 				image_url as imageUrl,
-				code
+				code1,
+				code2,
+				is_pay as isPay,
+				is_display as isDisplay,
+				quantity
 			from mc_ticket_detail
 			where 
 				ticket_detail_id = #{0}

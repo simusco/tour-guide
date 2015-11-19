@@ -1,0 +1,27 @@
+<Request>
+	<!--AllianceID:分销商ID;SID:站点ID;TimeStamp:响应时间戳（从1970年到现在的秒数）;RequestType:请求接口的类型;Signature:MD5加密串 -->
+	<Header AllianceID="x" SID="xx" TimeStamp="xxxxxx" RequestType=" OTA_Cancel"
+		Signature="xxxxxxx" />
+	<HotelRequest>
+		<RequestBody xmlns:ns="http://www.opentravel.org/OTA/2003/05"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<ns:OTA_CancelRQ TimeStamp="2012-04-20T00:00:00.000+08:00"
+				Version="1.0">
+				<!-- 订单取消需要的一些ID -->
+				<!-- Type属性：ID类型，参考CodeList(UIT) 501 Ctrip订单号；28联盟的ID；503联盟的站点ID；1表示联盟用户在携程的uniqueid；string类型；必填 -->
+				<!-- ID属性：ID号，Type的对应值；string类型；必填 -->
+				<ns:UniqueID ID="1" Type="28" />
+				<ns:UniqueID ID="168421264" Type="501" />
+				<ns:UniqueID ID="1" Type="503" />
+				<ns:UniqueID ID="c563a9ed-a090-4ded-b5dc-ddf1d3709e29"
+					Type="1" />
+				<!--取消原因列表，（最多99个） -->
+				<ns:Reasons>
+					<!--取消原因 -->
+					<!-- Type属性：取消原因类型代码，参考CodeList(CXR).；string类型；可空 -->
+					<ns:Reason Type="506" />
+				</ns:Reasons>
+			</ns:OTA_CancelRQ>
+		</RequestBody>
+	</HotelRequest>
+</Request>
