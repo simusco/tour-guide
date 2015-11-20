@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<Response>
+
+	<Header ShouldRecordPerformanceTime="False" Timestamp="2015-11-20 15:31:38:57066"
+		ReferenceID="79e7bb5c-2bbd-45bb-9efd-cd2d3bc90dd7" RecentlyTime="2015-11-20 15:31:36"
+		AccessCount="5000" CurrentCount="1" ResetTime="2015-11-20 15:32:36"
+		ResultCode="Success" />
+
+	<HotelResponse>
+		<OTA_HotelResRS TimeStamp="2015-11-20T15:31:38.536354+08:00"
+			Version="1.0" PrimaryLangID="zh" xmlns="http://www.opentravel.org/OTA/2003/05">
+			<HotelReservations>
+				<HotelReservation CreateDateTime="2015-11-20T15:31:38.3980051+08:00"
+					ResStatus="S">
+					<RoomStays>
+						<RoomStay>
+							<RatePlans>
+								<RatePlan RatePlanCode="12081415" IsInstantConfirm="false"
+									ReceiveTextRemark="false" />
+							</RatePlans>
+						</RoomStay>
+					</RoomStays>
+					<ResGlobalInfo>
+						<CancelPenalties>
+							<CancelPenalty Start="2015-12-09 00:00:00" End="2015-12-09T11:00:00+08:00" />
+						</CancelPenalties>
+						<Total AmountAfterTax="271.00" CurrencyCode="CNY">
+							<TPA_Extensions>
+								<OtherCurrency>
+									<AmountPercentType Amount="271.00"
+										CurrencyCode="CNY" />
+								</OtherCurrency>
+							</TPA_Extensions>
+						</Total>
+						<TPA_Extensions />
+						<HotelReservationIDs>
+							<HotelReservationID ResID_Type="501"
+								ResID_Value="1578133950" />
+						</HotelReservationIDs>
+					</ResGlobalInfo>
+				</HotelReservation>
+			</HotelReservations>
+			<Success />
+		</OTA_HotelResRS>
+	</HotelResponse>
+</Response>

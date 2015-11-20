@@ -1,0 +1,64 @@
+<Request>
+	<Header AllianceID="${allianceId}" SID="${sid}" TimeStamp="${timestamp}" RequestType="OTA_HotelRes" Signature="${signature}" />
+	<HotelRequest>
+		<RequestBody xmlns:ns="http://www.opentravel.org/OTA/2003/05"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<ns:OTA_HotelResRQ TimeStamp="2015-11-20T13:06:30.000+08:00" Version="1.0" PrimaryLangID="zh">
+				<ns:UniqueID Type="504" ID="100000" />
+				<ns:UniqueID Type="28" ID="${allianceId}" />
+				<ns:UniqueID Type="503" ID="${sid}" />
+				<ns:UniqueID Type="1" ID="${uniqueId}" />
+				<ns:HotelReservations>
+					<ns:HotelReservation>
+						<ns:RoomStays>
+							<ns:RoomStay>
+								<ns:RoomTypes>
+									<ns:RoomType NumberOfUnits="${numberOfUnits}" />
+								</ns:RoomTypes>
+								<ns:RatePlans>
+									<ns:RatePlan RatePlanCode="${ratePlanCode}" />
+								</ns:RatePlans>
+								<ns:BasicPropertyInfo HotelCode="${hotelCode}" />
+							</ns:RoomStay>
+						</ns:RoomStays>
+						<ns:ResGuests>
+							<ns:ResGuest ArrivalTime="10:00:00+08:00">
+								<ns:Profiles>
+									<ns:ProfileInfo>
+										<ns:Profile>
+											<ns:Customer>
+												<ns:PersonName><ns:Surname>${personName}</ns:Surname></ns:PersonName>
+												<ns:ContactPerson ContactType="tel">
+													<ns:PersonName>
+														<ns:Surname>${personName}</ns:Surname>
+													</ns:PersonName>
+													<ns:Telephone PhoneNumber="${phoneNo}" PhoneTechType="1" />
+													<ns:Email>${email}</ns:Email>
+												</ns:ContactPerson>
+											</ns:Customer>
+										</ns:Profile>
+									</ns:ProfileInfo>
+								</ns:Profiles>
+								<ns:TPA_Extensions>
+									<ns:LateArrivalTime>${lateArrivalTime}T13:00:00+08:00</ns:LateArrivalTime>
+								</ns:TPA_Extensions>
+							</ns:ResGuest>
+						</ns:ResGuests>
+						<ns:ResGlobalInfo>
+							<ns:GuestCounts IsPerRoom="false">
+								<ns:GuestCount Count="${guestCount}" />
+							</ns:GuestCounts>
+							<ns:TimeSpan Start="${start}T00:00:00+08:00" End="${end}T11:00:00+08:00" />
+							<ns:SpecialRequests>
+								<ns:SpecialRequest>
+									<ns:Text>test order ,please cancel it,thanks</ns:Text>
+								</ns:SpecialRequest>
+							</ns:SpecialRequests>
+							<ns:Total AmountBeforeTax="${amountBeforeTax}" CurrencyCode="CNY"/>
+						</ns:ResGlobalInfo>
+					</ns:HotelReservation>
+				</ns:HotelReservations>
+			</ns:OTA_HotelResRQ>
+		</RequestBody>
+	</HotelRequest>
+</Request>

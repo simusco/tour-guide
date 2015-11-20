@@ -1,9 +1,9 @@
-package com.moma.trip.job;
+package com.moma.trip.extra.job;
 
 import java.security.NoSuchAlgorithmException;
 
-import com.moma.trip.service.HotelRequestService;
-import com.moma.trip.service.impl.HotelRequestServiceImpl;
+import com.moma.trip.extra.ctrip.HotelRequestService;
+import com.moma.trip.extra.ctrip.impl.HotelRequestServiceImpl;
 
 public class Test {
 

@@ -20,4 +20,8 @@ public class HotelConstants {
 	
 	public final static String URL_ORDER_CANCEL = "http://openapi.ctrip.com/Hotel/OTA_Cancel.asmx?wsdl";
 	
+	public final static String URL_USER_UNIQUE_ID = "http://openapi.ctrip.com/Hotel/OTA_UserUniqueID.asmx";
+	
+	public final static String URL_HOTEL_RES = "http://openapi.ctrip.com/Hotel/OTA_HotelRes.asmx";
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.moma.framework.ServiceException;
 import com.moma.framework.utils.Md5;
 import com.moma.framework.utils.UUIDUtils;
+import com.moma.trip.extra.ctrip.UserRequestService;
 import com.moma.trip.mapper.SignUpMapper;
 import com.moma.trip.po.User;
 import com.moma.trip.service.SignUpService;
@@ -21,6 +22,9 @@ public class SignUpServiceImpl implements SignUpService {
 
 	@Resource
 	private SignUpMapper signUpMapper;
+	
+	@Resource 
+	private UserRequestService userRequestService;
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -38,7 +42,10 @@ public class SignUpServiceImpl implements SignUpService {
 			user.setSalt(salt);
 			user.setPassword(cpassword);
 			user.setCreateTime(new Date());
-	
+			
+			String ctripUniqueId = userRequestService.getUserUniqueID(user.getUserId());
+			user.setCtripUniqueId(ctripUniqueId);
+			
 			signUpMapper.saveUser(user);
 		}catch(Exception e){
 			e.printStackTrace();

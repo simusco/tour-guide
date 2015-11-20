@@ -1,4 +1,4 @@
-package com.moma.trip.job;
+package com.moma.trip.extra.job;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -14,6 +14,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import com.moma.trip.extra.ctrip.HotelRequestService;
+import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.po.Hotel;
 import com.moma.trip.po.HotelPrice;
 import com.moma.trip.po.Spot;
@@ -21,9 +23,7 @@ import com.moma.trip.po.SpotPrice;
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
 import com.moma.trip.po.TicketPrice;
-import com.moma.trip.service.HotelRequestService;
 import com.moma.trip.service.HotelService;
-import com.moma.trip.service.SpotRequestService;
 import com.moma.trip.service.SpotService;
 import com.moma.trip.service.TicketService;
 

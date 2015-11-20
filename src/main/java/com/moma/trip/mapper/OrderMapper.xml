@@ -4,6 +4,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.OrderMapper">
 
+	<select id="getOrderByNo" resultType="com.moma.trip.po.Order">
+		<![CDATA[
+			select 
+				order_id as orderId,
+				ticket_id as ticketId,
+				entry_time as entryTime,
+				quantity as quantity,
+				create_time as createTime,
+				total_price as totalPrice,
+				status as status,
+				is_pay as isPay,
+				user_id as userId,
+				remark as remark,
+				order_no as orderNo,
+				ticket_icon as ticketIcon,
+				ticket_name as ticketName,
+				ticket_desc as ticketDesc,
+				end_time as endTime,
+				ctrip_unique_id as ctripUniqueId
+			from mc_order
+			where order_no = #{0}
+		]]>
+	</select>
+
+	<select id="getOrderById" resultType="com.moma.trip.po.Order">
+		<![CDATA[
+			select 
+				order_id as orderId,
+				ticket_id as ticketId,
+				entry_time as entryTime,
+				quantity as quantity,
+				create_time as createTime,
+				total_price as totalPrice,
+				status as status,
+				is_pay as isPay,
+				user_id as userId,
+				remark as remark,
+				order_no as orderNo,
+				ticket_icon as ticketIcon,
+				ticket_name as ticketName,
+				ticket_desc as ticketDesc,
+				end_time as endTime,
+				ctrip_unique_id as ctripUniqueId
+			from mc_order
+			where order_id = #{0}
+		]]>
+	</select>
+
 	<insert id="saveOrder" parameterType="com.moma.trip.po.Order">
 		<![CDATA[
 			INSERT INTO mc_order
@@ -22,7 +70,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ticket_icon,
 				ticket_name,
 				ticket_desc,
-				end_time
+				end_time,
+				ctrip_unique_id
 			)
 			VALUES 
 			(
@@ -40,7 +89,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{ticketIcon},
 				#{ticketName},
 				#{ticketDesc},
-				#{endTime}
+				#{endTime},
+				#{ctripUniqueId}
 			)
 		]]>
 	</insert>
@@ -60,7 +110,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				market_price,
 				type,
 				code1,
-				code2
+				code2,
+				quantity,
+				is_pay,
+				is_display
 			)
 			VALUES 
 			(
@@ -74,7 +127,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{marketPrice},
 				#{type},
 				#{code1},
-				#{code2}
+				#{code2},
+				#{quantity},
+				#{isPay},
+				#{isDisplay}
 			)
 		]]>
 	</insert>
@@ -119,7 +175,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ticket_icon as ticketIcon,
 				ticket_name as ticketName,
 				ticket_desc as ticketDesc,
-				end_time as endTime
+				end_time as endTime,
+				ctrip_unique_id as ctripUniqueId
 			from mc_order
 			where  status = #{0} and user_id = #{1}
 			order by create_time desc

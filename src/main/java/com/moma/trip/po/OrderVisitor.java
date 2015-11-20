@@ -14,6 +14,8 @@ public class OrderVisitor implements Serializable {
 	private String telephone;
 	private String cardType;// 身份证
 	private String idcard;
+	private String gender;
+	
 
 	public String getOrderVisitorId() {
 		return orderVisitorId;
@@ -63,7 +65,12 @@ public class OrderVisitor implements Serializable {
 		this.idcard = idcard;
 	}
 
-	public OrderVisitor() {
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 }

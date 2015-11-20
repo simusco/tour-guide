@@ -1,4 +1,4 @@
-package com.moma.trip.job;
+package com.moma.trip.extra.job;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,8 +9,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.po.Spot;
-import com.moma.trip.service.SpotRequestService;
 import com.moma.trip.service.SpotService;
 
 public class SychSpotJob extends QuartzJobBean {

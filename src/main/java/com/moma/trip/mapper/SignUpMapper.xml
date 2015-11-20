@@ -20,7 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				role_id,
 				salt,
 				create_time,
-				update_time
+				update_time,
+				ctrip_unique_id
 			)
 			values(
 				#{userId},
@@ -35,7 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{roleId},
 				#{salt},
 				#{createTime},
-				#{updateTime}
+				#{updateTime},
+				#{ctripUniqueId}
 			)
 		]]>
 	</insert>
@@ -59,7 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				role_id as roleId,
 				salt as salt,
 				create_time as createTime,
-				update_time as updateTime
+				update_time as updateTime,
+				ctrip_unique_id as ctripUniqueId
 			from sys_user
 			where login_id = #{loginId} and enable = 'Y'
 		]]>

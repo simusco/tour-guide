@@ -31,6 +31,9 @@ public class User implements Serializable {
 	private String brithYear;
 	private String brithMonth;
 	private String brithDay;
+	
+	//
+	private String ctripUniqueId;
 
 	public String getUserId() {
 		return userId;
@@ -190,6 +193,14 @@ public class User implements Serializable {
 
 	public void setBrithDay(String brithDay) {
 		this.brithDay = brithDay;
+	}
+
+	public String getCtripUniqueId() {
+		return ctripUniqueId;
+	}
+
+	public void setCtripUniqueId(String ctripUniqueId) {
+		this.ctripUniqueId = ctripUniqueId;
 	}
 
 }

@@ -19,4 +19,8 @@ public interface OrderMapper {
 
 	List<Order> getOrderList(String status, String userId);
 
+	Order getOrderById(String orderId);
+
+	Order getOrderByNo(String orderNo);
+
 }

@@ -32,6 +32,8 @@
             <mvc:mapping path="/web/v1/my/payed.html" />
             <mvc:mapping path="/web/v1/my/reset-psword.html" />
             <mvc:mapping path="/web/v1/my/modify-profile.html" />
+            <mvc:mapping path="/web/v1/order/generate.html" />
+            <mvc:mapping path="/web/v1/order/payment.html" />
             <bean class="com.moma.framework.CheckAuthInterceptor"/>  
         </mvc:interceptor>  
     </mvc:interceptors>  
@@ -44,7 +46,6 @@
 	<mvc:resources location="/scripts/controllers/" mapping="/scripts/controllers/**"/>
 	<mvc:resources location="/scripts/modules/" mapping="/scripts/modules/**"/>
 	<mvc:resources location="/scripts/services/" mapping="/scripts/services/**"/>
-	<mvc:resources location="/static/images/" mapping="/static/images/**"/>
 	
 	<mvc:default-servlet-handler/>
 	
@@ -62,6 +63,7 @@
 	            <value>/WEB-INF/tiles/tiles-defs-query.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-goodness.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-my.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-payment.xml</value>
 	        </list>
 	    </property>
 	</bean>

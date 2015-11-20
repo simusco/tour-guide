@@ -1,4 +1,4 @@
-package com.moma.trip.service;
+package com.moma.trip.extra.ctrip;
 
 import java.util.List;
 

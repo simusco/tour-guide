@@ -1,7 +1,5 @@
 <Request>
-	<!--AllianceID:分销商ID;SID:站点ID;TimeStamp:响应时间戳（从1970年到现在的秒数）;RequestType:请求接口的类型;Signature:MD5加密串 -->
-	<Header AllianceID="${allianceId}" SID="${sid}" TimeStamp="${timestamp}" RequestType="OTA_HotelAvail"
-		Signature="${signature}" />
+	<Header AllianceID="${allianceId}" SID="${sid}" TimeStamp="${timestamp}" RequestType="OTA_HotelAvail" Signature="${signature}" />
 	<HotelRequest>
 		<RequestBody xmlns:ns="http://www.opentravel.org/OTA/2003/05"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">

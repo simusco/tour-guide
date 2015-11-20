@@ -15,6 +15,12 @@ public class OrderDetail {
 	private String type;
 	private String code1;
 	private String code2;
+	private Integer quantity;
+	private String isPay;
+	private String isDisplay;
+	
+	private String ctripResIdType;
+	private String ctripResId;
 
 	public String getOrderDetailId() {
 		return orderDetailId;
@@ -102,6 +108,46 @@ public class OrderDetail {
 
 	public void setCode2(String code2) {
 		this.code2 = code2;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getIsPay() {
+		return isPay;
+	}
+
+	public void setIsPay(String isPay) {
+		this.isPay = isPay;
+	}
+
+	public String getIsDisplay() {
+		return isDisplay;
+	}
+
+	public void setIsDisplay(String isDisplay) {
+		this.isDisplay = isDisplay;
+	}
+
+	public String getCtripResIdType() {
+		return ctripResIdType;
+	}
+
+	public void setCtripResIdType(String ctripResIdType) {
+		this.ctripResIdType = ctripResIdType;
+	}
+
+	public String getCtripResId() {
+		return ctripResId;
+	}
+
+	public void setCtripResId(String ctripResId) {
+		this.ctripResId = ctripResId;
 	}
 
 }

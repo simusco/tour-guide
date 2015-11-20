@@ -43,13 +43,13 @@ public class Order implements Serializable {
 
 	private String userId;
 
-	private String loginId;
-
 	private String remark;
 
 	private String bookDay;
 
 	private List<OrderVisitor> orderVisitors = new ArrayList<OrderVisitor>();
+	
+	private String ctripUniqueId;
 
 	public String getOrderId() {
 		return orderId;
@@ -155,14 +155,6 @@ public class Order implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getLoginId() {
-		return loginId;
-	}
-
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
@@ -203,14 +195,12 @@ public class Order implements Serializable {
 		this.ticketIcon = ticketIcon;
 	}
 
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", orderNo=" + orderNo + ", ticketId=" + ticketId + ", ticketDetailId="
-				+ ticketDetailId + ", ticketIcon=" + ticketIcon + ", ticketName=" + ticketName + ", ticketDesc="
-				+ ticketDesc + ", entryTime=" + entryTime + ", endTime=" + endTime + ", quantity=" + quantity
-				+ ", createTime=" + createTime + ", totalPrice=" + totalPrice + ", status=" + status + ", isPay="
-				+ isPay + ", userId=" + userId + ", loginId=" + loginId + ", remark=" + remark + ", bookDay=" + bookDay
-				+ ", orderVisitors=" + orderVisitors + "]";
+	public String getCtripUniqueId() {
+		return ctripUniqueId;
+	}
+
+	public void setCtripUniqueId(String ctripUniqueId) {
+		this.ctripUniqueId = ctripUniqueId;
 	}
 
 }

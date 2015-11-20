@@ -1,0 +1,9 @@
+<Request>
+	<Header AllianceID="${allianceId}" SID="${sid}" TimeStamp="${timestamp}"
+		RequestType="OTA_UserUniqueID" Signature="${signature}" />
+	<UserRequest>
+		<AllianceID>${allianceId}</AllianceID>
+		<SID>${sid}</SID>
+		<UidKey>${userId}</UidKey>
+	</UserRequest>
+</Request>

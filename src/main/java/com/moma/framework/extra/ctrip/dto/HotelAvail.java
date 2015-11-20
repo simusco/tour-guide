@@ -43,4 +43,10 @@ public class HotelAvail {
 		this.currencyCode = currencyCode;
 	}
 
+	@Override
+	public String toString() {
+		return "HotelAvail [availabilityStatus=" + availabilityStatus + ", amountBeforeTax=" + amountBeforeTax
+				+ ", currencyCode=" + currencyCode + ", errors=" + errors + "]";
+	}
+
 }

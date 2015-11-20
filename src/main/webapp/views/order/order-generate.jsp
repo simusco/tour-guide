@@ -251,6 +251,8 @@ $.extend({
 							}
 						}else{
 							//goto payment.html
+							console.log(o.orderNo);
+							window.location.href='<%=request.getContextPath()  %>/web/v1/order/payment.html?orderNo='+o.orderNo;
 						}
 					},
 					error : function(resp) {

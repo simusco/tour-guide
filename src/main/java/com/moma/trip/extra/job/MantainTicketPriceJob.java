@@ -1,4 +1,4 @@
-package com.moma.trip.job;
+package com.moma.trip.extra.job;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

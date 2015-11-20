@@ -1,4 +1,4 @@
-package com.moma.trip.service.impl;
+package com.moma.trip.extra.ctrip.impl;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,10 +18,10 @@ import com.moma.framework.extra.ctrip.utils.HotelConstants;
 import com.moma.framework.extra.ctrip.utils.SignatureUtils;
 import com.moma.framework.extra.ctrip.xml.HotelAvailParser;
 import com.moma.framework.extra.ctrip.xml.HotelRatePlanParser;
-import com.moma.trip.job.Test;
+import com.moma.trip.extra.ctrip.HotelRequestService;
+import com.moma.trip.extra.job.Test;
 import com.moma.trip.mapper.HotelMapper;
 import com.moma.trip.po.Hotel;
-import com.moma.trip.service.HotelRequestService;
 import com.moma.trip.service.HotelService;
 
 @Service("hotelRequestService")

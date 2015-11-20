@@ -1,0 +1,51 @@
+{
+    "AdultNumber": ${quantity}, 
+    "Amount": ${price}, 
+    "ClientInfoList": [
+        {
+            "AgeType": "${ageType}", 
+            "BirthCity": null, 
+            "BirthDate": null, 
+            "CardCity": null, 
+            "ClientName": "${personName}", 
+            "ClientName_E": "${personNameE}", 
+            "ContactInfo": null, 
+            "Gender": ${gender}, 
+            "HzAdd": null, 
+            "HzDate": null, 
+            "HzNo": null, 
+            "IDCardNo": "${idCardNo}", 
+            "IDCardTimelimit": null, 
+            "IDCardType": 1, 
+            "InfoID": 0, 
+            "IssueDate": null, 
+            "Nationality": null, 
+            "PassportType": "P", 
+            "VisaCountry": null
+        }
+    ], 
+    "DistributorOrderID": "${orderNo}", 
+    "ContactInfo": {
+        "ContactAddress": null, 
+        "ContactEmail": "simusco@163.com", 
+        "ContactFax": null, 
+        "ContactMobile": "${phoneNo}", 
+        "ContactName": "${personName}", 
+        "ContactTel": null
+    }, 
+    "ProductInfo": {
+        "ProductID": ${productId}, 
+    }, 
+    "Remark": "${remark}", 
+    "SalesCity": 2, 
+    "TicketInfo": [
+        {
+            "Price": ${price}, 
+            "TicketID": ${resourceId}, 
+            "UseDate": "${useDate}", 
+            "Quantity": ${quantity}, 
+            "TicketType": 0
+        }
+    ], 
+	"Uid": "${uniqueId}"
+}

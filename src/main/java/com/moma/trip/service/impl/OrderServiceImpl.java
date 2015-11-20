@@ -3,6 +3,7 @@ package com.moma.trip.service.impl;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,15 +22,16 @@ import com.moma.framework.extra.ctrip.dto.SpotAvail;
 import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
 import com.moma.framework.utils.RandomUtils;
 import com.moma.framework.utils.UUIDUtils;
+import com.moma.trip.extra.ctrip.HotelRequestService;
+import com.moma.trip.extra.ctrip.OrderRequestService;
+import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.mapper.OrderMapper;
 import com.moma.trip.po.Order;
 import com.moma.trip.po.OrderDetail;
 import com.moma.trip.po.OrderVisitor;
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
-import com.moma.trip.service.HotelRequestService;
 import com.moma.trip.service.OrderService;
-import com.moma.trip.service.SpotRequestService;
 import com.moma.trip.service.SpotService;
 import com.moma.trip.service.TicketService;
 
@@ -46,16 +48,19 @@ public class OrderServiceImpl implements OrderService {
 	private HotelRequestService hotelRequestService;
 	@Resource
 	private SpotRequestService spotRequestService;
+	@Resource
+	private OrderRequestService orderRequestService;
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
-	public String save(Order order) {
-		// TODO Auto-generated method stub
+	public String save(Order order) throws Exception {
 		
 		order.setOrderId(UUIDUtils.getUUID());
 		order.setCreateTime(new Date());
 		order.setIsPay("N");
 		order.setStatus("UNPAY");//unpay/payed/cancel
+		
+		validateOrder(order);
 		
 		Ticket ticket = ticketService.getTicketById(order.getTicketId());
 		if(ticket == null)
@@ -66,20 +71,16 @@ public class OrderServiceImpl implements OrderService {
 		if(ticketDetail == null)
 			throw new ServiceException("不能找到你所选择的套餐！");
 		
-		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setOrderDetailId(UUIDUtils.getUUID());
-		orderDetail.setOrderId(order.getOrderId());
-		orderDetail.setCode1(ticketDetail.getCode1());
-		orderDetail.setCode2(ticketDetail.getCode2());
-		orderDetail.setMarketPrice(BigDecimal.valueOf(0));
-		orderDetail.setPrice(BigDecimal.valueOf(0));
-		orderDetail.setTicketDetailId(ticketDetailId);
-		orderDetail.setTicketDetailName(ticketDetail.getName());
-		orderDetail.setTicketId(order.getTicketId());
-		orderDetail.setTicketName(ticket.getName());
-		orderDetail.setType(ticketDetail.getType());
-		
-		orderMapper.saveOrderDetail(orderDetail);
+		List<TicketDetail> tdlist = ticketService.getTicketDetailList(ticket.getTicketId());
+		List<OrderDetail> odlist = new ArrayList<OrderDetail>();
+		for(int i=0;i<tdlist.size();i++){
+			TicketDetail td = tdlist.get(i);
+			
+			OrderDetail od = getOrderDetail(order, ticket, td);
+			odlist.add(od);
+			
+			orderMapper.saveOrderDetail(od);
+		}
 		
 		List<OrderVisitor> orderVisitors = order.getOrderVisitors();
 		if(orderVisitors == null || orderVisitors.size() == 0)
@@ -99,9 +100,34 @@ public class OrderServiceImpl implements OrderService {
 		
 		String orderNo = new Date().getTime() + "" + RandomUtils.getRandom(1000000, 9999999);
 		order.setOrderNo(orderNo);
-		orderMapper.saveOrder(order);
 		
-		return order.getOrderId();
+		orderMapper.saveOrder(order);
+		//TODO 生成ctrip Order(门票/酒店).
+		orderRequestService.generOrder(order, odlist, orderVisitors);
+		
+		
+		return order.getOrderNo();
+	}
+	
+	public OrderDetail getOrderDetail(Order order, Ticket ticket, TicketDetail td){
+		
+		OrderDetail orderDetail = new OrderDetail();
+		orderDetail.setOrderDetailId(UUIDUtils.getUUID());
+		orderDetail.setOrderId(order.getOrderId());
+		orderDetail.setCode1(td.getCode1());
+		orderDetail.setCode2(td.getCode2());
+		orderDetail.setMarketPrice(BigDecimal.valueOf(0));
+		orderDetail.setPrice(BigDecimal.valueOf(0));
+		orderDetail.setTicketId(order.getTicketId());
+		orderDetail.setTicketDetailId(td.getTicketDetailId());
+		orderDetail.setTicketName(ticket.getName());
+		orderDetail.setTicketDetailName(td.getName());
+		orderDetail.setType(td.getType());
+		orderDetail.setQuantity(td.getQuantity());
+		orderDetail.setIsDisplay(td.getIsDisplay());
+		orderDetail.setIsPay(td.getIsPay());
+		
+		return orderDetail;
 	}
 
 	@Override
@@ -225,7 +251,34 @@ public class OrderServiceImpl implements OrderService {
 			hotelFlag = true;
 		}
 		
+		System.out.println("spotFlag:"+spotFlag);
+		System.out.println("hotelFlag:"+hotelFlag);
+		
 		return spotFlag && hotelFlag;
+	}
+
+	@Override
+	public Order getOrderById(String orderId, String userId) {
+
+		Order order = orderMapper.getOrderById(orderId);
+		if(order == null ||!order.getUserId().equals(userId)){
+			//为找到订单
+			throw new ServiceException("订单不能找到。");
+		}
+		
+		return order;
+	}
+
+	@Override
+	public Order getOrderByNo(String orderNo, String userId) {
+		
+		Order order = orderMapper.getOrderByNo(orderNo);
+		if(order == null ||!order.getUserId().equals(userId)){
+			//为找到订单
+			throw new ServiceException("订单不能找到。");
+		}
+		
+		return order;
 	}
 
 }

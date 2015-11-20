@@ -1,4 +1,4 @@
-package com.moma.trip.service.impl;
+package com.moma.trip.extra.ctrip.impl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,9 +26,9 @@ import com.moma.framework.extra.ctrip.dto.SpotAvail;
 import com.moma.framework.extra.ctrip.utils.ConfigData;
 import com.moma.framework.extra.ctrip.utils.SignatureUtils;
 import com.moma.framework.utils.UUIDUtils;
+import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.po.Spot;
 import com.moma.trip.po.SpotPrice;
-import com.moma.trip.service.SpotRequestService;
 import com.moma.trip.service.SpotService;
 
 @Service("spotRequestService")
