@@ -1,7 +1,6 @@
 package com.moma.trip.controller.web;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,14 +19,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.moma.framework.ServiceException;
 import com.moma.framework.extra.alipay.config.AlipayConfig;
 import com.moma.framework.extra.alipay.util.AlipaySubmit;
+import com.moma.framework.extra.ctrip.utils.ConfigData;
+import com.moma.framework.extra.ctrip.utils.SignatureUtils;
+import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
 import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.Order;
+import com.moma.trip.po.OrderVisitor;
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
 import com.moma.trip.po.User;
 import com.moma.trip.service.OrderService;
+import com.moma.trip.service.PaymentService;
+import com.moma.trip.service.SignUpService;
 import com.moma.trip.service.TicketService;
 
 @Scope(value="prototype")
@@ -34,10 +41,16 @@ import com.moma.trip.service.TicketService;
 @RequestMapping("/web/v1/order")
 public class OrderController  extends RestfulController {
 
+	private static Logger logger = Logger.getLogger(OrderController.class);  
+	
+	@Resource
+	private SignUpService signUpService;
 	@Resource
 	private TicketService ticketService;
 	@Resource
 	private OrderService orderService;
+	@Resource
+	private PaymentService paymentService;
 	
 	@RequestMapping(value="/generate.html",method=RequestMethod.GET)
 	public ModelAndView generate(String ticketId, String ticketTime){
@@ -59,18 +72,39 @@ public class OrderController  extends RestfulController {
 		return new ModelAndView("order-generate", map);
 	}
 	
+	/**
+	 * 检查订单信息填写是否完整
+	 * @param order
+	 */
+	public void validateGenerate(Order order){
+		List<OrderVisitor> ovlist = order.getOrderVisitors();
+		if(ovlist == null || 
+		   ovlist.isEmpty() || 
+		   StringUtils.isEmpty(ovlist.get(0).getName()) || 
+		   StringUtils.isEmpty(ovlist.get(0).getTelephone())){
+			throw new ServiceException("联系人信息未填写完整!"); 
+		}
+	}
+	
 	@RequestMapping(value="/generate.html",method=RequestMethod.POST)
 	@ResponseBody
 	public byte[] generate(@RequestBody Order order, HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
-		if(user == null){
-			//TODO 进入登陆页面
-			return toJSONBytes(unlogin());
-		}
-		
 		try{
+			validateGenerate(order);
+			
+			//根据填写的手机号创建用户
+			logger.info("未登录用户，系统自动创建用户根据手机好吗。");
+			
+			String telephone = order.getOrderVisitors().get(0).getTelephone();
+			String name = order.getOrderVisitors().get(0).getName();
+			User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
+			if(user == null && (user = signUpService.getUserByLoginId(telephone)) == null){
+				user = signUpService.signUp(name, telephone);
+				request.getSession().setAttribute(User.LOGIN_USER, user);
+			}
+			
 			//这里需要实现订单可定性检查，不成功给予用户提示
 			//1.检查酒店可定性
 			//2.检查门票可定性
@@ -78,29 +112,28 @@ public class OrderController  extends RestfulController {
 			boolean flag = orderService.avail(order);
 			
 			//3.不可定提示
-			if(flag){
-				//goto 生成订单失败
-				map.put("flag", false);
-				map.put("msg", "套餐已经被预定完。");
-			}else{
-				//4.可定，生成本系统订单，并跳转到支付界面
-				//5.本系统订单状态--未支付
-				order.setUserId(user.getUserId());
-				order.setCtripUniqueId(user.getCtripUniqueId());
-				
-				map.put("flag", true);
-				map.put("orderNo", orderService.save(order));
+			if(!flag){
+				throw new ServiceException("套餐已经被预定完。");
 			}
+			
+			//4.可定，生成本系统订单，并跳转到支付界面
+			//5.本系统订单状态--未支付
+			order.setUserId(user.getUserId());
+			order.setCtripUniqueId(user.getCtripUniqueId());
+			
+			map.put("flag", true);
+			map.put("orderNo", orderService.save(order));
 		}catch(Exception e){
 			e.printStackTrace();
 			//生成订单失败
 			map.put("flag", false);
-			map.put("msg", "订单生成失败，请重新尝试.");
+			map.put("msg", e.getMessage());
 		}
 		
 		return toJSONBytes(map);
 	}
 	
+	/*
 	@RequestMapping(value="/payment.html",method=RequestMethod.GET)
 	public ModelAndView payment(String orderNo, HttpServletRequest request){
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
@@ -127,6 +160,35 @@ public class OrderController  extends RestfulController {
 		}
 	
 		return new ModelAndView(result, map);
+	}*/
+	
+	@RequestMapping(value="/payment.html",method=RequestMethod.GET)
+	public ModelAndView payment(String orderNo, HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		String result = "ctrip-pay";
+		try{
+			Order order = orderService.getOrderByNo(orderNo, user.getUserId());
+			
+			String timestamp = SignatureUtils.GetTimeStamp();
+			map.put("allianceId", ConfigData.AllianceId);
+			map.put("sid", ConfigData.SId);
+			map.put("timestamp", timestamp);
+			map.put("requestType", "PaymentEntry");
+			map.put("signature", SignatureUtils.CalculationSignature(timestamp, ConfigData.AllianceId,
+					ConfigData.SecretKey, ConfigData.SId, "PaymentEntry"));
+			map.put("order", order);
+			map.put("flag", true);
+			map.put("tripOrderId", order.getHotelResId().split("-")[1]);
+		}catch(Exception e){
+			e.printStackTrace();
+			map.put("msg", e.getMessage());
+			map.put("flag", false);
+			result = "payment-error";
+		}
+	
+		return new ModelAndView(result, map);
 	}
 	
 	public String getAlipayHtml(
@@ -138,19 +200,10 @@ public class OrderController  extends RestfulController {
 			) throws UnsupportedEncodingException{
 		
 		String payment_type = "1";
-		//必填，不能修改
-		//服务器异步通知页面路径
 		String notify_url = "http://商户网关地址/tour-guide/web/v1/alipay/notify.do";
-		//需http://格式的完整路径，不能加?id=123这类自定义参数
-		//页面跳转同步通知页面路径
 		String return_url = "http://商户网关地址/tour-guide/web/v1/alipay/returnUrl.do";
-		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-		//防钓鱼时间戳
 		String anti_phishing_key = "";
-		//若要使用请调用类文件submit中的query_timestamp函数
-		//客户端的IP地址
 		String exter_invoke_ip = "";
-		//非局域网的外网IP地址，如：221.0.0.1
 		
 		//把请求参数打包成数组
 		Map<String, String> sParaTemp = new HashMap<String, String>();

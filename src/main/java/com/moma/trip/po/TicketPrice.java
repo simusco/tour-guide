@@ -9,6 +9,7 @@ public class TicketPrice {
 	private String ticketPriceId;
 	private String ticketId;
 	private BigDecimal price;
+	private BigDecimal marketPrice;
 	private String year;
 	private String month;
 	private String day;
@@ -77,6 +78,14 @@ public class TicketPrice {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public BigDecimal getMarketPrice() {
+		return marketPrice;
+	}
+
+	public void setMarketPrice(BigDecimal marketPrice) {
+		this.marketPrice = marketPrice;
 	}
 
 }

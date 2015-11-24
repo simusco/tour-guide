@@ -7,59 +7,79 @@
 <script type="text/javascript">
 
 	$.extend({
-		ui:{
-			switchScreen : {
-				left : function(){
-					var leftBtn = $('*[ui-switch-left-btn]');
-					var scoll = $('*[ui-switch-scroll]');
-					
-					leftBtn.click(function(){
-						var ml = scoll.css('margin-left');
-						var mr = scoll.css('margin-right');
-						console.log(mr);
-						scoll.css('margin-left', parseInt(ml) + 152);
-					});
-				},
-				right: function(){
-					var leftBtn = $('*[ui-switch-right-btn]');
-					var scoll = $('*[ui-switch-scroll]');
-					
-					leftBtn.click(function(){
-						var ml = scoll.css('margin-left');
-						ml = parseInt(ml);
+			ui:{
+				switchScreen : {
+					left : function(){
+						var leftBtn = $('*[ui-switch-left-btn]');
+						var scoll = $('*[ui-switch-scroll]');
 						
-						scoll.css('margin-left', ml - 152);
-					});
-				},
-				active: function(){
-					var unactiveAll = function(){
-						$('*[ui-image-review]').each(function(){
-							$(this).removeClass('active');
-							$(this).removeAttr('active');
+						leftBtn.click(function(){
+							var ml = scoll.css('margin-left');
+							var mr = scoll.css('margin-right');
+							console.log(mr);
+							scoll.css('margin-left', parseInt(ml) + 152);
 						});
+					},
+					right: function(){
+						var leftBtn = $('*[ui-switch-right-btn]');
+						var scoll = $('*[ui-switch-scroll]');
+						
+						leftBtn.click(function(){
+							var ml = scoll.css('margin-left');
+							ml = parseInt(ml);
+							
+							scoll.css('margin-left', ml - 152);
+						});
+					},
+					active: function(){
+						var unactiveAll = function(){
+							$('*[ui-image-review]').each(function(){
+								$(this).removeClass('active');
+								$(this).removeAttr('active');
+							});
+						}
+						
+						$('*[ui-image-review]').click(function(){
+							unactiveAll();
+							
+							$(this).addClass('active');
+							$(this).attr('active', 'true');
+							var url = $(this).attr('ui-image-review');
+							
+							$('*[ui-image-screen]').find('img').attr('src', url);
+						});
+					},
+					run:function(){
+						$.ui.switchScreen.left();
+						$.ui.switchScreen.right();
+						$.ui.switchScreen.active();
 					}
-					
-					$('*[ui-image-review]').click(function(){
-						unactiveAll();
-						
-						$(this).addClass('active');
-						$(this).attr('active', 'true');
-						var url = $(this).attr('ui-image-review');
-						
-						$('*[ui-image-screen]').find('img').attr('src', url);
+				}
+			},
+			load:{
+				ticket:function(date){
+					$.ajax({
+						url : '<%=request.getContextPath()  %>/web/v1/activity/ticket.html',
+						method : 'GET',
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						data : {'routeId' : '${route.activityPlanId }', 'date' : date},
+						success : function(resp) {
+							var tl = $('#ticket-list');
+							tl.empty();
+							tl.append(resp);
+							$('div[ticket-time]').attr('ticket-time',date);
+						},
+						error : function(resp) {
+							alert('网络出现问题，刷新页面重新尝试！');
+						}
 					});
-				},
-				run:function(){
-					$.ui.switchScreen.left();
-					$.ui.switchScreen.right();
-					$.ui.switchScreen.active();
 				}
 			}
-		}
 	});
 
 	$(function(){
 		$.ui.switchScreen.run();
+		$.load.ticket('${currdate }');
 		
 		laydate({
 		    elem: '#open-calendar',
@@ -69,22 +89,7 @@
 		    max: laydate.now(+30),
 		    isclear:false,
 		    choose: function(choseDate){
-		    	$.ajax({
-					url : '<%=request.getContextPath()  %>/web/v1/activity/ticket.html',
-					method : 'GET',
-					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-					data : {'routeId' : '${route.activityPlanId }', 'date' : choseDate},
-					success : function(resp) {
-						var tl = $('#ticket-list');
-						tl.empty();
-						tl.append(resp);
-						$('div[ticket-time]').attr('ticket-time',choseDate);
-					},
-					error : function(resp) {
-						alert('网络出现问题，刷新页面重新尝试！');
-					}
-				});
-		    	
+		    	$.load.ticket(choseDate);
 		    }
 		});
 	});
@@ -201,9 +206,9 @@
 	                <li>玩点：</li>
 	                <li>
 	                    <c:forEach items="${goodnessList }" var="goodness">
-	                	<c:if test="${goodness.type == 'PLAY' }">
-	                    <span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
-	                    </c:if>
+		                	<c:if test="${goodness.type == 'PLAY' }">
+		                    	<span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
+		                    </c:if>
 	                    </c:forEach>
 	                </li>
 	            </ul>
@@ -211,9 +216,9 @@
 	                <li>景点：</li>
 	                <li>
 	                    <c:forEach items="${goodnessList }" var="goodness">
-	                	<c:if test="${goodness.type == 'SPOT' }">
-	                    <span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
-	                    </c:if>
+		                	<c:if test="${goodness.type == 'SPOT' }">
+		                    	<span><a href="<%=request.getContextPath()  %>/web/v1/activity/goodness.html?type=${type}&routeId=${route.activityPlanId}#${goodness.anchor }" class="tag--default">${goodness.name }</a></span>
+		                    </c:if>
 	                    </c:forEach>
 	                </li>
 	            </ul>
@@ -234,30 +239,6 @@
 	                </div>
 	            </div>
 	            <div class="book__table" id="ticket-list">
-	            	<c:forEach items="${ticketList }" var="ticket">
-	                <div class="book-ticket">
-	                    <div class="span-2 book-ticket__image">
-	                        <div class="ticket-image">
-	                            <div class="ticket-image__img"><img src="${staticServerPath1 }/images/${ticket.icon }"></div>
-	                        </div>
-	                    </div>
-	                    <div class="span-4 book-ticket__name">
-	                        <div class="ticket-name">
-	                            <span class="ticket-name__title">${ticket.name }</span>
-	                            <a href="" class="ticket-name__subtitle--link">【点击查看详情】</a>
-	                        </div>
-	                    </div>
-	                    <div class="span-2 book-ticket__price">
-	                        <span class="tag--price">￥${ticket.price }</span>
-	                    </div>
-	                    <div class="span-2 book-ticket__marketprice">
-	                        <del>门市价:100元</del>
-	                    </div>
-	                    <div class="span-2-last book-ticket__btn">
-	                        <button class="btn-book">立即预定</button>
-	                    </div>
-	                </div>
-	                </c:forEach>
 	            </div>
 	        </div>
 	    </div>

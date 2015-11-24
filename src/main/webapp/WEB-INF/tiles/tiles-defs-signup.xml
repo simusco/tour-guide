@@ -4,4 +4,18 @@
 	
 	<definition name="signup" template="/views/signup.jsp"/>
 	
+	<definition name="reset-psword"  extends="base.my.defination">
+		<put-attribute name="header" value="/views/user/reset-psword-header.jsp"/>
+		<put-attribute name="navbar" value="/views/user/reset-navbar.jsp"/>
+		<put-attribute name="content" value="/views/user/reset-psword.jsp"/>
+		<put-attribute name="active" value="reset-psword"/>
+	</definition>
+	
+	<definition name="modify-profile" extends="base.my.defination">
+		<put-attribute name="header" value="/views/user/modify-profile-header.jsp"/>
+		<put-attribute name="navbar" value="/views/user/modify-profile-navbar.jsp"/>
+		<put-attribute name="content" value="/views/user/modify-profile.jsp"/>
+		<put-attribute name="active" value="modify-profile"/>
+	</definition>
+	
 </tiles-definitions>

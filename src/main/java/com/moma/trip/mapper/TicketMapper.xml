@@ -59,7 +59,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				month,
 				day,
 				entry_time,
-				date
+				date,
+				market_price
 			)
 			VALUES 
 			(
@@ -70,7 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{month},
 				#{day},
 				#{entryTime},
-				#{date}
+				#{date},
+				#{marketPrice}
 			)
 		]]>
 	</insert>
@@ -147,7 +149,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				t.hotel_code as hotelCode,
 				t.spot_code as spotCode,
 				t.sychtime,
-				tp.price as price
+				tp.price as price,
+				tp.market_price as marketPrice
 			from mc_ticket t inner join mc_ticket_price tp
 			on t.ticket_id = tp.ticket_id
 			where 

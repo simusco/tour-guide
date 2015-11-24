@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSON;
 import com.moma.framework.extra.ctrip.dto.SpotAvail;
 import com.moma.framework.extra.ctrip.utils.ConfigData;
 import com.moma.framework.extra.ctrip.utils.SignatureUtils;
+import com.moma.framework.utils.HttpRequestUtils;
 import com.moma.framework.utils.UUIDUtils;
 import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.po.Spot;
@@ -105,28 +106,6 @@ public class SpotRequestServiceImpl implements SpotRequestService {
 		return JSON.toJSONString(params);
 	}
 	
-	public String doPostRequest(String url) throws ClientProtocolException, IOException{
-		CloseableHttpClient httpclient = HttpClientBuilder.create().build();
-		
-		HttpPost post = new HttpPost(url);
-
-		ResponseHandler<byte[]> handler = new ResponseHandler<byte[]>() {
-		    public byte[] handleResponse(
-		        HttpResponse response) throws ClientProtocolException, IOException {
-		        HttpEntity entity = response.getEntity();
-		        if (entity != null) {
-		            return EntityUtils.toByteArray(entity);
-		        } else {
-		            return null;
-		        }
-		    }
-		};
-		
-		byte[] bytes = httpclient.execute(post, handler);
-		
-		return new String(bytes);
-	}
-	
 	public static void main(String[] args) {
 		
 		new SpotRequestServiceImpl()
@@ -145,7 +124,7 @@ public class SpotRequestServiceImpl implements SpotRequestService {
 			String url = "http://openapi.ctrip.com/vacations/OpenServer.ashx?RequestJson="+p;
 			System.out.println(url);
 			
-			String content = doPostRequest(url);
+			String content = HttpRequestUtils.doPostRequest(url);
 			
 			System.out.println("-------------------------------------------------------");
 			System.out.println(content);

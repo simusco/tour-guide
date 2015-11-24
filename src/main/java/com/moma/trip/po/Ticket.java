@@ -19,6 +19,7 @@ public class Ticket implements Serializable {
 	private String spotCode;
 	private Date sychtime;
 	private BigDecimal price;
+	private BigDecimal marketPrice;
 
 	public String getTicketId() {
 		return ticketId;
@@ -90,6 +91,14 @@ public class Ticket implements Serializable {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public BigDecimal getMarketPrice() {
+		return marketPrice;
+	}
+
+	public void setMarketPrice(BigDecimal marketPrice) {
+		this.marketPrice = marketPrice;
 	}
 
 }

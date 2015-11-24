@@ -23,4 +23,8 @@ public interface OrderMapper {
 
 	Order getOrderByNo(String orderNo);
 
+	void cancelOrder(Order order);
+
+	void payed(Order order);
+
 }

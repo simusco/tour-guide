@@ -2,6 +2,8 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	
-	<definition name="alipay-pay" template="/views/alipay/pay.jsp"/>
+	<definition name="alipay-pay" template="/views/extra/alipay/pay.jsp"/>
+	<definition name="ctrip-pay" template="/views/extra/ctrip/pay.jsp"/>
+	<definition name="alipay-return" template="/views/extra/alipay/return.jsp"/>
 	
 </tiles-definitions>

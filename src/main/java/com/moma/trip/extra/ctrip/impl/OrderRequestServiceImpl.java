@@ -2,7 +2,7 @@ package com.moma.trip.extra.ctrip.impl;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.security.NoSuchAlgorithmException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +13,16 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.moma.framework.extra.ctrip.base.HttpAccessAdapter;
 import com.moma.framework.extra.ctrip.dto.HotelRes;
+import com.moma.framework.extra.ctrip.dto.SpotRes;
 import com.moma.framework.extra.ctrip.freemarker.TemplateMapper;
 import com.moma.framework.extra.ctrip.utils.ConfigData;
 import com.moma.framework.extra.ctrip.utils.HotelConstants;
 import com.moma.framework.extra.ctrip.utils.SignatureUtils;
+import com.moma.framework.extra.ctrip.xml.HotelOrderCancelParser;
 import com.moma.framework.extra.ctrip.xml.HotelResParser;
+import com.moma.framework.extra.ctrip.xml.SpotResParser;
 import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
+import com.moma.framework.utils.HttpRequestUtils;
 import com.moma.trip.extra.ctrip.OrderRequestService;
 import com.moma.trip.extra.job.Test;
 import com.moma.trip.po.Order;
@@ -29,8 +33,24 @@ import com.moma.trip.po.OrderVisitor;
 public class OrderRequestServiceImpl implements OrderRequestService {
 
 	@Override
-	public void generOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception {
+	public Object[] generOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception {
 
+		HotelRes hotelRes = generHotelOrder(order, odlist, orderVisitors);
+		
+		return new Object[]{hotelRes, null};
+		
+		//TODO 目前仅仅实现Spot
+		/*SpotRes spotRes = generSpotOrder(order, odlist, orderVisitors);
+	
+		if(hotelRes.getResId() == null || !spotRes.isSucceed()){
+			System.out.println("订单生成失败，需要取消订单。");
+			//需要调用取消订单。
+		}
+		
+		return new Object[]{hotelRes, spotRes};*/
+	}
+	
+	public SpotRes generSpotOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception{
 		Map<String, Object> root = new HashMap<String, Object>();
 		//TODO 仅仅支统一价格计划,需要实现多价格计划，但价格计划不同，订单数量和客人数量需要能对接上。
 		root.put("orderNo",order.getOrderNo());
@@ -75,10 +95,24 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 		params.put("Signature", SignatureUtils.CalculationSignature(timestamp, ConfigData.AllianceId,
 				ConfigData.SecretKey, ConfigData.SId, "TicketOrderCreateForPrepay_V2"));
 		
-		System.out.println(JSON.toJSONString(params));
+		SpotRes res = null;
+		try {
+			String p = URLEncoder.encode(JSON.toJSONString(params).replaceAll(" ", ""), "GB2312");
+			String url = "http://openapi.ctrip.com/vacations/OpenServer.ashx?RequestJson="+p;
+			String content = HttpRequestUtils.doPostRequest(url);
+			
+			System.out.println("-------------------------------------------------------");
+			System.out.println(content);
+			
+			res = new SpotResParser(content).parser();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 	
-	public HotelRes generHotelOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws NoSuchAlgorithmException, Exception{
+	public HotelRes generHotelOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception{
 		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
@@ -150,6 +184,50 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 		
 		//HotelAvail hv = new HotelRequestServiceImpl().hotelAvail("2116656", "12081415", "2015-12-08", "2015-12-09", 1, "2015-12-08");
 		//System.out.println(hv);
+	}
+
+	@Override
+	public boolean cancelOrder(Order order) throws Exception {
+		
+		boolean flag1 = cancelSpotOrder(order.getSpotResId(), order.getCtripUniqueId());
+		boolean flag2 = cancelHotelOrder(order.getHotelResId(), order.getCtripUniqueId());
+		
+		return flag1 && flag2;
+	}
+
+	@Override
+	public boolean cancelSpotOrder(String spotResId, String uniqueId) {
+		return true;
+	}
+
+	@Override
+	public boolean cancelHotelOrder(String hotelResId, String uniqueId) throws Exception {
+		
+		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String timestamp = SignatureUtils.GetTimeStamp();
+
+		Map<String, Object> root = new HashMap<String, Object>();
+		root.put("allianceId", ConfigData.AllianceId);
+		root.put("sid", ConfigData.SId);
+		root.put("timestamp", timestamp);
+		root.put("requestType", "OTA_Cancel");
+		root.put("signature", SignatureUtils.CalculationSignature(timestamp, ConfigData.AllianceId,
+				ConfigData.SecretKey, ConfigData.SId, "OTA_Cancel"));
+		
+		root.put("uniqueId", uniqueId);
+		root.put("resId", hotelResId.split("-")[1]);
+
+		String request = new TemplateMapper().getTemplateMapping(new File(templateDir), "OrderCancel.xml", root);
+		String response = HttpAccessAdapter.SendRequestToUrl(request, HotelConstants.URL_HOTEL_CANCEL, null);
+		
+		return new HotelOrderCancelParser(response).parser();
+	}
+
+	@Override
+	public void payHotel(String returnUrl, String showUrl, String description, String paymentDescription,
+			String orderID, int orderType) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

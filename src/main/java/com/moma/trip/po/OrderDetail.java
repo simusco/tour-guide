@@ -19,9 +19,6 @@ public class OrderDetail {
 	private String isPay;
 	private String isDisplay;
 	
-	private String ctripResIdType;
-	private String ctripResId;
-
 	public String getOrderDetailId() {
 		return orderDetailId;
 	}
@@ -132,22 +129,6 @@ public class OrderDetail {
 
 	public void setIsDisplay(String isDisplay) {
 		this.isDisplay = isDisplay;
-	}
-
-	public String getCtripResIdType() {
-		return ctripResIdType;
-	}
-
-	public void setCtripResIdType(String ctripResIdType) {
-		this.ctripResIdType = ctripResIdType;
-	}
-
-	public String getCtripResId() {
-		return ctripResId;
-	}
-
-	public void setCtripResId(String ctripResId) {
-		this.ctripResId = ctripResId;
 	}
 
 }

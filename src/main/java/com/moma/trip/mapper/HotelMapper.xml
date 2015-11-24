@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				sum(price)
 			from mc_hotel_price 
 			where 
-				date >= #{0} and date <= #{1} and
+				date >= #{0} and date < #{1} and
 				hotel_id = (select i.hotel_id from mc_hotel i where i.hotel_code = #{2} and i.rate_plan_code = #{3})
 		]]>
 	</select>
@@ -82,15 +82,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getHotelNewPrice" resultType="com.moma.trip.po.HotelPrice">
 		<![CDATA[
 			select 
-				hotel_price_id,
-				hotel_id,
+				hotel_price_id as hotelPriceId,
+				hotel_id as hotelId,
 				price,
 				year,
 				month,
 				day,
-				meals_included,
-				number_of_breakfast,
-				market_price,
+				meals_included as mealsIncluded,
+				number_of_breakfast as numberOfBreakfast,
+				market_price as marketPrice,
 				date
 			from mc_hotel_price 
 			where hotel_id = (select i.hotel_id from mc_hotel i where i.hotel_code = #{0} and i.rate_plan_code = #{1})

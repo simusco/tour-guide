@@ -14,7 +14,7 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 4551830575529934245L;
 
 	private String orderId;
-	
+
 	private String orderNo;
 
 	private String ticketId;
@@ -46,10 +46,14 @@ public class Order implements Serializable {
 	private String remark;
 
 	private String bookDay;
+	
+	private Date cancelTime;
 
 	private List<OrderVisitor> orderVisitors = new ArrayList<OrderVisitor>();
-	
-	private String ctripUniqueId;
+
+	private String ctripUniqueId;// 携程用户唯一ID
+	private String hotelResId;// 预定酒店ctrip订单ID
+	private String spotResId;// 预定门票ctrip订单ID
 
 	public String getOrderId() {
 		return orderId;
@@ -201,6 +205,30 @@ public class Order implements Serializable {
 
 	public void setCtripUniqueId(String ctripUniqueId) {
 		this.ctripUniqueId = ctripUniqueId;
+	}
+
+	public String getHotelResId() {
+		return hotelResId;
+	}
+
+	public void setHotelResId(String hotelResId) {
+		this.hotelResId = hotelResId;
+	}
+
+	public String getSpotResId() {
+		return spotResId;
+	}
+
+	public void setSpotResId(String spotResId) {
+		this.spotResId = spotResId;
+	}
+
+	public Date getCancelTime() {
+		return cancelTime;
+	}
+
+	public void setCancelTime(Date cancelTime) {
+		this.cancelTime = cancelTime;
 	}
 
 }

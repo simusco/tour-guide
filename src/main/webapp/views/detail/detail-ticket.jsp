@@ -35,10 +35,15 @@ $(function(){
 	        </div>
 	    </div>
 	    <div class="span-2 book-ticket__price">
-	        <span class="tag--price">￥${ticket.price }</span>
+	        <span class="tag--price">￥${ticket.price }元</span>
 	    </div>
 	    <div class="span-2 book-ticket__marketprice">
-	        <del>门市价:100元</del>
+	        <del>
+	        	<c:choose>
+	        		<c:when test="${empty ticket.marketPrice || ticket.marketPrice <= 0.0 }">门市价：无</c:when>
+	        		<c:otherwise>门市价：${ticket.marketPrice }元</c:otherwise>
+	        	</c:choose>
+	        </del>
 	    </div>
 	    <div class="span-2-last book-ticket__btn">
 	        <button class="btn-book" ui-book-btn="" ticket-id="${ticket.ticketId }">立即预定</button>

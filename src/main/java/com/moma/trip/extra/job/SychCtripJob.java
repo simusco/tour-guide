@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
@@ -29,6 +30,8 @@ import com.moma.trip.service.TicketService;
 
 public class SychCtripJob extends QuartzJobBean {
 
+	private static Logger logger = Logger.getLogger(SychCtripJob.class);  
+	
 	private HotelRequestService hotelRequestService;
 	private SpotRequestService spotRequestService;
 	private HotelService hotelService;
@@ -42,7 +45,7 @@ public class SychCtripJob extends QuartzJobBean {
 		// 同步酒店
 		//sychHotel();
 		// 生成ticket,spot/hotel应该是异步方式
-		//sychTicketPrice();
+		sychTicketPrice();
 	}
 
 	protected void sychTicketPrice() {
@@ -144,8 +147,15 @@ public class SychCtripJob extends QuartzJobBean {
 							tp.setMonth(hp.getMonth());
 							tp.setDay(hp.getDay());
 							tp.setPrice(hp.getPrice().multiply(new BigDecimal(quantity)));
+							
+							BigDecimal marketPrice = new BigDecimal(hp.getMarketPrice() == null ? "0" : hp.getMarketPrice()).multiply(new BigDecimal(quantity));
+							tp.setMarketPrice(marketPrice);
 						}else{
 							tp.setPrice(tp.getPrice().add(hp.getPrice().multiply(new BigDecimal(quantity))));
+							
+							BigDecimal marketPrice = new BigDecimal(hp.getMarketPrice() == null ? "0" : hp.getMarketPrice()).multiply(new BigDecimal(quantity));
+							tp.setMarketPrice(tp.getMarketPrice().add(marketPrice));
+							
 						}
 						priceMap.put(d, tp);
 					}
@@ -169,15 +179,17 @@ public class SychCtripJob extends QuartzJobBean {
 						String d = sp.getYear() + sp.getMonth() + sp.getDay();
 						
 						TicketPrice tp = priceMap.get(d);
-						if(tp == null){
-							//表示没有酒店价格计划，因此不生成订单价格
-							System.out.println("无酒店");
-						}else{
+						if(tp != null){
 							tp.setPrice(tp.getPrice().add(sp.getPrice().multiply(new BigDecimal(quantity))));
+							
+							System.out.println(d + ",hotel-price:"+tp.getMarketPrice());
+							System.out.println(d + ",spot-price:"+sp.getMarketPrice());
+							
+							BigDecimal marketPrice = (sp.getMarketPrice() == null ? new BigDecimal("0") : sp.getMarketPrice()).multiply(new BigDecimal(quantity));
+							tp.setMarketPrice(tp.getMarketPrice().add(marketPrice));
 							
 							//存入value
 							priceMap.put(d, tp);
-							
 							//标记
 							flagMap.put(d, true);
 						}
@@ -191,8 +203,6 @@ public class SychCtripJob extends QuartzJobBean {
 			String key = it.next();
 			if(flagMap.containsKey(key)){
 				tplist.add(priceMap.get(key));
-			}else{
-				System.out.println("无门票");
 			}
 		}
 		

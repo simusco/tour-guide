@@ -24,4 +24,6 @@ public class HotelConstants {
 	
 	public final static String URL_HOTEL_RES = "http://openapi.ctrip.com/Hotel/OTA_HotelRes.asmx";
 	
+	public final static String URL_HOTEL_CANCEL = "http://openapi.ctrip.com/Hotel/OTA_Cancel.asmx";
+	
 }

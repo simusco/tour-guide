@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.moma.framework.ServiceException;
 import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.Order;
 import com.moma.trip.po.User;
@@ -36,7 +35,12 @@ public class MyController  extends RestfulController {
 	@Resource
 	private OrderService orderService;
 	
-	@RequestMapping(value="/unpay.html",method=RequestMethod.GET)
+	@RequestMapping(value="/center.html",method=RequestMethod.GET)
+	public ModelAndView center(){
+		return new ModelAndView("my-center");
+	}
+	
+	@RequestMapping(value="/order/unpay.html",method=RequestMethod.GET)
 	public ModelAndView unpay(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -44,10 +48,10 @@ public class MyController  extends RestfulController {
 		List<Order> orderList = orderService.getOrderList("UNPAY", user.getUserId());
 		map.put("orderList", orderList);
 		
-		return new ModelAndView("my-unpay", map);
+		return new ModelAndView("my-order-unpay", map);
 	}
 	
-	@RequestMapping(value="/payed.html",method=RequestMethod.GET)
+	@RequestMapping(value="/order/payed.html",method=RequestMethod.GET)
 	public ModelAndView payed(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -55,47 +59,38 @@ public class MyController  extends RestfulController {
 		List<Order> orderList = orderService.getOrderList("PAYED", user.getUserId());
 		map.put("orderList", orderList);
 		
-		return new ModelAndView("my-payed", map);
+		return new ModelAndView("my-order-payed", map);
 	}
 	
-	@RequestMapping(value="/reset-psword.html",method=RequestMethod.GET)
-	public ModelAndView resetPsword(HttpServletRequest request){
-		return new ModelAndView("my-reset-psword");
-	}
-	
-	@RequestMapping(value="/reset-psword.html",method=RequestMethod.POST)
-	@ResponseBody
-	public byte[] resetPsword(String oldpassword, String password, String repassword, HttpServletRequest request){
+	@RequestMapping(value="/order/close.html",method=RequestMethod.GET)
+	public ModelAndView close(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
-		if(user == null){
-			return toJSONBytes(unlogin());
-		}
+		List<Order> orderList = orderService.getOrderList("CLOSE", user.getUserId());
+		map.put("orderList", orderList);
 		
-		try{
-			signInService.signIn(user.getLoginId(), oldpassword);
-			
-			map.put("flag", false);
-			if(password == null || repassword == null)
-				map.put("msg", "1010");//密码不能为空
-			else if (!password.equals(repassword))
-				map.put("msg", "1011");//新密码不一致
-			
-			signUpService.resetPsword(user.getLoginId(), password);
-			
-			map.put("flag", true);
-		}catch(ServiceException e){
-			map.put("flag", false);
-			map.put("msg", "1009");//旧密码错误
-		}
-		
-		return toJSONBytes(map);
+		return new ModelAndView("my-order-close", map);
 	}
 	
-	@RequestMapping(value="/modify-profile.html",method=RequestMethod.GET)
-	public ModelAndView modifyProfile(HttpServletRequest request){
-		return new ModelAndView("my-modify-profile");
+	@RequestMapping(value="/order/cancel.html",method=RequestMethod.GET)
+	@ResponseBody
+	public byte[] cancel(String orderNo, HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		try{
+			User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
+			if(user == null){
+				//TODO 进入登陆页面
+				return toJSONBytes(unlogin());
+			}
+			
+			orderService.cancel(orderNo, user.getUserId());
+			map.put("flag", true);
+		}catch(Exception e){
+			map.put("flag", false);
+			map.put("msg", e.getMessage());
+		}
+		return toJSONBytes(map);
 	}
 	
 }

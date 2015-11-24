@@ -50,14 +50,6 @@ public class SignInController  extends RestfulController {
 		return JSON.toJSONBytes(map, SerializerFeature.BrowserCompatible);
 	}
 	
-	@RequestMapping(value="/signout.html",method=RequestMethod.GET)
-	public String signout(HttpServletRequest request) {
-		
-		request.getSession().removeAttribute(User.LOGIN_USER);
-		
-		return "signin";
-	}
-	
 	@RequestMapping(value="/login.html",method=RequestMethod.GET)
 	public String login(HttpServletRequest request) {
 		return "login";

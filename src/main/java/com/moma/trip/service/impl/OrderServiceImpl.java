@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.moma.framework.ServiceException;
 import com.moma.framework.extra.ctrip.dto.HotelAvail;
+import com.moma.framework.extra.ctrip.dto.HotelRes;
 import com.moma.framework.extra.ctrip.dto.SpotAvail;
+import com.moma.framework.extra.ctrip.dto.SpotRes;
 import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
 import com.moma.framework.utils.RandomUtils;
 import com.moma.framework.utils.UUIDUtils;
@@ -101,10 +103,17 @@ public class OrderServiceImpl implements OrderService {
 		String orderNo = new Date().getTime() + "" + RandomUtils.getRandom(1000000, 9999999);
 		order.setOrderNo(orderNo);
 		
-		orderMapper.saveOrder(order);
 		//TODO 生成ctrip Order(门票/酒店).
-		orderRequestService.generOrder(order, odlist, orderVisitors);
+		Object[] res = orderRequestService.generOrder(order, odlist, orderVisitors);
+		HotelRes hotelRes = (HotelRes) res[0];
+		SpotRes spotRes = (SpotRes) res[1];
 		
+		if(hotelRes != null)
+			order.setHotelResId(hotelRes.getResIdType() + "-" +hotelRes.getResId());
+		if(spotRes != null)
+			order.setSpotResId(spotRes.getOrderId());
+		
+		orderMapper.saveOrder(order);
 		
 		return order.getOrderNo();
 	}
@@ -156,7 +165,7 @@ public class OrderServiceImpl implements OrderService {
 			Date d = new SimpleDateFormat("yyyy-MM-dd").parse(order.getEntryTime());
 			Calendar c =Calendar.getInstance();
 			c.setTime(d);
-			c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(order.getBookDay()) - 1);
+			c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(order.getBookDay()));
 			
 			order.setEndTime(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()));
 		} catch (ParseException e) {
@@ -279,6 +288,38 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		return order;
+	}
+
+	@Override
+	public void cancel(String orderNo, String userId) throws Exception {
+		
+		Order order = orderMapper.getOrderByNo(orderNo);
+		if(order == null ||!order.getUserId().equals(userId)){
+			//为找到订单
+			throw new ServiceException("订单不能找到。");
+		}
+		
+		if("CANCEL".equals(order.getStatus())){
+			throw new ServiceException("订单已经取消，不能再次取消。");
+		}
+		
+		//TODO 需要检查订单是否能取消
+		boolean flag = orderRequestService.cancelOrder(order);
+		if(flag){
+			order.setCancelTime(new Date());
+			orderMapper.cancelOrder(order);
+		}
+		//cancel time
+	}
+
+	@Override
+	public Order getOrderByNo(String outTradeNo) {
+		return orderMapper.getOrderByNo(outTradeNo);
+	}
+
+	@Override
+	public void payed(Order order) {
+		orderMapper.payed(order);
 	}
 
 }

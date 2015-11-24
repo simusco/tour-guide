@@ -28,12 +28,12 @@
 	
 	<mvc:interceptors>  
         <mvc:interceptor>  
-            <mvc:mapping path="/web/v1/my/unpay.html" />
-            <mvc:mapping path="/web/v1/my/payed.html" />
-            <mvc:mapping path="/web/v1/my/reset-psword.html" />
-            <mvc:mapping path="/web/v1/my/modify-profile.html" />
-            <mvc:mapping path="/web/v1/order/generate.html" />
-            <mvc:mapping path="/web/v1/order/payment.html" />
+            <mvc:mapping path="/web/v1/my/order/unpay.html" />
+            <mvc:mapping path="/web/v1/my/order/payed.html" />
+            <mvc:mapping path="/web/v1/my/order/cancel.html" />
+            <mvc:mapping path="/web/v1/my/order/close.html" />
+            <mvc:mapping path="/web/v1/user/reset-psword.html" />
+            <mvc:mapping path="/web/v1/user/modify-profile.html" />
             <bean class="com.moma.framework.CheckAuthInterceptor"/>  
         </mvc:interceptor>  
     </mvc:interceptors>  
@@ -54,6 +54,7 @@
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	    <property name="definitions">
 	        <list>
+	        	<value>/WEB-INF/tiles/tiles-defs-base.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-signin.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-topic.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-index.xml</value>

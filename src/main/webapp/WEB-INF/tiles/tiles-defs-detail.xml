@@ -2,12 +2,6 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	
-	<definition name="base.defination" template="/views/layout.jsp">
-		<put-attribute name="topbar" value="/views/topbar.jsp"/>
-		<put-attribute name="footer" value="/views/footer.jsp"/>
-		<put-attribute name="analytics" value="/views/analytics.jsp"/>
-	</definition>
-	
 	<definition name="detail" extends="query">
 		<put-attribute name="header" value="/views/detail/detail-header.jsp"/>
 		<put-attribute name="content" value="/views/detail/detail-content.jsp"/>

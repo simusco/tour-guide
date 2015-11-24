@@ -42,58 +42,49 @@
 				if(flag){
 					printMsg('loginId', '*帐号已经注册');
 					return;
-				}else{
-					$.ajax({
-						url : '<%=request.getContextPath()  %>/web/v1/user/vcode.html',
-						async : false,
-						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-						data:{'phoneNo' : loginId.val()},
-						success : function(resp) {
-							var o = $.parseJSON(resp),f = o.flag,msg = o.msg;
-							
-							if(!f){
-								printMsg('vcode', msg);
-								return;
-							}
-							
-							self.attr('disabled', 'disabled');
-							
-							var t = window.setInterval(function(){
-								--i;
-								self.val('已经发送('+i+')');
-								if(i <= 1){
-									window.clearInterval(t);
-									self.removeAttr('disabled');
-									self.val('获取验证码');
-								}
-							},1000);
-						},
-						error : function(resp) {
-							alert('网络出现问题，刷新页面重新尝试！');
+				}
+				
+				$.ajax({
+					url : '<%=request.getContextPath()  %>/web/v1/user/vcode.html',
+					async : false,
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+					data:{'phoneNo' : loginId.val()},
+					success : function(resp) {
+						var o = $.parseJSON(resp),f = o.flag,msg = o.msg;
+						
+						if(!f){
+							printMsg('vcode', msg);
+							return;
 						}
-					});
-				};
+						
+						self.attr('disabled', 'disabled');
+						
+						var t = window.setInterval(function(){
+							--i;
+							self.val('已经发送('+i+')');
+							if(i <= 1){
+								window.clearInterval(t);
+								self.removeAttr('disabled');
+								self.val('获取验证码');
+							}
+						},1000);
+					},
+					error : function(resp) {
+						alert('网络出现问题，刷新页面重新尝试！');
+					}
+				});
 			});
 		});
 		
 		$('#signup').click(function(){
 			
-			
-			if(!checkPwdSame() || !checkName() || !checkPwdLength(password.val()) || !checkPwdLength(repassword.val())){
+			if(!checkPwdLength(password.val()) || !checkPwdLength(repassword.val()) || !checkPwdSame() || !checkName()){
 				loginId.trigger('blur');
 				name.trigger('keyup');
 				password.trigger('keyup');
 				repassword.trigger('keyup');
 				return;
 			}
-			
-			if(!checkPwdSame()){
-				password.trigger('blur');
-				repassword.trigger('blur');
-				return;
-			}
-			
-			//TODO 验证验证码是否正确
 			
 			checkLoginId(function(flag){
 				
@@ -115,16 +106,12 @@
 						'repassword' : repassword.val()
 					},
 					success : function(resp) {
-						var o = $.parseJSON(resp),f = o.flag,msgcode = o.msgcode;
+						var o = $.parseJSON(resp), f = o.flag, msgcode=o.msgcode, msg = o.msg;
 						if(f){
 							//redirect login.html
 							window.location.href = '<%=request.getContextPath()  %>/web/v1/user/signin.html';
 						}else{
-							if(msgcode == 10){
-								printMsg('vcode', '*验证码错误');
-							}else if(msgcode == 11){
-								alert('注册失败');
-							}
+							printMsg(msgcode, msg);
 						}
 					},
 					error : function(resp) {

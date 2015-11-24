@@ -4,6 +4,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.OrderMapper">
 
+	<update id="payed" parameterType="com.moma.trip.po.Order">
+		<![CDATA[
+			update mc_order 
+			set 
+				status = 'PAYED',
+				is_pay = 'Y',
+				pay_time = now()
+			where order_id = #{orderId}
+		]]>
+	</update>
+
+	<update id="cancelOrder" parameterType="com.moma.trip.po.Order">
+		<![CDATA[
+			update mc_order 
+			set 
+				status = 'CANCEL',
+				cancel_time = #{cancelTime}
+			where order_id = #{orderId}
+		]]>
+	</update>
+
 	<select id="getOrderByNo" resultType="com.moma.trip.po.Order">
 		<![CDATA[
 			select 
@@ -22,7 +43,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ticket_name as ticketName,
 				ticket_desc as ticketDesc,
 				end_time as endTime,
-				ctrip_unique_id as ctripUniqueId
+				ctrip_unique_id as ctripUniqueId,
+				hotel_res_id as hotelResId,
+				spot_res_id as spotResId
 			from mc_order
 			where order_no = #{0}
 		]]>
@@ -46,7 +69,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ticket_name as ticketName,
 				ticket_desc as ticketDesc,
 				end_time as endTime,
-				ctrip_unique_id as ctripUniqueId
+				ctrip_unique_id as ctripUniqueId,
+				hotel_res_id as hotelResId,
+				spot_res_id as spotResId
 			from mc_order
 			where order_id = #{0}
 		]]>
@@ -71,7 +96,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ticket_name,
 				ticket_desc,
 				end_time,
-				ctrip_unique_id
+				ctrip_unique_id,
+				hotel_res_id,
+				spot_res_id
 			)
 			VALUES 
 			(
@@ -90,7 +117,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{ticketName},
 				#{ticketDesc},
 				#{endTime},
-				#{ctripUniqueId}
+				#{ctripUniqueId},
+				#{hotelResId},
+				#{spotResId}
 			)
 		]]>
 	</insert>
@@ -176,7 +205,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ticket_name as ticketName,
 				ticket_desc as ticketDesc,
 				end_time as endTime,
-				ctrip_unique_id as ctripUniqueId
+				ctrip_unique_id as ctripUniqueId,
+				hotel_res_id as hotelResId,
+				spot_res_id as spotResId
 			from mc_order
 			where  status = #{0} and user_id = #{1}
 			order by create_time desc

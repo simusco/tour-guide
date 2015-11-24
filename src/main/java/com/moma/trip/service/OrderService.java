@@ -18,4 +18,10 @@ public interface OrderService {
 
 	Order getOrderByNo(String orderNo, String userId);
 
+	void cancel(String orderNo, String userId) throws Exception;
+
+	Order getOrderByNo(String outTradeNo);
+
+	void payed(Order order);
+
 }
