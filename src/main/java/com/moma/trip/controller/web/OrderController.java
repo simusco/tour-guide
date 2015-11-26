@@ -164,12 +164,10 @@ public class OrderController  extends RestfulController {
 	
 	@RequestMapping(value="/payment.html",method=RequestMethod.GET)
 	public ModelAndView payment(String orderNo, HttpServletRequest request){
-		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		String result = "ctrip-pay";
 		try{
-			Order order = orderService.getOrderByNo(orderNo, user.getUserId());
+			Order order = orderService.getOrderByNo(orderNo);
 			
 			String timestamp = SignatureUtils.GetTimeStamp();
 			map.put("allianceId", ConfigData.AllianceId);

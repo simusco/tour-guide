@@ -99,10 +99,11 @@ $(function(){
 
 <div class="content">
     <div class="content__hot">
-        <div class="package__title package-icon--hot">
+        <div class="package__title package-icon--hot relative">
             <span class="package-text">热门套餐
                 <small class="package-text__small">海量周边热门实惠套餐</small>
             </span>
+            <a class="package-more" href="">更多&gt;&gt;</a>
         </div>
         <div class="package__body index-grid">
         	<c:forEach items="${hotlist }" var="hot" varStatus="x">
@@ -116,7 +117,7 @@ $(function(){
                                 <span class="tag--out">${hot.hasSaled }</span>人购买 
                                 <span class="tag--out">${hot.goodReviewPer }%</span>好评
                             </p>
-                             <p class="hot-desc__text">${fn:substring(hot.description, 0, 46) }${fn:length(hot.description) > 46 ? "..." : ""}</p>
+                             <p class="hot-desc__text" title="${hot.description }">${fn:substring(hot.description, 0, 36) }${fn:length(hot.description) > 36 ? "..." : ""}</p>
                          </div>
                     </div>
                     <div class="index-hot__price">
@@ -129,10 +130,11 @@ $(function(){
         </div>
     </div>
     <div class="content__spot">
-        <div class="package__title package-icon--spot">
+        <div class="package__title package-icon--spot relative">
             <span class="package-text">周边好去处
                 <small class="package-text__small">周边特色好玩景点</small>
             </span>
+            <a class="package-more" href="">更多&gt;&gt;</a>
         </div>
         <div class="package__body index-grid">
         	<c:forEach items="${spotlist }" var="spot" varStatus="x">
@@ -140,8 +142,8 @@ $(function(){
                 <a title="${spot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=SPOT&routeId=${spot.activityPlanId }" title="" class="index-spot">
                     <div class="index-spot__img"><img src="${staticServerPath1 }/images/${spot.imageURL }" alt=""></div>
                     <div class="index-spot__title">${spot.name }</div>
-                    <div class="index-spot__desc--small">
-                         <p class="small">${fn:substring(spot.description, 0, 32) }${fn:length(spot.description) > 32 ? "..." : ""}</p>
+                    <div class="index-spot__desc">
+                         <p class="font-1x">${fn:substring(spot.description, 0, 32) }${fn:length(spot.description) > 32 ? "..." : ""}</p>
                     </div>
                 </a>
             </div>
@@ -149,12 +151,14 @@ $(function(){
         </div>
     </div>
     <div class="content__topic">
-        <div class="package__title package-icon--topic">
+        <div class="package__title package-icon--topic relative">
             <span class="package-text">主题自驾
                 <small class="package-text__small">为你打造精品主题自驾</small>
             </span>
+            <a class="package-more" href="">更多&gt;&gt;</a>
         </div>
-        <div class="package__body index-grid topic-bg">
+        <div class="package__body index-grid">
+        	<div class="topic-bg clearfix ptm pbm">
         	<c:forEach items="${topiclist }" var="topic" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
                 <a href="http://localhost:8080/tour-guide/web/v1/topic/detail.html?topicId=${topic.topicId }" title=""  class="index-topic">
@@ -167,35 +171,38 @@ $(function(){
                 </a>
             </div>
             </c:forEach>
-        </div>
-    </div>
-    <div class="content__advantage">
-        <div class="package__title package-icon--4reason">
-            <span class="package-text">选择我们的4大理由</span>
-        </div>
-        <div class="package__body index-grid">
-            <div class="advantage span-3">
-                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
-                <p class="advantage__title">【精品线路】</p>
-                <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
-            </div>
-            <div class="advantage span-3">
-                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
-                <p class="advantage__title">【精品线路】</p>
-                <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
-            </div>
-            <div class="advantage span-3">
-                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
-                <p class="advantage__title">【精品线路】</p>
-                <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
-            </div>
-            <div class="advantage span-3-last">
-                <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
-                <p class="advantage__title">【精品线路】</p>
-                <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
             </div>
         </div>
     </div>
+    
+	<div class="content__advantage">
+	    <div class="package__title package-icon--4reason">
+	        <span class="package-text">选择我们的4大理由</span>
+	    </div>
+	    <div class="package__body index-grid">
+	        <div class="advantage span-3">
+	            <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
+	            <p class="advantage__title">【精品线路】</p>
+	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	        </div>
+	        <div class="advantage span-3">
+	            <img src="${staticServerPath1 }/images/index/advance02.png" class="advantage__img">
+	            <p class="advantage__title">【精品线路】</p>
+	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	        </div>
+	        <div class="advantage span-3">
+	            <img src="${staticServerPath1 }/images/index/advance03.png" class="advantage__img">
+	            <p class="advantage__title">【精品线路】</p>
+	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	        </div>
+	        <div class="advantage span-3-last">
+	            <img src="${staticServerPath1 }/images/index/advance04.png" class="advantage__img">
+	            <p class="advantage__title">【精品线路】</p>
+	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	        </div>
+	    </div>
+	</div>
+
     <div class="content__foobanner">
         <div class="foot-banner">
             <img src="${staticServerPath1 }/images/index/bottom-banner.png" class="foot-banner__img">

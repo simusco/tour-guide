@@ -10,7 +10,7 @@ $(function(){
 		var scrollTop = $(this).scrollTop(),
 			menu = $('#slide-menu');
 		
-		if(scrollTop <= 180){
+		if(scrollTop <= 200){
 			menu.removeClass('fixed');
 		}else{
 			menu.addClass('fixed')
@@ -70,7 +70,7 @@ $(function(){
    		</div>
    		<div class="content__info--right">
    			<div class="spot">
-   				<div class="spot__title">景点</div>
+   				<div class="spot__title spot__title--spot">景点</div>
    				<div class="spot__content">
    					<c:set value="1" var="index"></c:set>
    					<c:forEach items="${goodnessList }" var="goodness" varStatus="x">
@@ -83,7 +83,7 @@ $(function(){
    				</div>
    			</div>
    			<div class="spot mtl">
-   				<div class="spot__title">吃点</div>
+   				<div class="spot__title spot__title--eat">吃点</div>
    				<div class="spot__content">
    					<c:set value="1" var="index"></c:set>
    					<c:forEach items="${goodnessList }" var="goodness" varStatus="x">
@@ -97,7 +97,7 @@ $(function(){
    			</div>
    			
    			<div class="spot mtl">
-   				<div class="spot__title">玩点</div>
+   				<div class="spot__title spot__title--play">玩点</div>
    				<div class="spot__content">
    					<c:set value="1" var="index"></c:set>
    					<c:forEach items="${goodnessList }" var="goodness" varStatus="x">

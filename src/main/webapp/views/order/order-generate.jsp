@@ -277,12 +277,7 @@ $(function(){
 <div class="content mtl">
 
 	<div class="panel">
-          <!-- 
-          <div class="panel__title">
-              <span class="panel__title--lcolor">进度</span>
-          </div> 
-          -->
-          <div class="panel__content">
+          <div class="panel__content--ger">
               <div class="order-progress">
                   <ul class="order-progress__item finished first">
                       <li class="step-text">
@@ -312,7 +307,7 @@ $(function(){
 	
 	<div class="panel mtl">
           <div class="panel__title">
-              <span class="panel__title--lcolor">套餐信息</span>
+              <span class="panel-title panel-title--lcolor">套餐信息</span>
           </div>
           <div class="panel__content">
               <div class="order-ticket">
@@ -368,9 +363,9 @@ $(function(){
 
 	<div class="panel mtl">
 	    <div class="panel__title">
-	        <span class="panel__title--lcolor">联系人信息</span>
+	        <span class="panel-title panel-title--lcolor">联系人信息</span>
 	    </div>
-	    <div class="panel__content">
+	    <div class="panel__content--ger">
 	        <form action="" class="form" method="post">
 	        	<div class="row">
                     <div class="span-12-last">
@@ -400,7 +395,7 @@ $(function(){
 	
 	<div class="payment container-12 mtl">
 	    <div class="payment__back span-6">
-	        <a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${type }&routeId=${ticket.activityId}" class="payment-back">返回</a>
+	        <a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=${type }&routeId=${ticket.activityId}" class="payment-back">返回上一级</a>
 	    </div>
 	    <div class="payment__btn span-6-last text-right">
 	        <div class="payment-price">
@@ -413,5 +408,46 @@ $(function(){
 	        </a>
 	    </div>
 	</div>
+	
+	<div class="panel mtl">
+	    <div class="panel__title">
+	        <span class="panel-title panel-title--lcolor">购买须知</span>
+	    </div>
+	    <div class="panel__content--ger">
+	        <div class="text-content text-content--theme1">
+	            <p class="text-content__title">[预定须知]</p>
+	            <p>1.更改是指在原出票航空公司原航段的不同时间航班空公司的航班上。</p>
+	            <p>2.去哪儿网关于旅游产条款。</p>
+	            <p>3.旅游产品中约定的产任，不对其在您消费过程中可能涉及的具体产品和服务内容承担责任。</p>
+	        </div>
+	        <div class="text-content text-content--theme1">
+	            <p class="text-content__title">[预定须知]</p>
+	            <p>1.目的地接待服务及其他服务。具体产品的最终包含内容以确认的订单约定内容为准。</p>
+	            <p>2.不能作为约定条款。</p>
+	            <p>3.旅游产品中约定的产品和服务内容具体产品和服务内容承担责任。</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="panel mtl">
+	    <div class="panel__title">
+	        <span class="panel-title panel-title--lcolor">退改须知</span>
+	    </div>
+	    <div class="panel__content--ger">
+	        <div class="text-content text-content--theme1">
+	            <p class="text-content__title">[预定须知]</p>
+	            <p>1.更改是指在原出票航空公司原航段的不同时间航班空公司的航班上。</p>
+	            <p>2.去哪儿网关于旅游产条款。</p>
+	            <p>3.旅游产品中约定的产任，不对其在您消费过程中可能涉及的具体产品和服务内容承担责任。</p>
+	        </div>
+	        <div class="text-content text-content--theme1">
+	            <p class="text-content__title">[预定须知]</p>
+	            <p>1.目的地接待服务及其他服务。具体产品的最终包含内容以确认的订单约定内容为准。</p>
+	            <p>2.不能作为约定条款。</p>
+	            <p>3.旅游产品中约定的产品和服务内容具体产品和服务内容承担责任。</p>
+	        </div>
+	    </div>
+	</div>
+
 	
 </div>

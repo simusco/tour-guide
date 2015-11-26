@@ -55,26 +55,26 @@ $(function(){
     				</div>
     			</div>
                 <div class="order__body container-12">
-                	<div class="order-body">
-                		<div class="order-body__column--image span-2">
+                <div class="order-body">
+                  <div class="order-body__column order-body__column--image span-2">
                       <div class="order-image">
                           <div class="order-image__img"><img src="${staticServerPath1 }/images/${order.ticketIcon}"></div>
                       </div>
                   </div>
-                  <div class="order-body__column--name span-4">
+                  <div class="order-body__column order-body__column--name span-4">
                       <div class="order-name">
                           <span class="order-name__title">${order.ticketName}</span>
                           <span class="order-name__subtitle">${order.ticketDesc }</span>
                           <span class="order-name__subtitle">使用时间：${order.entryTime }至${order.endTime }</span>
                       </div>
                   </div>
-                  <div class="order-body__column--price span-2"><span>￥${order.totalPrice }元</span></div>
-                  <div class="order-body__column--state span-2"><span>
+                  <div class="order-body__column order-body__column--price span-2"><span>￥${order.totalPrice }元</span></div>
+                  <div class="order-body__column order-body__column--state span-2"><span>
                   	<c:if test="${order.status == 'UNPAY' }">未支付</c:if>
                   	<c:if test="${order.status == 'PAYED' }">已支付</c:if>
                   	<c:if test="${order.status == 'CANCEL' }">订单取消</c:if>
                   </span></div>
-                  <div class="order-body__column--btn span-2-last">
+                  <div class="order-body__column order-body__column--btn span-2-last">
                       <div class="row-btn">
                        	<a class="btn-book">订单详情</a>
                       </div>

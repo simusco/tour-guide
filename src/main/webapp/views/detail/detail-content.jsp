@@ -106,7 +106,7 @@
         </div>
         <div class="overview__body">
             <div class="route route--theme2 mtl">
-                <div class="route_img">
+                <div class="route__img">
                     <div class="route-img">
                         <div class="route-img__screen">
                             <div class="img-screen" ui-image-screen="">
@@ -132,16 +132,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="route_desc">
-                    <div class="route-desc_header--theme2">
+                <div class="route__desc">
+                    <div class="route-desc__header--theme2">
                         <h2>${route.name }</h2>
                         <p>${route.description }</p>
                     </div>
                     <c:if test="${route.type == 'HOT' }">
-                    	<div class="route-desc_content--theme2">
+                    	<div class="route-desc__content--theme2">
 	                        <ul class="tag-line tag-line--default">
 	                            <li>建议游玩：</li>
-	                            <li><span class="tag--out">${route.takeTime }</span></li>
+	                            <li><span class="tag tag--out">${route.takeTime }</span></li>
 	                        </ul>
 	                        <c:out value="${route.otherAttr }" escapeXml="false"/>
 	                        <ul class="tag-line tag-line--default">
@@ -154,18 +154,18 @@
                     </c:if>
                     
                     <c:if test="${route.type == 'SPOT' }">
-                    	<div class="route-desc_content--theme2">
+                    	<div class="route-desc__content--theme2">
 	                        <ul class="tag-line tag-line--default">
 				                <li>价格：</li>
-				                <li><span class="tag--out">$${route.price }元</span><small>起/份 <del>门市价:${route.marketPrice }</del></small></li>
+				                <li><span class="tag tag--out">$${route.price }元</span><small>起/份 <del>门市价:${route.marketPrice }</del></small></li>
 				            </ul>
 				            <ul class="tag-line tag-line--default">
 				                <li>已售：</li>
-				                <li><span class="tag--out">${route.hasSaled }</span></li>
+				                <li><span class="tag tag--out">${route.hasSaled }</span></li>
 				            </ul>
 				            <ul class="tag-line tag-line--default">
 				                <li>好评率：</li>
-				                <li><span class="tag--out">${route.goodReviewPer }%</span></li>
+				                <li><span class="tag tag--out">${route.goodReviewPer }%</span></li>
 				            </ul>
 				            <ul class="tag-line tag-line--default">
 				                <li>主题特色：</li>
@@ -189,7 +189,7 @@
 	<div class="content__spot">
 	    <div class="panel">
 	        <div class="panel__title">
-	            <span class="panel__title--lcolor">亮点</span>
+	            <span class="panel-title panel-title--spot">亮点</span>
 	        </div>
 	        <div class="panel__content">
 	            <ul class="tag-line tag-line--default">
@@ -229,7 +229,7 @@
 	<div class="content__book">
 	    <div class="panel">
 	        <div class="panel__title">
-	            <span class="panel__title--lcolor">预定</span>
+	            <span class="panel-title panel-title--book">预定</span>
 	        </div>
 	        <div class="panel__content">
 	            <div class="book__datapicker">
@@ -247,8 +247,8 @@
 	<div class="subnavbar">
         <div class="subnav-wraper">
             <ul class="nav">
-                <li class="nav_item--theme2 span-6"><a href="">购买须知</a></li>
-                <li class="nav_item--theme2 span-6-last active"><a href="">推荐玩法</a></li>
+                <li class="nav__item--theme2 span-6"><a href="">购买须知</a></li>
+                <li class="nav__item--theme2 span-6-last active"><a href="">推荐玩法</a></li>
             </ul>
         </div>
     </div>

@@ -12,6 +12,9 @@
 <link rel="icon" href="${staticServerPath1 }/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="${staticServerPath1 }/styles/pages/signin.css">
 <link rel="stylesheet" href="${staticServerPath1 }/styles/font-awesome.min.css">
+<!--[if IE 7]>
+    <link rel="stylesheet" href="${staticServerPath1 }/styles/font-awesome-ie7.min.css">
+<![endif]-->
 <script src="${staticServerPath1 }/scripts/modernizr.js"></script>
 <script src="${staticServerPath1 }/scripts/jquery.min.js"></script>
 <script type="text/javascript">var contextPath = '<%=request.getContextPath()  %>';</script>
@@ -85,9 +88,10 @@
 </head>
 <body> 
     <div class="header">
-        <div class="top">
-            <div class="top_logo"><a href="<%=request.getContextPath()  %>" class="top_logo--link"></a></div>
-            <div class="top_login">
+        <div class="header__top">
+            <div class="top">
+                <div class="top_logo"><a href="<%=request.getContextPath()  %>" class="top_logo--link"></a></div>
+                <div class="top_login"></div>
             </div>
         </div>
     </div>
@@ -113,7 +117,7 @@
                         <div class="row mts">
                             <div class="span-2"></div>
                             <div class="span-10-last">
-                                <span class="input-icon">
+                                <span class="input-icon input-icon--active">
                                     <span class="input-icon__icon">
                                         <i class="icon-user"></i>
                                     </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo">
@@ -138,7 +142,7 @@
                                 <input type="checkbox"><span class="font-1x">七天内自动登录</span>
                             </div>
                             <div class="span-3 text-right font-1x">
-                                <a href="">忘记密码?</a>
+                                <a href="" class="font-1x link">忘记密码?</a>
                             </div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
@@ -146,14 +150,14 @@
                         <div class="row mtl">
                             <div class="span-2">&nbsp;</div>
                             <div class="span-8">
-                                <input type="button" value="登陆" class="btn--login" id="signin">
+                                <input type="button" value="登陆" class="btn btn-warning" id="signin">
                             </div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
 
                         <div class="row mts">
                             <div class="span-2">&nbsp;</div>
-                            <div class="span-8">还没有账号？<a href="<%=request.getContextPath()  %>/web/v1/user/signup.html">马上注册</a></div>
+                            <div class="span-8 font-1x">还没有账号？<a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="link">马上注册</a></div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
                         <div class="row mtl"></div>

@@ -129,9 +129,10 @@
 
 <body>
 	<div class="header">
-        <div class="top">
-            <div class="top_logo"><a href="<%=request.getContextPath()  %>" class="top_logo--link"></a></div>
-            <div class="top_login">
+        <div class="header__top">
+            <div class="top">
+                <div class="top_logo"><a href="<%=request.getContextPath()  %>" class="top_logo--link"></a></div>
+                <div class="top_login"></div>
             </div>
         </div>
     </div>
@@ -230,8 +231,8 @@
                         </div>
                         <div class="row">
                             <div class="span-4">&nbsp;</div>
-                            <div class="span-4">
-                            	已经有帐号，<a href="">直接登陆</a>
+                            <div class="span-4 font-1x">
+                            	已经有帐号，<a href="<%=request.getContextPath()  %>/web/v1/user/signin.html">直接登陆</a>
                             </div>
                             <div class="span-4-last">&nbsp;</div>
                         </div>

@@ -4,26 +4,48 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <div class="header">
-    <div class="top">
-        <div class="top_logo"><a href="" class="top_logo--link"></a></div>
-        <div class="top_login">
-        	<c:choose>
-        		<c:when test="${empty loginUser }">
-	        		<ul class="login">
-		           		<li><a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="login_btn--default">注册</a></li>
-		                <li><a href="<%=request.getContextPath()  %>/web/v1/user/signin.html" class="login_btn--active">登陆</a></li>
-		                <li><a href="<%=request.getContextPath()  %>/web/v1/my/unpay.html" class="login_btn--default">关于我们</a></li>
-		            </ul>
-        		</c:when>
-        		<c:otherwise>
-        			<ul class="login">    			
-	        			<li>
-	        				<span>Hi,</span><span class="mlm mrm">${loginUser.name }</span><span><a href="<%=request.getContextPath()  %>/web/v1/user/signout.html">退出</a></span>
-	        			</li>
-	        			<li><a href="<%=request.getContextPath()  %>/web/v1/my/unpay.html" class="login_btn--default">关于我们</a></li>
-        			</ul>
-        		</c:otherwise>
-        	</c:choose>
+    <div class="header__site-nav relative">
+            
+        <div class="site-nav">
+                <div class="site-nav__left">
+                   <span class="site-nav__desc">你好，欢迎来到兜风旅游梦想世界！</span>
+                </div>
+                <div class="site-nav__right relative">
+                	<c:choose>
+		        		<c:when test="${empty loginUser }">
+				            <ul class="login">
+		                        <li><a href="<%=request.getContextPath()  %>/web/v1/user/signin.html" class="login__btn login__btn--active">会员登陆</a></li>
+		                        <li><span class="login__btn--pipe">|</span></li>
+		                        <li><a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="login__btn login__btn--default">免费注册</a></li>
+		                        <li><span class="login__btn--pipe">|</span></li>
+		                        <li><a href="" class="login__btn login__btn--default">关注我们</a></li>
+		                    </ul>
+		        		</c:when>
+		        		<c:otherwise>
+		        			<ul class="login">
+		                        <li>hi,${loginUser.name }<a href="<%=request.getContextPath()  %>/web/v1/user/signout.html" class="login__btn login__btn--active">退出</a></li>
+		                        <li><span class="login__btn--pipe">|</span></li>
+		                        <li>
+		                           <a href="<%=request.getContextPath()  %>/web/v1/my/order/unpay.html" class="login__btn login__btn--default pop-menu-d">我的自驾 <span class="icon-angle-down bold"></span></a>
+		                        </li>
+		                        <li><span class="login__btn--pipe">|</span></li>
+		                        <li><a href="" class="login__btn login__btn--default">关注我们</a></li>
+		                    </ul>
+		                    <div class="pop-menu clearfix">
+		                        <a href="<%=request.getContextPath()  %>/web/v1/my/unpay.html" class="pop-menu__item">我的订单</a>
+		                        <a href="" class="pop-menu__item">我的收藏</a>
+		                        <a href="<%=request.getContextPath()  %>/web/v1/user/reset-psword.html" class="pop-menu__item">修改密码</a>
+		                    </div>
+		        		</c:otherwise>
+		        	</c:choose>
+                </div>
         </div>
+    </div>
+    
+    <div class="header__top">
+            <div class="top">
+                <div class="top_logo"><a href="<%=request.getContextPath()  %>" class="top_logo--link"></a></div>
+                <div class="top_login"></div>
+            </div>
     </div>
 </div>

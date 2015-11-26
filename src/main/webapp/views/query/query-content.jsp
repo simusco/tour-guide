@@ -138,23 +138,23 @@
 
 <div class="content mtl">
 	<div class="route-filter">
-	    <div class="route-filter_cond" ui-cond="">
+	    <div class="route-filter__cond" ui-cond="">
 	        <span class="title">条件：</span><span>
-	        	<a href="javascript:$.doNothing()" class="tag--selected" style="margin-right:5px;">省份：广东</a>
+	        	<a href="javascript:$.doNothing()" class="tag tag--selected" style="margin-right:5px;">省份：广东</a>
 	        </span><span>
-	        	<a href="javascript:$.doNothing()" class="tag--selected">城市：深圳</a>
+	        	<a href="javascript:$.doNothing()" class="tag tag--selected">城市：深圳</a>
 	        </span>
 	    </div>
 	    
 	    <c:forEach items="${tagTypeList }" var="tagType">
 	    	<c:if test="${tagType.type == 'QUERY' }">
-	    		<div class="route-filter_tags">
+	    		<div class="route-filter__tags">
 			        <span class="title">${tagType.tag }：</span>
 			        <c:forEach items="${tagList }" var="tag">
 			        	<c:if test="${tag.parentId ==  tagType.tagId}">
 			        		<span>
 			        			<a href="javascript:$.doNothing()" 
-			        				class="${tag.active == '1' ? 'tag--default' : 'tag--stress' }"
+			        				class="tag ${tag.active == '1' ? 'tag--default' : 'tag--stress' }"
 			        				ui-tag-query="${tag.tag }"
 			        				${tag.active == '1' ? '' : 'ui-tag-query-selected="true"' }>${tag.tag }</a>
 			        		</span>
@@ -165,20 +165,20 @@
 	    </c:forEach>
 	    
 	    <div class="route-filter_result">
-	        <span class="tag--out">500</span>个结果
+	        <span class="tag tag--out">500</span>个结果
 	    </div>
 	</div>
 	
 	<div class="route-order">
 		<c:forEach items="${tagTypeList }" var="tagType">
 	    	<c:if test="${tagType.type == 'ORDER' }">
-	    		<div class="route-order_tags">
+	    		<div class="route-order__tags">
 			        <span class="title">${tagType.tag }：</span>
 			        <c:forEach items="${tagList }" var="tag">
 			        	<c:if test="${tag.parentId ==  tagType.tagId}">
 			        		<span>
 			        			<a	href="javascript:$.doNothing()" 
-			        				class="tag--divider ${tag.active == '1' ? '' : 'active' }" 
+			        				class="tag tag--divider ${tag.active == '1' ? '' : 'active' }" 
 			        				ui-tag-order="${tag.value }"
 			        				${tag.active == '1' ? '' : 'ui-tag-order-selected="true"' }>
 			        				${tag.tag }
