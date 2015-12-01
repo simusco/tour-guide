@@ -1,5 +1,6 @@
 package com.moma.trip.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,7 @@ public interface ActivityMapper {
 	Long getSearchActivityTotalRow(ActivitySearch activitySearch);
 
 	List<ActivityPlan> getActivityPlanByTopicId(String topicId);
+	
+	void updateActivityPriceToLatest(String activityPlanId, BigDecimal price, BigDecimal marketPrice);
 	
 }

@@ -126,7 +126,7 @@ public class MantainTicketPriceJob  extends QuartzJobBean {
 			}
 		}
 		
-		ticketService.mantainTicketPrice(ticketId, tplist);
+		ticketService.mantainTicketPrice(ticket, tplist);
 	}
 
 	@Override

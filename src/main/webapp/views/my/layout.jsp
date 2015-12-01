@@ -32,9 +32,9 @@
 	            </div>
 	            <div class="slide-menu mtm">
 	                <span class="slide-menu__title">我的订单</span>
-					<a href="<%=request.getContextPath()  %>/web/v1/my/order/unpay.html" class="slide-menu__item" menu-item="unpay">未付款(3)</a>
-					<a href="<%=request.getContextPath()  %>/web/v1/my/order/payed.html" class="slide-menu__item" menu-item="payed">已经付款(3)</a>
-					<a href="<%=request.getContextPath()  %>/web/v1/my/order/close.html" class="slide-menu__item" menu-item="close">已完成(3)</a>
+					<a href="<%=request.getContextPath()  %>/web/v1/my/order/unpay.html" class="slide-menu__item" menu-item="unpay">未付款</a>
+					<a href="<%=request.getContextPath()  %>/web/v1/my/order/payed.html" class="slide-menu__item" menu-item="payed">已付款</a>
+					<a href="<%=request.getContextPath()  %>/web/v1/my/order/close.html" class="slide-menu__item" menu-item="close">已完成</a>
 	            </div>
 	            <div class="slide-menu">
 	                <span class="slide-menu__title">我的收藏</span>

@@ -18,7 +18,7 @@
        			
 				<div class="topic-content__toolbar">
 				    <span class="tag--out font-5x">${activity.priceDesc }</span>
-				    <a href="" class="btn-query">点击查询</a>
+				    <a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?routeId=${activity.activityPlanId}" class="btn-query">点击查询</a>
 				</div>
 				
 				<c:if test="${not x.last }">

@@ -41,9 +41,9 @@ public class SychCtripJob extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// 同步门票
-		//sychSpot();
+		sychSpot();
 		// 同步酒店
-		//sychHotel();
+		sychHotel();
 		// 生成ticket,spot/hotel应该是异步方式
 		sychTicketPrice();
 	}
@@ -70,7 +70,11 @@ public class SychCtripJob extends QuartzJobBean {
 
 			List<Hotel> hotelList = hotelService.getKnownHotelList();
 
-			String startTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			Calendar now = Calendar.getInstance();
+			now.setTime(new Date());
+			now.add(Calendar.DAY_OF_MONTH, -1);
+			
+			String startTime = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
 			Calendar c = Calendar.getInstance();
 			c.setTime(new Date());
 			c.add(Calendar.DAY_OF_MONTH, 28);
@@ -92,7 +96,11 @@ public class SychCtripJob extends QuartzJobBean {
 
 			List<Spot> spotList = spotService.getKnownSpotList();
 
-			String startTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			Calendar now = Calendar.getInstance();
+			now.setTime(new Date());
+			now.add(Calendar.DAY_OF_MONTH, -1);
+			
+			String startTime = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
 			Calendar c = Calendar.getInstance();
 			c.setTime(new Date());
 			c.add(Calendar.DAY_OF_MONTH, 28);
@@ -206,7 +214,7 @@ public class SychCtripJob extends QuartzJobBean {
 			}
 		}
 		
-		ticketService.mantainTicketPrice(ticketId, tplist);
+		ticketService.mantainTicketPrice(ticket, tplist);
 	}
 
 	public HotelRequestService getHotelRequestService() {
@@ -249,4 +257,19 @@ public class SychCtripJob extends QuartzJobBean {
 		this.ticketService = ticketService;
 	}
 
+	public static void main(String[] args){
+		Calendar now = Calendar.getInstance();
+		now.setTime(new Date());
+		now.add(Calendar.DAY_OF_MONTH, -1);
+		
+		String startTime = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.DAY_OF_MONTH, 28);
+		String endTime = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+		
+		System.out.println(startTime);
+		System.out.println(endTime);
+	}
+	
 }

@@ -3,14 +3,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<script type="text/javascript">
+$(function(){
+	
+	$('*[ui-pop-menu]').mouseover(function(){
+	     var self = $(this);
+	     var popMenuId = self.attr('ui-pop-menu');
+	     var popMenu = $('div[pop-menu='+popMenuId+']');
+	
+	     popMenu.css({'display' : 'block'});
+	}).mouseout(function(){
+		var self = $(this);
+	    var popMenuId = self.attr('ui-pop-menu');
+	    var popMenu = $('div[pop-menu='+popMenuId+']');
+	
+	    popMenu.css({'display' : 'none'});
+	});
+
+});
+</script>
+
 <div class="header">
-    <div class="header__site-nav relative">
+    <div class="header__site-nav">
             
         <div class="site-nav">
                 <div class="site-nav__left">
                    <span class="site-nav__desc">你好，欢迎来到兜风旅游梦想世界！</span>
                 </div>
-                <div class="site-nav__right relative">
+                <div class="site-nav__right">
                 	<c:choose>
 		        		<c:when test="${empty loginUser }">
 				            <ul class="login">
@@ -25,17 +45,16 @@
 		        			<ul class="login">
 		                        <li>hi,${loginUser.name }<a href="<%=request.getContextPath()  %>/web/v1/user/signout.html" class="login__btn login__btn--active">退出</a></li>
 		                        <li><span class="login__btn--pipe">|</span></li>
-		                        <li>
-		                           <a href="<%=request.getContextPath()  %>/web/v1/my/order/unpay.html" class="login__btn login__btn--default pop-menu-d">我的自驾 <span class="icon-angle-down bold"></span></a>
+		                        <li ui-pop-menu="1001">
+		                           <a href="<%=request.getContextPath()  %>/web/v1/my/order/unpay.html" class="login__btn login__btn--default pop-menu-d">我的订单<span class="icon-angle-down bold"></span></a>
+			                       <div class="pop-menu clearfix"  pop-menu="1001">
+				                       <a href="" class="pop-menu__item">我的收藏</a>
+				                       <a href="<%=request.getContextPath()  %>/web/v1/user/reset-psword.html" class="pop-menu__item">修改密码</a>
+				                   </div>
 		                        </li>
 		                        <li><span class="login__btn--pipe">|</span></li>
 		                        <li><a href="" class="login__btn login__btn--default">关注我们</a></li>
 		                    </ul>
-		                    <div class="pop-menu clearfix">
-		                        <a href="<%=request.getContextPath()  %>/web/v1/my/unpay.html" class="pop-menu__item">我的订单</a>
-		                        <a href="" class="pop-menu__item">我的收藏</a>
-		                        <a href="<%=request.getContextPath()  %>/web/v1/user/reset-psword.html" class="pop-menu__item">修改密码</a>
-		                    </div>
 		        		</c:otherwise>
 		        	</c:choose>
                 </div>

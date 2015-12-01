@@ -12,4 +12,6 @@ public interface SignUpService {
 	
 	public User signUp(String name, String telphone);
 
+	public void updateUser(User u);
+
 }

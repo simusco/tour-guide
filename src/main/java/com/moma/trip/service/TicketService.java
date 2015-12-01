@@ -21,7 +21,7 @@ public interface TicketService {
 
 	TicketDetail getTicketDetailById(String ticketDetailId);
 
-	void mantainTicketPrice(String ticketId, List<TicketPrice> arrayList);
+	void mantainTicketPrice(Ticket ticket, List<TicketPrice> arrayList);
 
 	List<Ticket> getAllTicketList();
 

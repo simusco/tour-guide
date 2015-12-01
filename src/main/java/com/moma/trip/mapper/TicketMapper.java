@@ -1,5 +1,6 @@
 package com.moma.trip.mapper;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,5 +36,7 @@ public interface TicketMapper {
 	public Double getTicketPrice(String ticketId, Date start, Date end);
 
 	public void deleteTicketPriceByTicketId(String ticketId);
+
+	public void updateTicketToLatest(BigDecimal price);
 
 }

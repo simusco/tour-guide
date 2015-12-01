@@ -13,4 +13,6 @@ public interface SignUpMapper {
 
 	void resetPsword(String userId, String cpassword, String salt);
 
+	void updateUser(User u);
+
 }

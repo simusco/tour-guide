@@ -99,4 +99,10 @@ public class SignUpServiceImpl implements SignUpService {
 		return getUserByLoginId(telphone);
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRED)
+	@Override
+	public void updateUser(User u) {
+		signUpMapper.updateUser(u);
+	}
+	
 }

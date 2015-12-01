@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class TicketPrice {
+public class TicketPrice implements Comparable<TicketPrice>{
 
 	private String ticketPriceId;
 	private String ticketId;
@@ -86,6 +86,18 @@ public class TicketPrice {
 
 	public void setMarketPrice(BigDecimal marketPrice) {
 		this.marketPrice = marketPrice;
+	}
+
+	@Override
+	public int compareTo(TicketPrice o) {
+		
+		if(this.getPrice() == null)
+			return -1;
+					
+		if(o == null || o.getPrice() == null)
+			return 1;
+		
+		return this.getPrice().compareTo(o.getPrice());
 	}
 
 }

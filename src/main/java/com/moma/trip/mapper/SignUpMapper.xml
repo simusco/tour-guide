@@ -4,6 +4,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.SignUpMapper">
 
+	<update id="updateUser" parameterType="com.moma.trip.po.User"
+		statementType="PREPARED">
+		<![CDATA[
+			update sys_user
+			set 
+				name = #{name},
+				sex = #{sex},
+				brith_year = #{brithYear},
+				brith_month = #{brithMonth},
+				brith_day = #{brithDay},
+				email = #{email}
+			where 
+				user_id = #{userId}
+		]]>
+	</update>
+
 	<insert id="saveUser" parameterType="com.moma.trip.po.User"
 		statementType="PREPARED">
 		<![CDATA[
@@ -62,7 +78,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				salt as salt,
 				create_time as createTime,
 				update_time as updateTime,
-				ctrip_unique_id as ctripUniqueId
+				ctrip_unique_id as ctripUniqueId,
+				sex as sex,
+				brith_year as brithYear,
+				brith_month as brithMonth,
+				brith_day as brithDay,
+				email as email
 			from sys_user
 			where login_id = #{loginId} and enable = 'Y'
 		]]>
@@ -72,8 +93,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 			update sys_user 
 			set 
-			password = #{1},
-			salt = #{2}
+				password = #{1},
+				salt = #{2}
 			where user_id = #{0}
 		]]>
 	</update>

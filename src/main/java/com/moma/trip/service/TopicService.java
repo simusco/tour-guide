@@ -14,4 +14,6 @@ public interface TopicService {
 
 	Topic getTopicById(String topicId);
 
+	void incrementReadcount(String topicId , int i);
+
 }

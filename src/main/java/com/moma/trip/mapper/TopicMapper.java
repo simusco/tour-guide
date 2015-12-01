@@ -16,5 +16,7 @@ public interface TopicMapper {
 	List<Topic> searchTopic(Integer from, Integer count);
 
 	Topic getTopicById(String topicId);
+
+	void incrementReadcount(String topicId , int i);
 	
 }

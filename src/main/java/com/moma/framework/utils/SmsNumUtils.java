@@ -60,9 +60,9 @@ public class SmsNumUtils {
 			req.setExtend("513721198810031378");
 			req.setSmsType("normal");
 			req.setSmsFreeSignName("注册验证");
-			req.setSmsParam("{\"code\":\""+password+"\",\"product\":\"兜蜂网\"}");
+			req.setSmsParam("{\"code\":\""+phoneNo+"\",\"product\":\""+password+"\"}");
 			req.setRecNum(phoneNo);
-			req.setSmsTemplateCode("SMS_2175701");
+			req.setSmsTemplateCode("SMS_2655114");
 			AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
 			
 			Map r = (Map) JSON.parse(rsp.getBody());

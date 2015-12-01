@@ -3,58 +3,149 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<script type="text/javascript">
+$(function(){
+	var createMonthSelect = function(){
+		var year = $('#year').val();
+		var month = $('#month').val();
+		var day = $('#day').val();
+		
+		var drange = new Date(year,month,0).getDate();
+		for(var i=1;i<=drange;i++){
+			$('#day').append($('<option value="'+i+'">'+i+'</option>')	);
+		}
+		
+		$('#day').val('${loginUser.brithDay}' == '' ? 
+						new Date().getDate() : 
+						'${loginUser.brithDay}');
+	}
+	
+	$('#year, #month').change(createMonthSelect);
+	createMonthSelect();
+	
+	$('input[ui-submit]').click(function(){
+		var data = $('form[ui-form]').serialize();
+		data = decodeURI(data);
+		
+		var form = {};
+		var kvs = data.split('&');
+		for(var i=0;i<kvs.length;i++){
+			var kv = kvs[i].split('=');
+			form[kv[0]] = kv[1];
+		}
+		
+		data = JSON.stringify(form);
+		$.ajax({
+			url : '<%=request.getContextPath()  %>/web/v1/user/modify-profile.html',
+			method : 'POST',
+			contentType : "application/json",
+			data : data,
+    		success : function(resp) {
+    			var o = $.parseJSON(resp),flag = o.flag,msg = o.msg;
+    			if(flag){
+    				$('*[ui-msg=g]').css('display','block');
+    			}else{
+    				alert("修改资料失败，刷新页面重试！");
+    			}
+    		},
+    		error : function(resp) {alert('网络出现问题，刷新页面重新尝试！');}
+    	});
+	});
+});
+</script>
+
 <div class="content__rightbody profile-grid__span-13--last">
     <div class="rightbody">
         <div class="rightbody__bread-crumb">
             <ol class="bread-crumb">
                 <li><a href="">个人中心 ></a></li>
-                <li><a href="">未付款</a></li>
+                <li><a href="">修改资料</a></li>
             </ol>
         </div>
-        <span class="rightbody__title">&nbsp;未付款</span>
+        <span class="rightbody__title">&nbsp;修改资料</span>
         <div class="rightbody__grid">
-        	<c:forEach items="${orderList }" var="order">
-    		<div class="order">
-    			<div class="order__title">
-    				<div class="order-title container-12">
-    					<div class="order-title__column--left span-4">&nbsp;订单号:${order.orderNo }</div>
-    					<div class="order-title__column span-2"><fmt:formatDate value="${order.createTime }" pattern="yyyy-MM-dd"/></div>
-    					<div class="order-title__column span-2">金额</div>
-    					<div class="order-title__column span-2">状态</div>
-    					<div class="order-title__column span-2-last">操作</div>
-    				</div>
-    			</div>
-                <div class="order__body container-12">
-                	<div class="order-body">
-                		<div class="order-body__column--image span-2">
-                      <div class="order-image">
-                          <div class="order-image__img"><img src="${staticServerPath1 }/images/${order.ticketIcon}"></div>
-                      </div>
-                  </div>
-                  <div class="order-body__column--name span-4">
-                      <div class="order-name">
-                          <span class="order-name__title">${order.ticketName}</span>
-                          <span class="order-name__subtitle">${order.ticketDesc }</span>
-                          <span class="order-name__subtitle">使用时间：${order.entryTime }至${order.endTime }</span>
-                      </div>
-                  </div>
-                  <div class="order-body__column--price span-2"><span>￥${order.totalPrice }元</span></div>
-                  <div class="order-body__column--state span-2"><span>
-                  	<c:if test="${order.status == 'UNPAY' }">未支付</c:if>
-                  	<c:if test="${order.status == 'PAYED' }">已支付</c:if>
-                  	<c:if test="${order.status == 'CANCEL' }">订单取消</c:if>
-                  </span></div>
-                  <div class="order-body__column--btn span-2-last">
-                      <div class="row-btn">
-                      	<a class="btn-book">立即支付</a>
-                       <a class="btn-book">取消订单</a>
-                       <a class="btn-book">订单详情</a>
-                      </div>
-                  </div>
-                	</div>
-                </div>
-            </div>
-            </c:forEach>
+        
+        	<div class="rightbody__grid">
+           		<form action="<%=request.getContextPath()  %>/web/v1/user/modify-profile.html" class="form" method="post" ui-form="">
+           				<div class="row mtl" style="display:none" ui-msg="g">
+                           <div class="span-12-last text-center">
+                           	<span class="font-3x bold" style="color:#8DAE1A">提示:修改资料成功!</span>
+                           </div>
+                       </div>
+                       <div class="row mtl">
+                           <div class="span-5">
+                               <span class="form__label">姓名：</span>
+                           </div>
+                           <div class="span-3">
+                               <input class="form__input" type="text" value="${loginUser.name }" name="name"/>
+                           </div>
+                           <div class="span-4-last">
+                               &nbsp;
+                           </div>
+                       </div>
+                       <div class="row mtm">
+                           <div class="span-5">
+                               <span class="form__label">出生年月：</span>
+                           </div>
+                           <div class="span-3">
+                               <select class="form__control" id="year" name="brithYear">
+                               	<c:forEach items="${years }" var="year">
+                               		<option selected="${loginUser.brithYear == year }" value="${year }">${year }</option>
+                               	</c:forEach>
+                               </select>年
+                               <select class="form__control" id="month" name="brithMonth">
+                               	<c:forEach items="${months }" var="month">
+                               		<option selected="${loginUser.brithMonth == month }" value="${month }">${month }</option>
+                               	</c:forEach>
+                               </select> 月
+                               <select class="form__control" id="day" name="brithDay"></select> 日
+                           </div>
+                           <div class="span-4-last">
+                               &nbsp;
+                           </div>
+                       </div>
+
+                       <div class="row mtm">
+                          <div class="span-5">
+                               <span class="form__label">性别：</span>
+                           </div>
+                           <div class="span-3">
+                               <input type="radio" name="sex" value="M" checked="${loginUser.sex == 'M' ? 'checked' : ''}">男
+                               &nbsp;
+                               <input type="radio" name="sex" value="F" checked="${loginUser.sex == 'F' ? 'checked' : ''}">女
+                           </div>
+                           <div class="span-4-last">&nbsp;</div>
+                       </div>
+
+                       <div class="row mtl">
+                           <div class="span-5">
+                               <span class="form__label">手机号码：</span>
+                           </div>
+                           <div class="span-3">
+                               <input class="form__input" type="text" value="${loginUser.loginId }" readonly="readonly"/>
+                           </div>
+                           <div class="span-4-last">&nbsp;</div>
+                       </div>
+
+                       <div class="row mtl">
+                           <div class="span-5">
+                               <span class="form__label">邮箱：</span>
+                           </div>
+                           <div class="span-3">
+                               <input class="form__input" type="text" value="${loginUser.email }" name="email"/>
+                           </div>
+                           <div class="span-4-last">&nbsp;</div>
+                       </div>
+
+                       <div class="row">
+                           <div class="span-5">&nbsp;</div>
+                           <div class="span-3">
+                               <input type="button" value="保存" class="btn btn-warning" ui-submit="">
+                           </div>
+                           <div class="span-4-last">&nbsp;</div>
+                       </div>
+                   </form>
+               </div>
         </div>
     </div>
 </div>

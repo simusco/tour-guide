@@ -1,7 +1,11 @@
 package com.moma.trip.controller.web;
 
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -191,7 +196,48 @@ public class SignUpController extends RestfulController {
 	
 	@RequestMapping(value="/modify-profile.html",method=RequestMethod.GET)
 	public ModelAndView modifyProfile(HttpServletRequest request){
-		return new ModelAndView("modify-profile");
+		
+		List<Integer> years = new ArrayList<Integer>();
+		for(int i=1950;i<=Calendar.getInstance().get(Calendar.YEAR);i++){
+			years.add(i);
+		}
+		
+		List<Integer> months = new ArrayList<Integer>();
+		for(int i=1;i<=12;i++){
+			months.add(i);
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("years", years);
+		map.put("months", months);
+		
+		return new ModelAndView("modify-profile", map);
+	}
+	
+	@RequestMapping(value="/modify-profile.html",method=RequestMethod.POST)
+	@ResponseBody
+	public byte[] modifyProfile(@RequestBody User user, HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try{
+			User u = (User) request.getSession().getAttribute(User.LOGIN_USER);
+			u.setBrithYear(user.getBrithYear());
+			u.setBrithMonth(user.getBrithMonth());
+			u.setBrithDay(user.getBrithDay());
+			u.setName(user.getName());
+			u.setSex(user.getSex());
+			u.setEmail(URLDecoder.decode(user.getEmail(),"utf-8"));
+			
+			signUpService.updateUser(u);
+			
+			map.put("flag", true);
+		}catch(Exception e){
+			e.printStackTrace();
+			map.put("flag", false);
+			map.put("msg", "更新错误");//旧密码错误
+		}
+		
+		return toJSONBytes(map);
 	}
 	
 }

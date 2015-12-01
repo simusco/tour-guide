@@ -4,6 +4,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.ActivityMapper">
 
+	<update id="updateActivityPriceToLatest">
+		<![CDATA[
+			update mc_activity_plan
+			set 
+				price = #{1},
+				market_price = #{2}
+			where activity_plan_id = #{0}
+		]]>
+	</update>
+
 	<select id="getActivityPlanByTopicId" resultType="com.moma.trip.po.ActivityPlan">
 		<![CDATA[
 			select 

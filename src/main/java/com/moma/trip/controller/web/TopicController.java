@@ -54,6 +54,8 @@ public class TopicController extends MultiActionController {
 		if(topic == null)
 			return new ModelAndView("error", map);
 		
+		topicService.incrementReadcount(topicId, 1);
+		
 		List<ActivityPlan> activityList = activityPlanService.getActivityPlanByTopicId(topicId);
 		
 		map.put("topic", topic);

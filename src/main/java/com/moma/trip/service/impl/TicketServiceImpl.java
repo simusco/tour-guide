@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.moma.framework.utils.UUIDUtils;
+import com.moma.trip.mapper.ActivityMapper;
 import com.moma.trip.mapper.TicketMapper;
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
@@ -26,6 +28,8 @@ import com.moma.trip.service.TicketService;
 @Service("ticketService")
 public class TicketServiceImpl implements TicketService {
 
+	@Resource
+	private ActivityMapper activityMapper;
 	@Resource
 	private TicketMapper ticketMapper;
 	@Resource
@@ -83,11 +87,11 @@ public class TicketServiceImpl implements TicketService {
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
-	public void mantainTicketPrice(String ticketId, List<TicketPrice> arrayList) {
+	public void mantainTicketPrice(Ticket ticket, List<TicketPrice> arrayList) {
 		if(arrayList == null)
 			return;
 		
-		ticketMapper.deleteTicketPriceByTicketId(ticketId);
+		ticketMapper.deleteTicketPriceByTicketId(ticket.getTicketId());
 		
 		for(Iterator<TicketPrice> it = arrayList.iterator();it.hasNext();){
 			TicketPrice tp = it.next();
@@ -101,6 +105,14 @@ public class TicketServiceImpl implements TicketService {
 			);
 			tp.setDate(c.getTime());
 			ticketMapper.saveTicketPrice(tp);
+		}
+		
+		Collections.sort(arrayList);
+		
+		TicketPrice lessPrice = arrayList.isEmpty() ? null : arrayList.get(0);
+		if(lessPrice != null){
+			//获取最小价格
+			activityMapper.updateActivityPriceToLatest(ticket.getActivityId(), lessPrice.getPrice(), lessPrice.getMarketPrice());
 		}
 	}
 

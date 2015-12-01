@@ -33,6 +33,7 @@ public class TopicServiceImpl implements TopicService {
 		
 		topic.setTopicId(UUIDUtils.getUUID());
 		topic.setCreateTime(new Date());
+		topic.setReadCount(1);
 		
 		topicMapper.saveTopic(topic);
 		
@@ -71,6 +72,12 @@ public class TopicServiceImpl implements TopicService {
 	public Topic getTopicById(String topicId) {
 		
 		return topicMapper.getTopicById(topicId);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	@Override
+	public void incrementReadcount(String topicId , int i) {
+		topicMapper.incrementReadcount(topicId, i);
 	}
 
 }

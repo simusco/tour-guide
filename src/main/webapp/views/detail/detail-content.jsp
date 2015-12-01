@@ -135,9 +135,11 @@
                 <div class="route__desc">
                     <div class="route-desc__header--theme2">
                         <h2>${route.name }</h2>
-                        <p>${route.description }</p>
+                        <c:if test="${route.type == 'HOT' }">
+                        	<p>${route.description }</p>
+                        </c:if>
                     </div>
-                    <c:if test="${route.type == 'HOT' }">
+                    <c:if test="${route.type == 'HOT' || route.type == 'TOPIC'  }">
                     	<div class="route-desc__content--theme2">
 	                        <ul class="tag-line tag-line--default">
 	                            <li>建议游玩：</li>
@@ -193,7 +195,7 @@
 	        </div>
 	        <div class="panel__content">
 	            <ul class="tag-line tag-line--default">
-	                <li>吃点：</li>
+	                <li class="icon icon--eat">吃点：</li>
 	                <li>
 	                	<c:forEach items="${goodnessList }" var="goodness">
 	                	<c:if test="${goodness.type == 'EAT' }">
@@ -203,7 +205,7 @@
 	                </li>
 	            </ul>
 	            <ul class="tag-line tag-line--default">
-	                <li>玩点：</li>
+	                <li class="icon icon--play">玩点：</li>
 	                <li>
 	                    <c:forEach items="${goodnessList }" var="goodness">
 		                	<c:if test="${goodness.type == 'PLAY' }">
@@ -213,7 +215,7 @@
 	                </li>
 	            </ul>
 	            <ul class="tag-line tag-line--default">
-	                <li>景点：</li>
+	                <li class="icon icon--spot">景点：</li>
 	                <li>
 	                    <c:forEach items="${goodnessList }" var="goodness">
 		                	<c:if test="${goodness.type == 'SPOT' }">

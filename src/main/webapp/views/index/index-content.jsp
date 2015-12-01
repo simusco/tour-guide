@@ -103,7 +103,7 @@ $(function(){
             <span class="package-text">热门套餐
                 <small class="package-text__small">海量周边热门实惠套餐</small>
             </span>
-            <a class="package-more" href="">更多&gt;&gt;</a>
+            <a class="package-more" href="<%=request.getContextPath()  %>/web/v1/activity/query.html?type=HOT">更多&gt;&gt;</a>
         </div>
         <div class="package__body index-grid">
         	<c:forEach items="${hotlist }" var="hot" varStatus="x">
@@ -122,7 +122,7 @@ $(function(){
                     </div>
                     <div class="index-hot__price">
                         <span class="tag--out blod">￥${hot.price }元起</span>
-                        <span>/份<del class="font-1x mlm">门市价:${hot.marketPrice }</del></span>
+                        <span>/份<c:if test="${hot.marketPrice > 0 }"><del class="font-1x mlm">门市价:${hot.marketPrice }</del></c:if></span>
                     </div>
                 </a>
             </div>
@@ -134,7 +134,7 @@ $(function(){
             <span class="package-text">周边好去处
                 <small class="package-text__small">周边特色好玩景点</small>
             </span>
-            <a class="package-more" href="">更多&gt;&gt;</a>
+            <a class="package-more" href="<%=request.getContextPath()  %>/web/v1/activity/query.html?type=SPOT">更多&gt;&gt;</a>
         </div>
         <div class="package__body index-grid">
         	<c:forEach items="${spotlist }" var="spot" varStatus="x">
@@ -155,7 +155,7 @@ $(function(){
             <span class="package-text">主题自驾
                 <small class="package-text__small">为你打造精品主题自驾</small>
             </span>
-            <a class="package-more" href="">更多&gt;&gt;</a>
+            <a class="package-more" href="<%=request.getContextPath()  %>/web/v1/topic/index.html">更多&gt;&gt;</a>
         </div>
         <div class="package__body index-grid">
         	<div class="topic-bg clearfix ptm pbm">
