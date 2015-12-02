@@ -4,7 +4,7 @@
 <c:if test="${flag }">
 	<form 
 		method="post" 
-		action="http://openapi.ctrip.com/Hotel/PaymentEntry.aspx?AllianceId=${allianceId}&SID=${sid}&TimeStamp=${timestamp}&Signature=${signature}&RequestType=${requestType}">
+		action="http://openapi.ctrip.com/Hotel/OnlinePayEntry.aspx?AllianceId=${allianceId}&SID=${sid}&TimeStamp=${timestamp}&Signature=${signature}&RequestType=paymententry">
 		
 		<input type="hidden" name="ReturnUrl" value="http://www.baidu.com"/>
 		<input type="hidden" name="Description" value="${order.ticketDesc }"/>

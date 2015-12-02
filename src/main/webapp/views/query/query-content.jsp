@@ -149,24 +149,31 @@
 	    <c:forEach items="${tagTypeList }" var="tagType">
 	    	<c:if test="${tagType.type == 'QUERY' }">
 	    		<div class="route-filter__tags">
-			        <span class="title">${tagType.tag }：</span>
-			        <c:forEach items="${tagList }" var="tag">
-			        	<c:if test="${tag.parentId ==  tagType.tagId}">
-			        		<span>
-			        			<a href="javascript:$.doNothing()" 
-			        				class="tag ${tag.active == '1' ? 'tag--default' : 'tag--stress' }"
-			        				ui-tag-query="${tag.tag }"
-			        				${tag.active == '1' ? '' : 'ui-tag-query-selected="true"' }>${tag.tag }</a>
-			        		</span>
-			        	</c:if>
-			        </c:forEach>
+	    			<div class="query-con clearfix">
+		    			<div class="query-con__title left">
+		                    <span class="font-3x font-color-grey-3" style="line-height:46px">${tagType.tag }：</span>
+		                </div>
+		                <div class="query-con__content left" style="width:1070px;">
+		                	<ul class="unstyled-list lh36 pln mln pbn ptn mts mbs">
+					        <c:forEach items="${tagList }" var="tag">
+					        	<c:if test="${tag.parentId ==  tagType.tagId}">
+					        		<li class="inline"><a href="javascript:$.doNothing()" 
+					        				class="tag ${tag.active == '1' ? 'tag--default' : 'tag--stress' }"
+					        				ui-tag-query="${tag.tag }"
+					        				${tag.active == '1' ? '' : 'ui-tag-query-selected="true"' }>${tag.tag }</a></li>
+					        	</c:if>
+					        </c:forEach>
+					        </ul>
+						</div>
+			        </div>
 			    </div>
 	    	</c:if>
 	    </c:forEach>
-	    
+	    <!-- 
 	    <div class="route-filter_result">
 	        <span class="tag tag--out">500</span>个结果
 	    </div>
+	     -->
 	</div>
 	
 	<div class="route-order">

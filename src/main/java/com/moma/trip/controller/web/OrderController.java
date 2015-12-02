@@ -173,9 +173,9 @@ public class OrderController  extends RestfulController {
 			map.put("allianceId", ConfigData.AllianceId);
 			map.put("sid", ConfigData.SId);
 			map.put("timestamp", timestamp);
-			map.put("requestType", "PaymentEntry");
+			map.put("requestType", "paymententry");
 			map.put("signature", SignatureUtils.CalculationSignature(timestamp, ConfigData.AllianceId,
-					ConfigData.SecretKey, ConfigData.SId, "PaymentEntry"));
+					ConfigData.SecretKey, ConfigData.SId, "paymententry"));
 			map.put("order", order);
 			map.put("flag", true);
 			map.put("tripOrderId", order.getHotelResId().split("-")[1]);

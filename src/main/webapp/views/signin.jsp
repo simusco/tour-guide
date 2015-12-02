@@ -11,9 +11,9 @@
 <meta name="viewport" content="width=device-width">
 <link rel="icon" href="${staticServerPath1 }/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="${staticServerPath1 }/styles/pages/signin.css">
-<link rel="stylesheet" href="${staticServerPath1 }/styles/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/font-awesome.min.css">
 <!--[if IE 7]>
-    <link rel="stylesheet" href="${staticServerPath1 }/styles/font-awesome-ie7.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/font-awesome-ie7.min.css">
 <![endif]-->
 <script src="${staticServerPath1 }/scripts/modernizr.js"></script>
 <script src="${staticServerPath1 }/scripts/jquery.min.js"></script>
@@ -62,7 +62,7 @@
 				url : '<%=request.getContextPath()  %>/web/v1/user/signin.html',
 				method : 'POST',
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : {'phoneNo' : phoneNo, 'password' : password},
+				data : {'phoneNo' : phoneNo, 'password' : password, 'rememberMe' : $('input[name=rememberMe]').val()},
 				success : function(resp) {
 					var obj = $.parseJSON(resp),
 						flag = obj.flag, 
@@ -81,7 +81,20 @@
 			});
 		});
 		
+		var l = getCookie('loginid');
+		var p = getCookie('password');
+		$('input[name=phoneNo]').val(l == null ? '' : l);
+		$('input[name=password]').val(p == null ? '' : p);
 	});
+	
+	function getCookie(name){ 
+	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+	 
+	    if(arr=document.cookie.match(reg))
+	        return unescape(arr[2]); 
+	    else 
+	        return null; 
+	} 
 	
 </script>
 
@@ -119,8 +132,8 @@
                             <div class="span-10-last">
                                 <span class="input-icon input-icon--active">
                                     <span class="input-icon__icon">
-                                        <i class="icon-user"></i>
-                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo">
+                                        <i class="icon-user font-4x"></i>
+                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo" autocomplete="off" maxlength="24">
                                 </span>
                             </div>
                         </div>
@@ -130,8 +143,8 @@
                             <div class="span-10-last">
                                 <span class="input-icon">
                                     <span class="input-icon__icon">
-                                        <i class="icon-lock"></i>
-                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password">
+                                        <i class="icon-lock font-4x"></i>
+                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password" autocomplete="off" maxlength="16">
                                 </span>
                             </div>
                         </div>
@@ -139,7 +152,7 @@
                         <div class="row mts">
                             <div class="span-2">&nbsp;</div>
                             <div class="span-5">
-                                <input type="checkbox"><span class="font-1x">七天内自动登录</span>
+                                <input type="checkbox" value="Y" checked="checked" name="rememberMe"><span class="font-1x">七天内自动登录</span>
                             </div>
                             <div class="span-3 text-right font-1x">
                                 <a href="" class="font-1x link">忘记密码?</a>
