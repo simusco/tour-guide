@@ -205,7 +205,7 @@ $(function(){
                     <div class="span-4-last"><span class="msg--error" ui-valid-msg="repassword"></span></div>
                 </div>
 
-                <div class="row">
+                <div class="row mtl">
                     <div class="span-5">&nbsp;</div>
                     <div class="span-3">
                         <input type="button" value="修改" class="btn btn-warning" id="reset-psword">

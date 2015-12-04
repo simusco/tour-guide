@@ -14,21 +14,38 @@
 						var scoll = $('*[ui-switch-scroll]');
 						
 						leftBtn.click(function(){
-							var ml = scoll.css('margin-left');
-							var mr = scoll.css('margin-right');
-							console.log(mr);
-							scoll.css('margin-left', parseInt(ml) + 152);
+							var left = scoll.css('left');
+							var width = scoll.css('width');
+							//scoll.css('left', );
+							
+							var l = parseInt(left);
+							var w = parseInt(width);
+							
+							if(l < 27){
+								scoll.css('left', l + 158 + 'px');
+							}
+							
+							$.ui.switchScreen.active().prev();
 						});
 					},
 					right: function(){
-						var leftBtn = $('*[ui-switch-right-btn]');
+						var rightBtn = $('*[ui-switch-right-btn]');
 						var scoll = $('*[ui-switch-scroll]');
 						
-						leftBtn.click(function(){
-							var ml = scoll.css('margin-left');
-							ml = parseInt(ml);
+						rightBtn.click(function(){
+							var left = scoll.css('left');
+							var width = scoll.css('width');
+							console.log(parseInt(left) + '---' + parseInt(width));
+							//scoll.css('left', );
 							
-							scoll.css('margin-left', ml - 152);
+							var l = parseInt(left);
+							var w = parseInt(width);
+							
+							if(w > 680 && l > -158 * 3){
+								scoll.css('left', l - 158 + 'px');
+							}
+							
+							$.ui.switchScreen.active().next();
 						});
 					},
 					active: function(){
@@ -37,17 +54,38 @@
 								$(this).removeClass('active');
 								$(this).removeAttr('active');
 							});
-						}
+						};
 						
-						$('*[ui-image-review]').click(function(){
+						function _active(o){
 							unactiveAll();
 							
-							$(this).addClass('active');
-							$(this).attr('active', 'true');
-							var url = $(this).attr('ui-image-review');
+							o.addClass('active');
+							o.attr('active', 'true');
+							var url = o.attr('ui-image-review');
 							
 							$('*[ui-image-screen]').find('img').attr('src', url);
+						};
+						
+						$('*[ui-image-review]').click(function(){
+							_active($(this));
 						});
+						
+						return {
+							next:function(){
+								var ae = $('*[ui-image-review][active=true]');
+								var next = ae.next().get(0);
+								
+								if(next != null)
+									_active($(next));
+							},
+							prev:function(){
+								var ae = $('*[ui-image-review][active=true]');
+								var prev = ae.prev().get(0);
+								
+								if(prev != null)
+									_active($(prev));
+							}
+						};
 					},
 					run:function(){
 						$.ui.switchScreen.left();
@@ -117,17 +155,19 @@
                         </div>
                         <div class="route-img__control">
                             <div class="img-control">
-                                <a class="img-control__btn--left" ui-switch-left-btn=""></a>
-                                <div class="img-control__review" ui-switch-scroll="">
+                                <a class="img-control__btn img-control__btn--left" ui-switch-left-btn=""></a>
+                                <div class="img-control__review clearfix" ui-switch-scroll="" style="width: ${fn:length(route.imageList) * 158 + 10}px;">
+                                	<c:set value="0" var="index"/>
                                 	<c:forEach items="${route.imageList }" var="image" varStatus="x">
 	                                	<c:if test="${image.type == 'DETAIL-HEADER' }">
-		                                    <div class="image-review" ui-image-review="${staticServerPath1 }/images/${image.path}">
+		                                    <div class="image-review ${index == 0 ? 'active' : '' }" active="${index == 0 ? 'true' : 'false'  }" ui-image-review="${staticServerPath1 }/images/${image.path}">
 		                                        <img src="${staticServerPath1 }/images/${image.path}">
 		                                    </div>
 	                                    </c:if>
+	                                    <c:set var="index" value="${index + 1 }"/>
                                     </c:forEach>
                                 </div>
-                                <a class="img-control__btn--right" ui-switch-right-btn=""></a>
+                                <a class="img-control__btn img-control__btn--right" ui-switch-right-btn=""></a>
                             </div>
                         </div>
                     </div>
