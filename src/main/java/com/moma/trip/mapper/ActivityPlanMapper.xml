@@ -30,7 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.discount as discount,
 				ap.good_review_per as goodReviewPer,
 				ap.topic_id as topicId,
-				ap.other_attr as otherAttr
+				ap.other_attr as otherAttr,
+				ap.topic_desc as topicDesc
 			from mc_activity_plan ap 
 			where ap.activity_plan_id = #{activityPlanId}
 		]]>
@@ -61,7 +62,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.discount as discount,
 				ap.good_review_per as goodReviewPer,
 				ap.topic_id as topicId,
-				ap.other_attr as otherAttr
+				ap.other_attr as otherAttr,
+				ap.topic_desc as topicDesc
 			from mc_activity_plan ap 
 			where ap.activity_plan_id = #{0} or ap.name like CONCAT('%',#{0},'%' )  
 		]]>
@@ -124,7 +126,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.topic as topic,
 				ap.exp_inclusive as expInclusive,
 				ap.has_saled as hasSaled,
-				ap.other_attr as otherAttr
+				ap.other_attr as otherAttr,
+				ap.topic_desc as topicDesc
 			from mc_activity_plan ap 
 			where EXISTS (
 				select 1 from mc_activity_tags tg
@@ -169,7 +172,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				exp_inclusive = #{expInclusive},
 				other_attr = #{otherAttr},
 				take_time = #{takeTime},
-				image_url = #{imageURL}
+				image_url = #{imageURL},
+				topic_desc = #{topicDesc}
 			where
 				activity_plan_id = #{activityPlanId}
 		]]>
@@ -188,7 +192,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				exp_inclusive,
 				other_attr,
 				take_time,
-				image_url
+				image_url,
+				topic_desc
 			)
 			VALUES 
 			(
@@ -201,7 +206,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{expInclusive},
 				#{otherAttr},
 				#{takeTime},
-				#{imageURL}
+				#{imageURL},
+				#{topicDesc}
 			)
 		]]>
 	</insert>

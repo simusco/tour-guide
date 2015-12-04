@@ -175,11 +175,9 @@
                 <div class="route__desc">
                     <div class="route-desc__header--theme2">
                         <h2>${route.name }</h2>
-                        <c:if test="${route.type == 'HOT' }">
-                        	<p>${route.description }</p>
-                        </c:if>
+                        <p>${route.description }</p>
                     </div>
-                    <c:if test="${route.type == 'HOT' || route.type == 'TOPIC'  }">
+                    <c:if test="${route.type == 'HOT'}">
                     	<div class="route-desc__content--theme2">
 	                        <ul class="tag-line tag-line--default">
 	                            <li>建议游玩：</li>
@@ -221,6 +219,34 @@
 				                	<c:out value="${route.expInclusive }" escapeXml="false"/>
 				                </li>
 				            </ul>
+	                    </div>
+                    </c:if>
+                    
+                    <c:if test="${route.type == 'TOPIC'}">
+                    	<div class="route-desc__content--theme2">
+	                        <ul class="tag-line tag-line--default">
+				                <li>价格：</li>
+				                <li><span class="tag tag--out">$${route.price }元</span><small>起/份 <del>门市价:${route.marketPrice }</del></small></li>
+				            </ul>
+				            <ul class="tag-line tag-line--default">
+				                <li>已售：</li>
+				                <li><span class="tag tag--out">${route.hasSaled }</span></li>
+				            </ul>
+				            <ul class="tag-line tag-line--default">
+				                <li>好评率：</li>
+				                <li><span class="tag tag--out">${route.goodReviewPer }%</span></li>
+				            </ul>
+				            <ul class="tag-line tag-line--default">
+	                            <li>建议游玩：</li>
+	                            <li><span class="tag tag--out">${route.takeTime }</span></li>
+	                        </ul>
+	                        <c:out value="${route.otherAttr }" escapeXml="false"/>
+	                        <ul class="tag-line tag-line--default">
+	                            <li>主题特色：</li>
+	                            <li>
+	                                <c:out value="${route.topic }" escapeXml="false"/>
+	                            </li>
+	                        </ul>
 	                    </div>
                     </c:if>
                 </div>

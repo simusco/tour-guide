@@ -18,6 +18,7 @@ public class ActivityPlan implements Serializable {
 	private String name;
 	private String type;
 	private String description;
+	private String topicDesc;
 	private BigDecimal price;
 	private String priceDesc;
 	private String marketPrice;
@@ -284,6 +285,14 @@ public class ActivityPlan implements Serializable {
 
 	public void setOtherAttr(String otherAttr) {
 		this.otherAttr = otherAttr;
+	}
+
+	public String getTopicDesc() {
+		return topicDesc;
+	}
+
+	public void setTopicDesc(String topicDesc) {
+		this.topicDesc = topicDesc;
 	}
 
 }

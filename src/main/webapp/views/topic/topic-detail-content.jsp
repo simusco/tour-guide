@@ -14,7 +14,7 @@
        
        <div class="topic-detail__content">
        		<c:forEach items="${activityList }" var="activity" varStatus="x">
-       			<c:out value="${activity.description }" escapeXml="false"/>
+       			<c:out value="${activity.topicDesc }" escapeXml="false"/>
        			
 				<div class="topic-content__toolbar">
 				    <span class="tag--out font-5x">${activity.priceDesc }</span>

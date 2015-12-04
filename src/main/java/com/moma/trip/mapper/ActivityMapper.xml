@@ -40,7 +40,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.discount as discount,
 				ap.good_review_per as goodReviewPer,
 				ap.topic_id as topicId,
-				ap.other_attr as otherAttr
+				ap.other_attr as otherAttr,
+				ap.topic_desc as topicDesc
 			from mc_activity_plan ap
 			where ap.topic_id = #{0}
 		]]>
@@ -72,7 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ap.discount as discount,
 				ap.good_review_per as goodReviewPer,
 				ap.topic_id as topicId,
-				ap.other_attr as otherAttr
+				ap.other_attr as otherAttr,
+				ap.topic_desc as topicDesc
 			from mc_activity_plan ap 
 			where EXISTS (
 				select 1 from mc_activity_tags tg
