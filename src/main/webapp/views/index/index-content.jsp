@@ -165,7 +165,7 @@ $(function(){
                     <div class="index-topic__img"><img src="${staticServerPath1 }/images/${topic.imageUrl }" alt=""></div>
                     <div class="index-topic__title">
                         <div class="topic-title">
-                        	<c:out value="${topic.name }" escapeXml="false"/>
+                        	<div class="topic-title__title"><c:out value="${topic.name }" escapeXml="false"/></div>
                         </div>
                     </div>
                 </a>

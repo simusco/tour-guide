@@ -18,6 +18,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.moma.framework.utils.CookieUtil;
 import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.User;
+import com.moma.trip.service.FavoriteService;
 import com.moma.trip.service.SignInService;
 
 @Scope(value="prototype")
@@ -27,6 +28,9 @@ public class SignInController  extends RestfulController {
 
 	@Resource
 	private SignInService signInService;
+	
+	@Resource
+	private FavoriteService favoriteService;
 	
 	@RequestMapping(value="/signin.html",method=RequestMethod.GET)
 	public String signIn() {
@@ -49,6 +53,9 @@ public class SignInController  extends RestfulController {
 				cu.addCookie("loginid", phoneNo, 60 * 60 * 24 * 7);
 				cu.addCookie("password", password, 60 * 60 * 24 * 7);
 			}
+			
+			//装载favorite
+			user.setFavoriteActivityIds(favoriteService.getFavoriteActivityIds(user.getUserId()));
 			
 			map.put("flag", true);
 		}catch(Exception e){

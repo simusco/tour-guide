@@ -22,4 +22,9 @@
 		<put-attribute name="active" value="close"/>
 	</definition>
 	
+	<definition name="my-favorite" extends="my">
+		<put-attribute name="content" value="/views/my/favorite.jsp"/>
+		<put-attribute name="active" value="favorite"/>
+	</definition>
+	
 </tiles-definitions>

@@ -2,6 +2,7 @@ package com.moma.trip.service;
 
 import java.util.List;
 
+import com.moma.framework.ServiceException;
 import com.moma.trip.po.Order;
 
 public interface OrderService {
@@ -18,7 +19,7 @@ public interface OrderService {
 
 	Order getOrderByNo(String orderNo, String userId);
 
-	void cancel(String orderNo, String userId) throws Exception;
+	void cancel(String orderNo, String userId) throws ServiceException;
 
 	Order getOrderByNo(String outTradeNo);
 

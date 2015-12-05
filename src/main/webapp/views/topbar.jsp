@@ -48,8 +48,9 @@ $(function(){
 		                        <li ui-pop-menu="1001">
 		                           <a href="<%=request.getContextPath()  %>/web/v1/my/order/unpay.html" class="login__btn login__btn--default pop-menu-d">我的订单<span class="icon-angle-down bold"></span></a>
 			                       <div class="pop-menu clearfix"  pop-menu="1001">
-				                       <a href="" class="pop-menu__item">我的收藏</a>
+				                       <a href="<%=request.getContextPath()  %>/web/v1/my/favorite.html" class="pop-menu__item">我的收藏</a>
 				                       <a href="<%=request.getContextPath()  %>/web/v1/user/reset-psword.html" class="pop-menu__item">修改密码</a>
+				                       <a href="<%=request.getContextPath()  %>/web/v1/user/modify-profile.html" class="pop-menu__item">修改资料</a>
 				                   </div>
 		                        </li>
 		                        <li><span class="login__btn--pipe">|</span></li>

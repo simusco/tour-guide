@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.FavoriteMapper">
+
+	<insert id="save" parameterType="com.moma.trip.po.Favorite">
+		<![CDATA[
+			INSERT INTO mc_favorite
+			(
+				favorite_id,
+				activity_id,
+				user_id,
+				create_time
+			)
+			VALUES 
+			(
+				#{favoriteId}, 
+				#{activityId}, 
+				#{userId}, 
+				#{createTime}
+			)
+		]]>
+	</insert>
+	
+	<select id="getFavorite" resultType="com.moma.trip.po.Favorite">
+		<![CDATA[
+			select 
+				favorite_id as favoriteId,  
+				activity_id as activityId,  
+				user_id as userId,  
+				create_time as createTime
+			from mc_favorite where activity_id = #{0} and user_id = #{1}
+		]]>
+	</select>
+	
+	<delete id="delete">
+		<![CDATA[
+			delete from mc_favorite where activity_id = #{0} and user_id = #{1}
+		]]>
+	</delete>
+	
+	<select id="getFavoriteActivityIds" resultType="java.lang.String">
+		<![CDATA[
+			select 
+				activity_id as activityId
+			from mc_favorite 
+			where user_id = #{0}
+		]]>
+	</select>
+	
+	<select id="getFavoriteByUserId" resultType="com.moma.trip.po.Favorite">
+		<![CDATA[
+			select
+				f.favorite_id as favoriteId,  
+				f.activity_id as activityId,  
+				f.user_id as userId,  
+				f.create_time as createTime,
+				ap.name as name,
+				ap.price as price,
+				ap.market_price as marketPrice,
+				ap.image_url as imageURL
+			from mc_favorite f inner join mc_activity_plan ap on f.activity_id = ap.activity_plan_id
+			where f.user_id = #{0}
+		]]>
+	</select>
+</mapper>

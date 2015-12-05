@@ -39,6 +39,7 @@ public class ActivityPlan implements Serializable {
 	private String goodReviewPer;
 	private String topicId;
 	private String otherAttr;
+	private boolean isFavorite;
 
 	private List<ActivityTag> activityTagList = new ArrayList<ActivityTag>();
 	private Map<Tags, List<Tags>> tags = new HashMap<Tags, List<Tags>>();
@@ -293,6 +294,14 @@ public class ActivityPlan implements Serializable {
 
 	public void setTopicDesc(String topicDesc) {
 		this.topicDesc = topicDesc;
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
 	}
 
 }

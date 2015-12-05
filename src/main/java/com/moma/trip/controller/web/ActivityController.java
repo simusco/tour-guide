@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import com.moma.trip.po.Goodness;
 import com.moma.trip.po.Image;
 import com.moma.trip.po.Tags;
 import com.moma.trip.po.Ticket;
+import com.moma.trip.po.User;
 import com.moma.trip.service.ActivityExtraService;
 import com.moma.trip.service.ActivityPlanService;
 import com.moma.trip.service.GoodnessService;
@@ -132,7 +134,7 @@ public class ActivityController extends MultiActionController {
 	}
 	
 	@RequestMapping(value="/detail.html",method=RequestMethod.GET)
-	public ModelAndView detail(String routeId, String type){
+	public ModelAndView detail(String routeId, String type, HttpServletRequest request){
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -164,6 +166,11 @@ public class ActivityController extends MultiActionController {
 		
 		map.put("type", type);//已经超出想象，要死的节奏
 		map.put("currdate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		
+		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
+		if(user != null){
+			route.setFavorite(user.getFavoriteActivityIds().contains(routeId));
+		}
 		
 		return new ModelAndView("detail", map);
 	}
@@ -208,4 +215,5 @@ public class ActivityController extends MultiActionController {
 		
 		return new ModelAndView("goodness", map);
 	}
+	
 }

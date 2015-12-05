@@ -1,7 +1,9 @@
 package com.moma.trip.po;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -32,8 +34,8 @@ public class User implements Serializable {
 	private String brithMonth;
 	private String brithDay;
 	
-	//
 	private String ctripUniqueId;
+	private List<String> favoriteActivityIds = new ArrayList<String>();
 
 	public String getUserId() {
 		return userId;
@@ -201,6 +203,14 @@ public class User implements Serializable {
 
 	public void setCtripUniqueId(String ctripUniqueId) {
 		this.ctripUniqueId = ctripUniqueId;
+	}
+
+	public List<String> getFavoriteActivityIds() {
+		return favoriteActivityIds;
+	}
+
+	public void setFavoriteActivityIds(List<String> favoriteActivityIds) {
+		this.favoriteActivityIds = favoriteActivityIds;
 	}
 
 }

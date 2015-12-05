@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.moma.framework.ServiceException;
 import com.moma.framework.web.springmvc.RestfulController;
+import com.moma.trip.po.Favorite;
 import com.moma.trip.po.Order;
 import com.moma.trip.po.User;
+import com.moma.trip.service.FavoriteService;
 import com.moma.trip.service.OrderService;
 import com.moma.trip.service.SignInService;
 import com.moma.trip.service.SignUpService;
@@ -34,6 +37,9 @@ public class MyController  extends RestfulController {
 	
 	@Resource
 	private OrderService orderService;
+	
+	@Resource
+	private FavoriteService favoriteService;
 	
 	@RequestMapping(value="/center.html",method=RequestMethod.GET)
 	public ModelAndView center(){
@@ -80,17 +86,40 @@ public class MyController  extends RestfulController {
 		try{
 			User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
 			if(user == null){
-				//TODO 进入登陆页面
-				return toJSONBytes(unlogin());
+				throw new ServiceException("用户未登录", "UNLOGIN");
 			}
 			
 			orderService.cancel(orderNo, user.getUserId());
 			map.put("flag", true);
-		}catch(Exception e){
+		}catch(ServiceException e){
 			map.put("flag", false);
 			map.put("msg", e.getMessage());
+			map.put("msgcode", e.getCode());
 		}
 		return toJSONBytes(map);
+	}
+	
+	@RequestMapping(value="/favorite.html",method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView favorite(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try{
+			User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
+			if(user == null){
+				throw new ServiceException("用户未登录", "UNLOGIN");
+			}
+			
+			List<Favorite> favorites = favoriteService.getFavoriteByUserId(user.getUserId());
+			map.put("favorites", favorites);
+			map.put("flag", true);
+		}catch(ServiceException e){
+			map.put("flag", false);
+			map.put("msg", e.getMessage());
+			map.put("msgcode", e.getCode());
+		}
+		
+		return new ModelAndView("my-favorite", map);
 	}
 	
 }

@@ -131,6 +131,33 @@
 		    }
 		});
 	});
+	
+	function favorite(activityId){
+		
+		$.ajax({
+			url : '<%=request.getContextPath()  %>/web/v1/favorite/col.html',
+			method : 'POST',
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			data : {'routeId' : activityId},
+			success : function(resp) {
+				var o = $.parseJSON(resp),flag = o.flag,msg = o.msg, msgcode = o.msgcode;
+				if(flag){
+					//提示收藏成功
+					alert('收藏成功!');
+				}else{
+					if(msgcode == 'UNLOGIN'){
+						//定位到登录窗口
+					}else{
+						
+					}
+				}
+			},
+			error : function(resp) {
+				alert('网络出现问题，刷新页面重新尝试！');
+			}
+		});
+		
+	}
 </script>
 
 <div class="content mtl">
@@ -172,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="route__desc">
+                <div class="route__desc relative">
                     <div class="route-desc__header--theme2">
                         <h2>${route.name }</h2>
                         <p>${route.description }</p>
@@ -249,6 +276,11 @@
 	                        </ul>
 	                    </div>
                     </c:if>
+                    
+                    <div class="route-desc__toolbar text-right">
+                        <a href="javascript:favorite('${route.activityPlanId }')" class="lh50 inline-block unstyled-link icon icon--fav">收藏<c:if test="${route.favorite }">(Y)</c:if></a>
+                        <a href="" class="lh50 inline-block unstyled-link icon icon--share mll">分享</a>
+                    </div>
                 </div>
             </div>
         </div>
