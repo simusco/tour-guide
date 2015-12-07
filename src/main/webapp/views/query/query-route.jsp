@@ -16,18 +16,29 @@ function gotoPage(pageIndex){
 	    <div class="route__img">
 	        <div class="route-img">
 	            <div class="route-img__3img--left">
-	                <img src="${staticServerPath1 }/images/query/t1.png" alt="">
+	            	<c:set value="0" var="index"/>
+	            	<c:forEach items="${route.imageList }" var="image">
+	            		<c:if test="${image.type == 'QUERY' and index == 0}">
+	                		<img src="${staticServerPath1 }/images/${image.path}" alt="">
+	                		<c:set value="${index + 1}" var="index"/>
+	                	</c:if>
+	                </c:forEach>
 	            </div>
 	            <div class="route-img__3img--right">
-	                <div class="img"><img src="${staticServerPath1 }>/images/query/t2.png" alt=""></div>
-	                <div class="img"><img src="${staticServerPath1 }/images/query/t3.png" alt=""></div>
+	            	<c:set value="0" var="index"/>
+	            	<c:forEach items="${route.imageList }" var="image">
+	            		<c:if test="${image.type == 'QUERY' and index < 2}">
+	                	<div class="img"><img src="${staticServerPath1 }/images/${image.path}" alt=""></div>
+	                	<c:set value="${index + 1}" var="index"/>
+	                	</c:if>
+	                </c:forEach>
 	            </div>
 	        </div>
 	    </div>
 	    <div class="route__desc">
 	        <div class="route-desc__header--theme1">
 	            <h2>${route.name }</h2>
-	            <p>${route.description }</p>
+	            <p>${fn:substring(route.description, 0, 90) }${fn:length(route.description) > 90 ? "..." : ""}</p>
 	        </div>
 	        <div class="route-desc__content--theme1">
 	            <ul class="tag-line tag-line--default">
@@ -58,7 +69,7 @@ function gotoPage(pageIndex){
 	    <div class="route__desc">
 	        <div class="route-desc__header--theme1">
 	            <h2>${route.name }</h2>
-	            <p>${route.description }</p>
+	            <p>${fn:substring(route.description, 0, 90) }${fn:length(route.description) > 90 ? "..." : ""}</p>
 	        </div>
 	        <div class="route-desc__content--theme1">
 	        	<ul class="tag-line tag-line--default">

@@ -202,7 +202,7 @@
                 <div class="route__desc relative">
                     <div class="route-desc__header--theme2">
                         <h2>${route.name }</h2>
-                        <p>${route.description }</p>
+                        <p>${fn:substring(route.description, 0, 90) }${fn:length(route.description) > 90 ? "..." : ""}</p>
                     </div>
                     <c:if test="${route.type == 'HOT'}">
                     	<div class="route-desc__content--theme2">

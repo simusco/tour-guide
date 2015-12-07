@@ -8,5 +8,6 @@
 	</definition>
 	
 	<definition name="detail-ticket" template="/views/detail/detail-ticket.jsp"/>
+	<definition name="ticket-desc" template="/views/detail/detail-ticket-desc.jsp"/>
 	
 </tiles-definitions>

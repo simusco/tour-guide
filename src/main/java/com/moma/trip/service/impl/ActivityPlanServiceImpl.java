@@ -187,6 +187,15 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		List<ActivityPlan> aplist = activityMapper.searchActivity(
 				new ActivitySearch(type, tags, from, count, order, orderType));
 		
+		if(aplist != null){
+			for(int i=0;i<aplist.size();i++){
+				ActivityPlan ap = aplist.get(i);
+				if("SPOT".equals(ap.getType())){
+					ap.setImageList(imageMapper.getImageByOwnerIdAndImgType(ap.getActivityPlanId(), "QUERY"));
+				}
+			}
+		}
+		
 		return aplist;
 	}
 

@@ -291,7 +291,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void cancel(String orderNo, String userId) throws Exception {
+	public void cancel(String orderNo, String userId) throws ServiceException {
 		
 		Order order = orderMapper.getOrderByNo(orderNo);
 		if(order == null ||!order.getUserId().equals(userId)){

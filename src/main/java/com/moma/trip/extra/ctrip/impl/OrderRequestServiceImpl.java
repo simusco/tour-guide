@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.moma.framework.ServiceException;
 import com.moma.framework.extra.ctrip.base.HttpAccessAdapter;
 import com.moma.framework.extra.ctrip.dto.HotelRes;
 import com.moma.framework.extra.ctrip.dto.SpotRes;
@@ -187,7 +188,7 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 	}
 
 	@Override
-	public boolean cancelOrder(Order order) throws Exception {
+	public boolean cancelOrder(Order order) throws ServiceException {
 		
 		boolean flag1 = cancelSpotOrder(order.getSpotResId(), order.getCtripUniqueId());
 		boolean flag2 = cancelHotelOrder(order.getHotelResId(), order.getCtripUniqueId());
@@ -201,26 +202,31 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 	}
 
 	@Override
-	public boolean cancelHotelOrder(String hotelResId, String uniqueId) throws Exception {
+	public boolean cancelHotelOrder(String hotelResId, String uniqueId) throws ServiceException {
 		
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
-		String timestamp = SignatureUtils.GetTimeStamp();
-
-		Map<String, Object> root = new HashMap<String, Object>();
-		root.put("allianceId", ConfigData.AllianceId);
-		root.put("sid", ConfigData.SId);
-		root.put("timestamp", timestamp);
-		root.put("requestType", "OTA_Cancel");
-		root.put("signature", SignatureUtils.CalculationSignature(timestamp, ConfigData.AllianceId,
-				ConfigData.SecretKey, ConfigData.SId, "OTA_Cancel"));
+		try{
+			String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+			String timestamp = SignatureUtils.GetTimeStamp();
+	
+			Map<String, Object> root = new HashMap<String, Object>();
+			root.put("allianceId", ConfigData.AllianceId);
+			root.put("sid", ConfigData.SId);
+			root.put("timestamp", timestamp);
+			root.put("requestType", "OTA_Cancel");
+			root.put("signature", SignatureUtils.CalculationSignature(timestamp, ConfigData.AllianceId,
+					ConfigData.SecretKey, ConfigData.SId, "OTA_Cancel"));
+			
+			root.put("uniqueId", uniqueId);
+			root.put("resId", hotelResId.split("-")[1]);
+	
+			String request = new TemplateMapper().getTemplateMapping(new File(templateDir), "OrderCancel.xml", root);
+			String response = HttpAccessAdapter.SendRequestToUrl(request, HotelConstants.URL_HOTEL_CANCEL, null);
+			
+			return new HotelOrderCancelParser(response).parser();
+		}catch(Exception e){
+			throw new ServiceException(e.getMessage());
+		}
 		
-		root.put("uniqueId", uniqueId);
-		root.put("resId", hotelResId.split("-")[1]);
-
-		String request = new TemplateMapper().getTemplateMapping(new File(templateDir), "OrderCancel.xml", root);
-		String response = HttpAccessAdapter.SendRequestToUrl(request, HotelConstants.URL_HOTEL_CANCEL, null);
-		
-		return new HotelOrderCancelParser(response).parser();
 	}
 
 	@Override

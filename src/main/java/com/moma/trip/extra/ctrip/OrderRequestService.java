@@ -2,6 +2,7 @@ package com.moma.trip.extra.ctrip;
 
 import java.util.List;
 
+import com.moma.framework.ServiceException;
 import com.moma.framework.extra.ctrip.dto.HotelRes;
 import com.moma.framework.extra.ctrip.dto.SpotRes;
 import com.moma.trip.po.Order;
@@ -17,7 +18,7 @@ public interface OrderRequestService {
 	
 	public HotelRes generHotelOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception;
 
-	public boolean cancelOrder(Order order) throws Exception;
+	public boolean cancelOrder(Order order) throws ServiceException;
 	
 	public boolean cancelSpotOrder(String spotResId, String uniqueId);
 	

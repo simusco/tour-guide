@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.moma.framework.ServiceException;
 import com.moma.trip.po.ActivityExtra;
 import com.moma.trip.po.ActivityPlan;
 import com.moma.trip.po.ActivitySearch;
@@ -216,4 +217,18 @@ public class ActivityController extends MultiActionController {
 		return new ModelAndView("goodness", map);
 	}
 	
+	
+	@RequestMapping(value="/ticket-desc.html",method=RequestMethod.GET)
+	public ModelAndView ticketDesc(String ticketId){
+		
+		Ticket ticket = ticketService.getTicketById(ticketId);
+		if(ticket == null){
+			throw new ServiceException("没有找到对应套餐!");
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ticket", ticket);
+		
+		return new ModelAndView("ticket-desc", map);
+	}
 }

@@ -4,6 +4,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script type="text/javascript">
+
+$.extend({
+	ticket:{
+		desc:{
+			show:function(ticketId){
+				$.ajax({
+					url : '<%=request.getContextPath()  %>/web/v1/activity/ticket-desc.html',
+					method : 'GET',
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+					data : {'ticketId' : ticketId},
+					success : function(resp) {
+						$.ticket.desc.close();
+						$('#ticket-detail-desc').append(resp);
+					},
+					error : function(resp) {
+						alert('网络出现问题，刷新页面重新尝试！');
+					}
+				});
+			},
+			close:function(){
+				$('#ticket-detail-desc').empty();
+			}
+		}
+	}
+});
+
 $(function(){
 	
 	$('*[ui-book-btn]').each(function(){
@@ -31,7 +57,7 @@ $(function(){
 	    <div class="span-4 book-ticket__name">
 	        <div class="ticket-name">
 	            <span class="ticket-name__title">${ticket.name }</span>
-	            <a href="" class="ticket-name__subtitle--link">【点击查看详情】</a>
+	            <a href="javascript:$.ticket.desc.show('${ticket.ticketId }')" class="ticket-name__subtitle--link">【点击查看详情】</a>
 	        </div>
 	    </div>
 	    <div class="span-2 book-ticket__price">
@@ -50,3 +76,4 @@ $(function(){
 	    </div>
 	</div>
 </c:forEach>
+<div id="ticket-detail-desc"></div>
