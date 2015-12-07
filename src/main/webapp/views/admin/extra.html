@@ -13,19 +13,36 @@
                         <label for="activityId">ID：</label>
                         <input type="text" class="form-control" ng-model="activityExtra.activityPlanId">
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="activityId">类型：</label>
+                        <select class="form-control" ng-model="activityExtra.type">
+                        	<option value="NEED_KNOW">购买须知</option>
+                        	<option value="REC_PLAN">推荐玩法</option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         <label for="content">内容：</label>
                         <div>
                             <textarea ng-model="activityExtra.content" cols="30" rows="10" class="form-control"></textarea>
                              <span class="help-block">
-                            	例：
+                            	推荐玩法例：
                             	<code>
                             	&lt;div class="img-content"&gt;
 			                        &lt;img src="//static1.tour-guide.com/images/要展示图片地址"&gt;
 			                        &lt;img src="//static1.tour-guide.com/images/要展示图片地址"&gt;
 			                    &lt;/div&gt;
                             	</code>
+                             </span>
+                             <span class="help-block">
+                             	购买须知例：
+                             	<code>
+                             		&lt;div class="text-content text-content--theme1"&gt;
+				                        &lt;p class="text-content__title"&gt;[预定须知]&lt;/p&gt;
+				                        &lt;p&gt;1.旅游产品内容主要包含：酒店、飞机票、火车票、旅行用车、目的地接待服务及其他服务。具体产品的最终包含内容以确认的订单约定内容为准。&lt;/p&gt;
+				                    &lt;/div&gt;
+                             	</code>
                              </span>
                         </div>
                     </div>

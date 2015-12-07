@@ -92,6 +92,26 @@
 						$.ui.switchScreen.right();
 						$.ui.switchScreen.active();
 					}
+				},
+				tabCard:{
+					bind:function(){
+						var clear = function(){
+							$('*[ui-tab-card]').each(function(){
+								$(this).removeClass('active');
+							});
+						};
+						
+						$('*[ui-tab-card]').each(function(){
+							$(this).click(function(){
+								var flag = $(this).hasClass('active');
+								if(!flag){
+									clear();
+									
+									$(this).addClass('active');
+								}
+							});
+						});
+					}
 				}
 			},
 			load:{
@@ -117,6 +137,7 @@
 
 	$(function(){
 		$.ui.switchScreen.run();
+		$.ui.tabCard.bind();
 		$.load.ticket('${currdate }');
 		
 		laydate({
@@ -130,6 +151,19 @@
 		    	$.load.ticket(choseDate);
 		    }
 		});
+		
+		$(window).scroll( function() {
+			var scrollTop = $(this).scrollTop(),
+				subnavbar = $('#subnavbar');
+			
+			console.log(scrollTop);
+			
+			if(scrollTop <= 1244){
+				subnavbar.removeClass('fixed');
+			}else{
+				subnavbar.addClass('fixed')
+			}
+	 	});
 	});
 	
 	function favorite(activityId){
@@ -344,17 +378,17 @@
 	    </div>
 	</div>
 	
-	<div class="subnavbar">
+	<div class="subnavbar" id="subnavbar">
         <div class="subnav-wraper">
             <ul class="nav">
-                <li class="nav__item--theme2 span-6"><a href="">购买须知</a></li>
-                <li class="nav__item--theme2 span-6-last active"><a href="">推荐玩法</a></li>
+                <li ui-tab-card="buyknow" class="nav__item--theme2 span-6"><a href="#buyknow">购买须知</a></li>
+                <li ui-tab-card="recplan" class="nav__item--theme2 span-6-last active"><a href="#recplan">推荐玩法</a></li>
             </ul>
         </div>
     </div>
     
     <div class="content mtl">
-        <div class="content__buyknow">
+        <div class="content__buyknow" id="buyknow">
             <div class="panel panel--theme1">
                 <div class="panel__title panel__title--theme1">
                     <span class="panel__title--buyknow">购买须知</span>
@@ -368,7 +402,7 @@
                 </div>
             </div>
         </div>
-        <div class="content__recplan">
+        <div class="content__recplan"  id="recplan">
             <div class="panel panel--theme1">
                 <div class="panel__title panel__title--theme1">
                     <span class="panel__title--recplan">推荐玩法</span>
