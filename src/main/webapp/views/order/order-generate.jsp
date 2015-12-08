@@ -7,63 +7,95 @@
 
 $.extend({
 	
-	printMsg : function(msg){
-		var c = $('*[ui-valid-msg=msg]');
-		c.empty();
-		c.append('<small>'+msg+'</small>');
-	},
-	
-	clearMsg : function(){
-		var c = $('*[ui-valid-msg=msg]');
-		c.empty();
-	},
-	
-	checkIsPhontNo : function(string){
-		return !!string
-			.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
-	},
-	
-	checkName : function (val){
-		if (val == null || val.length < 2 || val.length > 6) {
-			return false;
-		}
-		return true;
-	},
-	
-	checkRemark: function(remark){
-		return remark.length > 200 ? false : true;
-	},
-	
-	calculateTotalPrice: function(fn){
-		$('*[ticket-checked=true]').each(function(){
-			var dataStore = $(this), order = {};
-			
-			order['ticketId'] = dataStore.attr('ticket-id'),
-			order['ticketDetailId'] = dataStore.attr('ticket-detail-id'),
-			order['quantity'] = dataStore.attr('quantity'),
-			order['entryTime'] = dataStore.attr('entry-time'),
-			order['bookDay'] = dataStore.attr('book-day'),
-			
-			//TODO,ajax load price
-			$.ajax({
-				url : '<%=request.getContextPath()  %>/web/v1/order/price.html',
-				method : 'POST',
-				contentType : "application/json",
-				data : JSON.stringify(order),
-	    		success : function(resp) {
-	    			var o = $.parseJSON(resp),flag = o.flag,msg = o.msg, price = o.price;
-					if(flag){
-		    			dataStore.attr('total-price', price);
-		    			$('*[ui-total-price]').html('￥'+ price + '元');
-		    			order.totalPrice = price;
-					}else{
-						if(fn != null) fn();
-						alert(msg);
+	g:{
+		fn:{
+			valid:{
+				checkName : function (val){
+					if (val == null || val.length < 2 || val.length > 6) {
+						return false;
 					}
-	    		},
-	    		error : function(resp) {alert('网络出现问题，刷新页面重新尝试！');}
-	    	});
-		});
+					return true;
+				},
+				checkRemark: function(remark){
+					return remark.length > 200 ? false : true;
+				},
+				checkIsPhontNo : function(string){
+					return !!string
+						.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+				}
+			},
+			msg:{
+				print:function(msg){
+					$.g.fn.msg.clear();
+					
+					//append
+					var c = $('*[ui-valid-msg=msg]');
+					c.append(msg);
+				},
+				clear:function(){
+					$('*[ui-valid-msg=msg]').empty();
+				}
+			},
+			req:function(url, method, data, succss, error){
+				$.ajax({
+					url : url,
+					method : method,
+					contentType : "application/json",
+					data : data,
+		    		success : function(resp) {
+		    			var o = $.parseJSON(resp),flag = o.flag,msg = o.msg;
+						if(flag){
+			    			succss(msg, o);
+						}else{
+							if(error != null) 
+								error(msg, o);
+						}
+		    		},
+		    		error : function(resp) {alert('网络出现问题，刷新页面重新尝试！');}
+		    	});
+			},
+			displayTotalPrice:function(price){
+				$('*[ui-total-price]').html('￥'+ price + '元');
+			},
+			getTicketRow:function(tdid){
+				return $('div[ticket-detail-id='+tdid+']');
+			}
+		},
+		calc:{
+			totalPrice:function(fn){
+				var selectedTicket = $('*[ticket-checked=true]');
+				if(selectedTicket.length == 0){
+					$.g.fn.displayTotalPrice(0);
+					return;
+				}
+				
+				selectedTicket.each(function(){
+					var dataStore = $(this), order = {};
+					
+					order['ticketId'] = dataStore.attr('ticket-id'),
+					order['ticketDetailId'] = dataStore.attr('ticket-detail-id'),
+					order['quantity'] = dataStore.attr('quantity'),
+					order['entryTime'] = dataStore.attr('entry-time'),
+					order['bookDay'] = dataStore.attr('book-day'),
+					
+					//TODO,ajax load price
+					$.g.fn.req(
+						'<%=request.getContextPath()  %>/web/v1/order/price.html',
+						'POST',
+						JSON.stringify(order),
+						function(msg, o){
+							dataStore.attr('total-price', o.price);
+			    			order.totalPrice = o.price;
+			    			$.g.fn.displayTotalPrice(o.price);
+						},
+						function(msg, o){
+							if(fn != null) fn();
+							alert(msg);
+						}
+					);
+				});
+			}
+		}
 	},
 	
 	load:{
@@ -87,8 +119,7 @@ $.extend({
 			
 			minus.click(function(){
 				var m = $(this).attr('ui-btn-minus');
-				var tdi = $(this).attr('tdi');
-				var ticket = $('*[ticket-detail-id='+tdi+']');
+				var ticket = $.g.fn.getTicketRow($(this).attr('tdi'));
 				var n = parseInt(ticket.attr(m));
 				var i = $(this).parent().find('*[ui-num-text]');
 				
@@ -97,13 +128,12 @@ $.extend({
 				}
 				i.val(n);
 				
-				$.calculateTotalPrice();
+				$.g.calc.totalPrice();
 			});
 			
 			plus.click(function(){
 				var m = $(this).attr('ui-btn-plus');
-				var tdi = $(this).attr('tdi');
-				var ticket = $('*[ticket-detail-id='+tdi+']');
+				var ticket = $.g.fn.getTicketRow($(this).attr('tdi'));
 				var n = parseInt(ticket.attr(m));
 				var i = $(this).parent().find('*[ui-num-text]');
 				
@@ -112,7 +142,7 @@ $.extend({
 				}
 				i.val(n);
 				
-				$.calculateTotalPrice(function(){
+				$.g.calc.totalPrice(function(){
 					ticket.attr(m, --n);
 					i.val(n);
 				});
@@ -122,87 +152,101 @@ $.extend({
 		check : {
 			name : function(){
 				$('input[name=name]').keyup(function() {
-					var flag = $.checkName($(this).val());
-					$.clearMsg();
+					var flag = $.g.fn.valid.checkName($(this).val());
+					$.g.fn.msg.clear();
 
 					if (!flag) {
-						$.printMsg('*长度为2-6汉字');
+						$.g.fn.msg.print('*长度为2-6汉字');
 					}
 				});
 			},
 			phoneNo:function(){
 				$('input[name=phoneNo]').blur(function() {
 					var phoneNo = $(this).val();
-					$.clearMsg();
+					$.g.fn.msg.clear();
 					
-					if (phoneNo != '' && !$.checkIsPhontNo(phoneNo)) {
-						$.printMsg('*手机号码不正确');
+					if (phoneNo != '' && !$.g.fn.valid.checkIsPhontNo(phoneNo)) {
+						$.g.fn.msg.print('*手机号码不正确');
 					}
 				});
 			},
 			remark:function (){
 				$('input[name=remark]').blur(function() {
 					var remark = $(this).val();
-					$.clearMsg();
+					$.g.fn.msg.clear();
 					
-					if(!$.checkRemark(remark)){						
-						$.printMsg('*备注文字过长！');
+					if(!$.g.fn.valid.checkRemark(remark)){						
+						$.g.fn.msg.print('*备注文字过长！');
 					}
 				});
 			},
 			
-			all : function(){
-				$.bind.check.name();
-				$.bind.check.phoneNo();
-				$.bind.check.remark();
-			},
-			
-			isPassAll:function(){
-				var name = $('input[name=name]'),
-					phoneNo = $('input[name=phoneNo]'),
-					remark = $('input[name=remark]'),
-					flag = true;
+			order: function(order){
+				var flag = true;
+				if(!$.g.fn.valid	.checkRemark(order.remark)){
+					$.g.fn.msg.print('*备注文字过长！');
+					return !flag;
+				}
 				
-				if(!$.checkRemark(remark.val())){
-					remark.trigger('blur');
-					flag = false;
-				}else if(!$.checkName(name.val())) {
-					name.trigger('keyup');
-					flag = false;
-				}else if(phoneNo.val() == '' || !$.checkIsPhontNo(phoneNo.val())){
-					phoneNo.trigger('blur');
-					flag = false;
+				var visitors = order.orderVisitors;
+				for(var i=0;i<visitors.length;i++){
+					var visitor = visitors[i];
+					
+					if(!$.g.fn.valid.checkName(visitor.name)) {
+						$.g.fn.msg.print('*长度为2-6汉字');
+						flag = false;
+						break;
+					}
+					
+					if(visitor.telephone == '' || !$.g.fn.valid.checkIsPhontNo(visitor.telephone)){
+						$.g.fn.msg.print('*手机号码不正确');
+						flag = false;
+						break;
+					}
+				}
+				
+				if(order.ticketDetailId == null){
+					$.g.fn.msg.print('*未选择任何套餐');
+					return !flag;
 				}
 				
 				return flag;
 			},
 			
-			order: function(order){
-				console.log(order);
-				return true;
+			exec:function(){
+				$.bind.check.name();
+				$.bind.check.phoneNo();
+				$.bind.check.remark();
 			}
 		},
 		
 		selectTicket: function(){
+			var _unselect = function(checkbox){
+				checkbox.removeClass('selected');
+				$.g.fn.getTicketRow(checkbox.attr('ui-ticket-checkbox')).attr('ticket-checked','false');
+			};
+			
+			var _select = function(checkbox){
+				checkbox.addClass('selected');
+				$.g.fn.getTicketRow(checkbox.attr('ui-ticket-checkbox')).attr('ticket-checked','true');
+			};
+			
 			$('*[ui-ticket-checkbox]').click(function(){
 				var checkbox = $(this);
-				var ticketDetailId = checkbox.attr('ui-ticket-checkbox');
+				var selected = checkbox.hasClass('selected');
 				
-				$('*[ui-ticket-checkbox]').each(function(){
-					$(this).removeClass('selected');
-				});
-				
-				$('*[ticket-detail-id]').each(function(){
-					var id = $(this).attr('ticket-detail-id');
-					$(this).attr('ticket-checked','false');
+				if(selected){
+					_unselect(checkbox);
+				}else{
+					$('*[ui-ticket-checkbox]').each(function(){
+						_unselect($(this));
+					});
 					
-					if(id == ticketDetailId){
-						checkbox.addClass('selected');
-						$(this).attr('ticket-checked','true');
-						
-						$.calculateTotalPrice();
-					}
-				});
+					//selected and cal.
+					_select(checkbox);
+				}
+				
+				$.g.calc.totalPrice();
 			});
 		},
 		
@@ -226,39 +270,24 @@ $.extend({
 				
 				order['orderVisitors'] = visitors;
 				
-				if(!$.bind.check.order(order)){
+				/*if(!$.bind.check.order(order)){
 					return;
-				}
+				}*/
 				
-				$.ajax({
-					url : '<%=request.getContextPath()  %>/web/v1/order/generate.html',
-					method : 'POST',
-					contentType : "application/json",
-					data : JSON.stringify(order),
-					success : function(resp) {
-						var o = $.parseJSON(resp),flag = o.flag,msg = o.msg;
-						
-						if(!flag){
-							if(msg == '10000'){
-								$.load.page('<%=request.getContextPath()  %>/web/v1/user/login.html', {}, function(html){
-									$('*[ui-login]').remove();
-									
-									//显示登陆框
-									$('body').append(html);
-								});
-							}else{
-								alert(msg);
-							}
-						}else{
-							//goto payment.html
-							console.log(o.orderNo);
-							window.location.href='<%=request.getContextPath()  %>/web/v1/order/payment.html?orderNo='+o.orderNo;
-						}
+				$.g.fn.req(
+					'<%=request.getContextPath()  %>/web/v1/order/generate.html',
+					'POST',
+					JSON.stringify(order),
+					function(msg, o){
+						window.location.href='<%=request.getContextPath()  %>/web/v1/order/payment.html?orderNo='+o.orderNo;
 					},
-					error : function(resp) {
-						alert('*网络出现问题，刷新页面重新尝试！');
+					function(msg, o){
+						var html = $('#order-valid-msg-tlp').html().replace(/\{\{msg\}\}/, msg);
+						
+						$('#order-valid-msg').empty();
+						$('#order-valid-msg').append(html);
 					}
-				});
+				);
 				
 			});
 		}
@@ -267,7 +296,7 @@ $.extend({
 
 $(function(){
 	$.bind.minuAndPlus();
-	$.bind.check.all();
+	$.bind.check.exec();
 	$.bind.payment();
 	$.bind.selectTicket();
 });
@@ -275,7 +304,6 @@ $(function(){
 </script>
 
 <div class="content mtl">
-
 	<div class="panel">
           <div class="panel__content--ger">
               <div class="order-progress">
@@ -331,7 +359,7 @@ $(function(){
                           	   ticket-detail-id="${ticketDetail.ticketDetailId}"
                           	   quantity="1"
                           	   entry-time="${ticketTime }"
-                          	   total-price="100"
+                          	   total-price=""
                           	   book-day="1"
                           	   >
                               <div class="span-4 order-column--name">
@@ -344,12 +372,12 @@ $(function(){
                               <div class="span-3 order-column">${ticketTime }</div>
                               <div class="span-2 order-column">
                                   <span class="num-btn">
-                                      <span class="num-btn__minus" ui-btn-minus="quantity" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text=""><span class="num-btn__plus" ui-btn-plus="quantity" tdi="${ticketDetail.ticketDetailId}">+</span>
+                                      <span class="num-btn__minus" ui-btn-minus="quantity" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text="" disabled="disabled"><span class="num-btn__plus" ui-btn-plus="quantity" tdi="${ticketDetail.ticketDetailId}">+</span>
                                   </span>
                               </div>
                               <div class="span-2-last order-column">
                                   <span class="num-btn">
-                                      <span class="num-btn__minus" ui-btn-minus="book-day" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text=""><span class="num-btn__plus" ui-btn-plus="book-day" tdi="${ticketDetail.ticketDetailId}">+</span>
+                                      <span class="num-btn__minus" ui-btn-minus="book-day" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text="" disabled="disabled"><span class="num-btn__plus" ui-btn-plus="book-day" tdi="${ticketDetail.ticketDetailId}">+</span>
                                   </span>
                               </div>
                           </div>
@@ -448,6 +476,21 @@ $(function(){
 	        </div>
 	    </div>
 	</div>
-
+	
+	<div id="order-valid-msg"></div>
+	<div id="order-valid-msg-tlp" style="display: none;">
+		<div class="pop-box strech-full">
+	         <div class="pop-box__content" style="top:50px;">
+	             <div class="pop-box__header lh50 bn bn-b-1">
+	                 <span class="pop-box__title font-3x font-color-grey-1"><span class="pll">提示：</span></span>
+	                 <i class="pop-box__close" onclick="$('#order-valid-msg').empty();">×</i>
+	             </div>
+	             <div class="pop-box__body">
+	                 <p>{{msg}}</p>
+	             </div>
+	         </div>
+	         <div class="pop-box__mask strech-full"></div>
+	    </div>
+	</div>
 	
 </div>

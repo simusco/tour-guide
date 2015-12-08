@@ -3,6 +3,7 @@ package com.moma.trip.mapper;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ public interface TicketMapper {
 
 	public Ticket getTicketById(String ticketId);
 
-	public List<TicketDetail> getTicketDetailList(String ticketId);
+	public List<TicketDetail> getTicketDetailList(Map<String, String> map);
 
 	public TicketDetail getTicketDetailById(String ticketDetailId);
 
@@ -35,7 +36,7 @@ public interface TicketMapper {
 
 	public Double getTicketPrice(String ticketId, Date start, Date end);
 
-	public void deleteTicketPriceByTicketId(String ticketId);
+	public void deleteTicketPriceByTicketId(String ticketId, String group);
 
 	public void updateTicketToLatest(BigDecimal price);
 

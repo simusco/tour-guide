@@ -205,7 +205,7 @@ public class SpotRequestServiceImpl implements SpotRequestService {
 					priceList.add(spotPrice);
 				}
 				
-				spotService.mantainSpotPrice(spot, priceList);
+				spotService.mantainSpotPrice(spot, priceList, startTime, endTime);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

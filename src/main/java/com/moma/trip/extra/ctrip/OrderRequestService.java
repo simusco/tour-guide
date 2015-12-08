@@ -11,7 +11,7 @@ import com.moma.trip.po.OrderVisitor;
 
 public interface OrderRequestService {
 
-	//返回数组，0:酒店预定结果，1：门票预定结果
+	//返回数组，0:酒店预定结果{idtype,id}，1：门票预定结果
 	public Object[] generOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception;
 
 	public SpotRes generSpotOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception;

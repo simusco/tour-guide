@@ -32,7 +32,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void saveHotelRatePlan(List<HotelRatePlan> list){
+	public void saveHotelRatePlan(List<HotelRatePlan> list, String startTime, String endTime){
 		
 		if(list != null){
 			for(int i=0;i<list.size();i++){
@@ -43,7 +43,7 @@ public class HotelServiceImpl implements HotelService {
 				List<HotelRate> rateList = htp.getRateList();
 				
 				if(rateList != null){
-					hotelMapper.deleteHotelPrice(hotel.getHotelId());
+					hotelMapper.deleteHotelPrice(hotel.getHotelId(), startTime, endTime);
 					
 					for(int j=0;j<rateList.size();j++){
 						HotelRate hr = rateList.get(j);

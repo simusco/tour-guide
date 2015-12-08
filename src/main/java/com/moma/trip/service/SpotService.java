@@ -11,7 +11,7 @@ public interface SpotService {
 
 	Spot getSpot(String productId, String resourceId);
 
-	void mantainSpotPrice(Spot spot, List<SpotPrice> priceList);
+	void mantainSpotPrice(Spot spot, List<SpotPrice> priceList, String startTime, String endTime);
 
 	List<SpotPrice> getSpotNewPrice(String string, String string2);
 

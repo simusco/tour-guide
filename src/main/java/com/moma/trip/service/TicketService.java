@@ -17,14 +17,14 @@ public interface TicketService {
 	
 	Ticket getTicketById(String ticketId);
 
-	List<TicketDetail> getTicketDetailList(String ticketId);
+	List<TicketDetail> getTicketDetailList(String ticketId, String group);
 
 	TicketDetail getTicketDetailById(String ticketDetailId);
 
-	void mantainTicketPrice(Ticket ticket, List<TicketPrice> arrayList);
+	void mantainTicketPrice(Ticket ticket, String group, List<TicketPrice> arrayList);
 
 	List<Ticket> getAllTicketList();
 
-	Double getTicketPrice(String ticketId, Date start, Date end);
+	Double getTicketPrice(String ticketId, String ticketDetailId, Date start, Date end);
 
 }

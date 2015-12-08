@@ -45,9 +45,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<delete id="deleteHotelPrice">
 		<![CDATA[
-			delete from mc_hotel_price where hotel_id = #{0}
+			delete from mc_hotel_price where hotel_id = #{0}  and date >= str_to_date(#{1}, '%Y-%m-%d')
 		]]>
-	</delete>
+	</delete> 
 	
 	<select id="getHotel" resultType="com.moma.trip.po.Hotel">
 		<![CDATA[

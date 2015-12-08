@@ -13,7 +13,6 @@ import com.moma.framework.extra.ctrip.utils.HotelConstants;
 import com.moma.framework.extra.ctrip.utils.SignatureUtils;
 import com.moma.framework.extra.ctrip.xml.UserParser;
 import com.moma.trip.extra.ctrip.UserRequestService;
-import com.moma.trip.extra.job.Test;
 
 @Service
 public class UserRequestServiceImpl implements UserRequestService {
@@ -21,7 +20,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 	@Override
 	public String getUserUniqueID(String userId) throws Exception {
 
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
 		Map<String, Object> root = new HashMap<String, Object>();

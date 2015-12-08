@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<delete id="deleteTicketPriceByTicketId">
 		<![CDATA[
-			delete from mc_ticket_price where ticket_id = #{0}
+			delete from mc_ticket_price where ticket_id = #{0} and group_code = #{1}
 		]]>
 	</delete>
 
@@ -60,7 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				day,
 				entry_time,
 				date,
-				market_price
+				market_price,
+				group_code
 			)
 			VALUES 
 			(
@@ -72,7 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{day},
 				#{entryTime},
 				#{date},
-				#{marketPrice}
+				#{marketPrice},
+				#{groupCode}
 			)
 		]]>
 	</insert>
@@ -157,7 +159,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				t.activity_id = #{0} and 
 				tp.year = #{1} and
 				tp.month = #{2} and
-				tp.day = #{3}
+				tp.day = #{3} 
+			order by tp.price asc 
+			limit 0,1
 		]]>
 	</select>
 	
@@ -167,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</delete>
 	
-	<select id="getTicketDetailList" resultType="com.moma.trip.po.TicketDetail">
+	<select id="getTicketDetailList" resultType="com.moma.trip.po.TicketDetail" parameterType="map">
 		<![CDATA[
 			select 
 				ticket_detail_id as ticketDetailId,
@@ -180,11 +184,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				code2,
 				is_pay as isPay,
 				is_display as isDisplay,
-				quantity
+				quantity,
+				group_code as groupCode
 			from mc_ticket_detail
 			where 
-				ticket_id = #{0}
+				ticket_id = #{ticketId}
 		]]>
+		
+		<if test="groupCode != null">
+			 and group_code = #{groupCode}
+		</if>
 	</select>
 	
 	<select id="getTicketDetailById" resultType="com.moma.trip.po.TicketDetail">
@@ -200,7 +209,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				code2,
 				is_pay as isPay,
 				is_display as isDisplay,
-				quantity
+				quantity,
+				group_code as groupCode
 			from mc_ticket_detail
 			where 
 				ticket_detail_id = #{0}

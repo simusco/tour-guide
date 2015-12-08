@@ -13,7 +13,7 @@ public interface HotelMapper {
 
 	Hotel getHotel(String hotelCode, String ratePlanCode);
 
-	void deleteHotelPrice(String hotelId);
+	void deleteHotelPrice(String hotelId, String startTime, String endTime);
 
 	void saveHotelPrice(HotelPrice hotelPrice);
 	

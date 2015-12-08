@@ -10,11 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import com.moma.framework.ServiceException;
 import com.moma.trip.extra.ctrip.HotelRequestService;
 import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.po.Hotel;
@@ -30,8 +31,6 @@ import com.moma.trip.service.TicketService;
 
 public class SychCtripJob extends QuartzJobBean {
 
-	private static Logger logger = Logger.getLogger(SychCtripJob.class);  
-	
 	private HotelRequestService hotelRequestService;
 	private SpotRequestService spotRequestService;
 	private HotelService hotelService;
@@ -72,8 +71,8 @@ public class SychCtripJob extends QuartzJobBean {
 
 			Calendar now = Calendar.getInstance();
 			now.setTime(new Date());
-			now.add(Calendar.DAY_OF_MONTH, -1);
-			
+			now.add(Calendar.DAY_OF_MONTH, 0);
+
 			String startTime = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
 			Calendar c = Calendar.getInstance();
 			c.setTime(new Date());
@@ -98,8 +97,8 @@ public class SychCtripJob extends QuartzJobBean {
 
 			Calendar now = Calendar.getInstance();
 			now.setTime(new Date());
-			now.add(Calendar.DAY_OF_MONTH, -1);
-			
+			now.add(Calendar.DAY_OF_MONTH, 0);
+
 			String startTime = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
 			Calendar c = Calendar.getInstance();
 			c.setTime(new Date());
@@ -115,106 +114,167 @@ public class SychCtripJob extends QuartzJobBean {
 		}
 	}
 
-	public void mantainTicketPrice(Ticket ticket){
-		
-		String  ticketId = ticket.getTicketId(), 
-				hotelCodes = ticket.getHotelCode(), 
-				spotCodes = ticket.getSpotCode();
-		
-		Map<String, Integer> quantityMap = new HashMap<String, Integer>();
-		List<TicketDetail> tdlist = ticketService.getTicketDetailList(ticketId);
-		for(int i=0;i<tdlist.size();i++){
-			TicketDetail td = tdlist.get(i);
-			
-			if(td.getQuantity() > 1){
-				quantityMap.put(td.getType() +"-" + td.getCode1() + "-" + td.getCode2(), td.getQuantity());
-			}
+	public void mantainTicketPrice(Ticket ticket) {
+
+		// 获取所有ticket-detail
+		List<TicketDetail> ticketDetailList = ticketService.getTicketDetailList(ticket.getTicketId(), null);
+		if (ticketDetailList == null) {
+			throw new ServiceException("没有发现套餐下有跟详细的信息");
 		}
-		
-		Map<String, TicketPrice> priceMap = new HashMap<String, TicketPrice>();
-		
-		if(hotelCodes != null && !"".equals(hotelCodes)){
-			String[] hcs = hotelCodes.split(",");
-			
-			for(int i=0;i<hcs.length;i++){
-				String hc = hcs[i];//拿到酒店编码
-				List<HotelPrice> hotelPrices = hotelService.getHotelNewPrice(hc.split("-")[0], hc.split("-")[1]);//获取酒店价格
-				Integer quantity = quantityMap.get("HOTEL-" + hc);
-				quantity = quantity == null ? 1 : quantity;
-				
-				if(hotelPrices != null){
-					for(int j=0;j<hotelPrices.size();j++){
-						HotelPrice hp = hotelPrices.get(j);
-						String d = hp.getYear() + hp.getMonth() + hp.getDay();
-						
-						TicketPrice tp = priceMap.get(d);
-						if(tp == null){
-							tp = new TicketPrice();
-							tp.setTicketId(ticketId);
-							tp.setYear(hp.getYear());
-							tp.setMonth(hp.getMonth());
-							tp.setDay(hp.getDay());
-							tp.setPrice(hp.getPrice().multiply(new BigDecimal(quantity)));
-							
-							BigDecimal marketPrice = new BigDecimal(hp.getMarketPrice() == null ? "0" : hp.getMarketPrice()).multiply(new BigDecimal(quantity));
-							tp.setMarketPrice(marketPrice);
-						}else{
-							tp.setPrice(tp.getPrice().add(hp.getPrice().multiply(new BigDecimal(quantity))));
-							
-							BigDecimal marketPrice = new BigDecimal(hp.getMarketPrice() == null ? "0" : hp.getMarketPrice()).multiply(new BigDecimal(quantity));
-							tp.setMarketPrice(tp.getMarketPrice().add(marketPrice));
-							
-						}
-						priceMap.put(d, tp);
-					}
-				}
+
+		// 对ticketDetail 进行分类。
+		Map<String, List<TicketDetail>> ticketDetailGroups = new HashMap<String, List<TicketDetail>>();
+
+		for (TicketDetail ticketDetail : ticketDetailList) {
+			String group = ticketDetail.getGroupCode();
+
+			List<TicketDetail> tdlist = ticketDetailGroups.get(group);
+			if (tdlist == null) {
+				tdlist = new ArrayList<TicketDetail>();
+				ticketDetailGroups.put(group, tdlist);
 			}
+
+			tdlist.add(ticketDetail);
 		}
-		
-		//如果酒店对应有门票，标记为true,以方便后面移除那些没有门票的酒店
-		Map<String, Boolean> flagMap = new HashMap<String, Boolean>();
-		if(spotCodes != null){
-			String[] scs = spotCodes.split(",");
-			for(int i=0;i<scs.length;i++){
-				String sc = scs[i];//拿到景点编码
-				List<SpotPrice> spotPrices = spotService.getSpotNewPrice(sc.split("-")[0], sc.split("-")[1]);//获取酒店价格
-				Integer quantity = quantityMap.get("SPOT-" + sc);
-				quantity = quantity == null ? 1 : quantity;
-				
-				if(spotPrices != null){
-					for(int j=0;j<spotPrices.size();j++){
-						SpotPrice sp = spotPrices.get(j);
-						String d = sp.getYear() + sp.getMonth() + sp.getDay();
-						
-						TicketPrice tp = priceMap.get(d);
-						if(tp != null){
-							tp.setPrice(tp.getPrice().add(sp.getPrice().multiply(new BigDecimal(quantity))));
-							
-							System.out.println(d + ",hotel-price:"+tp.getMarketPrice());
-							System.out.println(d + ",spot-price:"+sp.getMarketPrice());
-							
-							BigDecimal marketPrice = (sp.getMarketPrice() == null ? new BigDecimal("0") : sp.getMarketPrice()).multiply(new BigDecimal(quantity));
-							tp.setMarketPrice(tp.getMarketPrice().add(marketPrice));
-							
-							//存入value
-							priceMap.put(d, tp);
-							//标记
-							flagMap.put(d, true);
-						}
-					}
-				}
-			}
-		}
-		
-		List<TicketPrice> tplist = new ArrayList<TicketPrice>();
-		for(Iterator<String> it = priceMap.keySet().iterator();it.hasNext();){
+
+		for (Iterator<String> it = ticketDetailGroups.keySet().iterator(); it.hasNext();) {
+
 			String key = it.next();
-			if(flagMap.containsKey(key)){
-				tplist.add(priceMap.get(key));
+			List<TicketDetail> tdlist = ticketDetailGroups.get(key);
+
+			// 判断每一个ticketDetail的ispay == yes,表示需要计算。
+			// 取出code1/code2
+			// 根据code及类型获取价格
+			// 合并计算价格
+
+			if (tdlist == null)
+				continue;
+
+			Map<String, TicketPrice> hotelPriceMap = new HashMap<String, TicketPrice>();
+			Map<String, TicketPrice> spotPriceMap = new HashMap<String, TicketPrice>();
+
+			boolean hashotel = false;
+			boolean haspot = false;
+			
+			for (int i = 0; i < tdlist.size(); i++) {
+				TicketDetail td = tdlist.get(i);
+
+				if ("yes".equals(td.getIsPay())) {
+					if (StringUtils.isEmpty(td.getCode1()) || StringUtils.isEmpty(td.getCode2())) {
+						throw new ServiceException("套餐详细信息的外部code码有误");
+					}
+
+					if ("HOTEL".equals(td.getType())) {
+						hashotel = true;
+						getHotelTicketPrice(ticket.getTicketId(), key, td, hotelPriceMap);
+					}
+
+					if ("SPOT".equals(td.getType())) {
+						haspot = true;
+						getSpotTicketPrice(ticket.getTicketId(), key, td, spotPriceMap);
+					}
+				}
 			}
+			
+			//酒店门票都有
+			if(hashotel && haspot){
+				//合并
+				List<TicketPrice> tplist = new ArrayList<TicketPrice>();
+				for(Iterator<String> iit = hotelPriceMap.keySet().iterator();iit.hasNext();){
+					String ikey = iit.next();
+					TicketPrice itvalue = hotelPriceMap.get(ikey);
+					TicketPrice isvalue = spotPriceMap.get(ikey);
+					
+					if(itvalue != null && isvalue != null){
+						itvalue.setPrice(itvalue.getPrice().add(isvalue.getPrice()));
+						itvalue.setMarketPrice(itvalue.getMarketPrice().add(isvalue.getMarketPrice()));
+						
+						if(!tplist.contains(itvalue))
+							tplist.add(itvalue);
+					}
+				}
+				//save itvalue;
+				ticketService.mantainTicketPrice(ticket, key, tplist);
+			}else if(hashotel && !haspot){
+				//如果精油酒店
+				List<TicketPrice> tplist = new ArrayList<TicketPrice>();
+				for (Iterator<String> iit = hotelPriceMap.keySet().iterator(); iit.hasNext();) {
+					tplist.add(hotelPriceMap.get(iit.next()));
+				}
+
+				ticketService.mantainTicketPrice(ticket, key, tplist);
+			}else if(!hashotel && haspot){
+				//如果精油酒店
+				List<TicketPrice> tplist = new ArrayList<TicketPrice>();
+				for (Iterator<String> iit = spotPriceMap.keySet().iterator(); iit.hasNext();) {
+					tplist.add(spotPriceMap.get(iit.next()));
+				}
+
+				ticketService.mantainTicketPrice(ticket, key, tplist);
+			}
+
+		}
+
+	}
+	
+	public void getSpotTicketPrice(String ticketId, String group, TicketDetail td, Map<String, TicketPrice> hotelPriceMap){
+		List<SpotPrice> spotPrices = spotService.getSpotNewPrice(td.getCode1(), td.getCode2());// 获取酒店价格
+		for (int j = 0; spotPrices != null && j < spotPrices.size(); j++) {
+			SpotPrice sp = spotPrices.get(j);
+			String d = sp.getYear() + sp.getMonth() + sp.getDay();
+
+			TicketPrice tp = hotelPriceMap.get(d);
+			if (tp == null) {
+				tp = new TicketPrice();
+				tp.setTicketId(ticketId);
+				tp.setYear(sp.getYear());
+				tp.setMonth(sp.getMonth());
+				tp.setDay(sp.getDay());
+				tp.setPrice(sp.getPrice().multiply(new BigDecimal(td.getQuantity())));
+				tp.setGroupCode(group);
+
+				BigDecimal marketPrice = (sp.getMarketPrice() == null ? new BigDecimal("0") : sp.getMarketPrice()).multiply(new BigDecimal(td.getQuantity()));
+				tp.setMarketPrice(marketPrice);
+			}else{
+				tp.setPrice(tp.getPrice().add(sp.getPrice().multiply(new BigDecimal(td.getQuantity()))));
+				BigDecimal marketPrice = (sp.getMarketPrice() == null ? new BigDecimal("0") : sp.getMarketPrice()).multiply(new BigDecimal(td.getQuantity()));
+				tp.setMarketPrice(tp.getMarketPrice().add(marketPrice));
+			}
+			
+			hotelPriceMap.put(d, tp);
+		}
+	}
+	
+	public void getHotelTicketPrice(String ticketId, String group, TicketDetail td, Map<String, TicketPrice> hotelPriceMap){
+		List<HotelPrice> hotelPrices = hotelService.getHotelNewPrice(td.getCode1(), td.getCode2());// 获取酒店价格
+		for (int j = 0; hotelPrices != null && j < hotelPrices.size(); j++) {
+
+			HotelPrice hp = hotelPrices.get(j);
+			String d = hp.getYear() + hp.getMonth() + hp.getDay();
+
+			TicketPrice tp = hotelPriceMap.get(d);
+			if (tp == null) {
+				tp = new TicketPrice();
+				tp.setTicketId(ticketId);
+				tp.setYear(hp.getYear());
+				tp.setMonth(hp.getMonth());
+				tp.setDay(hp.getDay());
+				tp.setPrice(hp.getPrice().multiply(new BigDecimal(td.getQuantity())));
+				tp.setGroupCode(group);
+
+				BigDecimal marketPrice = new BigDecimal(
+						hp.getMarketPrice() == null ? "0" : hp.getMarketPrice())
+								.multiply(new BigDecimal(td.getQuantity()));
+				tp.setMarketPrice(marketPrice);
+			} else {
+				tp.setPrice(tp.getPrice().add(hp.getPrice().multiply(new BigDecimal(td.getQuantity()))));
+				BigDecimal marketPrice = new BigDecimal(hp.getMarketPrice() == null ? "0" : hp.getMarketPrice()).multiply(new BigDecimal(td.getQuantity()));
+				tp.setMarketPrice(tp.getMarketPrice().add(marketPrice));
+			}
+
+			hotelPriceMap.put(d, tp);
 		}
 		
-		ticketService.mantainTicketPrice(ticket, tplist);
 	}
 
 	public HotelRequestService getHotelRequestService() {
@@ -255,21 +315,6 @@ public class SychCtripJob extends QuartzJobBean {
 
 	public void setTicketService(TicketService ticketService) {
 		this.ticketService = ticketService;
-	}
-
-	public static void main(String[] args){
-		Calendar now = Calendar.getInstance();
-		now.setTime(new Date());
-		now.add(Calendar.DAY_OF_MONTH, -1);
-		
-		String startTime = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date());
-		c.add(Calendar.DAY_OF_MONTH, 28);
-		String endTime = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
-		
-		System.out.println(startTime);
-		System.out.println(endTime);
 	}
 	
 }

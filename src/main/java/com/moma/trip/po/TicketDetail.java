@@ -21,6 +21,7 @@ public class TicketDetail implements Serializable {
 	private String isPay;
 	private String isDisplay;
 	private Integer quantity;
+	private String groupCode;
 
 	public String getTicketDetailId() {
 		return ticketDetailId;
@@ -108,6 +109,14 @@ public class TicketDetail implements Serializable {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getGroupCode() {
+		return groupCode;
+	}
+
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
 	}
 
 }

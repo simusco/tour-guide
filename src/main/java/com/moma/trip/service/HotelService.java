@@ -11,7 +11,7 @@ public interface HotelService {
 
 	public List<Hotel> getKnownHotelList();
 	
-	public void saveHotelRatePlan(List<HotelRatePlan> list);
+	public void saveHotelRatePlan(List<HotelRatePlan> list, String start, String end);
 
 	public List<HotelPrice> getHotelNewPrice(String string, String string2);
 

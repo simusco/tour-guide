@@ -25,7 +25,6 @@ import com.moma.framework.extra.ctrip.xml.SpotResParser;
 import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
 import com.moma.framework.utils.HttpRequestUtils;
 import com.moma.trip.extra.ctrip.OrderRequestService;
-import com.moma.trip.extra.job.Test;
 import com.moma.trip.po.Order;
 import com.moma.trip.po.OrderDetail;
 import com.moma.trip.po.OrderVisitor;
@@ -36,9 +35,7 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 	@Override
 	public Object[] generOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception {
 
-		HotelRes hotelRes = generHotelOrder(order, odlist, orderVisitors);
-		
-		return new Object[]{hotelRes, null};
+		//HotelRes hotelRes = generHotelOrder(order, odlist, orderVisitors);
 		
 		//TODO 目前仅仅实现Spot
 		/*SpotRes spotRes = generSpotOrder(order, odlist, orderVisitors);
@@ -49,6 +46,9 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 		}
 		
 		return new Object[]{hotelRes, spotRes};*/
+		
+		//目前系统不生成ctrip订单，人工下单。
+		return new Object[]{null, null};
 	}
 	
 	public SpotRes generSpotOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception{
@@ -81,7 +81,7 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 		root.put("quantity",order.getQuantity());
 		root.put("uniqueId",order.getCtripUniqueId());
 		
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String request = new TemplateMapper().getTemplateMapping(new File(templateDir), "SpotRes.json", root).replaceAll("\r\n", "");
 
 		String timestamp = SignatureUtils.GetTimeStamp();
@@ -114,7 +114,7 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 	}
 	
 	public HotelRes generHotelOrder(Order order, List<OrderDetail> odlist, List<OrderVisitor> orderVisitors) throws Exception{
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
 		Map<String, Object> root = new HashMap<String, Object>();
@@ -205,7 +205,7 @@ public class OrderRequestServiceImpl implements OrderRequestService {
 	public boolean cancelHotelOrder(String hotelResId, String uniqueId) throws ServiceException {
 		
 		try{
-			String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+			String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 			String timestamp = SignatureUtils.GetTimeStamp();
 	
 			Map<String, Object> root = new HashMap<String, Object>();

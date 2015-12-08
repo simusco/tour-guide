@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
 		if(ticketDetail == null)
 			throw new ServiceException("不能找到你所选择的套餐！");
 		
-		List<TicketDetail> tdlist = ticketService.getTicketDetailList(ticket.getTicketId());
+		List<TicketDetail> tdlist = ticketService.getTicketDetailList(ticket.getTicketId(), ticketDetail.getGroupCode());
 		List<OrderDetail> odlist = new ArrayList<OrderDetail>();
 		for(int i=0;i<tdlist.size();i++){
 			TicketDetail td = tdlist.get(i);
@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
 		String orderNo = new Date().getTime() + "" + RandomUtils.getRandom(1000000, 9999999);
 		order.setOrderNo(orderNo);
 		
-		//TODO 生成ctrip Order(门票/酒店).
+		//生成ctrip Order(门票/酒店),并记录外部订单号.
 		Object[] res = orderRequestService.generOrder(order, odlist, orderVisitors);
 		HotelRes hotelRes = (HotelRes) res[0];
 		SpotRes spotRes = (SpotRes) res[1];
@@ -148,6 +148,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	public void validateOrder(Order order){
+		
+		if(StringUtils.isEmpty(order.getTicketDetailId())){
+			throw new ServiceException("未选择套餐");
+		}
+		
 		String start = order.getEntryTime();
 		if(StringUtils.isEmpty(start)){
 			throw new ServiceException("未填写订单开始时间");
@@ -157,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
 			throw new ServiceException("预定晚上数量填写有问题");
 		}
 		
-		if(order.getQuantity() <= 0 || order.getQuantity() > 20){
+		if(order.getQuantity() <= 0 || order.getQuantity() > 99){
 			throw new ServiceException("套餐数量填写有问题");
 		}
 		
@@ -182,7 +187,7 @@ public class OrderServiceImpl implements OrderService {
 			Date start = new SimpleDateFormat("yyyy-MM-dd").parse(order.getEntryTime());
 			Date end = new SimpleDateFormat("yyyy-MM-dd").parse(order.getEndTime());
 			//单张票价格,如果预定好几天，酒店会多张，门票仅仅两张
-			ticketPrice  = ticketService.getTicketPrice(order.getTicketId(), start, end);
+			ticketPrice  = ticketService.getTicketPrice(order.getTicketId(), order.getTicketDetailId(), start, end);
 		} catch (ParseException e) {
 			throw new ServiceException("获取价格失败");
 		}
@@ -219,11 +224,11 @@ public class OrderServiceImpl implements OrderService {
 					order.getQuantity(), 
 					order.getEntryTime() + "T21:00:00.000+08:00");
 		} catch (Exception e) {
-			throw new ServiceException("检查可用性失败");
+			throw new ServiceException("订单已过期");
 		}
 		
 		try {
-			List<TicketDetail> tdlist = ticketService.getTicketDetailList(ticket.getTicketId());
+			List<TicketDetail> tdlist = ticketService.getTicketDetailList(ticket.getTicketId(), ticketDetail.getGroupCode());
 			
 			Map<Boolean, Integer> passCount = new HashMap<Boolean, Integer>();
 			for(int i=0;i<tdlist.size();i++){

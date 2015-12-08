@@ -64,7 +64,7 @@ public class OrderController  extends RestfulController {
 		if(ticket == null)
 			return new ModelAndView("error");
 		
-		List<TicketDetail> ticketDetailList = ticketService.getTicketDetailList(ticketId);
+		List<TicketDetail> ticketDetailList = ticketService.getTicketDetailList(ticketId, null);
 		map.put("ticket", ticket);
 		map.put("ticketDetailList", ticketDetailList);
 		map.put("ticketTime", ticketTime);
@@ -122,7 +122,7 @@ public class OrderController  extends RestfulController {
 			order.setCtripUniqueId(user.getCtripUniqueId());
 			
 			map.put("flag", true);
-			map.put("orderNo", orderService.save(order));
+			//map.put("orderNo", orderService.save(order));
 		}catch(Exception e){
 			e.printStackTrace();
 			//生成订单失败

@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				sum(price)
 			from mc_spot_price 
 			where 
-				date >= #{0} and date <= #{1} and
+				date >= #{0} and date < #{1} and
 				spot_id = (select i.spot_id from mc_spot i where i.spot_code = #{2} and i.resource_code = #{3})
 		]]>
 	</select>
@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<delete id="deleteSpotPrice">
 		<![CDATA[
-			delete from mc_spot_price where spot_id = #{0}
+			delete from mc_spot_price where spot_id = #{0}  and date >= str_to_date(#{1}, '%Y-%m-%d')
 		]]>
 	</delete>
 	

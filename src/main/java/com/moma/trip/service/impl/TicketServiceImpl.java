@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.moma.framework.ServiceException;
 import com.moma.framework.utils.UUIDUtils;
 import com.moma.trip.mapper.ActivityMapper;
 import com.moma.trip.mapper.TicketMapper;
@@ -67,13 +70,16 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public List<TicketDetail> getTicketDetailList(String ticketId) {
+	public List<TicketDetail> getTicketDetailList(String ticketId, String group) {
 
 		if(ticketId == null)
 			return null;
 		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("ticketId", ticketId);
+		map.put("groupCode", group);
 		
-		return ticketMapper.getTicketDetailList(ticketId);
+		return ticketMapper.getTicketDetailList(map);
 	}
 
 	@Override
@@ -87,11 +93,11 @@ public class TicketServiceImpl implements TicketService {
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
-	public void mantainTicketPrice(Ticket ticket, List<TicketPrice> arrayList) {
+	public void mantainTicketPrice(Ticket ticket, String group, List<TicketPrice> arrayList) {
 		if(arrayList == null)
 			return;
 		
-		ticketMapper.deleteTicketPriceByTicketId(ticket.getTicketId());
+		ticketMapper.deleteTicketPriceByTicketId(ticket.getTicketId(), group);
 		
 		for(Iterator<TicketPrice> it = arrayList.iterator();it.hasNext();){
 			TicketPrice tp = it.next();
@@ -123,23 +129,31 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public Double getTicketPrice(String ticketId, Date start, Date end) {
+	public Double getTicketPrice(String ticketId, String ticketDetailId, Date start, Date end) {
 
-		List<TicketDetail> tdlist = ticketMapper.getTicketDetailList(ticketId);
+		TicketDetail td = ticketMapper.getTicketDetailById(ticketDetailId);
+		if(td == null)
+			throw new ServiceException("获取套餐价格失败");
 		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("ticketId", ticketId);
+		map.put("groupCode", td.getGroupCode());
+		
+		List<TicketDetail> tdlist = ticketMapper.getTicketDetailList(map);
 		BigDecimal price = new BigDecimal("0.0");
+		
 		for(int i=0;i<tdlist.size();i++){
-			TicketDetail td = tdlist.get(i);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			TicketDetail ticketDetail = tdlist.get(i);
 			
-			if("SPOT".equals(td.getType())){
-				Double spotPrice = spotService.getSpotPrice(sdf.format(end), sdf.format(end), td.getCode1(), td.getCode2());
-				price = price.add(new BigDecimal(spotPrice));
+			if("SPOT".equals(ticketDetail.getType())){
+				Double spotPrice = spotService.getSpotPrice(sdf.format(end), sdf.format(end), ticketDetail.getCode1(), ticketDetail.getCode2());
+				price = price.add(new BigDecimal(spotPrice).multiply(new BigDecimal(ticketDetail.getQuantity())));
 			}
 			
-			if("HOTEL".equals(td.getType())){
-				Double hotelPrice =  hotelService.getHotelPrice(start, end, td.getCode1(), td.getCode2());
-				price = price.add(new BigDecimal(hotelPrice));
+			if("HOTEL".equals(ticketDetail.getType())){
+				Double hotelPrice =  hotelService.getHotelPrice(start, end, ticketDetail.getCode1(), ticketDetail.getCode2());
+				price = price.add(new BigDecimal(hotelPrice).multiply(new BigDecimal(ticketDetail.getQuantity())));
 			}
 		}
 		

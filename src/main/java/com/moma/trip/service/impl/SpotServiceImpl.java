@@ -33,9 +33,10 @@ public class SpotServiceImpl implements SpotService {
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
-	public void mantainSpotPrice(Spot spot, List<SpotPrice> priceList) {
+	public void mantainSpotPrice(Spot spot, List<SpotPrice> priceList, String startTime, String endTime) {
 
-		spotMapper.deleteSpotPrice(spot.getSpotId());
+		//删除同步数据
+		spotMapper.deleteSpotPrice(spot.getSpotId(), startTime, endTime);
 		if(priceList != null){
 			for(int i=0;i<priceList.size();i++){
 				SpotPrice spotPrice = priceList.get(i);

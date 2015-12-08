@@ -14,7 +14,7 @@ public interface SpotMapper {
 
 	Spot getSpot(String productId, String resourceId);
 
-	void deleteSpotPrice(String spotId);
+	void deleteSpotPrice(String spotId, String startTime, String endTime);
 
 	void saveSpotPrice(SpotPrice spotPrice);
 

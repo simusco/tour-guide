@@ -156,12 +156,11 @@
 			var scrollTop = $(this).scrollTop(),
 				subnavbar = $('#subnavbar');
 			
-			console.log(scrollTop);
-			
-			if(scrollTop <= 1244){
+			if(scrollTop <= 1210){
 				subnavbar.removeClass('fixed');
 			}else{
-				subnavbar.addClass('fixed')
+				if(!subnavbar.hasClass('fixed'))
+					subnavbar.addClass('fixed')
 			}
 	 	});
 	});
@@ -378,11 +377,11 @@
 	    </div>
 	</div>
 	
-	<div class="subnavbar" id="subnavbar">
+	<div class="subnavbar clearfix b" id="subnavbar">
         <div class="subnav-wraper">
             <ul class="nav">
-                <li ui-tab-card="buyknow" class="nav__item--theme2 span-6"><a href="#buyknow">购买须知</a></li>
-                <li ui-tab-card="recplan" class="nav__item--theme2 span-6-last active"><a href="#recplan">推荐玩法</a></li>
+                <li ui-tab-card="buyknow" class="nav__item--theme2 span-6 active"><a href="#buyknow">购买须知</a></li>
+                <li ui-tab-card="recplan" class="nav__item--theme2 span-6-last"><a href="#recplan">推荐玩法</a></li>
             </ul>
         </div>
     </div>

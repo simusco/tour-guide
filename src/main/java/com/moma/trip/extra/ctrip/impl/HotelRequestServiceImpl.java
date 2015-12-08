@@ -19,7 +19,6 @@ import com.moma.framework.extra.ctrip.utils.SignatureUtils;
 import com.moma.framework.extra.ctrip.xml.HotelAvailParser;
 import com.moma.framework.extra.ctrip.xml.HotelRatePlanParser;
 import com.moma.trip.extra.ctrip.HotelRequestService;
-import com.moma.trip.extra.job.Test;
 import com.moma.trip.mapper.HotelMapper;
 import com.moma.trip.po.Hotel;
 import com.moma.trip.service.HotelService;
@@ -38,7 +37,7 @@ public class HotelRequestServiceImpl implements HotelRequestService {
 	public void searchHotel(String hotelCityCode, String areaID, String hotelName, String hotelStarRate)
 			throws Exception {
 
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
 		Map<String, Object> root = new HashMap<String, Object>();
@@ -65,7 +64,7 @@ public class HotelRequestServiceImpl implements HotelRequestService {
 	@Override
 	public Object getHotelDescriptiveInfo() throws Exception {
 		
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
 		Map<String, Object> root = new HashMap<String, Object>();
@@ -89,7 +88,7 @@ public class HotelRequestServiceImpl implements HotelRequestService {
 	@SuppressWarnings("static-access")
 	@Override
 	public void sychHotelRatePlan(List<Hotel> hotelList, String start, String end) throws Exception {
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
 		Map<String, Object> root = new HashMap<String, Object>();
@@ -111,7 +110,7 @@ public class HotelRequestServiceImpl implements HotelRequestService {
 		System.out.println(response);
 		List<HotelRatePlan> list = new HotelRatePlanParser(response).get();
 		//持久化到数据库
-		hotelService.saveHotelRatePlan(list);
+		hotelService.saveHotelRatePlan(list, start, end);
 	}
 	
 	@SuppressWarnings("static-access")
@@ -119,7 +118,7 @@ public class HotelRequestServiceImpl implements HotelRequestService {
 	public HotelAvail hotelAvail(String hotelCode, String ratePlanCode, String start, String end, int quantity,
 			String lateArrivalTime) throws Exception {
 
-		String templateDir = Test.class.getResource(HotelConstants.TEMPLATE_DIR).getPath();
+		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
 		Map<String, Object> root = new HashMap<String, Object>();
