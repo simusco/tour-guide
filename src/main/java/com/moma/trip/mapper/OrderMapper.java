@@ -26,5 +26,7 @@ public interface OrderMapper {
 	void cancelOrder(Order order);
 
 	void payed(Order order);
+	
+	List<OrderDetail> getOrderDetailByOrderId(String orderId);
 
 }

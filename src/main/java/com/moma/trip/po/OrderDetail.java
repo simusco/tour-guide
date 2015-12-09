@@ -18,6 +18,8 @@ public class OrderDetail {
 	private Integer quantity;
 	private String isPay;
 	private String isDisplay;
+	private String roomType;
+	private String bedType;
 	
 	public String getOrderDetailId() {
 		return orderDetailId;
@@ -129,6 +131,22 @@ public class OrderDetail {
 
 	public void setIsDisplay(String isDisplay) {
 		this.isDisplay = isDisplay;
+	}
+
+	public String getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
+
+	public String getBedType() {
+		return bedType;
+	}
+
+	public void setBedType(String bedType) {
+		this.bedType = bedType;
 	}
 
 }

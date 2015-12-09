@@ -40,4 +40,6 @@ public interface TicketMapper {
 
 	public void updateTicketToLatest(BigDecimal price);
 
+	public void saveTicketDetail(TicketDetail td);
+
 }

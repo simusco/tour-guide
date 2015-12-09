@@ -15,6 +15,7 @@ public class Hotel implements Serializable {
 	private String imageUrl;
 	private String hotelCode;
 	private String ratePlanCode;
+	private String code;
 
 	public String getHotelId() {
 		return hotelId;
@@ -70,6 +71,14 @@ public class Hotel implements Serializable {
 
 	public void setRatePlanCode(String ratePlanCode) {
 		this.ratePlanCode = ratePlanCode;
+	}
+
+	public String getCode() {
+		return hotelCode + '-' + ratePlanCode;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

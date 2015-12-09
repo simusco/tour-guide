@@ -40,6 +40,7 @@ public class TicketServiceImpl implements TicketService {
 	@Resource
 	private HotelService hotelService;
 	
+	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public void saveTicket(Ticket ticket) {
 
@@ -47,6 +48,17 @@ public class TicketServiceImpl implements TicketService {
 			return;
 		
 		ticket.setTicketId(UUIDUtils.getUUID());
+		
+		List<TicketDetail> tdlist = ticket.getTicketDetailList();
+		if(tdlist != null){
+			for(int i=0;i<tdlist.size();i++){
+				TicketDetail td = tdlist.get(i);
+				td.setTicketDetailId(UUIDUtils.getUUID());
+				td.setTicketId(ticket.getTicketId());
+				
+				ticketMapper.saveTicketDetail(td);
+			}
+		}
 		
 		ticketMapper.saveTicket(ticket);
 		

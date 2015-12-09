@@ -142,7 +142,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				code2,
 				quantity,
 				is_pay,
-				is_display
+				is_display,
+				bed_type,
+				room_type
 			)
 			VALUES 
 			(
@@ -159,10 +161,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{code2},
 				#{quantity},
 				#{isPay},
-				#{isDisplay}
+				#{isDisplay},
+				#{bedType},
+				#{roomType}
 			)
 		]]>
 	</insert>
+	
+	<select id="getOrderDetailByOrderId" resultType="com.moma.trip.po.OrderDetail">
+		<![CDATA[
+			select 
+				order_detail_id as orderDetailId,
+				order_id as orderId,
+				ticket_id as ticketId,
+				ticket_name as ticketName,
+				ticket_detail_id as ticketDetailId,
+				ticket_detail_name as ticketDetailName,
+				price,
+				market_price as marketPrice,
+				type,
+				code1,
+				code2,
+				quantity,
+				is_pay as isPay,
+				is_display as isDisplay,
+				bed_type as bedType,
+				room_type as roomType
+			from mc_order_detail
+			where order_id = #{0}	
+		]]>
+	</select>
 	
 	<insert id="saveOrderVisitor" parameterType="com.moma.trip.po.OrderVisitor">
 		<![CDATA[

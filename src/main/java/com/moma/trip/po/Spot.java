@@ -8,6 +8,8 @@ public class Spot {
 	private String imageUrl;
 	private String spotCode;
 	private String resourceCode;
+	private String code;
+	
 	public String getSpotId() {
 		return spotId;
 	}
@@ -43,6 +45,12 @@ public class Spot {
 	}
 	public void setResourceCode(String resourceCode) {
 		this.resourceCode = resourceCode;
+	}
+	public String getCode() {
+		return spotCode + '-' + resourceCode;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

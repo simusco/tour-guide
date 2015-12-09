@@ -3,6 +3,7 @@ package com.moma.trip.po;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Ticket implements Serializable {
 
@@ -20,6 +21,7 @@ public class Ticket implements Serializable {
 	private Date sychtime;
 	private BigDecimal price;
 	private BigDecimal marketPrice;
+	private List<TicketDetail> ticketDetailList;
 
 	public String getTicketId() {
 		return ticketId;
@@ -99,6 +101,14 @@ public class Ticket implements Serializable {
 
 	public void setMarketPrice(BigDecimal marketPrice) {
 		this.marketPrice = marketPrice;
+	}
+
+	public List<TicketDetail> getTicketDetailList() {
+		return ticketDetailList;
+	}
+
+	public void setTicketDetailList(List<TicketDetail> ticketDetailList) {
+		this.ticketDetailList = ticketDetailList;
 	}
 
 }
