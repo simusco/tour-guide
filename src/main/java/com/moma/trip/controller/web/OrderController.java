@@ -1,6 +1,7 @@
 package com.moma.trip.controller.web;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,8 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moma.framework.ServiceException;
 import com.moma.framework.extra.alipay.config.AlipayConfig;
 import com.moma.framework.extra.alipay.util.AlipaySubmit;
-import com.moma.framework.extra.ctrip.utils.ConfigData;
-import com.moma.framework.extra.ctrip.utils.SignatureUtils;
 import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
 import com.moma.framework.web.springmvc.RestfulController;
 import com.moma.trip.po.Order;
@@ -122,7 +121,7 @@ public class OrderController  extends RestfulController {
 			order.setCtripUniqueId(user.getCtripUniqueId());
 			
 			map.put("flag", true);
-			//map.put("orderNo", orderService.save(order));
+			map.put("orderNo", orderService.save(order));
 		}catch(Exception e){
 			e.printStackTrace();
 			//生成订单失败
@@ -133,7 +132,6 @@ public class OrderController  extends RestfulController {
 		return toJSONBytes(map);
 	}
 	
-	/*
 	@RequestMapping(value="/payment.html",method=RequestMethod.GET)
 	public ModelAndView payment(String orderNo, HttpServletRequest request){
 		User user = (User) request.getSession().getAttribute(User.LOGIN_USER);
@@ -160,9 +158,9 @@ public class OrderController  extends RestfulController {
 		}
 	
 		return new ModelAndView(result, map);
-	}*/
+	}
 	
-	@RequestMapping(value="/payment.html",method=RequestMethod.GET)
+	/*@RequestMapping(value="/payment.html",method=RequestMethod.GET)
 	public ModelAndView payment(String orderNo, HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 		String result = "ctrip-pay";
@@ -187,7 +185,7 @@ public class OrderController  extends RestfulController {
 		}
 	
 		return new ModelAndView(result, map);
-	}
+	}*/
 	
 	public String getAlipayHtml(
 			String out_trade_no,

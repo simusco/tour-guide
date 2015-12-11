@@ -38,7 +38,7 @@
 	            </div>
 	            <div class="slide-menu">
 	                <span class="slide-menu__title">我的收藏</span>
-					<a href="<%=request.getContextPath()  %>/web/v1/my/favorite.html" class="slide-menu__item"  menu-item="fav">收藏</a>
+					<a href="<%=request.getContextPath()  %>/web/v1/my/favorite.html" class="slide-menu__item"  menu-item="favorite">收藏</a>
 	            </div>
 	            <div class="slide-menu">
 	                <span class="slide-menu__title">我的资料</span>

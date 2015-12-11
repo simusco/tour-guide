@@ -22,6 +22,8 @@ public class Ticket implements Serializable {
 	private BigDecimal price;
 	private BigDecimal marketPrice;
 	private List<TicketDetail> ticketDetailList;
+	private String buyPolicy;
+	private String cancelPolicy;
 
 	public String getTicketId() {
 		return ticketId;
@@ -109,6 +111,22 @@ public class Ticket implements Serializable {
 
 	public void setTicketDetailList(List<TicketDetail> ticketDetailList) {
 		this.ticketDetailList = ticketDetailList;
+	}
+
+	public String getBuyPolicy() {
+		return buyPolicy;
+	}
+
+	public void setBuyPolicy(String buyPolicy) {
+		this.buyPolicy = buyPolicy;
+	}
+
+	public String getCancelPolicy() {
+		return cancelPolicy;
+	}
+
+	public void setCancelPolicy(String cancelPolicy) {
+		this.cancelPolicy = cancelPolicy;
 	}
 
 }

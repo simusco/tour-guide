@@ -1,6 +1,7 @@
 package com.moma.trip.po;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class OrderDetail {
 
@@ -20,7 +21,10 @@ public class OrderDetail {
 	private String isDisplay;
 	private String roomType;
 	private String bedType;
-	
+	private String isDraw;// 是否出票
+	private String startTime;
+	private String endTime;
+
 	public String getOrderDetailId() {
 		return orderDetailId;
 	}
@@ -147,6 +151,30 @@ public class OrderDetail {
 
 	public void setBedType(String bedType) {
 		this.bedType = bedType;
+	}
+
+	public String getIsDraw() {
+		return isDraw;
+	}
+
+	public void setIsDraw(String isDraw) {
+		this.isDraw = isDraw;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 }

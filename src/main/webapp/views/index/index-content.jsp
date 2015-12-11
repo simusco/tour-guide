@@ -89,7 +89,7 @@ $(function(){
 
         <div class="advertise__circlebar">
             <div class="circlebar">
-                <div class="circlebar__item"><a href="javascript:advAnimation.display(0);" ui-animation-circle="">&nbsp;</a></div>
+                <div class="circlebar__item"><a href="javascript:advAnimation.display(0);" ui-animation-circle="" class="active">&nbsp;</a></div>
                 <div class="circlebar__item"><a href="javascript:advAnimation.display(1);" ui-animation-circle="">&nbsp;</a></div>
                 <div class="circlebar__item"><a href="javascript:advAnimation.display(2);" ui-animation-circle="">&nbsp;</a></div>
             </div>
@@ -182,23 +182,23 @@ $(function(){
 	    <div class="package__body index-grid">
 	        <div class="advantage span-3">
 	            <img src="${staticServerPath1 }/images/index/advance01.png" class="advantage__img">
-	            <p class="advantage__title">【精品线路】</p>
-	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	            <p class="advantage__title">【精品路线】</p>
+	            <p class="advantage__content">亲自丈量，专业勘测，为您精心挑选出当季最适合自驾的路线。</p>
 	        </div>
 	        <div class="advantage span-3">
 	            <img src="${staticServerPath1 }/images/index/advance02.png" class="advantage__img">
-	            <p class="advantage__title">【精品线路】</p>
-	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	            <p class="advantage__title">【最全攻略】</p>
+	            <p class="advantage__content"> 您不用满世界搜索旅行攻略了，“兜蜂网”已经为您备好路书，随时准备出发。</p>
 	        </div>
 	        <div class="advantage span-3">
 	            <img src="${staticServerPath1 }/images/index/advance03.png" class="advantage__img">
-	            <p class="advantage__title">【精品线路】</p>
-	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	            <p class="advantage__title">【贴心客服】</p>
+	            <p class="advantage__content">“兜蜂网”就是您的私人导游兼小秘书，旅行间遇到的问题，别犹豫，告诉小秘，她会帮您解决。</p>
 	        </div>
 	        <div class="advantage span-3-last">
 	            <img src="${staticServerPath1 }/images/index/advance04.png" class="advantage__img">
-	            <p class="advantage__title">【精品线路】</p>
-	            <p class="advantage__content">亲自丈量，专业勘测，为你精心挑选当季最适合自驾的路线</p>
+	            <p class="advantage__title">【完善服务】</p>
+	            <p class="advantage__content">酒店、门票一键式搞定，让旅行回归最本质享受。</p>
 	        </div>
 	    </div>
 	</div>

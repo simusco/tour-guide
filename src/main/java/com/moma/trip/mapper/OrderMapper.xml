@@ -4,6 +4,144 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.OrderMapper">
 
+	<update id="updateOrderDetailDraw">
+		<![CDATA[
+			update mc_order_detail 
+			set 
+				is_draw = #{1},
+				third_3part_no = #{2}
+			where order_detail_id = #{0}
+		]]>
+	</update>
+
+	<update id="updateOrderDraw">
+		<![CDATA[
+			update mc_order set is_draw = #{1} where order_id = #{0}
+		]]>
+	</update>
+
+	<select id="getOrderVisitors" resultType="com.moma.trip.po.OrderVisitor" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				order_visitor_id as orderVisitorId,
+				order_id as orderId,
+				name as name,
+				telephone as telephone,
+				card_type as cardType,
+				idcard as idcard
+			from mc_order_visitor where order_id = #{orderId}
+		]]>
+	</select>
+
+	<select id="getHotelDrawByOrderId" resultType="com.moma.trip.po.HotelDraw" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				od.order_detail_id as orderDetailId,
+				od.code1 as hotelCode,
+				od.code2 as room,
+				h.room_type as roomType,
+				h.bed_type as bedType,
+				od.quantity as quantity,
+				od.start_date as startTime,
+				od.end_date as endTime,
+				od.is_draw as isDraw,
+				od.third_3part_no as third3partno
+			from mc_order_detail od inner join mc_hotel h on od.code1 = h.hotel_code and od.code2 = h.rate_plan_code
+			where 
+				od.type = 'HOTEL' and 
+				od.order_id = #{orderId}
+		]]>
+	</select>
+
+	<select id="getSpotDrawByOrderId" resultType="com.moma.trip.po.SpotDraw" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				od.order_detail_id as orderDetailId,
+				od.code1 as scenicId,
+				od.code2 as ticketId,
+				h.product_code as productId,
+				h.name as spotName,
+				od.quantity as quantity,
+				od.end_date as spotTime,
+				od.is_draw as isDraw,
+				od.third_3part_no as third3partno
+			from mc_order_detail od inner join mc_spot h on od.code1 = h.spot_code and od.code2 = h.resource_code
+			where 
+				od.type = 'SPOT' and 
+				od.order_id = #{orderId}
+		]]>
+	</select>
+
+	<select id="getUnDrawOrderPageTotal" resultType="java.lang.Long" parameterType="map">
+		<![CDATA[
+			select 
+				count(o.order_id)
+			from mc_order o
+			where o.is_pay = 'Y' and o.status = 'PAYED'
+		]]>
+		
+		<if test="telephone != null">
+			<![CDATA[and o.telephone = #{telephone}]]>
+		</if>
+		<if test="orderNo != null">
+			<![CDATA[and o.order_no = #{orderNo}]]>
+		</if>
+		
+		<choose>
+			<when test="isDraw != null">
+				<![CDATA[and o.is_draw = #{isDraw}]]>
+			</when>
+			<otherwise>
+				<![CDATA[and o.is_draw = 'no']]>
+			</otherwise>			
+		</choose>
+		
+	</select>
+
+	<select id="getUnDrawOrderPageList" resultType="com.moma.trip.po.Order" parameterType="map">
+		<![CDATA[
+			select 
+				o.order_id as orderId,
+				o.ticket_id as ticketId,
+				o.entry_time as entryTime,
+				o.quantity as quantity,
+				o.create_time as createTime,
+				o.total_price as totalPrice,
+				o.status as status,
+				o.is_pay as isPay,
+				o.user_id as userId,
+				o.remark as remark,
+				o.order_no as orderNo,
+				o.ticket_icon as ticketIcon,
+				o.ticket_name as ticketName,
+				o.ticket_desc as ticketDesc,
+				o.end_time as endTime,
+				o.is_draw as isDraw
+			from mc_order o
+			where o.is_pay = 'Y' and o.status = 'PAYED'
+		]]>
+		
+		<if test="telephone != null">
+			<![CDATA[and o.telephone = #{telephone}]]>
+		</if>
+		<if test="orderNo != null">
+			<![CDATA[and o.order_no = #{orderNo}]]>
+		</if>
+		
+		<choose>
+			<when test="isDraw != null">
+				<![CDATA[and o.is_draw = #{isDraw}]]>
+			</when>
+			<otherwise>
+				<![CDATA[and o.is_draw = 'no']]>
+			</otherwise>			
+		</choose>
+		
+		<![CDATA[
+			order by o.create_time asc limit #{from},#{pageSize}
+		]]>
+	</select>
+
 	<update id="payed" parameterType="com.moma.trip.po.Order">
 		<![CDATA[
 			update mc_order 
@@ -98,7 +236,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				end_time,
 				ctrip_unique_id,
 				hotel_res_id,
-				spot_res_id
+				spot_res_id,
+				is_draw
 			)
 			VALUES 
 			(
@@ -119,7 +258,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{endTime},
 				#{ctripUniqueId},
 				#{hotelResId},
-				#{spotResId}
+				#{spotResId},
+				#{isDraw}
 			)
 		]]>
 	</insert>
@@ -143,8 +283,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				quantity,
 				is_pay,
 				is_display,
-				bed_type,
-				room_type
+				is_draw,
+				start_date,
+				end_date
 			)
 			VALUES 
 			(
@@ -162,8 +303,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{quantity},
 				#{isPay},
 				#{isDisplay},
-				#{bedType},
-				#{roomType}
+				#{isDraw},
+				#{startTime},
+				#{endTime}
 			)
 		]]>
 	</insert>
@@ -184,9 +326,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				code2,
 				quantity,
 				is_pay as isPay,
-				is_display as isDisplay,
-				bed_type as bedType,
-				room_type as roomType
+				is_display as isDisplay
 			from mc_order_detail
 			where order_id = #{0}	
 		]]>

@@ -1,0 +1,204 @@
+<div class="container" ng-controller="OrderViewController">
+	
+	<div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">查询</div>
+              <div class="panel-body">
+              	<form class="form-inline">
+				  <div class="form-group">
+				    <label for="exampleInputName2">点单编号：</label>
+				    <input type="text" class="form-control" placeholder="订单编号" ng-model="queryParams.orderNo">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputEmail2">手机好：</label>
+				    <input type="text" class="form-control" placeholder="输入手机号" ng-model="queryParams.telephone">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputEmail2">出票情况：</label>
+				    <select class="form-control" ng-model="queryParams.isDraw">
+				    	<option value="no" selected="selected">未出票</option>
+				    	<option value="yes">已经出票</option>
+				    </select>
+				  </div>
+				  <button type="button" class="btn btn-warning" ng-click="query()">查询</button>
+				</form>
+              </div>
+            </div>
+       	</div>
+    </div>
+	
+	<div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">未处理订单&nbsp;</div>
+              <div class="panel-body">
+              	<table class="table table-hover">
+              		<caption>注意，每隔几分钟重新查询</caption>
+              		<thead>
+				        <tr>
+				          <th>#订单编号</th>
+				          <th>订单名称</th>
+				          <th>订单金额</th>
+				          <th>付款情况</th>
+				          <th>出票情况</th>
+				          <th>预定时间</th>
+				        </tr>
+					</thead>
+					<tbody>
+				        <tr ng-repeat="order in orders" ng-click="detail(order, order.orderId)" ng-style="order.style">
+				          <th scope="row">{{order.orderNo}}</th>
+				          <td>{{order.ticketName}}</td>
+				          <td>{{order.totalPrice}}</td>
+				          <td>{{order.isPay}}</td>
+				          <td>{{order.isDraw == 'yes' ? '是' : '否'}}</td>
+				          <td>{{order.createTime}}</td>
+				        </tr>
+					</tbody>
+              	</table>
+              	<nav class="text-center">
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+              </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            
+            <div class="panel panel-default">
+              <div class="panel-heading">处理订单</div>
+              <div class="panel-body">
+              	<table class="table table-hover">
+              		<caption>客户信息</caption>
+              		<thead>
+				        <tr>
+				          <th>#姓名</th>
+				          <th>联系电话</th>
+				          <th>是否购买保险</th>
+				          <th>是否为联络人</th>
+				          <th>身份证号码</th>
+				        </tr>
+					</thead>
+					<tbody>
+				        <tr ng-repeat="visitor in visitors">
+				          <th scope="row">{{visitor.name}}</th>
+				          <td>{{visitor.telephone}}</td>
+				          <td>否</td>
+				          <td>是</td>
+				          <td>{{visitor.idcard}}</td>
+				        </tr>
+					</tbody>
+              	</table>
+              	<table class="table table-hover">
+              		<caption>酒店预订</caption>
+              		<thead>
+				        <tr>
+				          <th>#房型</th>
+				          <th>床型</th>
+				          <th>房间单价（元）</th>
+				          <th>房间数量</th>
+				          <th>开始时间</th>
+				          <th>结束时间</th>
+				          <th>平台名</th>
+				          <th>是否出票</th>
+				          <th>第三方订单号</th>
+				        </tr>
+					</thead>
+					<tbody>
+				        <tr ng-repeat="hotel in hotels" ng-dblclick="bookHotel(hotel.hotelCode, hotel.room, hotel)" ng-style="hotel.style">
+				          <th scope="row">{{hotel.roomType}}({{hotel.hotelCode}})</th>
+				          <td>{{hotel.bedType}}({{hotel.room}})</td>
+				          <td><a href="#">点击查看价格</a></td>
+				          <td>{{hotel.quantity}}</td>
+				          <td>{{hotel.startTime}}</td>
+				          <td>{{hotel.endTime}}</td>
+				          <td>携程</td>
+				          <td>{{hotel.isDraw == 'yes' ? '是' : '否'}}</td>
+				          <td><input type="text" class="form-control" ng-model="hotel.third3partno"/></td>
+				        </tr>
+					</tbody>
+              	</table>
+              	<table class="table table-hover">
+              		<caption>门票信息</caption>
+              		<thead>
+				        <tr>
+				          <th>门票名称</th>
+				          <th>价格</th>
+				          <th>数量</th>
+				          <th>预订时间</th>
+				          <th>平台名</th>
+				          <th>是否出票</th>
+				          <th>第三方订单号</th>
+				        </tr>
+					</thead>
+					<tbody>
+						<!-- scenicID,productID,ticketID -->
+				        <tr ng-repeat="spot in spots" ng-dblclick="bookSpot(spot.scenicId,spot.productId,spot.ticketId)"  ng-style="spot.style">
+				          <th scope="row">{{spot.spotName}}</th>
+				          <td><a href="#">点击查看价格</a></td>
+				          <td>{{spot.quantity}}</td>
+				          <td>{{spot.spotTime}}</td>
+				          <td>携程</td>
+				          <td>{{spot.isDraw == 'yes' ? '是' : '否'}}</td>
+				          <th><input type="text" class="form-control" ng-model="spot.third3partno"/></th>
+				        </tr>
+					</tbody>
+              	</table>
+              </div>
+            </div>
+
+        </div>
+    </div>
+    
+    
+     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">处理结果</div>
+              <div class="panel-body">
+              	<form class="form-horizontal">
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+						  <label>
+						    <input type="radio" name="result" ng-model="selectedOrder.isDraw" value="yes">预订成功
+						  </label>
+						</div>
+				    </div>
+				    <div class="col-sm-offset-2 col-sm-10">
+				    	<div class="checkbox">
+					        <label>
+					          <input type="radio" name="result" ng-model="selectedOrder.isDraw" value="no" checked="checked">预订失败，联系退款
+					        </label>
+					      </div>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-12 text-center">
+				      <button type="button" class="btn btn-default" ng-click="submit()">提交</button>
+				    </div>
+				  </div>
+				</form>
+              </div>
+            </div>
+        </div>
+     </div>
+</div>

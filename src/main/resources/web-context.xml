@@ -65,6 +65,7 @@
 	            <value>/WEB-INF/tiles/tiles-defs-goodness.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-my.xml</value>
 	            <value>/WEB-INF/tiles/tiles-defs-payment.xml</value>
+	            <value>/WEB-INF/tiles/tiles-defs-help.xml</value>
 	        </list>
 	    </property>
 	</bean>

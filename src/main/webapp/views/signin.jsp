@@ -96,6 +96,13 @@
 	        return null; 
 	} 
 	
+	function switchActiveStyle(o){
+		$('*[ui-enable-active=group1]').each(function(){
+			$(this).removeClass('input-icon--active');
+		});
+		$(o).parent().addClass('input-icon--active');
+	}
+	
 </script>
 
 </head>
@@ -130,10 +137,10 @@
                         <div class="row mts">
                             <div class="span-2"></div>
                             <div class="span-10-last">
-                                <span class="input-icon input-icon--active">
+                                <span class="input-icon input-icon--active" ui-enable-active="group1">
                                     <span class="input-icon__icon">
                                         <i class="icon-user font-4x"></i>
-                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo" autocomplete="off" maxlength="24">
+                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo" autocomplete="off" maxlength="24" onclick="switchActiveStyle(this)">
                                 </span>
                             </div>
                         </div>
@@ -141,10 +148,10 @@
                         <div class="row mtl">
                             <div class="span-2"></div>
                             <div class="span-10-last">
-                                <span class="input-icon">
+                                <span class="input-icon" ui-enable-active="group1">
                                     <span class="input-icon__icon">
                                         <i class="icon-lock font-4x"></i>
-                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password" autocomplete="off" maxlength="16">
+                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password" autocomplete="off" maxlength="16" onclick="switchActiveStyle(this)">
                                 </span>
                             </div>
                         </div>

@@ -136,8 +136,9 @@ $.extend({
 				var ticket = $.g.fn.getTicketRow($(this).attr('tdi'));
 				var n = parseInt(ticket.attr(m));
 				var i = $(this).parent().find('*[ui-num-text]');
+				var maxV = i.attr('ui-max-value');
 				
-				if(n < 99){
+				if(n <= maxV){
 					ticket.attr(m, ++n);
 				}
 				i.val(n);
@@ -372,12 +373,12 @@ $(function(){
                               <div class="span-3 order-column">${ticketTime }</div>
                               <div class="span-2 order-column">
                                   <span class="num-btn">
-                                      <span class="num-btn__minus" ui-btn-minus="quantity" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text="" disabled="disabled"><span class="num-btn__plus" ui-btn-plus="quantity" tdi="${ticketDetail.ticketDetailId}">+</span>
+                                      <span class="num-btn__minus" ui-btn-minus="quantity" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text="" ui-max-value="99" disabled="disabled"><span class="num-btn__plus" ui-btn-plus="quantity" tdi="${ticketDetail.ticketDetailId}">+</span>
                                   </span>
                               </div>
                               <div class="span-2-last order-column">
                                   <span class="num-btn">
-                                      <span class="num-btn__minus" ui-btn-minus="book-day" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text="" disabled="disabled"><span class="num-btn__plus" ui-btn-plus="book-day" tdi="${ticketDetail.ticketDetailId}">+</span>
+                                      <span class="num-btn__minus" ui-btn-minus="book-day" tdi="${ticketDetail.ticketDetailId}">-</span><input class="num-btn__text" type="text" value="1" ui-num-text="" ui-max-value="7" disabled="disabled"><span class="num-btn__plus" ui-btn-plus="book-day" tdi="${ticketDetail.ticketDetailId}">+</span>
                                   </span>
                               </div>
                           </div>
@@ -437,45 +438,27 @@ $(function(){
 	    </div>
 	</div>
 	
+	<c:if test="${not empty ticket.buyPolicy}">
 	<div class="panel mtl">
 	    <div class="panel__title">
 	        <span class="panel-title panel-title--lcolor">购买须知</span>
 	    </div>
 	    <div class="panel__content--ger">
-	        <div class="text-content text-content--theme1">
-	            <p class="text-content__title">[预定须知]</p>
-	            <p>1.更改是指在原出票航空公司原航段的不同时间航班空公司的航班上。</p>
-	            <p>2.去哪儿网关于旅游产条款。</p>
-	            <p>3.旅游产品中约定的产任，不对其在您消费过程中可能涉及的具体产品和服务内容承担责任。</p>
-	        </div>
-	        <div class="text-content text-content--theme1">
-	            <p class="text-content__title">[预定须知]</p>
-	            <p>1.目的地接待服务及其他服务。具体产品的最终包含内容以确认的订单约定内容为准。</p>
-	            <p>2.不能作为约定条款。</p>
-	            <p>3.旅游产品中约定的产品和服务内容具体产品和服务内容承担责任。</p>
-	        </div>
+	    	<c:out value="${ticket.buyPolicy }" escapeXml="false"/>
 	    </div>
 	</div>
+	</c:if>
 	
+	<c:if test="${not empty ticket.cancelPolicy}">
 	<div class="panel mtl">
 	    <div class="panel__title">
 	        <span class="panel-title panel-title--lcolor">退改须知</span>
 	    </div>
 	    <div class="panel__content--ger">
-	        <div class="text-content text-content--theme1">
-	            <p class="text-content__title">[预定须知]</p>
-	            <p>1.更改是指在原出票航空公司原航段的不同时间航班空公司的航班上。</p>
-	            <p>2.去哪儿网关于旅游产条款。</p>
-	            <p>3.旅游产品中约定的产任，不对其在您消费过程中可能涉及的具体产品和服务内容承担责任。</p>
-	        </div>
-	        <div class="text-content text-content--theme1">
-	            <p class="text-content__title">[预定须知]</p>
-	            <p>1.目的地接待服务及其他服务。具体产品的最终包含内容以确认的订单约定内容为准。</p>
-	            <p>2.不能作为约定条款。</p>
-	            <p>3.旅游产品中约定的产品和服务内容具体产品和服务内容承担责任。</p>
-	        </div>
+	    	<c:out value="${ticket.cancelPolicy }" escapeXml="false"/>
 	    </div>
 	</div>
+	</c:if>
 	
 	<div id="order-valid-msg"></div>
 	<div id="order-valid-msg-tlp" style="display: none;">

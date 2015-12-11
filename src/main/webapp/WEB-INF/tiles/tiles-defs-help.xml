@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<definition name="help.base" extends="base.help.defination">
+		<put-attribute name="header" value="/views/help/header.jsp"/>
+		<put-attribute name="navbar" value="/views/help/navbar.jsp"/>
+	</definition>
+	
+	<definition name="help-help" extends="help.base">
+		<put-attribute name="content" value="/views/help/help.jsp"/>
+		<put-attribute name="active" value="help"/>
+	</definition>
+	
+	<definition name="help-about" extends="help.base">
+		<put-attribute name="content" value="/views/help/about.jsp"/>
+		<put-attribute name="active" value="about"/>
+	</definition>
+	
+	<definition name="help-contactus" extends="help.base">
+		<put-attribute name="content" value="/views/help/contactus.jsp"/>
+		<put-attribute name="active" value="contactus"/>
+	</definition>
+	
+	<definition name="help-joinus" extends="help.base">
+		<put-attribute name="content" value="/views/help/joinus.jsp"/>
+		<put-attribute name="active" value="joinus"/>
+	</definition>
+	
+	<definition name="help-term" extends="help.base">
+		<put-attribute name="content" value="/views/help/term.jsp"/>
+		<put-attribute name="active" value="term"/>
+	</definition>
+	
+</tiles-definitions>

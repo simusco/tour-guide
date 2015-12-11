@@ -49,8 +49,8 @@ public class Pagination implements Serializable{
 		return currPage;
 	}
 
-	public void setCurrPage(int currPage) {
-		if(currPage <= 0)
+	public void setCurrPage(Integer currPage) {
+		if(currPage == null || currPage <= 0)
 			this.currPage = 1;
 		else
 			this.currPage = currPage;

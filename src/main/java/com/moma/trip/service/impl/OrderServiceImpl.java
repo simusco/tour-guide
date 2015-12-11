@@ -22,15 +22,19 @@ import com.moma.framework.extra.ctrip.dto.HotelRes;
 import com.moma.framework.extra.ctrip.dto.SpotAvail;
 import com.moma.framework.extra.ctrip.dto.SpotRes;
 import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
+import com.moma.framework.pagination.Pagination;
 import com.moma.framework.utils.RandomUtils;
 import com.moma.framework.utils.UUIDUtils;
 import com.moma.trip.extra.ctrip.HotelRequestService;
 import com.moma.trip.extra.ctrip.OrderRequestService;
 import com.moma.trip.extra.ctrip.SpotRequestService;
 import com.moma.trip.mapper.OrderMapper;
+import com.moma.trip.po.HotelDraw;
 import com.moma.trip.po.Order;
 import com.moma.trip.po.OrderDetail;
+import com.moma.trip.po.OrderDraw;
 import com.moma.trip.po.OrderVisitor;
+import com.moma.trip.po.SpotDraw;
 import com.moma.trip.po.Ticket;
 import com.moma.trip.po.TicketDetail;
 import com.moma.trip.service.OrderService;
@@ -61,6 +65,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setCreateTime(new Date());
 		order.setIsPay("N");
 		order.setStatus("UNPAY");//unpay/payed/cancel
+		order.setIsDraw("no");
 		
 		validateOrder(order);
 		
@@ -135,6 +140,9 @@ public class OrderServiceImpl implements OrderService {
 		orderDetail.setQuantity(td.getQuantity());
 		orderDetail.setIsDisplay(td.getIsDisplay());
 		orderDetail.setIsPay(td.getIsPay());
+		orderDetail.setIsDraw("no");
+		orderDetail.setStartTime(order.getEntryTime());
+		orderDetail.setEndTime(order.getEndTime());
 		
 		return orderDetail;
 	}
@@ -160,6 +168,10 @@ public class OrderServiceImpl implements OrderService {
 		
 		if(StringUtils.isEmpty(order.getBookDay()) || !StringUtils.isNumeric(order.getBookDay())){
 			throw new ServiceException("预定晚上数量填写有问题");
+		}
+		
+		if(Integer.parseInt(order.getBookDay()) > 7){
+			throw new ServiceException("目前不支持大于七天的预定!");
 		}
 		
 		if(order.getQuantity() <= 0 || order.getQuantity() > 99){
@@ -295,6 +307,7 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public void cancel(String orderNo, String userId) throws ServiceException {
 		
@@ -325,6 +338,73 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void payed(Order order) {
 		orderMapper.payed(order);
+	}
+
+	@Override
+	public Pagination getUnDrawOrders(Pagination pagination) {
+
+		Map<String, Object> params = pagination.map();
+
+		Long total = orderMapper.getUnDrawOrderPageTotal(params);
+		List<Order> list = orderMapper.getUnDrawOrderPageList(params);
+
+		pagination.setList(list);
+		pagination.setTotal(total);
+
+		return pagination;
+	}
+
+	/**
+	 * 获取未处理酒店列表
+	 */
+	@Override
+	public List<HotelDraw> getHotelDrawByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		
+		return orderMapper.getHotelDrawByOrderId(orderId);
+	}
+
+	/**
+	 * 获取未处理景点列表
+	 */
+	@Override
+	public List<SpotDraw> getSpotDrawByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		
+		return orderMapper.getSpotDrawByOrderId(orderId);
+	}
+
+	@Override
+	public List<OrderVisitor> getOrderVisitors(String orderId) {
+		// TODO Auto-generated method stub
+		
+		return orderMapper.getOrderVisitors(orderId);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	@Override
+	public void updateOrderDraw(OrderDraw orderDraw) {
+
+		orderMapper.updateOrderDraw(orderDraw.getOrderId(), orderDraw.getIsDraw());
+		
+		List<HotelDraw> hotels = orderDraw.getHotelDraws();
+		if(hotels != null){
+			for(HotelDraw hd : hotels){
+				String idDraw = StringUtils.isEmpty(hd.getThird3partno()) ? "no" : "yes";
+				
+				orderMapper.updateOrderDetailDraw(hd.getOrderDetailId(), idDraw, hd.getThird3partno());
+			}
+		}
+		
+		List<SpotDraw> spots = orderDraw.getSpotDraws();
+		if(spots != null){
+			for(SpotDraw sd : spots){
+				String idDraw = StringUtils.isEmpty(sd.getThird3partno()) ? "no" : "yes";
+				
+				orderMapper.updateOrderDetailDraw(sd.getOrderDetailId(), idDraw, sd.getThird3partno());
+			}
+		}
+		
 	}
 
 }

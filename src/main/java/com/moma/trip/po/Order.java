@@ -48,6 +48,8 @@ public class Order implements Serializable {
 	private String bookDay;
 	
 	private Date cancelTime;
+	
+	private String isDraw;//是否出票
 
 	private List<OrderVisitor> orderVisitors = new ArrayList<OrderVisitor>();
 
@@ -229,6 +231,14 @@ public class Order implements Serializable {
 
 	public void setCancelTime(Date cancelTime) {
 		this.cancelTime = cancelTime;
+	}
+
+	public String getIsDraw() {
+		return isDraw;
+	}
+
+	public void setIsDraw(String isDraw) {
+		this.isDraw = isDraw;
 	}
 
 }

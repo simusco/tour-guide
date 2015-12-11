@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.moma.framework.ServiceException;
+import com.moma.framework.extra.taobao.api.internal.util.StringUtils;
 import com.moma.framework.utils.UUIDUtils;
 import com.moma.trip.mapper.ActivityMapper;
 import com.moma.trip.mapper.TicketMapper;
@@ -53,6 +54,12 @@ public class TicketServiceImpl implements TicketService {
 		if(tdlist != null){
 			for(int i=0;i<tdlist.size();i++){
 				TicketDetail td = tdlist.get(i);
+				
+				//没有填写的不保存
+				if(StringUtils.isEmpty(td.getCode1()) || StringUtils.isEmpty(td.getCode2())){
+					continue;
+				}
+				
 				td.setTicketDetailId(UUIDUtils.getUUID());
 				td.setTicketId(ticket.getTicketId());
 				
@@ -160,11 +167,18 @@ public class TicketServiceImpl implements TicketService {
 			
 			if("SPOT".equals(ticketDetail.getType())){
 				Double spotPrice = spotService.getSpotPrice(sdf.format(end), sdf.format(end), ticketDetail.getCode1(), ticketDetail.getCode2());
+				
+				if(spotPrice == null)
+					spotPrice = 0.0;
+					
 				price = price.add(new BigDecimal(spotPrice).multiply(new BigDecimal(ticketDetail.getQuantity())));
 			}
 			
 			if("HOTEL".equals(ticketDetail.getType())){
 				Double hotelPrice =  hotelService.getHotelPrice(start, end, ticketDetail.getCode1(), ticketDetail.getCode2());
+				if(hotelPrice == null)
+					hotelPrice = 0.0;
+				
 				price = price.add(new BigDecimal(hotelPrice).multiply(new BigDecimal(ticketDetail.getQuantity())));
 			}
 		}

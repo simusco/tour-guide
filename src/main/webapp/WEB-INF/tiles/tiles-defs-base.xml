@@ -14,4 +14,10 @@
 		<put-attribute name="analytics" value="/views/analytics.jsp"/>
 	</definition>
 	
+	<definition name="base.help.defination" template="/views/help/layout.jsp">
+		<put-attribute name="topbar" value="/views/topbar.jsp"/>
+		<put-attribute name="footer" value="/views/footer.jsp"/>
+		<put-attribute name="analytics" value="/views/analytics.jsp"/>
+	</definition>
+	
 </tiles-definitions>
