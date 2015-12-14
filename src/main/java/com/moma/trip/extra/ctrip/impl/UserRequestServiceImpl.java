@@ -1,6 +1,7 @@
 package com.moma.trip.extra.ctrip.impl;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,22 @@ public class UserRequestServiceImpl implements UserRequestService {
 
 	@Override
 	public String getUserUniqueID(String userId) throws Exception {
-
+		//目前不做携程实现。
+		return null;
+	}
+	
+	public static void main(String[] args) throws Exception{
+		
+		String id = new UserRequestServiceImpl().getUserUniqueID("bdfcbc949c3f44329b17283f7d4bfd81");
+		
+		System.out.println(id);
+		
+	}
+	
+	/*
+	 * 获取携程的用户ID
+	 */
+	public String getCtripUserId(String userId) throws NoSuchAlgorithmException, Exception{
 		String templateDir = this.getClass().getResource(HotelConstants.TEMPLATE_DIR).getPath();
 		String timestamp = SignatureUtils.GetTimeStamp();
 
@@ -39,14 +55,6 @@ public class UserRequestServiceImpl implements UserRequestService {
 		System.out.println(response);
 		
 		return new UserParser(response).parser();
-	}
-	
-	public static void main(String[] args) throws Exception{
-		
-		String id = new UserRequestServiceImpl().getUserUniqueID("bdfcbc949c3f44329b17283f7d4bfd81");
-		
-		System.out.println(id);
-		
 	}
 
 }
