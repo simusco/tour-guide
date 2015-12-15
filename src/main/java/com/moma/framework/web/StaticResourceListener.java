@@ -9,9 +9,9 @@ public class StaticResourceListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext servletContext = sce.getServletContext();
-		servletContext.setAttribute("staticServerPath1", "//static1.tour-guide.com");
-		servletContext.setAttribute("staticServerPath2", "//static2.tour-guide.com");
-		servletContext.setAttribute("staticServerPath3", "//static3.tour-guide.com");
+		servletContext.setAttribute("staticServerPath1", "//112.74.208.184");
+		servletContext.setAttribute("staticServerPath2", "//112.74.208.184");
+		servletContext.setAttribute("staticServerPath3", "//112.74.208.184");
 	}
 
 	@Override

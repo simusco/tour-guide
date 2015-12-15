@@ -65,46 +65,40 @@ function checkPwdSame() {
 
 function bindCheckPwd(o) {
 
-	var f = false;
 	o.keyup(function() {
 		var self = $(this), val = self.val(), pwdLevel = self.parent().find(
 				'*[ui-pwd]');
 	
-		var flag = checkPwdLength(val, function(flag) {
-			!flag ? printMsg(self.attr('name'), '*必须填写,长度不少6位')
-					: printMsg(self.attr('name'), '');
-		});
-		
-		if(flag){
-			checkPwdStrength(val, function(num) {
-				if (pwdLevel.length == 0) {
-					pwdLevel.find('*[ui-pwd-level]').removeClass('active');
-					return;
-				}
+		checkPwdStrength(val, function(num) {
+			if (pwdLevel.length == 0) {
+				pwdLevel.find('*[ui-pwd-level]').removeClass('active');
+				return;
+			}
 
-				if (num == 1) {
-					pwdLevel.find('*[ui-pwd-level]').addClass('active');
-				} else if (num == -1) {
-					pwdLevel.find('*[ui-pwd-level=weak]').addClass('active');
-					pwdLevel.find('*[ui-pwd-level=mid]').addClass('active');
-				} else {
-					pwdLevel.find('*[ui-pwd-level=weak]').addClass('active');
-				}
-				
-				f = true;
-			});
-		}
+			if (num == 1) {
+				pwdLevel.find('*[ui-pwd-level]').addClass('active');
+			} else if (num == -1) {
+				pwdLevel.find('*[ui-pwd-level=weak]').addClass('active');
+				pwdLevel.find('*[ui-pwd-level=mid]').addClass('active');
+			} else {
+				pwdLevel.find('*[ui-pwd-level=weak]').addClass('active');
+			}
+		});
 	});
 
 	o.blur(function() {
-		if(!f) return;
-		
-		clearMsg('password');
-		clearMsg('repassword');
-		
 		if (!checkPwdSame()) {
 			printMsg('password', '*密码必须一致');
 			printMsg('repassword', '*密码必须一致');
+		}else{
+			clearMsg('password');
+			clearMsg('repassword');
+			
+			var self = $(this), val = self.val();
+			checkPwdLength(val, function(flag) {
+				!flag ? printMsg(self.attr('name'), '*必须填写,长度不少6位')
+						: printMsg(self.attr('name'), '');
+			});
 		}
 	});
 

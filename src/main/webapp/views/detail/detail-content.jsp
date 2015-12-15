@@ -208,8 +208,12 @@
                     <div class="route-img">
                         <div class="route-img__screen">
                             <div class="img-screen" ui-image-screen="">
-                            	<c:forEach items="${route.imageList }" var="image" varStatus="x" begin="0" end="0">
+                            	<c:set value="0" var="index"/>
+                            	<c:forEach items="${route.imageList }" var="image" varStatus="x">
+                            		<c:if test="${image.type == 'DETAIL-HEADER' and index == 0}">
                             		<img src="${staticServerPath1 }/images/${image.path}">
+                            		<c:set value="${index + 1}" var="index"/>
+                            		</c:if>
                             	</c:forEach>
                             </div>
                         </div>

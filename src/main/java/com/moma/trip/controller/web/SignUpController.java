@@ -42,6 +42,10 @@ public class SignUpController extends RestfulController {
 	public void validateSignup(User user, Map<String, Object> m){
 		String loginId = user.getLoginId();
 		
+		if(m == null){
+			throw new ServiceException("验证码错误", "vcode");
+		}
+		
 		Long time = (Long) m.get(SmsNumUtils.REG_VCODE_TIME);
 		Long ctime = new Date().getTime();
 		
@@ -54,7 +58,7 @@ public class SignUpController extends RestfulController {
 			throw new ServiceException("账户已经存在!", "loginId");
 		}
 		
-		if(m == null || !loginId.equals(m.get(SmsNumUtils.REG_PHONE)) || !m.get(SmsNumUtils.REG_VCODE).equals(user.getAcode())){
+		if(!loginId.equals(m.get(SmsNumUtils.REG_PHONE)) || !m.get(SmsNumUtils.REG_VCODE).equals(user.getAcode())){
 			throw new ServiceException("验证码错误", "vcode");
 		}
 		
@@ -68,6 +72,10 @@ public class SignUpController extends RestfulController {
 		
 		if(StringUtils.isEmpty(user.getPassword()) || !user.getPassword().equals(user.getRepassword())){
 			throw new ServiceException("密码不一致!", "password");
+		}
+		
+		if(user.getPassword().length() < 6){
+			throw new ServiceException("密码长度不能少于6位!", "password");
 		}
 	}
 	

@@ -193,7 +193,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				other_attr,
 				take_time,
 				image_url,
-				topic_desc
+				topic_desc,
+				create_time
 			)
 			VALUES 
 			(
@@ -207,7 +208,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{otherAttr},
 				#{takeTime},
 				#{imageURL},
-				#{topicDesc}
+				#{topicDesc},
+				#{createTime}
 			)
 		]]>
 	</insert>

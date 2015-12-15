@@ -62,7 +62,13 @@ function gotoPage(pageIndex){
 	    <div class="route__img">
 	        <div class="route-img">
 	            <div class="route-img__1img">
-                     <img src="${staticServerPath1 }/images/${route.imageURL}" alt="">
+	            	 <c:set value="0" var="index"/>
+                     <c:forEach items="${route.imageList }" var="image">
+	            		<c:if test="${image.type == 'QUERY' and index == 0}">
+	                		<img src="${staticServerPath1 }/images/${image.path}" alt="">
+	                		<c:set value="${index + 1}" var="index"/>
+	                	</c:if>
+	                </c:forEach>
                  </div>
 	        </div>
 	    </div>

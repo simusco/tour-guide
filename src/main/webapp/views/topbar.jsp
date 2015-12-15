@@ -38,7 +38,7 @@ $(function(){
 		                        <li><span class="login__btn--pipe">|</span></li>
 		                        <li><a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="login__btn login__btn--default">免费注册</a></li>
 		                        <li><span class="login__btn--pipe">|</span></li>
-		                        <li><a href="" class="login__btn login__btn--default">关注我们</a></li>
+		                        <li><a href="<%=request.getContextPath()  %>/web/v1/help/about.html" class="login__btn login__btn--default">关于我们</a></li>
 		                    </ul>
 		        		</c:when>
 		        		<c:otherwise>
@@ -54,7 +54,7 @@ $(function(){
 				                   </div>
 		                        </li>
 		                        <li><span class="login__btn--pipe">|</span></li>
-		                        <li><a href="" class="login__btn login__btn--default">关注我们</a></li>
+		                        <li><a href="<%=request.getContextPath()  %>/web/v1/help/about.html" class="login__btn login__btn--default">关注我们</a></li>
 		                    </ul>
 		        		</c:otherwise>
 		        	</c:choose>

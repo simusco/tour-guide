@@ -196,8 +196,8 @@ public class OrderController  extends RestfulController {
 			) throws UnsupportedEncodingException{
 		
 		String payment_type = "1";
-		String notify_url = "http://商户网关地址/tour-guide/web/v1/alipay/notify.do";
-		String return_url = "http://商户网关地址/tour-guide/web/v1/alipay/returnUrl.do";
+		String notify_url = "http://www.dftrip/web/v1/alipay/notify.do";
+		String return_url = "http://www.dftrip/web/v1/alipay/returnUrl.do";
 		String anti_phishing_key = "";
 		String exter_invoke_ip = "";
 		

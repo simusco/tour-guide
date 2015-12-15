@@ -34,6 +34,7 @@
             <mvc:mapping path="/web/v1/my/order/close.html" />
             <mvc:mapping path="/web/v1/user/reset-psword.html" />
             <mvc:mapping path="/web/v1/user/modify-profile.html" />
+            <mvc:mapping path="/web/v1/my/favorite.html" />
             <bean class="com.moma.framework.CheckAuthInterceptor"/>  
         </mvc:interceptor>  
     </mvc:interceptors>  

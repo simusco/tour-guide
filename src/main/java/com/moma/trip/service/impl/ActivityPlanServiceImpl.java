@@ -2,6 +2,7 @@ package com.moma.trip.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,6 +115,8 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 			return;
 		
 		activityPlan.setActivityPlanId(UUIDUtils.getUUID());
+		activityPlan.setGoodReviewPer("100");
+		activityPlan.setCreateTime(new Date());
 		
 		List<ActivityTag> activityTagList = activityPlan.getActivityTagList();
 		if(activityTagList != null){
@@ -190,9 +193,9 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		if(aplist != null){
 			for(int i=0;i<aplist.size();i++){
 				ActivityPlan ap = aplist.get(i);
-				if("SPOT".equals(ap.getType())){
+				//if("SPOT".equals(ap.getType())){
 					ap.setImageList(imageMapper.getImageByOwnerIdAndImgType(ap.getActivityPlanId(), "QUERY"));
-				}
+				//}
 			}
 		}
 		

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class ActivityPlan implements Serializable {
 	private String preRegDay;
 	private String destination;
 	private String departure;
-	private Timestamp createTime;
+	private Date createTime;
 	private Integer sort;
 	private String imageURL;
 	private Integer hasSaled;
@@ -144,11 +145,11 @@ public class ActivityPlan implements Serializable {
 		this.departure = departure;
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 

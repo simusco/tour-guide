@@ -74,6 +74,9 @@ public class SignUpServiceImpl implements SignUpService {
 			throw new ServiceException(loginId + "不存在！");
 		}
 		
+		if(password == null || password.length() < 6)
+			throw new ServiceException("密码不能少于6位");
+		
 		String salt = Math.abs(new Random().nextLong())+"";
 		String cpassword = Md5.encode(password, salt);
 		

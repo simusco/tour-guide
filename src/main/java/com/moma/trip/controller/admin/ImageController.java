@@ -29,7 +29,8 @@ public class ImageController extends RestfulController {
 
 	@Resource
 	private ImageService imageService;
-	private String rootPath = "E:/apache/tour-guide/static/images";
+	//E:\apache\tour-guide\static\images
+	private String rootPath = "/home/dftrip/images";
 	
 	@RequestMapping(value="/upload/{activityId}/{type}",method=RequestMethod.POST)
 	@ResponseBody

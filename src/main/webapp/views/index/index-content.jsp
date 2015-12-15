@@ -76,9 +76,9 @@ $(function(){
 <div class="advertise">
     <div class="advertise__screen" ui-animation="adv">
     
-    	<img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner1.png" style="display:none">
-        <img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner2.png" style="display:none">
-        <img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner1.png" style="display:none">
+    	<img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner1.jpg" style="display:none">
+        <img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner2.jpg" style="display:none">
+        <img alt="" ui-animation-img="" src="${staticServerPath1 }/images/index/banner3.jpg" style="display:none">
 
         <div class="advertise__ctrlbar">
             <div class="ctrlbar">
@@ -161,7 +161,7 @@ $(function(){
         	<div class="topic-bg clearfix ptm pbm">
         	<c:forEach items="${topiclist }" var="topic" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
-                <a href="http://localhost:8080/tour-guide/web/v1/topic/detail.html?topicId=${topic.topicId }" title=""  class="index-topic">
+                <a href="<%=request.getContextPath()  %>/web/v1/topic/detail.html?topicId=${topic.topicId }" title=""  class="index-topic">
                     <div class="index-topic__img"><img src="${staticServerPath1 }/images/${topic.imageUrl }" alt=""></div>
                     <div class="index-topic__title">
                         <div class="topic-title">

@@ -51,7 +51,10 @@ $.extend({
 								error(msg, o);
 						}
 		    		},
-		    		error : function(resp) {alert('网络出现问题，刷新页面重新尝试！');}
+		    		error : function(resp) {
+		    			if(error != null) 
+							error('网络出现问题，刷新页面重新尝试！', null);
+		    		}
 		    	});
 			},
 			displayTotalPrice:function(price){
@@ -59,6 +62,20 @@ $.extend({
 			},
 			getTicketRow:function(tdid){
 				return $('div[ticket-detail-id='+tdid+']');
+			},
+			remind:{
+				display:function(msg){
+					var html = $('#order-valid-msg-tlp').html().replace(/\{\{msg\}\}/, msg);
+					var msg = $('#order-valid-msg');
+					
+					msg.empty();
+					msg.append(html);
+					
+					$('*[ui-pop-content]', msg).css('top',$(document).scrollTop() + 50 + 'px');
+				},
+				close:function(){
+					$('#order-valid-msg').empty();
+				}
 			}
 		},
 		calc:{
@@ -275,18 +292,17 @@ $.extend({
 					return;
 				}*/
 				
+				$.g.fn.remind.display("订单处理中....");
 				$.g.fn.req(
 					'<%=request.getContextPath()  %>/web/v1/order/generate.html',
 					'POST',
 					JSON.stringify(order),
 					function(msg, o){
 						window.location.href='<%=request.getContextPath()  %>/web/v1/order/payment.html?orderNo='+o.orderNo;
+						$.g.fn.remind.close();
 					},
 					function(msg, o){
-						var html = $('#order-valid-msg-tlp').html().replace(/\{\{msg\}\}/, msg);
-						
-						$('#order-valid-msg').empty();
-						$('#order-valid-msg').append(html);
+						$.g.fn.remind.display(msg);
 					}
 				);
 				
@@ -431,8 +447,8 @@ $(function(){
 	            <span class="payment-price__pay">应付金额<span class="tag--price" ui-total-price="0">￥0元</span></span>
 	            <span class="payment-price__desc">(套餐价2888元)</span>
 	        </div>
-	        <a class="payment-btn">
-	            <span class="payment-btn__title" ui-payment-btn="">去支付</span>
+	        <a href="javascript:;" class="payment-btn" onselectstart="return false" style="-moz-user-select:none;" ui-payment-btn="">
+	            <span class="payment-btn__title">去支付</span>
 	            <span class="payment-btn__subtitle">我已阅读以下内容</span>
 	        </a>
 	    </div>
@@ -463,7 +479,7 @@ $(function(){
 	<div id="order-valid-msg"></div>
 	<div id="order-valid-msg-tlp" style="display: none;">
 		<div class="pop-box strech-full">
-	         <div class="pop-box__content" style="top:50px;">
+	         <div class="pop-box__content" ui-pop-content="">
 	             <div class="pop-box__header lh50 bn bn-b-1">
 	                 <span class="pop-box__title font-3x font-color-grey-1"><span class="pll">提示：</span></span>
 	                 <i class="pop-box__close" onclick="$('#order-valid-msg').empty();">×</i>
