@@ -5,10 +5,13 @@
 
 <head>
 <title>用户登陆</title>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
+<meta name="robots" content="nofollow" />
 <meta name="viewport" content="width=device-width">
+
 <link rel="icon" href="${staticServerPath1 }/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="${staticServerPath1 }/styles/pages/signin.css">
 <link rel="stylesheet" href="<%=request.getContextPath()  %>/styles/font-awesome.min.css">
@@ -140,7 +143,7 @@
                                 <span class="input-icon input-icon--active" ui-enable-active="group1">
                                     <span class="input-icon__icon">
                                         <i class="icon-user font-4x"></i>
-                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo" autocomplete="off" maxlength="24" onclick="switchActiveStyle(this)">
+                                    </span><input type="text" class="input-icon__input" placeholder="请输入手机号码" name="phoneNo" autocomplete="off" maxlength="24" onfocus="switchActiveStyle(this)">
                                 </span>
                             </div>
                         </div>
@@ -151,7 +154,7 @@
                                 <span class="input-icon" ui-enable-active="group1">
                                     <span class="input-icon__icon">
                                         <i class="icon-lock font-4x"></i>
-                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password" autocomplete="off" maxlength="16" onclick="switchActiveStyle(this)">
+                                    </span><input type="password" class="input-icon__input" placeholder="请输入密码" name="password" autocomplete="off" maxlength="16" onfocus="switchActiveStyle(this)">
                                 </span>
                             </div>
                         </div>
@@ -177,7 +180,7 @@
 
                         <div class="row mts">
                             <div class="span-2">&nbsp;</div>
-                            <div class="span-8 font-1x">还没有账号？<a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="link">马上注册</a></div>
+                            <div class="span-8 font-1x">还没有账号？<a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="link unstyled-link">马上注册</a></div>
                             <div class="span-2-last">&nbsp;</div>
                         </div>
                         <div class="row mtl"></div>
@@ -190,10 +193,10 @@
     <div class="footer--login">
         <div class="link-friendly">
             <span>友情链接：</span>
-            <a href="">百度</a>
-            <a href="">新浪</a>
+            <a href="http://www.ctrip.com" rel="nofollow">携程</a>
+        	<a href="http://www.ly.com">同程</a>
         </div>
-        <div class="copyright--login">Copyright 2003-2015 墨马科技公司版权所有</div>
+        <div class="copyright--login">Copyright ©2015 版权所有 深圳市墨马科技有限公司</div>
     </div>
 </body>
 </html>

@@ -122,7 +122,7 @@ $(function(){
                     </div>
                     <div class="index-hot__price">
                         <span class="tag--out blod">￥${hot.price }元起</span>
-                        <span>/份<c:if test="${hot.marketPrice > 0 }"><del class="font-1x mlm">门市价:${hot.marketPrice }</del></c:if></span>
+                        <span>/份<c:if test="${not empty hot.marketPrice and hot.marketPrice ne '0' }"><del class="font-1x mlm">门市价:${hot.marketPrice }</del></c:if></span>
                     </div>
                 </a>
             </div>
@@ -140,8 +140,10 @@ $(function(){
         	<c:forEach items="${spotlist }" var="spot" varStatus="x">
             <div class="index-grid__span-2${x.count == 4 ? '--last' : ''}">
                 <a title="${spot.name }" href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?type=SPOT&routeId=${spot.activityPlanId }" title="" class="index-spot">
-                    <div class="index-spot__img"><img src="${staticServerPath1 }/images/${spot.imageURL }" alt=""></div>
-                    <div class="index-spot__title">${spot.name }</div>
+                    <div class="index-spot__img">
+                    	<img src="${staticServerPath1 }/images/${spot.imageURL }" alt="">
+                    	<div class="index-spot__title">${spot.name }</div>
+                    </div>
                     <div class="index-spot__desc">
                          <p class="font-1x">${fn:substring(spot.description, 0, 32) }${fn:length(spot.description) > 32 ? "..." : ""}</p>
                     </div>

@@ -232,7 +232,7 @@
                         <div class="row">
                             <div class="span-4">&nbsp;</div>
                             <div class="span-4 font-1x">
-                            	已经有帐号，<a href="<%=request.getContextPath()  %>/web/v1/user/signin.html">直接登陆</a>
+                            	已经有帐号，<a href="<%=request.getContextPath()  %>/web/v1/user/signin.html" class="unstyled-link link">直接登陆</a>
                             </div>
                             <div class="span-4-last">&nbsp;</div>
                         </div>
@@ -245,10 +245,10 @@
     <div class="footer--login">
         <div class="link-friendly">
             <span>友情链接：</span>
-            <a href="">百度</a>
-            <a href="">新浪</a>
+            <a href="http://www.ctrip.com" rel="nofollow">携程</a>
+        	<a href="http://www.ly.com">同程</a>
         </div>
-        <div class="copyright--login">Copyright 2003-2015 墨马科技公司版权所有</div>
+        <div class="copyright--login">Copyright ©2015 版权所有 深圳市墨马科技有限公司</div>
     </div>
 </body>
 </html>

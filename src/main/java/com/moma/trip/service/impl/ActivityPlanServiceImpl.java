@@ -116,6 +116,7 @@ public class ActivityPlanServiceImpl implements ActivityPlanService {
 		
 		activityPlan.setActivityPlanId(UUIDUtils.getUUID());
 		activityPlan.setGoodReviewPer("100");
+		activityPlan.setHasSaled(0);
 		activityPlan.setCreateTime(new Date());
 		
 		List<ActivityTag> activityTagList = activityPlan.getActivityTagList();

@@ -315,8 +315,10 @@
                     </c:if>
                     
                     <div class="route-desc__toolbar text-right">
-                        <a href="javascript:favorite('${route.activityPlanId }')" class="lh50 inline-block unstyled-link icon icon--fav">收藏<c:if test="${route.favorite }">(Y)</c:if></a>
+                        <a href="javascript:favorite('${route.activityPlanId }')" class="lh50 inline-block unstyled-link icon <c:if test="${not route.favorite }">icon--fav</c:if><c:if test="${route.favorite }">icon--faved</c:if>">收藏</a>
+                        <!-- 
                         <a href="" class="lh50 inline-block unstyled-link icon icon--share mll">分享</a>
+                         -->
                     </div>
                 </div>
             </div>

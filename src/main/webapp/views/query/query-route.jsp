@@ -27,8 +27,10 @@ function gotoPage(pageIndex){
 	            <div class="route-img__3img--right">
 	            	<c:set value="0" var="index"/>
 	            	<c:forEach items="${route.imageList }" var="image">
-	            		<c:if test="${image.type == 'QUERY' and index < 2}">
-	                	<div class="img"><img src="${staticServerPath1 }/images/${image.path}" alt=""></div>
+	            		<c:if test="${image.type == 'QUERY' and index <= 2}">
+		            		<c:if test="${index >= 1 }">
+		                		<div class="img"><img src="${staticServerPath1 }/images/${image.path}" alt=""></div>
+		                	</c:if>
 	                	<c:set value="${index + 1}" var="index"/>
 	                	</c:if>
 	                </c:forEach>

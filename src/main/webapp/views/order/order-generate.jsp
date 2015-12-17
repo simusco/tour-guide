@@ -412,23 +412,23 @@ $(function(){
 	    </div>
 	    <div class="panel__content--ger">
 	        <form action="" class="form" method="post">
-	        	<div class="row">
+	        	<div class="row mtl">
                     <div class="span-12-last">
                         <span class="msg--error" ui-valid-msg="msg"></span>
                     </div>
                 </div>
-	            <div class="row">
+	            <div class="row mtl">
 	                <div class="span-3">
 	                    <span>姓名：</span>
-	                    <input class="form__control" type="text" value="" name="name">
+	                    <input class="form__control" type="text" value="" name="name" style="width:200px;">
 	                </div>
 	                <div class="span-9-last">
 	                    <span>手机：</span>
-	                    <input class="form__control" type="text" value="" name="phoneNo">
+	                    <input class="form__control" type="text" value="" name="phoneNo" style="width:200px;">
 	                </div>
 	            </div>
 	
-	            <div class="row">
+	            <div class="row mtl">
 	                <div class="span-12-last">
 	                    <span>备注：</span>
 	                    <input class="form__control" type="text" value="" style="width:60%"  name="remark">

@@ -34,6 +34,17 @@ $(function(){
    	<div class="content__info">
    		<div class="content__info--left">
    			<div class="slide-menu" id="slide-menu">
+   				<span class="slide-menu__title">景点</span>
+	    		<div class="slide-menu__submenu">
+	    			<ul class="menu">
+	    				<c:forEach items="${goodnessList }" var="goodness">
+	    					<c:if test="${goodness.type == 'SPOT' }">
+				    			<li><a href="#${goodness.anchor }" class="menu__item"><span class="arrow-icon">></span>${goodness.name }</a></li>
+	    					</c:if>
+	    				</c:forEach>
+		    		</ul>
+	    		</div>
+   			
    				<span class="slide-menu__title">吃点</span>
 	    		<div class="slide-menu__submenu">
 	    			<ul class="menu">
@@ -45,17 +56,6 @@ $(function(){
 		    		</ul>
 	    		</div>
    			
-	    		<span class="slide-menu__title">景点</span>
-	    		<div class="slide-menu__submenu">
-	    			<ul class="menu">
-	    				<c:forEach items="${goodnessList }" var="goodness">
-	    					<c:if test="${goodness.type == 'SPOT' }">
-				    			<li><a href="#${goodness.anchor }" class="menu__item"><span class="arrow-icon">></span>${goodness.name }</a></li>
-	    					</c:if>
-	    				</c:forEach>
-		    		</ul>
-	    		</div>
-
 	    		<span class="slide-menu__title">玩点</span>
 	    		<div class="slide-menu__submenu">
 	    			<ul class="menu">

@@ -28,7 +28,7 @@
    	<c:forEach var="i" begin="${p_begin}" end="${p_end}">
 		<c:choose>
 			<c:when test="${i == curIndex}">
-				<li><a class="pagination_item--active" href="javascript:gotoPage(${i})">${i}</a></li>
+				<li><a class="pagination_item pagination_item--active" href="javascript:gotoPage(${i})">${i}</a></li>
 			</c:when>
 			<c:otherwise>
 				<li><a class="pagination_item" href="javascript:gotoPage(${i})">${i}</a></li>
