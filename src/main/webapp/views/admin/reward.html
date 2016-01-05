@@ -1,0 +1,35 @@
+<div class="container" ng-controller="DiscoveryViewController">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">中奖查询&nbsp;</div>
+				<div class="panel-body">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="exampleInputName2">中奖编号：</label> <input type="text"
+								class="form-control" placeholder="订单编号"
+								ng-model="queryParams.orderNo">
+						</div>
+						<button type="button" class="btn btn-warning" ng-click="query()">查询</button>
+					</form>
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>礼品名称</th>
+							<th>微信号</th>
+							<th>中奖代码</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">XXX</th>
+							<td>XXX</td>
+							<td>XXX</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

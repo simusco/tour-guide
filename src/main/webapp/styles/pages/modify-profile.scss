@@ -1,0 +1,43 @@
+//Compass
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/typography";
+
+//Normalize
+@import "normalize";
+
+//Layout grid.
+@import "susy";
+
+//Spacing
+@import "base/spacing";
+@import "base/variables";
+@import "base/mixins";
+@import "base/grid";
+@import "base/atomcss";
+@import "base/alignment";
+
+@import "modules/common";
+@import "modules/header";
+@import "modules/footer";
+
+//Personal Center.
+@import "pages/profile";
+
+.btn{
+	@include border-radius(4px);
+	padding:7px 10px;
+	border:none;
+
+	&-default{
+		background-color: #ededed;
+		border:none;
+	}
+
+	&-warning{
+		background-color: #f64d50;
+		width: 93%;
+		color:#fff;
+	}
+
+}

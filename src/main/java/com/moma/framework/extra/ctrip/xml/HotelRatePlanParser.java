@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.moma.framework.extra.ctrip.dto.HotelRate;
 import com.moma.framework.extra.ctrip.dto.HotelRatePlan;
 
-@Component
 public class HotelRatePlanParser extends CtripXmlParser<List<HotelRatePlan>>{
 	
 	public HotelRatePlanParser(String xml) {

@@ -17,7 +17,7 @@
        			<c:out value="${activity.topicDesc }" escapeXml="false"/>
        			
 				<div class="topic-content__toolbar">
-				    <span class="tag--out font-5x"><fmt:formatNumber value="${activity.price }" pattern="###,###"/>元</span>
+				    <span class="tag--out font-5x">价格<fmt:formatNumber value="${activity.price }" pattern="###,###"/>元</span>
 				    <a href="<%=request.getContextPath()  %>/web/v1/activity/detail.html?routeId=${activity.activityPlanId}" class="btn-query">点击查询</a>
 				</div>
 				

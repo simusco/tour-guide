@@ -1,0 +1,118 @@
+//Compass
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/typography";
+
+//Normalize
+@import "normalize";
+
+//Layout grid.
+@import "susy";
+
+//Spacing
+@import "base/spacing";
+@import "base/variables";
+@import "base/mixins";
+@import "base/grid";
+@import "base/atomcss";
+@import "base/alignment";
+@import "base/font-size";
+
+@import "modules/common";
+@import "modules/header";
+@import "modules/footer";
+
+.content{
+	@include container();
+
+	&__login{
+		height: 450px;
+		background:#fff image-url("login/login.png") no-repeat center;
+		position: relative;
+
+		>.login{
+			@include element-center(620px, 	397px);
+		}
+	}
+}
+
+.login{
+	background-color : #fff;
+	width : 620px;
+
+	&__header{
+
+	}
+
+	&__body{
+
+	}
+}
+
+.toolbar{
+	background-color:$page-color;
+	height:45px;
+	line-height:45px;
+
+	&__title{
+		font-size: 18px;
+		color: #fff;
+	}
+}
+
+.toolbar-layout{
+	@include container();
+
+	&__title{
+		@include span(100 of 100);
+		text-align: center;
+	}
+}
+
+.btn{
+	@include border-radius(4px);
+	padding:7px 10px;
+	border:none;
+
+	&-default{
+		background-color: #ededed;
+		border:none;
+	}
+
+	&-warning{
+		background-color: #f64d50;
+		width: 93%;
+		color:#fff;
+	}
+
+}
+
+.pwd-level{
+	margin-top:3px;
+	width : 94%;
+
+	&__item{
+		@include inline-block();
+
+		height: 12px;
+		line-height: 12px;
+		font-size: 8px;
+		background-color:#ededed;
+		text-align: center;
+
+		&.active{
+			background-color:$page-color;
+			color:#fff;
+		}
+	}
+
+	&__span-3{
+		@include span(30 of 90);
+
+		&--last{
+			@include span(30 of 90 last);
+		}
+	}
+
+}
+

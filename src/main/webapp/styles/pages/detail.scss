@@ -1,0 +1,605 @@
+//Compass
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/typography";
+
+//Normalize
+@import "normalize";
+
+//Layout grid.
+@import "susy";
+
+//Spacing
+@import "base/spacing";
+@import "base/variables";
+@import "base/mixins";
+@import "base/grid";
+@import "base/atomcss";
+@import "base/font-size";
+
+@import "modules/common";
+@import "modules/header";
+@import "modules/footer";
+
+.content{
+	@extend %page-container;
+
+	&__overview{
+		
+	}
+
+	&__spot{
+		margin-top:20px;
+	}
+
+	&__book{
+		margin-top:15px;
+
+		.panel__content{
+			padding : 0px;
+		}
+	}
+
+	&__hotel{
+		margin-top:15px;
+
+		.panel__content{
+			padding : 0px;
+		}
+	}
+
+	&__buyknow{
+		
+	}
+
+	&__recplan{
+		.panel__content{
+			padding-left:0px;
+			padding-right:0px;
+		}
+	}
+}
+
+%panel-icon-title{
+	@include inline-block();
+	line-height: 60px;
+	padding-left: 0px;
+	background : #fff image-url("detail/buy-need-know.png") no-repeat left center;
+	color: #666;
+	font-weight: 700;
+}
+
+.panel{
+	width: 100%;
+
+	&__title{
+		font-size: 18px;
+		line-height: 36px;
+		color: #333;
+		font-weight: 700;
+
+		&--buyknow{
+			@extend %panel-icon-title;
+			background : #fff image-url("detail/buy-need-know.png") no-repeat left center;
+			padding-left : 40px;
+		}
+
+		&--recplan{
+			@extend %panel-icon-title;
+			background : #fff image-url("detail/rec-plan.png") no-repeat left center;
+			padding-left : 40px;
+		}
+	}
+
+	&__content{
+		border: 1px solid #dfdfdf;
+		padding:8px 4%;
+		margin-top:15px;
+
+		> .tag-line{
+			height: 30px;
+		}
+	}
+}
+
+.panel-title{
+	@extend %panel-icon-title;
+	display:block;
+	border-bottom: 2px solid #ededed;
+	padding-left : 40px;
+	color:#666;
+
+	&--spot{
+		background : #fff image-url("detail/panel-title-spot.png") no-repeat left center;
+	}
+
+	&--book{
+		background : #fff image-url("detail/panel-title-book.png") no-repeat left center;
+	}
+
+	&--hotel{
+		background : #fff image-url("detail/panel-title-hotel.png") no-repeat left center;
+	}
+}
+
+.book{
+
+	&__datapicker{
+		border-bottom : 1px solid #dfdfdf;
+		line-height: 40px;
+		padding:0px 3%;
+	}
+
+	&__table{
+
+	}
+
+}
+
+.btn-book{
+	@include btn($bg-hover-color : $tag-color);
+	@include border-radius(4px);
+	@include link($link-color : #fff);
+
+	background-color : $tag-color;
+}
+
+.ticket-image{
+	&__img{
+		width: 100%;
+		height : 100%;
+		
+		>img{
+			width: 100%;
+			max-height: 100%;
+		}
+	}
+}
+
+.ticket-name{
+	width: 100%;
+
+	&__title{
+		display: block;
+		font-size:16px;
+		line-height: 28px;
+	}
+
+	&__subtitle{
+		display: block;
+		font-size:14px;
+		line-height: 16px;
+
+		&--link{
+			text-decoration: none;
+			color:$tag-color;
+		}
+	}
+}
+
+.book-ticket{
+	@include container();
+	border-bottom : 1px dashed #dfdfdf;
+
+	&--last,
+	&.last{
+		border-bottom : none;
+	}
+
+	&__image{
+		position: relative;
+		height: 120px;
+
+		>.ticket-image{
+			@include element-center(160px, 100px);
+		}
+	}
+
+	&__name{
+		position: relative;
+		height: 120px;
+
+		>.ticket-name{
+			@include element-center(94%, 46px);
+			margin-left: 0px;
+			left: 0%;
+		}
+	}
+
+	&__price{
+		@include inline-block();
+		height: 120px;
+		line-height: 120px;
+	}
+
+	&__marketprice{
+		@include inline-block();
+		height: 120px;
+		line-height: 120px;
+		color:#999;
+		font-size:$font-size-md;
+	}
+
+	&__btn{
+		@include inline-block();
+		height: 120px;
+		line-height: 120px;
+		text-align: center;
+	}
+
+}
+
+.hotel-ticket{
+	@include container();
+	border-bottom : 1px dashed #dfdfdf;
+
+	&--last,
+	&.last{
+		@include container();
+		border-bottom : none;
+	}
+
+	&__image{
+		position: relative;
+		height: 120px;
+
+		>.ticket-image{
+			@include element-center(160px, 100px);
+		}
+	}
+
+	&__name{
+		height: 110px;
+		padding-top: 10px;
+
+		.ticket-name{
+			
+			&__title{
+				position : relative;
+				line-height: 36px;
+				border-bottom:  1px solid #dfdfdf;
+
+				&.small{
+					font-size: 16px;
+				}
+			}
+
+			&__subtitle{
+				line-height: 24px;
+			}
+
+			.tag--price{
+				position : absolute;
+				right: 55px;
+				padding:0px;
+
+				> small{
+					font-size: normal;
+				}
+			}
+
+		}
+	}
+
+}
+
+.subnavbar{
+	width : 100%;
+	border-top : 1px solid #dfdfdf;
+	border-bottom : 1px solid #dfdfdf;
+	margin-top: 30px;
+	background:#fff;
+
+	&.fixed{
+		position:fixed;
+		top:0px;
+		left: 0px;
+		z-index: 1200;
+		margin-top: 0px;
+
+		@include box-shadow(0px 1px 4px #dfdfdf);
+	}
+}
+
+.subnav-wraper{
+	width:1170px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.route{
+	@include container;
+	border:1px solid #ededed;
+	padding:4px;
+
+	&__img{
+		@include span(6 of 10);
+	}
+
+	&__desc{
+		@include span(4 of 10 last);
+		height:489px;
+	}
+}
+
+.image-review{
+	border:2px solid;
+	border-color:#fff;
+	margin:0px 5px;
+	line-height:0px;
+	cursor:pointer;
+
+	>img{
+		width: 100%;
+		height: 80px;
+	}
+
+	&.active,
+	&--active{
+		border-color:$page-color;
+	}
+}
+
+.img-control{
+	@include pie-clearfix();
+
+	&__btn{
+		@include float(left);
+		@include inline-block();
+		width: 27px;
+		height: 82px;
+		z-index: 1000;
+
+		&:hover{
+			background-color : $page-color;
+		}
+
+		&--left{
+			background : #dddddd image-url("detail/left-btn.png") no-repeat center;
+			position : absolute;
+			left: 0px;
+			top: 0px;
+		}
+
+		&--right{
+			background : #dddddd image-url("detail/right-btn.png") no-repeat center;
+			position : absolute;
+			right: 0px;
+			top: 0px;
+		}
+	}
+
+	&__review{
+		width:5000px;
+		position:absolute;
+		left:27px;
+		top: 0px;
+		z-index: 100;
+
+		>.image-review,
+		>.image-review--active{
+			@include float(left);
+			width: 144px;
+		}
+	}
+
+}
+
+.img-screen{
+	width : 100%;
+
+	>img{
+		width : 100%;
+		height : 400px;
+	}
+}
+
+.route-img{
+	&__screen{
+
+	}
+
+	&__control{
+		width: 100%;
+		position : relative;
+		overflow : hidden;
+
+		>.img-control{
+			position:relative;
+			width:100%;
+			height: 84px;
+		}
+	}
+
+}
+
+
+.route-desc{
+	&__header{
+		&--theme2{
+			> p{
+				color:#666;
+				font-size:$font-size-md;
+			}
+		}
+	}
+
+	&__content{
+		&--theme2{
+			border-top:1px dashed #dfdfdf;
+
+			.tag-line{
+				color:#666;
+				line-height: 40px;
+			}
+		}
+	}
+
+	&__toolbar{
+		position:absolute;
+		bottom: 10px;
+		left:0px;
+		width:100%;
+	}
+}
+
+
+.text-content{
+	&--theme1{
+		color : #666;
+		font-size:$font-size-sm;
+	}
+
+	&__title{
+		font-size:$font-size-md;
+		color: #333;
+	}
+}
+
+.img-content{
+	>img{
+		width: 100%;
+		margin-top: 10px;
+		height: auto;
+	}
+}
+
+.open-calendar{
+	@include inline-block();
+	color: $tag-color;
+	background: image-url("detail/calendar.png") no-repeat 0 center;
+	height: 26px;
+	line-height: 26px;
+	border: 1px solid $tag-color;
+	border-radius: 2px;
+	padding: 0 24px 0 32px;
+	cursor: pointer;
+	position: relative;
+
+	&__day,
+	&__week{
+		font-style: normal;
+		color: #666;
+		font-weight: bold;
+	}
+
+	&__unselected{
+
+	}
+
+	&__em{
+		width: 0;
+		height: 0;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-top: 6px solid $tag-color;
+		display: block;
+		position: absolute;
+		right: 6px;
+		top: 10px;
+	}
+}
+
+.nav{
+	width:100%;
+	
+	&__item{
+		&--theme2{
+			> a{
+				@include inline-block();
+				@include link();
+				width: 100%;
+				line-height: 45px;
+				color:#333;
+				font-weight: 500;
+				font-size: 18px;
+				text-align: center;
+			}
+
+			&.active{
+				background-color : $page-color;
+
+				>a{
+					color:#fff;
+				}
+			}
+		}
+	}
+}
+
+.icon{
+	padding-left:40px;
+	box-sizing:border-box;
+
+	&--eat{
+		background:image-url("detail/eat.png") no-repeat left center;
+	}
+
+	&--play{
+		background:image-url("detail/play.png") no-repeat left center;
+	}
+
+	&--spot{
+		background:image-url("detail/spot.png") no-repeat left center;
+	}
+
+	&--fav{
+		background:image-url("detail/icon-fav.png") no-repeat left center;
+	}
+
+	&--faved{
+		background:image-url("detail/icon-faved.png") no-repeat left center;
+	}
+
+	&--share{
+		background:image-url("detail/icon-share.png") no-repeat left center;
+	}
+}
+
+
+.ticket-detail{
+	position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+
+	&__content{
+		width:700px;
+		height: auto;
+
+		position:absolute;
+		left:50%;
+		top: 50%;
+		margin-left: -350px;
+		
+	    border-radius: 2px;
+	    overflow: hidden;
+	    z-index: 1000;
+	    background: #fff;
+	}
+
+	&__close{
+		font-style: normal;
+	    font-size: 28px;
+	    line-height: 24px;
+	    height: 28px;
+	    width: 28px;
+	    text-align: center;
+	    color: #777;
+	    cursor: pointer;
+	    position: absolute;
+	    top: 12px;
+	    right: 6px;
+	}
+
+	&__mask{
+		position: fixed;
+	    left: 0;
+	    top: 0;
+	    background: rgba(0,0,0,0.4);
+	}
+
+	&__body{
+		padding:10px 20px;
+	}
+}

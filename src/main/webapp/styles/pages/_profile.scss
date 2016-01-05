@@ -1,0 +1,125 @@
+.content{
+	@extend %page-container;
+
+	&__leftslider{
+
+	}
+
+	&__rightbody{
+
+	}
+}
+
+.headicon{
+	height : 95px;
+
+	>img{
+		width: 77px;
+		height: 77px;
+	}
+
+	>p{
+		line-height : 18px;
+		text-align: center;
+		margin: 0px;
+		padding:0px;
+		font-weight: 700;
+	}
+}
+
+.slide-menu{
+	border-bottom:none;
+	background-color:#f0f0f0;
+
+	&__title{
+		@include inline-block();
+		padding-left:10%;
+		width: 90%;
+		line-height: 35px;
+		text-align: left;
+		font-weight: 700;
+	}
+
+	&__headicon{
+		height: 150px;
+		position: relative;
+
+		.headicon{
+			position: absolute;
+			left: 50%;
+			top:50%;
+			margin-top: -45px;
+			margin-left: -47px;
+		}
+	}
+
+	&__item{
+		@include inline-block();
+		@include link();
+		text-align: left;
+		line-height: 35px;
+		padding-left:10%;
+		width:90%;
+
+		&.active,
+		&--active,
+		&:hover{
+			background-color:#fff;
+			color:$page-color;
+		}
+	}
+}
+
+
+
+.profile-grid{
+	@include container();
+
+	&__span-3{
+		@include span(3 of 16);
+
+		&--last{
+			@include span(3 of 16 last);
+		}
+	}
+
+	&__span-13{
+		@include span(13 of 16);
+
+		&--last{
+			@include span(13 of 16 last);
+		}
+	}
+
+	&__span-1{
+		@include span(2 of 6);
+
+		&--last{
+			@include span(2 of 6 last);
+		}
+	}
+}
+
+.rightbody{
+	width : 100%;
+
+	&__bread-crumb{
+		line-height: 50px;
+	}
+
+	&__title{
+		@include inline-block();
+		font-weight: 700;
+		line-height: 42px;
+		background-color : #f0f0f0;
+		width: 100%;
+	}
+
+	&__pagebar{
+		text-align:center;
+		margin-top:55px;
+	}
+}
+
+
+

@@ -38,7 +38,7 @@ public class WebResult implements Serializable{
 	}
 	
 	public byte[] toJSONBytes(){
-		return JSON.toJSONBytes(this, SerializerFeature.values());
+		return JSON.toJSONBytes(this, SerializerFeature.BrowserCompatible);
 	}
 
 }

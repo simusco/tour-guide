@@ -65,12 +65,13 @@
 					orderBy = self.attr('ui-tag-order');
 				});
 				
-				//过滤全部
-				tags = tags.filter(function(t){
-					if(t != '全部'){
-						return true;
+				var tt = [];
+				for(var i=0;i<tags.length;i++){
+					if(tags[i] != '全部'){
+						tt.push(tags[i]);
 					}
-				});
+				}
+				tags = tt;
 				
 				$.query.displayCond(tags);
 				

@@ -1,0 +1,177 @@
+.header{
+	@include container;
+
+	&__site-nav{
+		width:100%;
+		background-color : #f8f8f8;
+		//border-bottom:1px solid #dfdfdf;
+	}
+
+	&__top{
+		@extend %page-container;
+	}
+}
+
+.site-nav{
+	@extend %page-container;
+	
+	&__left{
+		@include span(6 of 10);
+	}
+
+	&__right{
+		@include span(4 of 10 last);
+		text-align:right;
+	}
+
+	&__desc{
+		font-size : $font-size-xs;
+		height:32px;
+		line-height:32px;
+		color:#999;
+	}
+}
+
+.top{
+	@include container;
+	background:#ccc image-url("index/logo.png") no-repeat left top;
+
+	&_logo{
+		@include span(6 of 10);
+
+		&--link{
+			@include inline-block();
+			height:100px;
+			width: 100%;
+		}
+	}
+
+	&_login{
+		@include span(4 of 10 last);
+		height: 100px;
+		position:relative;
+
+		>.login{
+			position: absolute;
+			top:50%;
+			margin-top:-17px;
+		}
+	}
+
+}
+
+.navbar{
+	width:100%;
+	background-color : $page-color;
+	border-bottom:1px solid #fff;
+
+	&__wraper{
+		@extend %page-container;
+	}
+}
+
+.nav{
+	@include pie-clearfix();
+	list-style: none;
+	padding:0px;
+	margin:0px;
+	float:left;
+
+	&__item{
+		float:left;
+
+		> a{
+			@include link();
+
+			display:block;
+			margin-right:70px;
+			line-height: 50px;
+			height:50px;
+			font-size: 18px;
+			color:#fff;
+			width:100%;
+			text-align:center;
+
+			&.first{text-align:left;}
+			&:active{
+				color:#fff;
+			}
+		}
+
+		&.active,
+		&:hover{
+			background-color:shade($page-color, 10%);
+		}
+	}
+
+}
+
+.login{
+	@include pie-clearfix();
+	list-style: none;
+	padding:0px;
+	margin:0px;
+	float:right;
+
+	> li{
+		float:left;
+		position: relative;
+		z-index: 1;
+
+		.pop-menu{
+			position: absolute;
+			left: 0;
+			top: 32px;
+			display: none;
+		}
+	}
+
+	&__btn{
+		@include link();
+		line-height:32px;
+		font-size:$font-size-xs;
+		padding:0px 7px;
+		color:#999;
+
+		&--active,
+		&--default:hover{
+			color:$page-color;
+		}
+
+		&--pipe{
+			line-height:32px;
+			height:32px;
+		}
+	}
+}
+
+.pop-menu-d{
+	@include inline-block();
+	width:86px;
+	text-align:center;
+}
+
+.pop-menu{
+	position:absolute;
+	left:0px;
+	top:35px;
+	z-index:1000;
+	background-color:#fff;
+	width:100px;
+	border:1px solid #ededed;
+
+	&__item{
+		@include link();
+		display:block;
+		width:80%;
+		line-height: 36px;
+		height:36px;
+		text-align: center;
+		font-size:$font-size-sm;
+		margin:0px auto;
+
+		&:hover{
+			border-bottom:4px solid $page-color;
+		}
+	}
+}

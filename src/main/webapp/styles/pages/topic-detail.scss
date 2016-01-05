@@ -1,0 +1,110 @@
+//Compass
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/typography";
+
+//Normalize
+@import "normalize";
+
+//Layout grid.
+@import "susy";
+
+//Spacing
+@import "base/spacing";
+@import "base/variables";
+@import "base/mixins";
+@import "base/grid";
+@import "base/atomcss";
+@import "base/font-size";
+
+@import "modules/common";
+@import "modules/header";
+@import "modules/footer";
+
+.content{
+	@extend %page-container;
+	margin-top:30px;
+}
+
+.topic-detail{
+
+	&__title{
+		border-bottom: 1px solid #ededed;
+		height: 70px;
+	}
+
+	&__content{
+		margin-top: 20px;
+	}
+
+}
+
+.article-title{
+	&__title{
+		text-align: left;
+		font-weight: 700;
+		font-size:24px;
+		color:#333;
+	}
+
+	&__subtitle{
+		color:#666;
+	}
+}
+
+.topic-content{
+	@include article-content();
+
+	&__title{
+		margin-top: 30px;
+
+		&--spe{
+			text-align: center;
+			font-size:24px;
+			font-weight: 700;
+			text-decoration: underline;
+			color:#333;
+		}
+
+		&--extr{
+			text-align: center;
+			margin-top: 10px;
+			color:#666;
+			font-size:$font-size-sm;
+		}
+	}
+
+	&__desc{
+		color:#666;
+		font-size:$font-size-md;
+	}
+
+	&__toolbar{
+		height: 60px;
+		position: relative;
+		top:20px;
+		left:0px;
+
+		>.btn-query{
+			position: absolute;
+			right:20px;
+			top:0px;
+		}
+	}
+
+	&_splite{
+		height: 3px;
+		border:none;
+		border-top : 1px solid #ededed;
+		border-bottom : 1px solid #ededed;
+	}
+
+}
+
+.btn-query{
+	@include btn($bg-hover-color : shade($page-color,10%));
+	@include border-radius(4px);
+	@include link($link-color : #fff);
+
+	background-color : $page-color;
+}

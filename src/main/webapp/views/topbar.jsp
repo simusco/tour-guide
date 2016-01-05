@@ -28,13 +28,13 @@ $(function(){
             
         <div class="site-nav">
                 <div class="site-nav__left">
-                   <span class="site-nav__desc">你好，欢迎来到兜风旅游梦想世界！</span>
+                   <span class="site-nav__desc">你好，欢迎来到兜蜂旅游梦想世界！</span>
                 </div>
                 <div class="site-nav__right">
                 	<c:choose>
 		        		<c:when test="${empty loginUser }">
 				            <ul class="login">
-		                        <li><a href="<%=request.getContextPath()  %>/web/v1/user/signin.html" class="login__btn login__btn--active">会员登陆</a></li>
+		                        <li><a href="<%=request.getContextPath()  %>/web/v1/user/signin.html" class="login__btn login__btn--default">会员登陆</a></li>
 		                        <li><span class="login__btn--pipe">|</span></li>
 		                        <li><a href="<%=request.getContextPath()  %>/web/v1/user/signup.html" class="login__btn login__btn--default">免费注册</a></li>
 		                        <li><span class="login__btn--pipe">|</span></li>

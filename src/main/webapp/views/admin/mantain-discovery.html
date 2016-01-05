@@ -1,0 +1,55 @@
+<div class="container" ng-controller="DiscoveryViewController">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">发现维护&nbsp;</div>
+				<div class="panel-body">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="queryParams.name">名称：</label> <input type="text"
+								class="form-control" placeholder="输入名称包含字词"
+								ng-model="queryParams.name">
+						</div>
+						<div class="form-group">
+							<label for="queryParams.description">描述：</label> <input type="text"
+								class="form-control" placeholder="输入描述包含字词"
+								ng-model="queryParams.description">
+						</div>
+						<div class="form-group">
+							<label for="queryParams.type">类型：</label> <select
+								class="form-control" ng-model="queryParams.type">
+								<option value=""></option>
+								<option value="EAT">吃</option>
+								<option value="DRINK">喝</option>
+								<option value="PLAY">玩</option>
+								<option value="HOTEL">住</option>
+							</select>
+						</div>
+						<button type="button" class="btn btn-warning" ng-click="query()">查询</button>
+					</form>
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>名称</th>
+							<th>描述</th>
+							<th>标签</th>
+							<th>图像</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="discovery in discoveryList">
+							<th scope="row">{{discovery.name}}</th>
+							<td>{{discovery.description}}</td>
+							<td>{{discovery.tags}}</td>
+							<td>{{discovery.imageURL}}</td>
+							<td><button type="button" class="btn btn-warning"
+									ng-click="deleteDiscovery(discoveryList, discovery)">删除</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -29,7 +29,6 @@ public class ImageController extends RestfulController {
 
 	@Resource
 	private ImageService imageService;
-	//E:\apache\tour-guide\static\images
 	private String rootPath = "/home/dftrip/images";
 	
 	@RequestMapping(value="/upload/{activityId}/{type}",method=RequestMethod.POST)
@@ -55,7 +54,7 @@ public class ImageController extends RestfulController {
 					String uuid = new Date().getTime() + new Random().nextInt(10000) + "";
 					String filePath = path + "/" + uuid +suffix;
 					
-					FileUtils.copyInputStreamToFile(cf.getInputStream(), new File(rootPath + filePath));
+					FileUtils.writeByteArrayToFile(new File(rootPath + filePath), cf.getBytes());
 					
 					Image image = new Image();
 					image.setImageId(uuid);

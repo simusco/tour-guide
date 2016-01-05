@@ -39,21 +39,4 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/webapp/images</name>
-			<type>2</type>
-			<location>E:/apache/tour-guide/static/images</location>
-		</link>
-		<link>
-			<name>src/main/webapp/scripts</name>
-			<type>2</type>
-			<location>E:/apache/tour-guide/static/scripts</location>
-		</link>
-		<link>
-			<name>src/main/webapp/styles</name>
-			<type>2</type>
-			<location>E:/apache/tour-guide/static/styles</location>
-		</link>
-	</linkedResources>
 </projectDescription>

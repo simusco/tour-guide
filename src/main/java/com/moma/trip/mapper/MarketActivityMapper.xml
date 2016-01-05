@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.MarketActivityMapper">
+
+	<select id="getActivityPageList" resultType="com.moma.trip.po.MarketActivity">
+		<![CDATA[
+			select 
+				activityId,
+				name,
+				rule,
+				imageURL,
+				startTime,
+				endTime,
+				rangeBegin,
+				rangeEnd
+			from m_market_activity
+		]]>
+	</select>
+
+	<select id="analyzeByActivityId" resultType="com.moma.trip.po.PresentAnalye">
+		<![CDATA[
+			select 
+				p.`name` as name,
+				(select count(1) from m_present ip where ip.activityId = p.activityId and p.name = ip.name) as total,
+				(select count(1) from m_present ip where ip.activityId = p.activityId and p.name = ip.name and ip.assigned = 'no') as remain
+			from m_present p 
+			where p.activityId = #{0}
+			group by p.`name`
+		]]>
+	</select>
+
+	<delete id="deletePresentByActivityId">
+		<![CDATA[delete from m_present where activityId = #{0}]]>
+	</delete>
+
+	<select id="getMarketActivityById" resultType="com.moma.trip.po.MarketActivity" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				activityId,
+				name,
+				rule,
+				imageURL,
+				startTime,
+				endTime,
+				rangeBegin,
+				rangeEnd
+			from m_market_activity
+			where activityId = #{0}
+		]]>
+	</select>
+
+	<insert id="savePresent" parameterType="com.moma.trip.po.Present">
+		<![CDATA[
+			insert into m_present(
+				presentId,
+				activityId,
+				name,
+				imageURL,
+				quantity,
+				random,
+				assigned
+			)values(
+				#{presentId},
+				#{activityId},
+				#{name},
+				#{imageURL},
+				#{quantity},
+				#{random},
+				#{assigned}
+			)
+		]]>
+	</insert>
+
+</mapper>

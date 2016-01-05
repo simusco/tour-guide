@@ -47,8 +47,8 @@ $(function(){
 });
 </script>
 
-<c:forEach items="${ticketList }" var="ticket">
-	<div class="book-ticket">
+<c:forEach items="${ticketList }" var="ticket" varStatus="s">
+	<div class="book-ticket" <c:if test="${s.last }">style="border-bottom:none;"</c:if>>
 	    <div class="span-2 book-ticket__image">
 	        <div class="ticket-image">
 	            <div class="ticket-image__img"><img src="${staticServerPath1 }/images/${ticket.icon }"></div>

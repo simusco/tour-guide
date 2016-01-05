@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.DiscoveryMapper">
+
+	<delete id="deleteDiscoveryById" parameterType="java.lang.String">
+		<![CDATA[
+			delete from m_discovery where discoveryId = #{discoveryId}
+		]]>
+	</delete>
+
+	<select id="getDiscoveryList" resultType="com.moma.trip.po.Discovery" parameterType="com.moma.trip.po.Discovery">
+		<![CDATA[
+			select 
+				discoveryId,
+				name,
+				description,
+				publishTime,
+				tags,
+				imageURL,
+				type,
+				author,
+				url,
+				isRec
+			from m_discovery
+			where 1=1
+		]]>
+		
+		<if test="name != null"><![CDATA[and name = #{name}]]></if>
+		<if test="description != null"><![CDATA[and description = #{description}]]></if>
+		<if test="type != null"><![CDATA[and type = #{type}]]></if>
+		
+		<![CDATA[
+			order by publishTime desc
+		]]>
+	</select>
+
+	<select id="getDiscoveryPageList" resultType="com.moma.trip.po.Discovery" parameterType="map">
+		<![CDATA[
+			select 
+				discoveryId,
+				name,
+				description,
+				publishTime,
+				tags,
+				imageURL,
+				type,
+				author,
+				url,
+				isRec
+			from m_discovery
+			where isRec = 'true'
+		]]>
+		
+		<if test="discoveryType != null">
+			<![CDATA[and type = #{discoveryType}]]>
+		</if>
+		
+		<![CDATA[
+			order by publishTime desc limit #{from},#{pageSize}
+		]]>
+	</select>
+	
+	<select id="getDiscoveryPageTotal" resultType="java.lang.Long" parameterType="map">
+		<![CDATA[
+			select 
+				count(discoveryId)
+			from m_discovery
+			where isRec = 'true'
+		]]>
+		
+		<if test="discoveryType != null">
+			<![CDATA[and type = #{discoveryType}]]>
+		</if>
+	</select>
+
+	<select id="getDiscoveryByType" resultType="com.moma.trip.po.Discovery" parameterType="map">
+		<![CDATA[
+			select 
+				discoveryId,
+				name,
+				description,
+				publishTime,
+				tags,
+				imageURL,
+				type,
+				author,
+				url,
+				isRec
+			from m_discovery
+			where 1=1
+		]]>
+		
+		<if test="type != null">
+			<![CDATA[and type = #{type}]]>
+		</if>
+	</select>
+	
+	<select id="getDiscoveryTypeList" resultType="com.moma.trip.po.DiscoveryType">
+		<![CDATA[
+			select 
+				discoveryTypeId,
+				name,
+				type
+			from m_discovery_type
+			order by sort
+		]]>
+	</select>
+	
+	<select id="getAdvImageList" resultType="com.moma.trip.po.AdvImage">
+		<![CDATA[
+			select 
+				advImageId,
+				imageURL,
+				enable,
+				url
+			from m_adv_image
+		]]>
+	</select>
+	
+	<insert id="saveDiscovery" parameterType="com.moma.trip.po.Discovery">
+		<![CDATA[
+			insert into  m_discovery(
+				discoveryId,
+				name,
+				description,
+				publishTime,
+				tags,
+				imageURL,
+				type,
+				author,
+				url,
+				isRec
+			) values(
+				#{discoveryId},
+				#{name},
+				#{description},
+				#{publishTime},
+				#{tags},
+				#{imageURL},
+				#{type},
+				#{author},
+				#{url},
+				#{isRec}
+			)
+		]]>
+	</insert>
+
+</mapper>

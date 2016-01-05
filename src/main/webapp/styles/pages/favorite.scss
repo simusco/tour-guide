@@ -1,0 +1,88 @@
+//Compass
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/typography";
+
+//Normalize
+@import "normalize";
+
+//Layout grid.
+@import "susy";
+
+//Spacing
+@import "base/spacing";
+@import "base/variables";
+@import "base/mixins";
+@import "base/grid";
+@import "base/atomcss";
+
+@import "modules/common";
+@import "modules/header";
+@import "modules/footer";
+
+//Personal Center.
+@import "pages/profile";
+
+.favorite{
+	&__img{
+
+	}
+
+	&__toobar{
+		@include inline-block();
+		width: 100%;
+		margin: 0px;
+		height: 42px;
+		line-height: 42px;
+		position: relative;
+
+		>.tag--price{
+			padding:0px;
+		}
+
+		>.btn-detail{
+			position : absolute;
+			right: 0px;
+			top: 50%;
+			margin-top: -13px;
+		}
+	}
+}
+
+.btn-detail{
+	@include btn($bg-hover-color : $tag-color);
+	@include link($link-color : #fff);
+	@include border-radius(3px);
+
+	padding:5px 10px;
+	font-size:$font-size-sm;
+	background-color : $tag-color;
+}
+
+.pagination{
+	@include pagination();
+}
+
+.thumbnail{
+	position: relative;
+
+	&__img{
+		width: 100%;
+		height: 166px;
+	}
+
+	&__name{
+		@include inline-block();
+		width: 100%;
+		height:30px;
+		line-height: 30px;
+		margin: 0px;
+		background-color: rgba(#333,0.6);
+		font-size:$font-size-md;
+		color:#fff;
+
+		position: absolute;
+		left: 0px;
+		bottom:3px;
+	}
+}

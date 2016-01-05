@@ -1,0 +1,203 @@
+<div class="container" ng-controller="DiscoveryViewController">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">录入说明</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>吃</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>火锅</td>
+							<td>自助餐</td>
+							<td>西餐</td>
+							<td>海鲜</td>
+						</tr>
+						<tr>
+							<td>烧烤</td>
+							<td>料理</td>
+							<td>素菜</td>
+							<td>创意菜</td>
+						</tr>
+						<tr>
+							<td>小吃</td>
+							<td>粤菜</td>
+							<td>川菜</td>
+							<td>湘菜</td>
+						</tr>
+						<tr>
+							<td>东南亚菜</td>
+							<td>面包甜点</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+				<br/>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>喝</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>咖啡</td>
+							<td>奶茶</td>
+							<td>皇茶</td>
+							<td>酒吧</td>
+						</tr>
+						<tr>
+							<td>茶</td>
+							<td>鸡尾酒</td>
+							<td>啤酒</td>
+							<td>红酒</td>
+						</tr>
+					</tbody>
+				</table>
+				<br/>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>玩</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>户外</td>
+							<td>温泉</td>
+							<td>游乐场</td>
+							<td>电影</td>
+						</tr>
+						<tr>
+							<td>KTV</td>
+							<td>密室</td>
+							<td>真人CS</td>
+							<td>采摘</td>
+						</tr>
+						<tr>
+							<td>农家乐</td>
+							<td>桌游</td>
+							<td>棋牌</td>
+							<td>DIY手工坊</td>
+						</tr>
+						<tr>
+							<td>摄影</td>
+							<td>音乐</td>
+							<td>亲子</td>
+							<td>宠物</td>
+						</tr>
+						<tr>
+							<td>演出赛事</td>
+							<td>运动</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<br/>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>住</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>青年旅社</td>
+							<td>民宿</td>
+							<td>客栈</td>
+							<td>浪漫</td>
+						</tr>
+						<tr>
+							<td>树屋</td>
+							<td>别墅</td>
+							<td>公寓</td>
+							<td>旅馆</td>
+						</tr>
+						<tr>
+							<td>度假屋</td>
+							<td>亲子</td>
+							<td>特色</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+		
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">录入发现</div>
+				<div class="panel-body">
+					<form>
+						<div class="form-group">
+							<label for="discovery.type">类型：</label>
+							<select id="discovery.type" ng-model="discovery.type" class="form-control">
+								<option ng-repeat="discoveryType in discoveryTypeList" value="{{discoveryType.type}}">{{discoveryType.name}}</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="discovery.type">发现名称：</label>
+							<input type="text" id="discovery.name"
+								ng-model="discovery.name" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="discovery.description">描述：</label>
+							<textarea ng-model="discovery.description"
+									id="discovery.description" cols="30" rows="10"
+									class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="discovery.tags">标签：</label>
+							<input type="text" id="discovery.tags"
+									ng-model="discovery.tags" 
+									class="form-control"
+									placeholder="以空白隔开">
+						</div>
+						<div class="form-group">
+							<label for="discovery.imageURL">图片地址：</label>
+							<input type="text" id="discovery.imageURL"
+									ng-model="discovery.imageURL" class="form-control">
+							<p class="help-block">图片地址可以不以斜线(/)开始</p>
+						</div>
+						<div class="form-group">
+							<label for="discovery.url">文章URL：</label>
+							<input type="text" id="discovery.url"
+									ng-model="discovery.url" class="form-control">
+							<p class="help-block">文章URL以http://开始的全路径</p>
+						</div>
+						<div class="form-group">
+							<label for="discovery.author">作者：</label>
+							<input type="text" id="discovery.author"
+									ng-model="discovery.author"
+									class="form-control">
+						</div>
+						<div class="checkbox text-center">
+							<label for="discovery.isRec">
+								<input type="checkbox" ng-model="discovery.isRec" id="discovery.isRec"/>是否推荐：
+							</label>
+							<button type="button" class="btn btn-danger" ng-click="saveDiscovery()">保存发现</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

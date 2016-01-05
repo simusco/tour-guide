@@ -29,7 +29,15 @@ $.extend({
 					t.display(curIndex);
 					
 					curIndex++;
-				}, 4000)
+				}, 4000);
+				
+				container.mouseover(function(){
+					$('#ctrlbar-btn-left').css('left','0px');
+					$('#ctrlbar-btn-right').css('right','0px');
+				}).mouseout(function(){
+					$('#ctrlbar-btn-left').css('left','-50px');
+					$('#ctrlbar-btn-right').css('right','-50px');
+				});
 			};
 			
 			this.display = function(index){
@@ -82,8 +90,8 @@ $(function(){
 
         <div class="advertise__ctrlbar">
             <div class="ctrlbar">
-                <div class="ctrlbar__btn--left"><a href="javascript:advAnimation.pre();"></a></div>
-                <div class="ctrlbar__btn--right"><a href="javascript:advAnimation.next();"></a></div>
+                <div class="ctrlbar__btn--left" id="ctrlbar-btn-left"><a href="javascript:advAnimation.pre();"></a></div>
+                <div class="ctrlbar__btn--right" id="ctrlbar-btn-right"><a href="javascript:advAnimation.next();"></a></div>
             </div>
         </div>
 
