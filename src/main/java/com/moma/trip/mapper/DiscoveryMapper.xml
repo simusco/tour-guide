@@ -27,9 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where 1=1
 		]]>
 		
-		<if test="name != null"><![CDATA[and name = #{name}]]></if>
-		<if test="description != null"><![CDATA[and description = #{description}]]></if>
 		<if test="type != null"><![CDATA[and type = #{type}]]></if>
+		<if test="name != null"><![CDATA[and name like  '%${name}%']]></if>
+		<if test="description != null"><![CDATA[and description like '%${description}%']]></if>
 		
 		<![CDATA[
 			order by publishTime desc

@@ -79,19 +79,6 @@ public class DiscoveryController extends RestfulController {
 		return this.toJSONBytes(map);
 	}
 	
-	@RequestMapping(value="/discovery.html",method=RequestMethod.GET)
-	public ModelAndView discovery(){
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		List<DiscoveryType> discoveryTypeList = discoveryService.getDiscoveryTypeList();
-		map.put("discoveryTypeList", discoveryTypeList);
-		
-		List<AdvImage> advImageList = discoveryService.getAdvImageList();
-		map.put("advImageList", advImageList);
-		
-		return new ModelAndView("mtrip.m.discovery", map);
-	}
-	
 	@RequestMapping(value="/maintain/discovery/{id}",method=RequestMethod.DELETE)
 	@ResponseBody
 	public WebResult discovery(@PathVariable String id){
@@ -110,6 +97,19 @@ public class DiscoveryController extends RestfulController {
 
 		return this.success(map);
 		
+	}
+	
+	@RequestMapping(value="/discovery.html",method=RequestMethod.GET)
+	public ModelAndView discovery(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<DiscoveryType> discoveryTypeList = discoveryService.getDiscoveryTypeList();
+		map.put("discoveryTypeList", discoveryTypeList);
+		
+		List<AdvImage> advImageList = discoveryService.getAdvImageList();
+		map.put("advImageList", advImageList);
+		
+		return new ModelAndView("mtrip.m.discovery", map);
 	}
 	
 	@RequestMapping(value="/discovery/list.html",method=RequestMethod.GET)

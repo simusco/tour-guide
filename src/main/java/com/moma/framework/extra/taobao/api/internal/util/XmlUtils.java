@@ -39,11 +39,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.moma.framework.extra.taobao.api.ApiException;
+import com.moma.framework.extra.taobao.top.link.Text;
 
 /**
  * Encapsulating XML common operations.

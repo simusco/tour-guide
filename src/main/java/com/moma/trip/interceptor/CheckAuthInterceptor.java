@@ -1,4 +1,4 @@
-package com.moma.framework;
+package com.moma.trip.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
