@@ -6,251 +6,220 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>搜索结果</title>
+
 	<meta http-equiv="Content-Type" content="application/vnd.wap.xhtml+xml;charset=utf-8" />
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
 	<meta name="apple-mobile-web-app-capable" content="no">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>发现</title>
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
-	
-	<link rel="stylesheet" href="../../styles/base.css">
+
+	<link rel="stylesheet" type="text/css" href="../../styles/base.css">
+
 	<style type="text/css">
-		
-		/*公共部分*/
 		body{
-			background-color: #ededed;
+			background-color: #f2f2f2;
 		}
-		
-		.clearfix{
-			overflow:hidden;
-			_zoom:1;
+
+		.clearfix {
+		  zoom: 1;
 		}
-		
-		.bl1{
-			border-left:1px solid #ededed;
-		}
-		
-		.bb1{
-			border-bottom:1px solid #ededed;
-		}
-		
-		.mtl{
-			margin-top: 10px;
+
+		.clearfix:after {
+		  content: " ";
+		  display: block;
+		  clear: both;
+		  height: 0;
 		}
 		
 		.content{
-			margin-left:10px;
-			margin-right:10px;
+			margin:0px;
 		}
-		
-		.content__search{
-			height: 40px;
-			background-color: rgb(195,195,195);
-			border-radius:4px;
-		}
-		
-		/*广告图*/
-		.adv{
+
+		/*头部的样式*/
+		.header__adv img{
 			width: 100%;
 		}
-		
-		.adv img{
-			width: 100%;
+
+
+		/*查询样式*/
+		.search{
+			box-sizing: border-box;
+			margin: 0px 5px;
+			padding:5px;
+			padding-bottom: 0px;
 		}
-		
-		/*table 样式*/
-		.table{
-			border-radius:4px;
-			border:1px solid #999;
-			background-color: #fff;
+
+		.search__wraper{
+			width: 90%;
+			margin: 0px auto;
 		}
-		
-		.table__header{
-			height:30px;
-			line-height:30px;
-			font-size:16px;
-			border-bottom: 1px solid #ededed;
-		}
-		
-		.table__body{
-			margin: 10px;
-		}
-		
-		.table__row{
-			
-		}
-		
-		.table__cell{
-			display: inline-block;
-			width: 25%;
-			float: left;
-			font-size:12px;
-			text-align: center;
-			vertical-align: middle;
-			height: 35px;
-			line-height: 35px;
-		}
-		
-		
-		.title{
-			font-size:12px;
-			color:#999;
-		}
-		
-		/*search 框的样式*/
-		.search {
-			padding: 7px 30px 0 30px;
-		}
-		
-		.search__wrap {
-			background-color: #f3f3f3;
-			border-radius: 15px;
-			font-size: 1.2rem;
-			padding: 0 35px 0 12px;
+
+		.search__input{
+			box-sizing: border-box;
+			padding:5px 30px 5px 30px;
+			background-color: #d1cfd0;
 			position: relative;
+			border-radius: 3px;
 		}
-		
-		.search__wrap input {
+
+		.search__input input[type=text]{
 			width: 100%;
+			line-height: 20px;
+			border-radius: 12px;
 			border: 0;
 			outline: 0;
-			height: 26px;
-			padding: 0;
-			background: 0;
-			border-radius: 13px;
-			font-size: 1.2rem;
+			font-size: 12px;
+			text-indent: 12px;
 		}
-		
-		/*common*/
+
+		.search__caption span{
+			color:#6b6b6b;
+			font-size:12px;
+			line-height: 35px;
+		}
+
 		.btn {
 			border: 0;
 		}
 		
 		.btn--search {
-			width: 35px;
-			height: 30px;
-			background: url(../../images/m/btn_search2.png) 8px 4px no-repeat;
+			width: 30px;
+			height: 25px;
+			background: url(../../images/mobile/btn_search2.png) 8px 4px no-repeat;
 			background-size: 17px 17px;
 			position: absolute;
-			right: 0;
-			top: 0;
+			right: 40px;
+			top: 5px;
 		}
+
+
+		/**
+		 * 搜索结果样式
+		 */
 		
-		/*搜索结果*/
-		
-		.list-view__auction{
-			padding: 8px 5px 6px 8px;
-			position: relative;
-			border-bottom: 1px solid rgb(212,212,212);
-			background-color: #fff;
+		.view-list{
+			background-color:#fff;
 		}
-		
-		.list-view__auction.bt1{
-			border-top: 1px solid rgb(212,212,212);
+
+		.view{
+			position:relative;
+			border-bottom:1px solid #ddd;
+			display: block;
+			text-decoration: none;
 		}
-		
-		.auction{
-			display:block;
-			clear: both;
-		    position: relative;
+
+		.view:last-child{
+			border-bottom:none;
 		}
-		
-		.auction__image{
-			display:block;
-			width: 106px;
-			height: 68px;
-			border-radius: 3px;
-			overflow: hidden;
-			
-			position: absolute;
-			left:0px;
-			top: 3px;
+
+		.view__img{
+			position:absolute;
+			left:8px;
+			top:10px;
 		}
-		
-		.auction__image > img{
-			width:100%;
-			height:100%;
+
+		.view__img img{
+			width:96px;
+			height:72px;
+			border-radius:3px;
 		}
-		
-		.auction__describe{
-			margin-left: 114px;
-			height: 76px;
+
+		.view__desc{
+			box-sizing: border-box;
+			margin-left:112px;
+			height:92px;
+			padding:10px 0px;
+			padding-right: 8px;
 		}
-		
-		.auction__empty{
-			width: 100%;
-			text-align: center;
-			display: inline-block;
-			line-height: 40px;
+
+		.view__desc .title{
+			font-size:15px;
+			color:#333;
+			line-height:26px;
 		}
-		
-		.auction-describe__title{
-			font-size: 16px;
-			display:block;
-			color: #1a1a1a;
-			
-			overflow: hidden;
-		    white-space: nowrap;
-		    text-overflow: ellipsis;
-		}
-		
-		.auction-describe__subtitle{
-			font-size: 12px;
-			display:block;
+
+		.view__desc .subtitle{
+			font-size:12px;
 			color:#999;
-			margin-top:0px;
+		}
+
+		.view-more{
+			background-color:#fff;
+		}
+
+		.view-more a{
+			text-decoration:none;
+			font-size:12px;
+			display:inline-block;
+			width:100%;
+			text-align:center;
+			color:#999;
+			line-height:40px;
 		}
 		
+		.no-result{
+			background-color:#fff;
+			padding:30px 0px;
+		}
+
+		.no-result__img{
+			text-align:center;
+		}
+
+		.no-result__desc{
+			text-align:center;
+			font-size:16px;
+			line-height:20px;
+		}
 	</style>
+
 </head>
 <body>
 
 	<header class="header">
-		<div class="adv">
-			<img src="../../images/m/adv.jpg"/>
+		<div class="header__adv">
+			<img src="../../images/mobile/adv.jpg">
 		</div>
 	</header>
-	
-	<section class="content mtl">
-		<div class="content__search">
-			<div class="search">
-				<form class="search__wrap">
-					<input type="text" placeholder="输入查询关键字" value="${tag }" class="J_search_input">
-					<button class="btn btn--search J_btn_query" type="button"></button>
-				</form>
-			</div>
+
+	<section class="search">
+		<div class="search__wraper">
+			<form class="search__input" action="#">
+				<input type="text" placeholder="输入查询关键字" value="${tag }" class="J_search_input">
+				<button class="btn btn--search J_btn_query" type="button"></button>
+			</form>
 		</div>
-		<div class="title mtl">搜索结果</div>
+		<div class="search__caption"><span>搜索结果</span></div>
 	</section>
-	
-	<div class="list-view mtl">
+
+	<section class="content">
 		<c:if test="${empty discoveryList }">
-			<div class="list-view__auction bt1">
-				<div class="auction">
-					<div class="auction__empty">暂时无收录数据</div>
-				</div>
+			<div class="no-result">
+				<div class="no-result__img"><img src="../../images/mobile/noresult.png"/></div>
+				<div class="no-result__desc"><span>暂无收录结果</span></div>
 			</div>
 		</c:if>
 	
-		<c:forEach items="${discoveryList }" var="discovery" varStatus="x">
-		<div class="list-view__auction ${x.count == 1 ? "bt1" : "" }">
-			<a class="auction" href="${discovery.url }">
-				<div class="auction__image">
-					<img src="${discovery.imageURL }" style="width: 100%; opacity: 1;"> 
+		<div class="view-list">
+			<c:forEach items="${discoveryList }" var="discovery" varStatus="x">
+			<a class="view" href="${discovery.url }">
+				<div class="view__img">
+					<img src="${discovery.imageURL }"> 
 				</div>
-				<div class="auction__describe">
-					<div class="auction-describe">
-						<span class="auction-describe__title">${discovery.name }</span> 
-						<span class="auction-describe__subtitle">${discovery.description }</span>
-					</div>
+				<div class="view__desc">
+					<div class="title">${fn:substring(discovery.name, 0, 9) }${fn:length(discovery.name) > 9 ? "..." : ""}</div>
+					<div class="subtitle">${fn:substring(discovery.description, 0, 28) }${fn:length(discovery.description) > 28 ? "..." : ""}</div>
 				</div>
 			</a>
+			</c:forEach>
 		</div>
-		</c:forEach>
-	</div>
-	
-	<section class="footer mtl"></section>
+		
+		<c:if test="${not empty discoveryList }">
+			<div class="view-more"><a href="">显示更多</a></div>
+		</c:if>
+	</section>
 	
 	<script src="../../scripts/zepto.js" type="text/javascript"></script>
 	<script src="../../scripts/web/swip.js" type="text/javascript"></script>

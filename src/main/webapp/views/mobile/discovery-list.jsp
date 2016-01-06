@@ -15,7 +15,7 @@ function gotoPage(page){
 //-->
 </script>
 
-<ul class="discover-list playpoint-list addLoading" >
+<ul class="discover-list" >
 	<c:forEach items="${discoveryList }" var="discovery">
 		<li class="head_pic wd-list">
 			<a href="${discovery.url }">
@@ -23,13 +23,15 @@ function gotoPage(page){
 				src="${discovery.imageURL}"
 				width="100%" alt="${discovery.name }">
 				<p class="head_pic_title">
-					<span>${discovery.name }</span><span>${discovery.description }</span>
+					<span>【${discovery.name }】</span>&nbsp;<span>${fn:substring(discovery.description, 0, 24) }${fn:length(discovery.description) > 24 ? "..." : ""}</span>
 				</p>
+				<!-- 
 				<p class="tags">
 					<c:forTokens items="${discovery.tags }" delims=" " var="tag">
 						<span>${tag }</span>
 					</c:forTokens>
 				</p>
+				 -->
 			</a>
 		</li>
 	</c:forEach>

@@ -1,5 +1,3 @@
-<%@page import="java.net.URLEncoder"%>
-<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -65,25 +63,25 @@
 		}
 
 		.category__title--eat{
-			background:url('../../images/mobile/eat.png') no-repeat left 1px;
+			background:url('../../images/mobile/eat.png') no-repeat left center;
 			color:#f45832;
 			background-size:22px 24px;
 		}
 
 		.category__title--drink{
-			background:url('../../images/mobile/drink.png') no-repeat left 1px;
+			background:url('../../images/mobile/drink.png') no-repeat left center;
 			color:#3fbbdd;
 			background-size:22px 24px;
 		}
 
 		.category__title--play{
-			background:url('../../images/mobile/play.png') no-repeat left -1px;
+			background:url('../../images/mobile/play.png') no-repeat left center;
 			color:#98cc44;
 			background-size:22px 24px;
 		}
 
 		.category__title--hotel{
-			background:url('../../images/mobile/hotel.png') no-repeat left 1px;
+			background:url('../../images/mobile/hotel.png') no-repeat left center;
 			color:#f41a70;
 			background-size:22px 24px;
 		}
@@ -323,33 +321,8 @@
 			</div>
 		</div>
 	</section>
-	
-	<section class="footer"></section>
-	
-	<script src="../../scripts/zepto.js" type="text/javascript"></script>
-	<script src="../../scripts/web/swip.js" type="text/javascript"></script>
-	
-	<script type="text/javascript">
-		function search(tag){
-			var url = encodeURI('<%=request.getContextPath()  %>/m/discovery/search.html?tag=' + tag);
-			window.location.href = url;
-		}
-	
-		$(function(){
-			$('.J_btn_query').tap(function(){
-				var text = $(this).parent().find('input[type=text]').val();
-				if(text != ''){
-					search(text);
-				}
-			});
-			
-			$('.J_search_input').on('keyup',function(e){
-				if(e.keyCode == 13){
-					search($(this).val());
-				}
-			});
-		});
-	</script>
-	
 </body>
 </html>
+
+
+
