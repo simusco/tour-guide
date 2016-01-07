@@ -3,10 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
-<!-- 
-	src="${staticServerPath1 }/images/${discovery.imageURL}"
- -->
- 
+
 <script type="text/javascript">
 <!--
 function gotoPage(page){
@@ -20,7 +17,7 @@ function gotoPage(page){
 		<li class="head_pic wd-list">
 			<a href="${discovery.url }">
 				<img class="lazy"
-				src="${discovery.imageURL}"
+				src="${staticServerPath1 }/images/${discovery.imageURL}"
 				width="100%" alt="${discovery.name }">
 				<p class="head_pic_title">
 					<span>【${discovery.name }】</span>&nbsp;<span>${fn:substring(discovery.description, 0, 24) }${fn:length(discovery.description) > 24 ? "..." : ""}</span>

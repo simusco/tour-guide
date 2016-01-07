@@ -15,9 +15,9 @@
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
 	
-	<title>发现</title>
+	<title>查询</title>
 
-	<link rel="stylesheet" type="text/css" href="../../styles/base.css">
+	<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/base.css">
 
 	<style type="text/css">
 		body{
@@ -67,25 +67,25 @@
 		}
 
 		.category__title--eat{
-			background:url('../../images/mobile/eat.png') no-repeat left 1px;
+			background:url('${staticServerPath1 }/images/mobile/eat.png') no-repeat left 1px;
 			color:#f45832;
 			background-size:22px 24px;
 		}
 
 		.category__title--drink{
-			background:url('../../images/mobile/drink.png') no-repeat left 1px;
+			background:url('${staticServerPath1 }/images/mobile/drink.png') no-repeat left 1px;
 			color:#3fbbdd;
 			background-size:22px 24px;
 		}
 
 		.category__title--play{
-			background:url('../../images/mobile/play.png') no-repeat left -1px;
+			background:url('${staticServerPath1 }/images/mobile/play.png') no-repeat left -1px;
 			color:#98cc44;
 			background-size:22px 24px;
 		}
 
 		.category__title--hotel{
-			background:url('../../images/mobile/hotel.png') no-repeat left 1px;
+			background:url('${staticServerPath1 }/images/mobile/hotel.png') no-repeat left 1px;
 			color:#f41a70;
 			background-size:22px 24px;
 		}
@@ -186,7 +186,7 @@
 		.btn--search {
 			width: 30px;
 			height: 25px;
-			background: url(../../images/mobile/btn_search2.png) 8px 4px no-repeat;
+			background: url(${staticServerPath1 }/images/mobile/btn_search2.png) 8px 4px no-repeat;
 			background-size: 17px 17px;
 			position: absolute;
 			right: 40px;
@@ -247,7 +247,7 @@
 		.btn--search2{
 			width:40px;
 			height:36px;
-			background:#26dab5 url("../../images/mobile/search.png") no-repeat center center;
+			background:#26dab5 url("${staticServerPath1 }/images/mobile/search.png") no-repeat center center;
 			background-size:24px 24px;
 			position:absolute;
 			right:0px;
@@ -257,7 +257,7 @@
 		.btn--delete{
 			width:36px;
 			height:36px;
-			background:url("../../images/mobile/delete.png") no-repeat center center;
+			background:url("${staticServerPath1 }/images/mobile/delete.png") no-repeat center center;
 			background-size:24px 24px;
 			position:absolute;
 			right:40px;
@@ -275,7 +275,7 @@
 
 	<header class="header">
 		<div class="header__adv">
-			<img src="../../images/mobile/adv.jpg">
+			<img src="${staticServerPath1 }/images/mobile/adv.jpg">
 		</div>
 	</header>
 
@@ -416,8 +416,8 @@
 	
 	<section class="footer"></section>
 	
-	<script src="../../scripts/zepto.js" type="text/javascript"></script>
-	<script src="../../scripts/web/swip.js" type="text/javascript"></script>
+	<script src="${staticServerPath1 }/scripts/zepto.js" type="text/javascript"></script>
+	<script src="${staticServerPath1 }/scripts/web/swip.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 		function search(tag){

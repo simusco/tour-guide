@@ -14,7 +14,7 @@
 	<meta name="keywords" content="" />
 	
 	<title>发现</title>
-	<link rel="stylesheet" href="../../styles/base.css">
+	<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/base.css">
 	
 	<style type="text/css">
 		body{
@@ -38,7 +38,7 @@
 		}
 	
 		.search__logo{
-			background:url(../../images/mobile/logo.png) no-repeat 15px center;
+			background:url(${staticServerPath1 }/images/mobile/logo.png) no-repeat 15px center;
 			background-size:30px 36px;
 			height:50px;
 			width:18%;
@@ -72,7 +72,7 @@
 		.btn--search {
 			width: 34px;
 			height: 30px;
-			background: url(../../images/mobile/btn_search2.png) no-repeat 7px 4px;
+			background: url(${staticServerPath1 }/images/mobile/btn_search2.png) no-repeat 7px 4px;
 			background-size: 20px 20px;
 			position: absolute;
 			right: 18px;
@@ -273,7 +273,7 @@
 				<c:forEach items="${advImageList }" var="advImage">
 					<figure>
 						<a href="${advImage.url }"><img
-							src="${advImage.imageURL}" /></a>
+							src="${staticServerPath1 }/images/${advImage.imageURL}" /></a>
 					</figure>
 				</c:forEach>
 			</div>
@@ -301,8 +301,8 @@
 
 	<section class="content" id="discovery-list"></section>
 	
-	<script src="../../scripts/zepto.js" type="text/javascript"></script>
-	<script src="../../scripts/web/swip.js" type="text/javascript"></script>
+	<script src="${staticServerPath1 }/scripts/zepto.js" type="text/javascript"></script>
+	<script src="${staticServerPath1 }/scripts/web/swip.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 		function load(type, page){

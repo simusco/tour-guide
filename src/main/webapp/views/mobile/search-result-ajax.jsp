@@ -6,7 +6,7 @@
 <c:forEach items="${discoveryList }" var="discovery" varStatus="x">
 <a class="view" href="${discovery.url }">
 	<div class="view__img">
-		<img src="${discovery.imageURL }"> 
+		<img src="${staticServerPath1 }/images/${discovery.imageURL }"> 
 	</div>
 	<div class="view__desc">
 		<div class="title">${fn:substring(discovery.name, 0, 9) }${fn:length(discovery.name) > 9 ? "..." : ""}</div>
