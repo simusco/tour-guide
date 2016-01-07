@@ -218,6 +218,10 @@
 		.search2__caption.text-left{
 			text-align: left;
 		}
+		
+		.search2__caption.tag-title{
+			background-color: #f2f2f2;
+		}
 
 		.search2__wraper{
 			box-sizing: border-box;
@@ -293,7 +297,7 @@
 				<button class="btn btn--search2 J_btn_query" type="button"></button>
 			</form>
 		</div>
-		<div class="search2__caption text-left">
+		<div class="search2__caption tag-title text-left">
 			<span>热门搜索</span>
 		</div>
 	</section>
