@@ -17,7 +17,7 @@
 	
 	<title>查询</title>
 
-	<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/base.css">
+	<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/mobile.css">
 
 	<style type="text/css">
 		body{

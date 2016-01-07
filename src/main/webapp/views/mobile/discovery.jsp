@@ -14,7 +14,7 @@
 	<meta name="keywords" content="" />
 	
 	<title>发现</title>
-	<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/base.css">
+	<link rel="stylesheet" href="${staticServerPath1 }/styles/pages/mobile.css">
 	
 	<style type="text/css">
 		body{
