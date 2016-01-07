@@ -2,7 +2,9 @@ package com.moma.trip.lucene;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
@@ -23,8 +25,6 @@ import org.apache.lucene.util.Version;
 import com.moma.framework.ikanalyzer.lucene.IKAnalyzer;
 import com.moma.framework.ikanalyzer.lucene.IKSimilarity;
 import com.moma.trip.po.Discovery;
-
-import bsh.StringUtil;
 
 public class SearchDiscovery {
 	
@@ -162,6 +162,39 @@ public class SearchDiscovery {
 		List<Discovery> ll = new SearchDiscovery().query("主题活动");
 		if(ll != null)
 			System.out.println(ll.size());
+	}
+
+	public Map<String, Object> query(String queryStr, Integer i, int j) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		TopDocs topDocs;
+		
+		if(StringUtils.isEmpty(queryStr)){
+			return m;
+		}
+		
+		try {
+			topDocs = this.search(queryStr);
+			ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+			
+			int length = scoreDocs.length;
+			int last = (i + j) > length? length : (i+j);
+			
+			List<ScoreDoc> t = new ArrayList<ScoreDoc>();
+			for(int x = i;x < last;x++){
+				t.add(scoreDocs[x]);
+			}
+			
+			ScoreDoc[] tt = new ScoreDoc[t.size()];
+			tt = t.toArray(tt);
+			
+			m.put("resultlist", this.addHits2List(tt));
+			m.put("total", length);
+			m.put("nomore", last == length);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return m;
 	}
 
 }

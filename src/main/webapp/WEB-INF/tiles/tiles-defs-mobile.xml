@@ -8,5 +8,6 @@
 	<definition name="mtrip.m.tag" template="/views/mobile/tag.jsp"/>
 	
 	<definition name="mtrip.m.search-result" template="/views/mobile/search-result.jsp"/>
+	<definition name="mtrip.m.search-result-ajax" template="/views/mobile/search-result-ajax.jsp"/>
 	
 </tiles-definitions>

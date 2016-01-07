@@ -54,6 +54,8 @@
 
 		.category:first-child{
 			margin-top: 0px;
+			border-top-right-radius:0;
+			border-top-left-radius:0;
 		}
 
 		.category__title{
@@ -190,7 +192,78 @@
 			right: 40px;
 			top: 5px;
 		}
+	
+		/*搜索框样式2*/
+		.search2{
+			background-color:#fff;
+			box-sizing: border-box;
+			margin: 0px 5px;
+		}
 
+		.search2__caption{
+			box-sizing:border-box;
+			line-height:28px;
+			border:1px dashed #ddd;
+			border-left:none;
+			border-right:none;
+			text-align:center;
+			font-size:12px;
+			padding:0px 10px
+		}
+
+		.search2__caption > span > span{
+			color:#26dab5;
+		}
+		
+		.search2__caption.text-left{
+			text-align: left;
+		}
+
+		.search2__wraper{
+			box-sizing: border-box;
+			width:100%;
+			padding:12px 10px;
+		}
+
+		.search2__input{
+			position:relative;
+		}
+
+		.search2__input input[type=text]{
+			width:100%;
+			height:36px;
+			border:1px solid #26dab5;
+			outline: 0;
+			text-indent:5px;
+			-webkit-appearance:none;
+			-moz-appearance:none;
+			appearance:none;
+		}
+
+		.btn--search2{
+			width:40px;
+			height:36px;
+			background:#26dab5 url("../../images/mobile/search.png") no-repeat center center;
+			background-size:24px 24px;
+			position:absolute;
+			right:0px;
+			top:0px;
+		}
+
+		.btn--delete{
+			width:36px;
+			height:36px;
+			background:url("../../images/mobile/delete.png") no-repeat center center;
+			background-size:24px 24px;
+			position:absolute;
+			right:40px;
+			top:0px;
+			display:none;
+		}
+
+		.btn--show{display:inline-block;}
+		.btn--hide{display:none;}
+		
 	</style>
 
 </head>
@@ -202,14 +275,27 @@
 		</div>
 	</header>
 
-	<section class="search">
+	<%-- <section class="search">
 		<div class="search__wraper">
 			<form class="search__input" action="#">
-				<input type="text" placeholder="输入查询关键字" value="" class="J_search_input">
+				<input type="text" placeholder="输入查询关键字" value="${tag }" class="J_search_input">
 				<button class="btn btn--search J_btn_query" type="button"></button>
 			</form>
 		</div>
 		<div class="search__caption"><span>热门搜索</span></div>
+	</section> --%>
+	
+	<section class="search2">
+		<div class="search2__wraper">
+			<form class="search2__input" action="#">
+				<input type="text" placeholder="输入查询关键字" value="${tag }" class="J_search_input">
+				<button class="btn btn--delete J_btn_delete" type="button"></button>
+				<button class="btn btn--search2 J_btn_query" type="button"></button>
+			</form>
+		</div>
+		<div class="search2__caption text-left">
+			<span>热门搜索</span>
+		</div>
 	</section>
 
 	<section class="content">
@@ -331,8 +417,8 @@
 	
 	<script type="text/javascript">
 		function search(tag){
-			var url = encodeURI('<%=request.getContextPath()  %>/m/discovery/search.html?tag=' + tag);
-			window.location.href = url;
+			var url = '<%=request.getContextPath()  %>/m/discovery/search.html?tag=' + tag + '&i=0';
+			window.location.href = encodeURI(url);
 		}
 	
 		$(function(){
@@ -347,6 +433,20 @@
 				if(e.keyCode == 13){
 					search($(this).val());
 				}
+				
+				//是否显示删除按钮
+				if($(this).val() != ''){
+					$('.J_btn_delete').addClass('btn--show');
+				}else{
+					$('.J_btn_delete').removeClass('btn--show');
+				}
+			});
+			
+			$('.J_btn_delete').tap(function(){
+				$(this).parent().find('input[type=text]').val('');
+				
+				//隐藏删除按钮
+				$('.J_btn_delete').removeClass('btn--show');
 			});
 		});
 	</script>

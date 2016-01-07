@@ -246,6 +246,7 @@
 			background: #fff;
 			margin: 0 10px;
 			border-bottom: 10px solid #f1f1f1;
+			font-size:14px
 		}
 	
 		.loadmore a, .loadmore span {

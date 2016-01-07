@@ -138,11 +138,34 @@ public class DiscoveryController extends RestfulController {
 	@RequestMapping(value="/discovery/search.html",method=RequestMethod.GET)
 	public ModelAndView search(String tag){
 		
+		Map<String, Object> result = new SearchDiscovery().query(tag, 0 , 6);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("discoveryList", new SearchDiscovery().query(tag));
+		map.put("discoveryList", result.get("resultlist"));
 		map.put("tag", tag);
+		map.put("total", result.get("total"));
+		map.put("i", 6);
 		
 		return new ModelAndView("mtrip.m.search-result", map);
+	}
+	
+	@RequestMapping(value="/discovery/search.ajax",method=RequestMethod.GET)
+	public ModelAndView search(String tag, Integer i){
+		
+		if(i == null || i <0 || i > 200){
+			i = 0;
+		}
+		
+		Map<String, Object> result = new SearchDiscovery().query(tag, i , 6);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("discoveryList", result.get("resultlist"));
+		map.put("tag", tag);
+		map.put("total", result.get("total"));
+		map.put("i", i + 6);
+		map.put("nomore", result.get("nomore"));
+		
+		return new ModelAndView("mtrip.m.search-result-ajax", map);
 	}
 	
 }

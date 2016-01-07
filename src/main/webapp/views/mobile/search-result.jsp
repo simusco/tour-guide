@@ -173,6 +173,71 @@
 			font-size:16px;
 			line-height:20px;
 		}
+		
+		/*搜索框样式2*/
+		.search2{
+			background-color:#fff;
+			box-sizing: border-box;
+			margin: 0px 5px;
+		}
+
+		.search2__caption{
+			line-height:28px;
+			border:1px dashed #ddd;
+			border-left:none;
+			border-right:none;
+			text-align:center;
+			font-size:12px;
+		}
+
+		.search2__caption > span > span{
+			color:#26dab5;
+		}
+
+		.search2__wraper{
+			box-sizing: border-box;
+			width:100%;
+			padding:12px 10px;
+		}
+
+		.search2__input{
+			position:relative;
+		}
+
+		.search2__input input[type=text]{
+			width:100%;
+			height:36px;
+			border:1px solid #26dab5;
+			outline: 0;
+			text-indent:5px;
+			-webkit-appearance:none;
+			-moz-appearance:none;
+			appearance:none;
+		}
+
+		.btn--search2{
+			width:40px;
+			height:36px;
+			background:#26dab5 url("../../images/mobile/search.png") no-repeat center center;
+			background-size:24px 24px;
+			position:absolute;
+			right:0px;
+			top:0px;
+		}
+
+		.btn--delete{
+			width:36px;
+			height:36px;
+			background:url("../../images/mobile/delete.png") no-repeat center center;
+			background-size:24px 24px;
+			position:absolute;
+			right:40px;
+			top:0px;
+			display: none;
+		}
+
+		.btn--show{display:inline-block;}
+		.btn--hide{display:none;}
 	</style>
 
 </head>
@@ -184,14 +249,22 @@
 		</div>
 	</header>
 
-	<section class="search">
-		<div class="search__wraper">
-			<form class="search__input" action="#">
+	<section class="search2">
+		<div class="search2__wraper">
+			<form class="search2__input" action="#">
 				<input type="text" placeholder="输入查询关键字" value="${tag }" class="J_search_input">
-				<button class="btn btn--search J_btn_query" type="button"></button>
+				<button class="btn btn--delete J_btn_delete" type="button"></button>
+				<button class="btn btn--search2 J_btn_query" type="button"></button>
 			</form>
 		</div>
-		<div class="search__caption"><span>搜索结果</span></div>
+		<div class="search2__caption">
+			<c:if test="${empty total }">
+				<span>未找到任何结果</span>
+			</c:if>
+			<c:if test="${not empty total }">
+				<span>找到<span>${total }</span>个与<span>${tag }</span>相关的结果</span>
+			</c:if>
+		</div>
 	</section>
 
 	<section class="content">
@@ -202,7 +275,7 @@
 			</div>
 		</c:if>
 	
-		<div class="view-list">
+		<div class="view-list J_view_list">
 			<c:forEach items="${discoveryList }" var="discovery" varStatus="x">
 			<a class="view" href="${discovery.url }">
 				<div class="view__img">
@@ -217,7 +290,7 @@
 		</div>
 		
 		<c:if test="${not empty discoveryList }">
-			<div class="view-more"><a href="">显示更多</a></div>
+			<div class="view-more J_view_more"><a href="javascript:loadmore();" class="J_btn_more">显示更多</a></div>
 		</c:if>
 	</section>
 	
@@ -225,11 +298,41 @@
 	<script src="../../scripts/web/swip.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
+	
+	var i = '${i}' == '' ? 0 : ${i};
+	
+	function search(tag){
+		var url = encodeURI('<%=request.getContextPath()  %>/m/discovery/search.html?tag=' + tag);
+		window.location.href = url;
+	}
+	
+	function loadmore(){
+		$.ajax({
+			url : '<%=request.getContextPath()  %>/m/discovery/search.ajax?tag=${tag}&i='+i,
+			method : 'GET',
+    		success : function(resp) {
+    			$('.J_view_list').append(resp);
+    		},
+    		error : function(resp) {
+				alert('网络出现问题，刷新页面重新尝试！');
+    		}
+    	});
+	}
+	
+	function showOrHideDelBtn(value){
+		//是否显示删除按钮
+		if(value != ''){
+			$('.J_btn_delete').addClass('btn--show');
+		}else{
+			$('.J_btn_delete').removeClass('btn--show');
+		}
+	}
+	
 	$(function(){
 		$('.J_btn_query').tap(function(){
 			var text = $(this).parent().find('input[type=text]').val();
 			if(text != ''){
-				window.location.href = '<%=request.getContextPath()  %>/m/discovery/search.html?tag=' + text;
+				search(text);
 			}else{
 				window.location.href = '<%=request.getContextPath()  %>/m/discovery/tag.html';
 			}
@@ -239,7 +342,18 @@
 			if(e.keyCode == 13){
 				search($(this).val());
 			}
+			
+			showOrHideDelBtn($(this).val());
 		});
+		
+		$('.J_btn_delete').tap(function(){
+			$(this).parent().find('input[type=text]').val('');
+			
+			//隐藏删除按钮
+			$('.J_btn_delete').removeClass('btn--show');
+		});
+		
+		showOrHideDelBtn($('.J_search_input').val());
 	});
 	</script>
 	
