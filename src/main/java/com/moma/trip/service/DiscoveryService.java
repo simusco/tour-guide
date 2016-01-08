@@ -11,8 +11,6 @@ public interface DiscoveryService {
 
 	public List<DiscoveryType> getDiscoveryTypeList();
 
-	public List<AdvImage> getAdvImageList();
-
 	public List<Discovery> getDiscoveryByType(String discoveryType);
 
 	public void saveDiscovery(Discovery discovery);
@@ -22,5 +20,9 @@ public interface DiscoveryService {
 	public List<Discovery> getDiscoveryList(Discovery discovery);
 
 	public void deleteDiscoveryById(String discoveryId);
+
+	public Discovery getDiscoveryById(String id);
+
+	public void updateDiscoveryImageURL(String ownerId, String path);
 
 }

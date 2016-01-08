@@ -20,6 +20,7 @@ public class Image implements Serializable {
 	private String sort;
 	private Date createTime;
 	private Long fileSize;
+	private String linkURL;
 
 	public String getImageId() {
 		return imageId;
@@ -107,6 +108,14 @@ public class Image implements Serializable {
 
 	public void setFileSize(Long fileSize) {
 		this.fileSize = fileSize;
+	}
+
+	public String getLinkURL() {
+		return linkURL;
+	}
+
+	public void setLinkURL(String linkURL) {
+		this.linkURL = linkURL;
 	}
 
 	@Override

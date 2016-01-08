@@ -31,6 +31,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
+							<th>ID</th>
 							<th>名称</th>
 							<th>描述</th>
 							<th>标签</th>
@@ -40,7 +41,8 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="discovery in discoveryList">
-							<th scope="row">{{discovery.name}}</th>
+							<th scope="row">{{discovery.discoveryId}}</th>
+							<td>{{discovery.name}}</td>
 							<td>{{discovery.description}}</td>
 							<td>{{discovery.tags}}</td>
 							<td>{{discovery.imageURL}}</td>

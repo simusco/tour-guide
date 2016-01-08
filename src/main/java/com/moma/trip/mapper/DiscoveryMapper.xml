@@ -4,6 +4,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.DiscoveryMapper">
 
+	<update id="updateDiscoveryImageURL" parameterType="java.lang.String">
+		<![CDATA[
+			update m_discovery set imageURL = #{1} where discoveryId = #{0}
+		]]>
+	</update>
+
+	<update id="updateDiscovery" parameterType="com.moma.trip.po.Discovery">
+		<![CDATA[
+			update m_discovery
+			set
+				name = #{name},
+				description = #{description},
+				publishTime = #{publishTime},
+				tags = #{tags},
+				imageURL = #{imageURL},
+				type = #{type},
+				author = #{author},
+				url = #{url},
+				isRec = #{isRec}
+			where 
+				discoveryId = #{discoveryId}
+		]]>
+	</update>
+
+	<select id="getDiscoveryById" resultType="com.moma.trip.po.Discovery" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				discoveryId,
+				name,
+				description,
+				publishTime,
+				tags,
+				imageURL,
+				type,
+				author,
+				url,
+				isRec
+			from m_discovery
+			where discoveryId = #{discoveryId}
+		]]>
+	</select>
+
 	<delete id="deleteDiscoveryById" parameterType="java.lang.String">
 		<![CDATA[
 			delete from m_discovery where discoveryId = #{discoveryId}
@@ -114,7 +156,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				advImageId,
 				imageURL,
 				enable,
-				url
+				url,
+				imageId
 			from m_adv_image
 		]]>
 	</select>

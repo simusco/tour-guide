@@ -148,6 +148,14 @@
 				<div class="panel-body">
 					<form>
 						<div class="form-group">
+							<label for="discovery.discoveryId">发现ID：</label>
+							<input type="text" id="discovery.discoveryId"
+								ng-model="discovery.discoveryId" 
+								class="form-control"
+								ng-keyup="loadDiscovery($event)">
+							<p class="help-block">添加新数据时,不需要输入此值.需要修改输入ID并回车</p>
+						</div>
+						<div class="form-group">
 							<label for="discovery.type">类型：</label>
 							<select id="discovery.type" ng-model="discovery.type" class="form-control">
 								<option ng-repeat="discoveryType in discoveryTypeList" value="{{discoveryType.type}}">{{discoveryType.name}}</option>
@@ -175,7 +183,7 @@
 							<label for="discovery.imageURL">图片地址：</label>
 							<input type="text" id="discovery.imageURL"
 									ng-model="discovery.imageURL" class="form-control">
-							<p class="help-block">图片地址可以不以斜线(/)开始</p>
+							<p class="help-block">图片地址可以不以斜线(/)开始,图像大小:w:640,h:360</p>
 						</div>
 						<div class="form-group">
 							<label for="discovery.url">文章URL：</label>

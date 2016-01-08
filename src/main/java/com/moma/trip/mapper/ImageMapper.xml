@@ -4,6 +4,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moma.trip.mapper.ImageMapper">
 
+	<select id="getImageById" resultType="com.moma.trip.po.Image" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				i.image_id as imageId,
+				i.owner_id as ownerId,
+				i.images_type as imagesType,
+				i.server,
+				i.path,
+				i.image_name as imageName,
+				i.image_desc as imageDesc,
+				i.type,
+				i.sort,
+				i.create_time as createTime,
+				i.file_size as fileSize
+			from mc_images i 
+			where i.image_id = #{imageId}
+		]]>
+	</select>
+
 	<select id="getImageByOwnerId" resultType="com.moma.trip.po.Image" parameterType="java.lang.String">
 		<![CDATA[
 			select 

@@ -1,6 +1,7 @@
 package com.moma.trip.lucene;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.TermVector;
+import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -28,7 +30,7 @@ import com.moma.trip.po.Discovery;
 
 public class SearchDiscovery {
 	
-	private String searchDir = "D:\\Test\\Index";
+	private String searchDir = "/home/dftrip/lucene/index";
 	private static File indexFile = null;
 	private static Searcher searcher = null;
 	private static Analyzer analyzer = null;
@@ -65,7 +67,9 @@ public class SearchDiscovery {
 						TermVector.NO));
 				doc.add(new Field("tags", dis.getTags(), Field.Store.YES, Field.Index.ANALYZED,
 						TermVector.NO));
-				doc.add(new Field("imageURL", dis.getImageURL(), Field.Store.YES, Field.Index.NOT_ANALYZED,
+				
+				if(dis.getImageURL() != null)
+					doc.add(new Field("imageURL", dis.getImageURL(), Field.Store.YES, Field.Index.NOT_ANALYZED,
 						TermVector.NO));
 				doc.add(new Field("type", dis.getType(), Field.Store.YES, Field.Index.NOT_ANALYZED,
 						TermVector.NO));
@@ -73,7 +77,9 @@ public class SearchDiscovery {
 				if(dis.getAuthor() != null)
 					doc.add(new Field("author", dis.getAuthor(), Field.Store.YES, Field.Index.NOT_ANALYZED,
 						TermVector.NO));
-				doc.add(new Field("url", dis.getUrl(), Field.Store.YES, Field.Index.NOT_ANALYZED,
+				
+				if(dis.getUrl() != null)
+					doc.add(new Field("url", dis.getUrl(), Field.Store.YES, Field.Index.NOT_ANALYZED,
 						TermVector.NO));
 				doc.add(new Field("isRec", dis.getIsRec(), Field.Store.YES, Field.Index.NOT_ANALYZED,
 						TermVector.NO));
@@ -81,10 +87,25 @@ public class SearchDiscovery {
 				indexWriter.addDocument(doc);
 			}
 			
-			indexWriter.optimize();
-			indexWriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally{
+			try {
+				indexWriter.optimize();
+				indexWriter.close();
+			} catch (CorruptIndexException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				try {
+					IndexWriter.unlock(directory);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 		
 	}

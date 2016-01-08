@@ -64,7 +64,11 @@
 			font-size: 14px;
 			text-indent: 12px;
 		}
-	
+		
+		.search__input input[type=text]:disabled{
+			background-color:#e8e8e8;
+		}
+		
 		.btn {
 			border: 0;
 		}
@@ -262,7 +266,7 @@
 	<div class="search clearfix">
 		<div class="search__logo"></div>
 		<div class="search__input J_search_input">
-			<input type="text" placeholder="点击此处查询数据" value="" disabled="disabled">
+			<input type="text" placeholder="搜索发现更多惊喜" value="" disabled="disabled">
 			<button class="btn btn--search" type="button"></button>
 		</div>
 	</div>

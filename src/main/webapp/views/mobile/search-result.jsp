@@ -19,7 +19,7 @@
 
 	<style type="text/css">
 		body{
-			background-color: #f2f2f2;
+			background-color: #fff;
 		}
 
 		.clearfix {
@@ -178,7 +178,7 @@
 		.search2{
 			background-color:#fff;
 			box-sizing: border-box;
-			margin: 0px 5px;
+			margin: 0px;
 		}
 
 		.search2__caption{
@@ -257,14 +257,11 @@
 				<button class="btn btn--search2 J_btn_query" type="button"></button>
 			</form>
 		</div>
-		<div class="search2__caption">
-			<c:if test="${empty total }">
-				<span>未找到任何结果</span>
-			</c:if>
-			<c:if test="${not empty total }">
+		<c:if test="${not empty total }">
+			<div class="search2__caption">
 				<span>找到<span>${total }</span>个与<span>${tag }</span>相关的结果</span>
-			</c:if>
-		</div>
+			</div>
+		</c:if>
 	</section>
 
 	<section class="content">

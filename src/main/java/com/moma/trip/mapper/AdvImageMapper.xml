@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moma.trip.mapper.AdvImageMapper">
+
+	<update id="updateAdvImage" parameterType="com.moma.trip.po.AdvImage">
+		<![CDATA[
+			update m_adv_image set url = #{url} where advImageId = #{advImageId}
+		]]>
+	</update>
+
+	<insert id="saveAdvImage" parameterType="com.moma.trip.po.AdvImage">
+		<![CDATA[
+			insert into  m_adv_image(
+				advImageId,
+				imageURL,
+				enable,
+				url,
+				imageId
+			) values(
+				#{advImageId},
+				#{imageURL},
+				#{enable},
+				#{url},
+				#{imageId}
+			)
+		]]>
+	</insert>
+	
+	<delete id="deleteAdvImgByImageId" parameterType="java.lang.String">
+		<![CDATA[
+			delete from m_adv_image where imageId = #{imageId}
+		]]>
+	</delete>
+	
+	<select id="getAdvImageList" resultType="com.moma.trip.po.AdvImage">
+		<![CDATA[
+			select 
+				advImageId,
+				imageURL,
+				enable,
+				url,
+				imageId
+			from m_adv_image
+		]]>
+	</select>
+
+</mapper>

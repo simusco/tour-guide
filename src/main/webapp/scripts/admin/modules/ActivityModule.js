@@ -9,7 +9,8 @@ define([
         '../controllers/SearchViewController',
         '../controllers/OrderViewController',
         '../controllers/DiscoveryViewController',
-        '../controllers/MarketActivityViewController'
+        '../controllers/MarketActivityViewController',
+        '../controllers/AdvImageViewController'
         ], function(
 		angular, 
 		baseInfoViewController, 
@@ -21,7 +22,8 @@ define([
 		searchViewController,
 		orderViewController,
 		discoveryViewController,
-		marketActivityViewController
+		marketActivityViewController,
+		advImageViewController
         ) {
 	
 	var module = angular.module('ActivityModule',['ui.router','ngResource','angularFileUpload']);
@@ -68,6 +70,9 @@ define([
 	    }).state('nav.market-activity', {
 	      url: "/market-activity",
 	      templateUrl: "market-activity.html"
+	    }).state('nav.adv-image', {
+	      url: "/adv-image",
+	      templateUrl: "adv-image.html"
 	    });
 	});
 	
@@ -81,6 +86,7 @@ define([
 	module.controller('OrderViewController', orderViewController);
 	module.controller('DiscoveryViewController', discoveryViewController);
 	module.controller('MarketActivityViewController', marketActivityViewController);
+	module.controller('AdvImageViewController', advImageViewController);
 	
 	return module;
 	

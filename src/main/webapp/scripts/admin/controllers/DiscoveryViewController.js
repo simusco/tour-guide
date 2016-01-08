@@ -16,10 +16,9 @@ define(['angular'], function(angular) {
 			var Discovery = $resource('/m/maintain/discovery.html');
 			Discovery.save($scope.discovery, function(resp){
 				var flag = resp.flag;
+				var message = resp.message;
 				
-				if(flag){
-					alert("保存数据成功!");
-				}
+				alert(message);
 			});
 		}
 		
@@ -50,6 +49,24 @@ define(['angular'], function(angular) {
 					alert("操作成功!");
 				}
 			});
+		}
+		
+		$scope.loadDiscovery = function(event){
+			
+			if(event.keyCode == 13){
+				var discoveryId = $scope.discovery.discoveryId;
+				if(discoveryId != null){
+					var Discovery = $resource('/m/maintain/discovery/'+discoveryId);
+					Discovery.get($scope.queryParams,function(resp){
+						if(resp.flag){
+							$scope.discovery = resp.object;
+						}else{
+							alert("加载数据错误!");
+						}
+					});
+				}
+			}
+			
 		}
 	}];
 	

@@ -6,6 +6,7 @@ public class AdvImage {
 	private String imageURL;
 	private String enable;
 	private String url;
+	private String imageId;
 
 	public String getAdvImageId() {
 		return advImageId;
@@ -37,6 +38,14 @@ public class AdvImage {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
 	}
 
 }

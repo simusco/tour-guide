@@ -22,6 +22,7 @@ import com.moma.trip.lucene.SearchDiscovery;
 import com.moma.trip.po.AdvImage;
 import com.moma.trip.po.Discovery;
 import com.moma.trip.po.DiscoveryType;
+import com.moma.trip.service.AdvImageService;
 import com.moma.trip.service.DiscoveryService;
 
 @Scope(value="prototype")
@@ -31,6 +32,9 @@ public class DiscoveryController extends RestfulController {
 
 	@Resource
 	private DiscoveryService discoveryService;
+	
+	@Resource
+	private AdvImageService advImageService;
 	
 	@RequestMapping(value="/maintain/discovery/type.html",method=RequestMethod.GET)
 	@ResponseBody
@@ -82,21 +86,28 @@ public class DiscoveryController extends RestfulController {
 	@RequestMapping(value="/maintain/discovery/{id}",method=RequestMethod.DELETE)
 	@ResponseBody
 	public WebResult discovery(@PathVariable String id){
-		
-		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			discoveryService.deleteDiscoveryById(id);
 
-			map.put("flag", true);
-			map.put("message", "删除成功!");
+			return this.success(null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			map.put("flag", false);
-			map.put("message", e.getMessage());
+			return this.error(null, e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value="/maintain/discovery/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public WebResult list(@PathVariable String id){
+		
+		try {
+			Discovery d = discoveryService.getDiscoveryById(id);
+			return this.success(d);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return this.error(null, e.getMessage());
 		}
 
-		return this.success(map);
-		
 	}
 	
 	@RequestMapping(value="/discovery.html",method=RequestMethod.GET)
@@ -106,7 +117,7 @@ public class DiscoveryController extends RestfulController {
 		List<DiscoveryType> discoveryTypeList = discoveryService.getDiscoveryTypeList();
 		map.put("discoveryTypeList", discoveryTypeList);
 		
-		List<AdvImage> advImageList = discoveryService.getAdvImageList();
+		List<AdvImage> advImageList = advImageService.getAdvImageList();
 		map.put("advImageList", advImageList);
 		
 		return new ModelAndView("mtrip.m.discovery", map);

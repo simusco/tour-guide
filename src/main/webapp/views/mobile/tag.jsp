@@ -54,8 +54,8 @@
 
 		.category:first-child{
 			margin-top: 0px;
-			border-top-right-radius:0;
 			border-top-left-radius:0;
+			border-top-right-radius:0;
 		}
 
 		.category__title{
@@ -197,7 +197,7 @@
 		.search2{
 			background-color:#fff;
 			box-sizing: border-box;
-			margin: 0px 5px;
+			margin: 0px;
 		}
 
 		.search2__caption{
@@ -221,6 +221,7 @@
 		
 		.search2__caption.tag-title{
 			background-color: #f2f2f2;
+			border: none;
 		}
 
 		.search2__wraper{

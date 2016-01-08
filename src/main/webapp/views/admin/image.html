@@ -6,23 +6,24 @@
               <div class="panel-heading">图片上传</div>
               <div class="panel-body">
                     <form action="">
-                    	<div class="form-group">
-	                        <label for="ownerId">ownerId：</label>
-	                        <input ng-model="image.ownerId" type="text" class="form-control">
-	                    </div>
-	
 	                    <div class="form-group">
 	                        <label for="type">适合位置：</label>
-	                        <select ng-model="image.type" name="type" class="form-control">
-	                            <option value="INDEX" selected="selected">首页</option>
-	                            <option value="QUERY">二级页面</option>
-	                            <option value="DETAIL-HEADER">详情头部</option>
-	                            <option value="TOPIC-INDEX">主题首页</option>
-	                            <option value="TOPIC-CONTENT">主题内容区</option>
-	                            <option value="GOODNESS">亮点</option>
-	                            <option value="REC-PLAN">推荐玩法</option>
-	                            <option value="HOTEL-ICON">酒店图标</option>
+	                        <select ng-model="image.type" name="type" class="form-control" ng-change="changeImageType(image.type)">
+	                            <option value="INDEX" selected="selected">[网站]首页</option>
+	                            <option value="QUERY">[网站]二级页面</option>
+	                            <option value="DETAIL-HEADER">[网站]详情头部</option>
+	                            <option value="TOPIC-INDEX">[网站]主题首页</option>
+	                            <option value="TOPIC-CONTENT">[网站]主题内容区</option>
+	                            <option value="GOODNESS">[网站]亮点</option>
+	                            <option value="REC-PLAN">[网站]推荐玩法</option>
+	                            <option value="HOTEL-ICON">[网站]酒店图标</option>
+	                            <option value="M-DISCOVERY-SWIP">[移动端][发现]上部滑动图片</option>
+	                            <option value="DISCOVERY">[移动端]发现</option>
 	                        </select>
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="ownerId">ownerId：</label>
+	                        <input ng-model="image.ownerId" type="text" class="form-control" ng-readonly="image.type == 'M-DISCOVERY-SWIP'">
 	                    </div>
                     </form>
                 </div>

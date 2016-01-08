@@ -28,4 +28,10 @@ public interface DiscoveryMapper{
 
 	void deleteDiscoveryById(String discoveryId);
 
+	Discovery getDiscoveryById(String discoveryId);
+
+	void updateDiscovery(Discovery discovery);
+
+	void updateDiscoveryImageURL(String ownerId, String path);
+
 }

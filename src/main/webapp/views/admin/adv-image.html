@@ -1,0 +1,19 @@
+<div class="container" ng-controller="AdvImageViewController">
+	<div class="row" ng-repeat="advImage in advImageList">
+		<div class="col-lg-4">
+		    <div class="thumbnail" >
+		      <img ng-src="http://112.74.208.184/images/{{advImage.imageURL}}">
+		      <div class="caption">
+		        <p>
+		        	<label class="form-label">URL:</label>
+		        	<input type="text" class="form-control" ng-model="advImage.url"/>
+		        </p>
+		        <p>
+		        	<button class="btn btn-primary" ng-click="updateLinkURL(advImage)">更新</button>
+		        	<button class="btn btn-primary" ng-click="deleteImage(advImageList, advImage.imageId)">删除</button>
+		        </p>
+		      </div>
+		    </div>
+		</div>
+	</div>
+</div>
