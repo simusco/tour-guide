@@ -243,6 +243,7 @@
 			-webkit-appearance:none;
 			-moz-appearance:none;
 			appearance:none;
+			border-radius:0px;
 		}
 
 		.btn--search2{

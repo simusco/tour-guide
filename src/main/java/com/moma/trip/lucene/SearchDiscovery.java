@@ -87,11 +87,12 @@ public class SearchDiscovery {
 				indexWriter.addDocument(doc);
 			}
 			
+			indexWriter.optimize();
+			indexWriter.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
 			try {
-				indexWriter.optimize();
 				indexWriter.close();
 			} catch (CorruptIndexException e) {
 				// TODO Auto-generated catch block

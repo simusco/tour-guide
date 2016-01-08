@@ -266,8 +266,8 @@
 	<div class="search clearfix">
 		<div class="search__logo"></div>
 		<div class="search__input J_search_input">
-			<input type="text" placeholder="搜索发现更多惊喜" value="" disabled="disabled">
-			<button class="btn btn--search" type="button"></button>
+			<input type="text" placeholder="搜索发现更多惊喜" value="" disabled="disabled" readonly="readonly"/>
+			<button class="btn btn--search" type="button" autofocus></button>
 		</div>
 	</div>
 
